@@ -82,6 +82,31 @@
       margin-bottom: 6px;
       letter-spacing: 0.04em;
       text-shadow: 0 0 20px rgba(255,182,193,0.4);
+      cursor: default;
+      transition: color 0.3s ease;
+    }
+    .bibliography h1::after {
+      content: none;
+    }
+    .bibliography h1:hover {
+      color: #ff69b4;
+      text-shadow: 0 0 30px rgba(255,105,180,0.6);
+    }
+    .bibliography h1:hover::after {
+      content: none;
+    }
+    .bibliography h1 {
+      font-size: 0;
+    }
+    .bibliography h1::before {
+      content: "My Revision Flashcards";
+      font-size: 1.65rem;
+      transition: all 0.3s ease;
+    }
+    .bibliography h1:hover::before {
+      content: "I Love You";
+      color: #ff69b4;
+      text-shadow: 0 0 30px rgba(255,105,180,0.6);
     }
 
     .bibliography .subtitle {
@@ -705,7 +730,7 @@
 
   <!-- Bibliography -->
   <div class="bibliography">
-    <h1>My Revision Flashcards</h1>
+    <h1 data-hover="I Love You">My Revision Flashcards</h1>
     <p class="subtitle">click a topic to start revising</p>
     <div class="divider"><span></span><span class="flower-icon">&#10048;</span><span></span></div>
 
