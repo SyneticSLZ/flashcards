@@ -723,6 +723,147 @@
     @keyframes growing-grass-ans { 0% { transform: scale(0); } }
 
     .not-loaded * { animation-play-state: paused !important; }
+
+    /* ── Tab Toggle ── */
+    .tab-toggle {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 14px;
+      padding: 4px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 7px 0;
+      border: none;
+      border-radius: 11px;
+      background: transparent;
+      color: rgba(255,200,210,0.5);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.03em;
+    }
+    .tab-btn:hover {
+      color: rgba(255,200,210,0.8);
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(255,105,180,0.3), rgba(255,182,193,0.2));
+      color: #ffc0cb;
+      box-shadow: 0 0 16px rgba(255,105,180,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+      text-shadow: 0 0 10px rgba(255,182,193,0.4);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Media Card ── */
+    .media-card {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,182,193,0.15);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 24px rgba(255,105,180,0.08);
+    }
+    .media-card__title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      color: rgba(255,228,225,0.85);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .media-card__title .icon {
+      font-size: 14px;
+      color: rgba(255,182,193,0.5);
+    }
+
+    /* Video player */
+    .video-player {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 30px rgba(255,105,180,0.06);
+    }
+    .video-player video {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+    }
+
+    /* Podcast player */
+    .podcast-player {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .podcast-art {
+      width: 64px; height: 64px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,105,180,0.25), rgba(255,182,193,0.15));
+      border: 1px solid rgba(255,182,193,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .podcast-art .flower-icon {
+      font-size: 26px;
+      color: rgba(255,182,193,0.6);
+      z-index: 1;
+    }
+
+    /* Equalizer bars */
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      position: absolute;
+      bottom: 6px; left: 50%;
+      transform: translateX(-50%);
+      height: 18px;
+      opacity: 0.4;
+    }
+    .eq-bar {
+      width: 3px;
+      background: linear-gradient(to top, #ff69b4, #ffc0cb);
+      border-radius: 2px;
+      animation: eq-bounce 1.2s ease-in-out infinite;
+    }
+    .eq-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+    .eq-bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+    .eq-bar:nth-child(3) { height: 6px; animation-delay: 0.3s; }
+    .eq-bar:nth-child(4) { height: 12px; animation-delay: 0.45s; }
+    .eq-bar:nth-child(5) { height: 9px; animation-delay: 0.6s; }
+    @keyframes eq-bounce {
+      0%, 100% { transform: scaleY(0.4); }
+      50% { transform: scaleY(1); }
+    }
+
+    .podcast-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .podcast-info audio {
+      width: 100%;
+      height: 36px;
+      border-radius: 8px;
+      margin-top: 8px;
+      filter: hue-rotate(300deg) saturate(1.5) brightness(0.85);
+    }
+    .podcast-info .track-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      color: rgba(255,228,225,0.75);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   </style>
 </head>
 <body class="not-loaded">
@@ -736,11 +877,56 @@
 
     <div class="subject-group">
       <h2><span class="icon">&#9998;</span> English</h2>
-      <ul class="topic-links">
-        <li><a href="chaucer-context-flashcards.html" target="_blank">Chaucer &mdash; Context</a></li>
-        <li><a href="flashcards_chaucer_critics (1).html" target="_blank">Chaucer &mdash; Critics</a></li>
-        <li><a href="flashcards_chaucer_quotes (1).html" target="_blank">Chaucer &mdash; Quotes</a></li>
-      </ul>
+
+      <div class="tab-toggle" data-group="english">
+        <button class="tab-btn active" data-tab="flashcards">Flashcards</button>
+        <button class="tab-btn" data-tab="podcasts">Podcasts</button>
+        <button class="tab-btn" data-tab="videos">Videos</button>
+      </div>
+
+      <div class="tab-panel active" data-tab="flashcards" data-group="english">
+        <ul class="topic-links">
+          <li><a href="chaucer-context-flashcards.html" target="_blank">Chaucer &mdash; Context</a></li>
+          <li><a href="flashcards_chaucer_critics (1).html" target="_blank">Chaucer &mdash; Critics</a></li>
+          <li><a href="flashcards_chaucer_quotes (1).html" target="_blank">Chaucer &mdash; Quotes</a></li>
+        </ul>
+      </div>
+
+      <div class="tab-panel" data-tab="podcasts" data-group="english">
+        <div class="media-card">
+          <div class="media-card__title"><span class="icon">&#9835;</span> Podcast</div>
+          <div class="podcast-player">
+            <div class="podcast-art">
+              <span class="flower-icon">&#10048;</span>
+              <div class="equalizer">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+              </div>
+            </div>
+            <div class="podcast-info">
+              <div class="track-title">Lethal Traps in Malfi &amp; Streetcar</div>
+              <audio controls preload="metadata">
+                <source src="Lethal_traps_in_Malfi_and_Streetcar.m4a" type="audio/mp4">
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-tab="videos" data-group="english">
+        <div class="media-card">
+          <div class="media-card__title"><span class="icon">&#9654;</span> Video</div>
+          <div class="video-player">
+            <video controls preload="metadata">
+              <source src="Two_Worlds_of_Desire.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="margin-top:10px; font-family:'Cormorant Garamond',Georgia,serif; font-size:0.9rem; color:rgba(255,200,210,0.5);">Two Worlds of Desire</div>
+        </div>
+      </div>
     </div>
 
     <div class="subject-group">
@@ -966,6 +1152,20 @@
         clearTimeout(c);
       }, 1000);
     };
+
+    document.querySelectorAll('.tab-toggle').forEach(toggle => {
+      const group = toggle.dataset.group;
+      toggle.addEventListener('click', e => {
+        const btn = e.target.closest('.tab-btn');
+        if (!btn) return;
+        const tab = btn.dataset.tab;
+        toggle.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll(`.tab-panel[data-group="${group}"]`).forEach(p => {
+          p.classList.toggle('active', p.dataset.tab === tab);
+        });
+      });
+    });
   </script>
 </body>
 </html>
