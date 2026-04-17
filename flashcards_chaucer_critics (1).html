@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcard — Chaucer: The Merchant's Tale — Critical Voices</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf5ef;--card-bg:#fff;--text:#1a1a1a;--text-muted:#6b6b6b;--pink:#f472b6;--pink-light:#fbcfe8;--pink-hot:#ec4899;--gold:#f59e0b;--gold-light:#fde68a;--green:#34d399;--green-bg:#d1fae5;--blue:#818cf8;--blue-bg:#e0e7ff;--red:#fb7185;--red-bg:#ffe4e6;--magenta:#f0abfc;--magenta-bg:#fae8ff;--border:#e5e0da;--radius:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+h1,h2,h3{font-family:'Fraunces',serif}
+.app{max-width:1320px;margin:0 auto;padding:20px 24px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.logo h1{font-size:22px;font-weight:700;letter-spacing:-0.5px}
+.mode-toggle{display:flex;background:var(--card-bg);border:2px solid var(--border);border-radius:40px;overflow:hidden}
+.mode-btn{padding:10px 22px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.mode-btn.active{background:var(--gold);color:#fff;border-radius:40px}
+.main{display:grid;grid-template-columns:1fr 340px;gap:24px}
+@media(max-width:900px){.main{grid-template-columns:1fr}.sidebar{order:-1}}
+.toolbar{display:flex;align-items:center;gap:16px;padding:14px 20px;background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);margin-bottom:20px;flex-wrap:wrap}
+.cat-select{padding:8px 16px;border:2px solid var(--border);border-radius:30px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;background:var(--card-bg);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.hide-mastered{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;cursor:pointer;user-select:none}
+.hide-mastered input{width:16px;height:16px;accent-color:var(--pink-hot)}
+.shuffle-btn{margin-left:auto;padding:8px 18px;border:2px solid var(--border);border-radius:30px;background:var(--card-bg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.shuffle-btn:hover{background:var(--gold-light);border-color:var(--gold)}
+.card-container{perspective:1200px;margin-bottom:16px}
+.flashcard{position:relative;min-height:400px;border-radius:var(--radius);border:2.5px solid var(--text);cursor:pointer;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.2,.2,1);user-select:none}
+.flashcard.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;border-radius:var(--radius);backface-visibility:hidden;padding:36px 32px;display:flex;flex-direction:column;overflow-y:auto}
+.card-front{background:linear-gradient(145deg,#c4b5fd,#a78bfa,#8b5cf6);color:var(--text)}
+.card-back{background:linear-gradient(145deg,#fde68a,#fbbf24,#f59e0b);transform:rotateY(180deg);color:var(--text)}
+.card-category{display:inline-block;padding:5px 14px;background:rgba(255,255,255,.85);border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;align-self:center;margin-bottom:20px}
+.card-section{font-size:11px;font-weight:500;color:rgba(0,0,0,.5);text-align:center;margin-bottom:8px}
+.card-question{font-family:'Fraunces',serif;font-size:21px;font-weight:700;line-height:1.35;text-align:center;margin:auto 0;padding:10px 0}
+.card-hint{text-align:center;font-size:13px;color:rgba(0,0,0,.45);margin-top:auto}
+.card-back .card-category{background:rgba(255,255,255,.7)}
+.card-answer{font-size:14.5px;line-height:1.7;margin:8px 0;flex:1}
+.card-answer strong{font-weight:700}
+.card-answer ul{padding-left:18px;margin:6px 0}
+.card-answer li{margin:5px 0}
+.card-answer .quote{font-style:italic;background:rgba(255,255,255,.35);padding:6px 12px;border-radius:8px;border-left:3px solid rgba(0,0,0,.2);margin:8px 0;display:block;line-height:1.6}
+.card-answer .link-quote{font-size:12px;background:rgba(0,0,0,.06);padding:8px 12px;border-radius:8px;border-left:3px solid var(--blue);margin:10px 0;display:block;line-height:1.5}
+.card-answer .link-quote strong{color:#4338ca}
+.sparkle{position:absolute;font-size:20px;opacity:.6}
+.sparkle-1{top:20px;right:28px}
+.sparkle-2{bottom:56px;left:20px}
+.progress-bar{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 0}
+.progress-bar span{font-size:12px;color:var(--text-muted);font-weight:500}
+.progress-dots{display:flex;gap:4px}
+.progress-dot{width:24px;height:5px;border-radius:3px;background:rgba(0,0,0,.12);transition:background .2s}
+.progress-dot.filled{background:var(--text)}
+.actions{display:flex;justify-content:center;gap:12px;margin:12px 0 16px}
+.action-btn{padding:10px 24px;border-radius:30px;border:2px solid var(--border);background:var(--card-bg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.action-btn:hover{transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.action-btn.know{background:var(--gold-light);border-color:var(--gold);color:#92400e}
+.action-btn.know:hover{background:var(--gold)}
+.action-btn.reset:hover{background:#fee2e2;border-color:var(--red)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:2px solid var(--border)}
+.nav-btn{padding:8px 20px;border:2px solid var(--border);border-radius:30px;background:var(--card-bg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s}
+.nav-btn:hover:not(:disabled){background:var(--gold-light);border-color:var(--gold)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.nav-count{font-size:13px;color:var(--text-muted);font-weight:500}
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.stats-box{background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);padding:24px}
+.stats-box h2{font-size:18px;font-weight:700;margin-bottom:16px}
+.stat-card{display:flex;align-items:center;justify-content:space-between;padding:16px;border-radius:12px;margin-bottom:10px}
+.stat-card:last-child{margin-bottom:0}
+.stat-label{font-size:12px;font-weight:500;color:var(--text-muted)}
+.stat-value{font-size:32px;font-weight:700;font-family:'Fraunces',serif;margin-top:2px}
+.stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.stat-total .stat-icon{background:var(--blue-bg);color:var(--blue)}
+.stat-total{background:#f0f0ff}
+.stat-mastered .stat-icon{background:var(--green-bg);color:var(--green)}
+.stat-mastered{background:#ecfdf5}
+.stat-progress .stat-icon{background:var(--red-bg);color:var(--red)}
+.stat-progress{background:#fff1f2}
+.stat-new .stat-icon{background:var(--magenta-bg);color:var(--magenta)}
+.stat-new{background:#fdf4ff}
+.sections-box{background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);padding:24px}
+.sections-box h2{font-size:18px;font-weight:700;margin-bottom:14px}
+.section-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;transition:all .15s;font-size:13px;font-weight:500;margin-bottom:4px}
+.section-item:hover{background:var(--pink-light)}
+.section-item.active{background:var(--pink-light);font-weight:700}
+.section-num{width:24px;height:24px;border-radius:50%;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.section-item.active .section-num{background:var(--pink-hot)}
+.section-count{margin-left:auto;font-size:11px;color:var(--text-muted);background:var(--bg);padding:2px 8px;border-radius:10px}
+.all-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:20px}
+.mini-card{background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .2s}
+.mini-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:var(--pink)}
+.mini-card .mc-cat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--pink-hot);margin-bottom:6px}
+.mini-card .mc-q{font-family:'Fraunces',serif;font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.4}
+.mini-card .mc-status{font-size:11px;padding:3px 10px;border-radius:20px;display:inline-block;font-weight:600}
+.mc-status.mastered{background:var(--green-bg);color:#065f46}
+.mc-status.in-progress{background:var(--gold-light);color:#92400e}
+.mc-status.not-started{background:#f3f4f6;color:#6b7280}
+.all-cards-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.all-cards-header h2{font-family:'Fraunces',serif;font-size:24px}
+.search-box{padding:10px 18px;border:2px solid var(--border);border-radius:30px;font-family:'DM Sans',sans-serif;font-size:13px;width:260px;background:var(--card-bg)}
+.search-box:focus{outline:none;border-color:var(--pink)}
+.hidden{display:none!important}
+.card-face::-webkit-scrollbar{width:6px}
+.card-face::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="logo"><div class="logo-icon">🎓</div><h1>Flashcard — Critics</h1></div>
+    <div class="mode-toggle">
+      <button class="mode-btn active" onclick="setMode('study')">Study Mode</button>
+      <button class="mode-btn" onclick="setMode('all')">All Cards</button>
+    </div>
+  </div>
+  <div id="studyMode">
+    <div class="main">
+      <div class="study-area">
+        <div class="toolbar">
+          <select class="cat-select" id="catSelect" onchange="filterCards()"></select>
+          <label class="hide-mastered"><input type="checkbox" id="hideMastered" onchange="filterCards()"> Hide Mastered</label>
+          <button class="shuffle-btn" onclick="shuffleCards()">⇄ Shuffle</button>
+        </div>
+        <div class="card-container">
+          <div class="flashcard" id="flashcard" onclick="flipCard()">
+            <div class="card-face card-front">
+              <div class="card-section" id="cardSection"></div>
+              <div class="card-category" id="cardCategory"></div>
+              <div class="card-question" id="cardQuestion"></div>
+              <div class="card-hint">Click to reveal answer</div>
+              <div class="sparkle sparkle-1">✦</div>
+              <div class="sparkle sparkle-2">✦</div>
+              <div class="progress-bar"><div class="progress-dots" id="progressDots"></div><span id="progressText">0/5</span></div>
+            </div>
+            <div class="card-face card-back">
+              <div class="card-category" id="cardCategoryBack">Answer</div>
+              <div class="card-answer" id="cardAnswer"></div>
+              <div class="card-hint">Click to flip back</div>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="action-btn know" onclick="markKnown()">✓ I Know This</button>
+          <button class="action-btn reset" onclick="resetCard()">↺ Reset Progress</button>
+        </div>
+        <div class="nav">
+          <button class="nav-btn" id="prevBtn" onclick="prevCard()">‹ Previous</button>
+          <span class="nav-count" id="navCount">Card 1 of 20</span>
+          <button class="nav-btn" id="nextBtn" onclick="nextCard()">Next ›</button>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stats-box">
+          <h2>Study Statistics</h2>
+          <div class="stat-card stat-total"><div><div class="stat-label">Total Cards</div><div class="stat-value" id="statTotal">0</div></div><div class="stat-icon">📋</div></div>
+          <div class="stat-card stat-mastered"><div><div class="stat-label">Mastered</div><div class="stat-value" id="statMastered">0</div></div><div class="stat-icon">✅</div></div>
+          <div class="stat-card stat-progress"><div><div class="stat-label">In Progress</div><div class="stat-value" id="statProgress">0</div></div><div class="stat-icon">📖</div></div>
+          <div class="stat-card stat-new"><div><div class="stat-label">Not Started</div><div class="stat-value" id="statNew">0</div></div><div class="stat-icon">🆕</div></div>
+        </div>
+        <div class="sections-box"><h2>Critics</h2><div id="sectionList"></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="allCardsMode" class="hidden">
+    <div class="all-cards-header">
+      <h2>All Flashcards</h2>
+      <input type="text" class="search-box" placeholder="Search cards..." oninput="searchCards(this.value)">
+    </div>
+    <div class="all-cards-grid" id="allCardsGrid"></div>
+  </div>
+</div>
+
+<script>
+const TOPIC = "Chaucer: The Merchant's Tale — Critical Voices";
+
+const sections = [
+  { id: 1, title: "Tolliver" },
+  { id: 2, title: "Kitteridge" },
+  { id: 3, title: "Jane Bathard-Smith" },
+  { id: 4, title: "Tina Davidson" },
+  { id: 5, title: "Natalie Hannah" },
+  { id: 6, title: "Burger" },
+  { id: 7, title: "Wagenknecht" },
+  { id: 8, title: "Bowden" },
+  { id: 9, title: "Bernard O'Donoghue" },
+];
+
+const cards = [
+
+  // ===== 1. TOLLIVER =====
+  {
+    section: 1,
+    question: "What is Tolliver's central thesis about the Merchant?",
+    answer: `<span class="quote">Tolliver's central thesis: the Merchant is a <strong>misogynist</strong> whose bitterness toward women and marriage stems from his own emotional and perceptual <strong>"blindness"</strong>, and he <strong>projects this blindness onto January</strong>, the protagonist of his tale.</span>
+<strong>Key Argument:</strong><ul>
+<li>The Merchant's hatred of women is not objective truth — it is a <strong>product of his own marital disillusionment</strong>.</li>
+<li>He <strong>creates January in his own image</strong>: both are blind to reality, both cling to illusions, and both refuse correction.</li>
+<li>The tale is not just about January's foolishness — it is the Merchant <strong>unconsciously revealing his own flaws</strong> through his fiction.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> The Merchant is himself in "dette" and hides behind a façade of prosperity — just as January hides behind fantasies of marital bliss. Both men depend on others not seeing the truth.</span>
+<strong>Exam Use:</strong> Tolliver's thesis reframes the entire tale: it's not just a story about a foolish old man — it's a psychological self-portrait of the narrator. The Merchant "participates in the blindness of his creature January."`
+  },
+  {
+    section: 1,
+    question: "How does Tolliver use the theme of 'sight' and 'blindness' across the tale?",
+    answer: `<span class="quote">"Through January's physical sight...the Merchant's dependence on others' blindness allows him to maintain his secrecy."</span>
+<strong>Three Layers of Blindness:</strong><ul>
+<li><strong>January's mental blindness</strong> — he cannot see the reality of his marriage, his age, or May's true nature. This <strong>parallels his later physical blinding</strong> by Fortune.</li>
+<li><strong>The Merchant's emotional blindness</strong> — he cannot see that his bitter narration reveals more about <strong>himself</strong> than about women. He depends on others' blindness to maintain his "façade."</li>
+<li><strong>May's blindness</strong> — in Tolliver's reading, May is also "blind" in that she is reduced to a commodity with no inner life the narrator cares to explore.</li></ul>
+<span class="quote">"The Merchant is blind, January is blind, and in some ways, May is blind; however, <strong>the audience is not</strong>."</span>
+<span class="link-quote"><strong>Link to text:</strong> When January is struck blind, the narrator calls it "sweet venom!" — an oxymoron. And May on her wedding night is "stille as stoon," only for January later to become "as blynd as is a stoon" — the stone motif tracks the inversion of who is truly blind.</span>
+<strong>Exam Use:</strong> Tolliver argues the audience occupies a privileged position — we see what all the characters (and the narrator) cannot. This is Chaucer's dramatic irony at its deepest level.`
+  },
+  {
+    section: 1,
+    question: "What does Tolliver mean by calling May 'currency' and 'property'?",
+    answer: `<span class="quote">"May is his <strong>property</strong>" / May is "<strong>currency</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li>January has a strictly <strong>mercantile interest</strong> in May — he <strong>"buys her only to spend her for Heaven on earth."</strong></li>
+<li>January <strong>"shops" for his bride</strong> by scouring the marketplace, "much like a merchant would comparison-shop to evaluate his options before purchasing a specific item."</li>
+<li>The <strong>Chaucerian irony</strong> is devastating: the Merchant, of all people, <strong>should know the difference between an object's appearance and its actual worth</strong> — yet he (through January) is fooled by surfaces.</li>
+<li>May is not a person in this economy — she is a <strong>commodity to be purchased, spent, and consumed</strong>.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> January revolves women before him like goods in a "mirour" in the marketplace. He wants "many a fair shap and many a fair visage" — rhetorical balance that treats women as interchangeable merchandise. The "old boef / tendre veel" metaphor reduces May to meat for consumption.</span>
+<strong>Exam Use:</strong> Tolliver connects the Merchant's profession to the tale's deepest critique — marriage as commercial transaction. The irony that a merchant cannot appraise true value is the tale's central joke.`
+  },
+  {
+    section: 1,
+    question: "How does Tolliver read the wax key episode as the tale's symbolic climax?",
+    answer: `<span class="quote">"The wax impression of a key May gives her lover, Damyan, allows him into her garden unbeknownst to January. He is physically blind to Damyan's entrance and mentally blind to her adultery."</span>
+<span class="quote">"When January <strong>treats [May] like wax</strong>, he is, in effect, trying also to <strong>convert her into coin, so as to spend her</strong>."</span>
+<strong>Analysis:</strong><ul>
+<li>Tolliver connects <strong>two wax images</strong>: January wants to mould May like "wex" (passive material) — but May uses actual wax to <strong>copy the key and betray him</strong>.</li>
+<li>The wax that represents January's <strong>desire to control</strong> becomes the instrument of his <strong>loss of control</strong>.</li>
+<li>January is <strong>physically blind</strong> to Damyan's entrance through the copied key, and <strong>mentally blind</strong> to what May is doing — double blindness.</li>
+<li>May <strong>controls who sees her and when</strong> — the gaze is inverted. She is no longer the passive object in the "mirour."</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> "In warm wex hath emprented the clyket" — the "clicket" / "wicket" rhyme tracks the transfer of sexual power. The phallic key changes hands from January to Damyan via May's agency.</span>
+<strong>Exam Use:</strong> Tolliver's wax reading is the most elegant critical link in the tale: commodity → control → rebellion, all expressed through a single material (wax).`
+  },
+  {
+    section: 1,
+    question: "What does Tolliver mean by 'the Merchant participates in the blindness of his creature January'?",
+    answer: `<span class="quote">"The Merchant <strong>participates in the blindness of his creature January</strong> in not realizing the extent to which he is talking of his own sore in the tale."</span>
+<span class="quote">"January serves as a <strong>vehicle for the Merchant</strong>, whose attitudes, opinions, and perceptions of women classify him undoubtedly as a motley-clad misogynist."</span>
+<strong>Analysis:</strong><ul>
+<li>The Merchant thinks he is telling a story about <strong>someone else's</strong> foolishness — but he is <strong>unconsciously confessing his own</strong>.</li>
+<li>Both men are offered <strong>opportunities to adjust their visions</strong> — January by Justinus, the Merchant by the tale's own ironies — but <strong>both refuse correction</strong>. "The Merchant refuses correction for them both because it is he who fashions January's perceptions."</li>
+<li>Each man is <strong>"convinced himself his disillusionment is the truth"</strong> — they mistake bitterness for wisdom.</li>
+<li>The Merchant <strong>"becomes a misogynist because of his own emotional blindness, and eventually translates his hatred of women into a self-hatred."</strong></li></ul>
+<span class="link-quote"><strong>Link to text:</strong> Justinus warns "ye shal nat plesen hire" — good advice actively rejected in favour of Placebo's flattery ("I consente and conferme everydeel"). The Merchant, narrating, cannot see that he too rejects the truth.</span>
+<strong>Exam Use:</strong> This is Tolliver's most quotable insight. The Merchant is Chaucer's greatest unreliable narrator — a man who tells a story to condemn women but ends up condemning himself.`
+  },
+
+  // ===== 2. KITTERIDGE =====
+  {
+    section: 2,
+    question: "What does Kitteridge mean by calling the tale 'a warning about recklessly undertaking the commitment of marriage'?",
+    answer: `<span class="quote">"<strong>Fabliau is a warning about recklessly undertaking the commitment of marriage.</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li>Kitteridge reads the tale primarily as a <strong>fabliau</strong> — a bawdy comic genre that teaches through humiliation and laughter.</li>
+<li>The "warning" has <strong>two targets</strong>:<br>
+— <strong>Januarie:</strong> humorously unrealistic expectations of marriage and inability to satisfy his wife.<br>
+— <strong>The Merchant:</strong> his obsession with deceitful women, echoed by the Host in the epilogue ("sleightes and subtilitees").</li>
+<li>The warning is not just "don't marry badly" — it's <strong>"don't marry recklessly,"</strong> i.e. without self-knowledge, without "avisement" (Justinus' advice).</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> Justinus explicitly warns "Don't take a wyf withouten avisement" — the tale dramatises what happens when this advice is ignored. The crude climax ("pullen up the smok, and in he throng") is pure fabliau punishment for January's delusions.</span>
+<strong>Exam Use:</strong> Kitteridge grounds the tale in genre. Calling it a "fabliau warning" helps frame exam arguments about purpose — Chaucer uses comedy as moral instruction.`
+  },
+  {
+    section: 2,
+    question: "What does Kitteridge mean by 'a kind of human comedy' and the Canterbury context?",
+    answer: `<span class="quote">"The tale is <strong>a kind of human comedy</strong>."</span>
+<span class="quote">"We ought not merely to consider the general appropriateness of each tale to the character of the teller: we should also inquire whether the tale is not determined, to some extent, by the <strong>circumstances — by the situation at the moment</strong>, by something that another Pilgrim has said or done, by the turn of a discussion already under way."</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Human comedy"</strong> — the tale is comic not because it is trivial, but because it captures <strong>universal human folly</strong>: self-deception, lust, vanity, and the gap between what we want to believe and what is true.</li>
+<li>Kitteridge insists we must read the tale <strong>within the Canterbury framework</strong> — it is a <strong>dramatic response</strong> to other pilgrims, not a standalone story.</li>
+<li>The Merchant tells this tale because of <strong>his own situation</strong> (two months married, bitter, disillusioned) — the tale is shaped by the teller's emotional state.</li>
+<li>This is the foundation of the <strong>"dramatic principle"</strong> in Chaucer criticism: tales are not just stories but <strong>performances</strong> by specific characters in specific moments.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> The Host's epilogue proves Kitteridge's point — Harry Bailey responds to the tale by complaining about his own wife ("labbing shrewe"), showing the tale provokes personal reactions from its audience. The "discussion already under way" continues.</span>
+<strong>Exam Use:</strong> Kitteridge's dramatic principle is foundational. Use it to argue that the Merchant's bitterness, not Chaucer's views, shapes the tale — the narrator matters as much as the narrative.`
+  },
+
+  // ===== 3. JANE BATHARD-SMITH =====
+  {
+    section: 3,
+    question: "What does Bathard-Smith mean by 'utterly disillusioned by marriage'?",
+    answer: `<span class="quote">"The Merchant is <strong>utterly disillusioned by marriage</strong>," having been married only "<strong>thise monthes two</strong>."</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Utterly disillusioned"</strong> — total, complete loss of faith in the institution. Not a mild complaint but an <strong>absolute rejection</strong> of marriage as a source of happiness.</li>
+<li>The qualifier <strong>"thise monthes two"</strong> is crucial: Bathard-Smith draws attention to the <strong>comic absurdity</strong> — only two months in, and already "utterly" disillusioned. The speed of his disillusionment undermines his authority.</li>
+<li>This connects to Kitteridge's "reckless" reading — the Merchant rushed in without self-knowledge and now projects his personal failure onto all women and all marriages.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> The Merchant calls his wife a "shrewe" and claims "we wedded men live in sorwe and care" — the plural "we" universalises what is actually a very brief, very personal experience. His "utter disillusionment" is disproportionate to his evidence.</span>
+<strong>Exam Use:</strong> Bathard-Smith's phrase is quotable and concise — perfect for an intro or conclusion. It captures the Merchant's defining characteristic in five words: total bitterness from minimal experience.`
+  },
+
+  // ===== 4. TINA DAVIDSON =====
+  {
+    section: 4,
+    question: "What does Davidson mean by May's 'triumph mocks the inappropriateness of aged posturing'?",
+    answer: `<span class="quote">May's "<strong>triumph mocks the inappropriateness of aged posturing</strong>."</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Triumph"</strong> — Davidson reads the ending as May's <strong>victory</strong>, not just her escape. She wins the contest of wits, controls the narrative, and walks away with everything.</li>
+<li><strong>"Aged posturing"</strong> — January's attempts to play the young lover, the virile husband, the romantic gardener are all <strong>postures</strong> — performances of youth and vitality that his body and mind cannot sustain.</li>
+<li><strong>"Inappropriateness"</strong> — the mismatch between January's age and his desires is not just foolish but <strong>socially and sexually inappropriate</strong>. Davidson implies the tale punishes him for this transgression.</li>
+<li><strong>"Mocks"</strong> — May's success is not just practical but <strong>satirical</strong>. The pear-tree episode is a public humiliation that exposes January's pretensions.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> January is "old and hoor" with skin "lyk to the skin of a houndfish" — yet he dreams of a "lusty lyf" with "tendre veel." The physical grotesqueness (houndfish) versus the romantic fantasy (lusty lyf) is exactly the "aged posturing" Davidson identifies. May climbing on his back to reach Damyan is the ultimate mock — he literally supports the act that humiliates him.</span>
+<strong>Exam Use:</strong> Davidson gives you a feminist reading of the ending. May's triumph is the tale's comic justice — aged posturing is mocked, not mourned.`
+  },
+
+  // ===== 5. NATALIE HANNAH =====
+  {
+    section: 5,
+    question: "What does Hannah reveal through the word-count analysis — 'wyf' 61 times vs 'sire' 4 times?",
+    answer: `<span class="quote"><strong>"Wyf"</strong> appears <strong>61 times</strong> in the tale. <strong>"Sire"</strong> (husband) appears only <strong>4 times</strong>.</span>
+<strong>Analysis:</strong><ul>
+<li>The <strong>overwhelming dominance of "wyf"</strong> reveals the tale's obsessive focus on <strong>women and wifehood</strong> — everything is filtered through the lens of what a wife is, does, and represents.</li>
+<li>The near-absence of <strong>"sire"</strong> (husband) shows that the <strong>husband's role is barely examined</strong>. January is not interrogated as a husband — only May is interrogated as a wife.</li>
+<li>This asymmetry is the <strong>Merchant's bias made visible through data</strong>: he scrutinises women relentlessly while leaving male behaviour unexamined.</li>
+<li>Hannah also notes <strong>"wedded man" is found in place of "husband"</strong> — the Merchant avoids the word "husband" and replaces it with "wedded man," which frames marriage as something <strong>done to men</strong>, not a role men actively occupy.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> "We wedded men live in sorwe and care" — the Merchant's preferred term is always "wedded men" (passive victims of marriage), never "husbands" (active participants in a relationship). The language itself encodes his victim mentality.</span>
+<strong>Exam Use:</strong> Hannah's word count is a powerful piece of evidence for linguistic analysis essays. It makes the Merchant's misogynistic bias empirically visible — not just interpretive but measurable.`
+  },
+  {
+    section: 5,
+    question: "What does Hannah mean by 'marital debt' and 'cannot satisfy his wife'?",
+    answer: `<span class="quote">"<strong>Marital debt</strong>" / January "<strong>cannot satisfy his wife</strong>."</span>
+<strong>Analysis:</strong><ul>
+<li>The <strong>"marital debt"</strong> (<em>debitum conjugale</em>) was a medieval theological concept: both spouses owed each other <strong>sexual availability</strong>. It was a mutual obligation, not one-sided.</li>
+<li>Hannah argues January <strong>cannot pay his side of the debt</strong> — he is physically incapable of satisfying May sexually. His age and decrepitude make him a <strong>debtor in his own marriage</strong>.</li>
+<li>This is deeply ironic given the Merchant's own secret <strong>"dette"</strong> — the narrator is financially bankrupt; his creation is sexually bankrupt. Both are men who <strong>cannot pay what they owe</strong>.</li>
+<li>May's adultery can be read not just as betrayal but as <strong>seeking payment elsewhere</strong> when the husband defaults on the marital debt.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> Justinus warns "ye shal nat plesen hire" — a direct prediction of January's sexual failure. The "clicket" / "wicket" rhyme's irony is that the "perfect rhyme" masks an imperfect sex life — January holds the key but cannot perform.</span>
+<strong>Exam Use:</strong> Hannah's "marital debt" argument reframes May's adultery theologically — it's not just sin but a response to January's failure to fulfil his own obligations. This complicates simple misogynistic readings.`
+  },
+
+  // ===== 6. BURGER =====
+  {
+    section: 6,
+    question: "What does Burger mean by calling the tale an 'original aesthetic vehicle' for the Merchant's cynicism?",
+    answer: `<span class="quote">"Chaucer creates an <strong>original aesthetic vehicle</strong>...to express the <strong>cynicism of the Merchant-narrator</strong>, whose consciousness of the difference between <strong>words and reality</strong> would perhaps be all the keener for a man who, while in debt, was <strong>sownynge alwey th'encrees of his wynnyng</strong>."</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Original aesthetic vehicle"</strong> — Burger argues Chaucer invented a <strong>new kind of story</strong> for the Merchant — not a standard fabliau or romance but something uniquely shaped by the narrator's bitterness.</li>
+<li><strong>"Words and reality"</strong> — the Merchant is acutely aware that <strong>language can deceive</strong>. He talks up his profits ("sownynge alwey th'encrees of his wynnyng") while secretly bankrupt. He knows the gap between what is said and what is true.</li>
+<li><strong>The irony:</strong> a man who professionally manipulates the gap between appearance and reality <strong>should</strong> see through January's illusions — but he cannot see through his own. His cynicism about words does not protect him from self-deception.</li>
+<li>The tale becomes an <strong>"aesthetic vehicle"</strong> for this contradiction — a bitter narrator who sees deception everywhere except in the mirror.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> The Merchant is "so witty no one knew he was in dette" — Burger's point exactly. A man skilled at concealing financial truth cannot recognise when he is concealing emotional truth. The "Flaundryssh bever hat" is the outward show; the "dette" is the hidden reality.</span>
+<strong>Exam Use:</strong> Burger gives you sophisticated critical vocabulary. "Aesthetic vehicle" elevates your analysis from plot summary to literary criticism — the tale's form is shaped by the narrator's psychology.`
+  },
+
+  // ===== 7. WAGENKNECHT =====
+  {
+    section: 7,
+    question: "What does Wagenknecht mean by 'trust the tale, not the teller'?",
+    answer: `<span class="quote">"The reader is asked to <strong>trust the tale, not the teller</strong>."</span>
+<strong>Analysis:</strong><ul>
+<li>This echoes D.H. Lawrence's famous dictum and applies it directly to the Merchant's Tale: the <strong>Merchant's interpretation of his own story is not reliable</strong>.</li>
+<li>The Merchant <strong>thinks</strong> he is telling a story about women's deceit — but the tale <strong>actually reveals</strong> male self-deception, patriarchal entitlement, and the commodification of women.</li>
+<li><strong>"Trust the tale"</strong> = look at what the narrative <em>shows</em> (January's foolishness, May's resourcefulness, the ironic Edenic parallels), not what the narrator <em>claims</em> (that women are evil).</li>
+<li>This is a foundational principle for reading <strong>any unreliable narrator</strong> — the story always contains more truth than the storyteller intends.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> The Merchant describes Damyan as "lyk to the naddre in bosom sly untrewe" — he thinks he's condemning Damyan, but the serpent imagery actually ties into a larger Edenic framework that condemns January's hubris. The tale says more than the teller knows.</span>
+<strong>Exam Use:</strong> Wagenknecht gives you a one-line critical thesis you can deploy across any essay: the Merchant is an unreliable narrator, so we must read against his intentions. Short, memorable, universally applicable.`
+  },
+
+  // ===== 8. BOWDEN =====
+  {
+    section: 8,
+    question: "How does Bowden's description of medieval merchants illuminate the Merchant's character?",
+    answer: `<span class="quote">"The typical medieval merchants, who were engaged in the wholesale traffic of wool, hides, cloth, iron and tin were also <strong>bankers and money-lenders of the nation</strong>."</span>
+<strong>Analysis:</strong><ul>
+<li>Bowden provides <strong>historical context</strong>: medieval merchants were not just traders — they were the <strong>financial infrastructure</strong> of England. They dealt in credit, debt, and risk.</li>
+<li>This makes the Merchant's secret <strong>"dette"</strong> even more damning: a man whose profession is <strong>managing money</strong> cannot manage his own finances. Professional failure mirrors personal failure.</li>
+<li>The merchant class was associated with <strong>calculation, appraisal, and valuation</strong> — skills that should protect against being deceived by appearances. Yet January (the Merchant's creation) is fooled by the most basic surface illusion: a pretty face.</li>
+<li>Bowden's context also illuminates the <strong>commodification of May</strong>: in a world where merchants trade in "wool, hides, cloth," treating a wife as another commodity is not metaphorical — it reflects a real economic mentality.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> January "shops" for May in the "mirour" of the marketplace — Tolliver's reading aligns with Bowden's context. The Merchant's professional world of trade and valuation seeps into his tale's marriage market.</span>
+<strong>Exam Use:</strong> Bowden gives you historicist grounding. Use it to argue that the tale's commodification of women is not just a literary theme but reflects the material reality of medieval mercantile culture.`
+  },
+
+  // ===== 9. BERNARD O'DONOGHUE =====
+  {
+    section: 9,
+    question: "What does O'Donoghue mean by calling the tale 'halfway to allegory'?",
+    answer: `<span class="quote">"<strong>Halfway to allegory.</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li>An <strong>allegory</strong> is a story where characters and events stand for abstract ideas (like <em>Everyman</em> or <em>The Pilgrim's Progress</em>).</li>
+<li><strong>"Halfway"</strong> — O'Donoghue argues the tale <strong>hovers between realism and allegory</strong>. The characters are not quite real people and not quite abstract symbols — they are somewhere in between.</li>
+<li><strong>Evidence for allegory:</strong> The names are symbolic — <strong>Januarie</strong> (winter/old age), <strong>May</strong> (spring/youth), <strong>Placebo</strong> ("I shall please"), <strong>Justinus</strong> ("the just one"). The garden is a clear <strong>Eden parallel</strong>. The structure follows the <strong>Fall narrative</strong>.</li>
+<li><strong>Evidence against full allegory:</strong> The characters have <strong>individual psychology</strong> — January's specific delusions, May's resourcefulness, the Merchant's personal bitterness. They are too <strong>particular</strong> to be pure symbols.</li>
+<li><strong>"Halfway"</strong> is the tale's distinctive quality: it operates on <strong>two levels simultaneously</strong> — as a realistic fabliau about specific people AND as a symbolic meditation on the Fall, blindness, and self-deception.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> "Januarie" and "May" are allegorical names, but the "houndfish" simile and the "clicket"/"wicket" rhyme are grounded in physical, fabliau realism. The Merchant's forked beard is both a realistic detail and an Edenic serpent symbol. This duality is what O'Donoghue captures.</span>
+<strong>Exam Use:</strong> O'Donoghue's phrase is brilliantly versatile — use it whenever you need to reconcile the tale's symbolic and realistic elements. It explains why the tale feels both like a dirty joke and a theological parable.`
+  },
+
+  // ===== CROSS-CRITIC SYNTHESIS CARDS =====
+  {
+    section: 1,
+    question: "How do Tolliver, Burger, and Wagenknecht together build the case for the Merchant as unreliable narrator?",
+    answer: `<strong>Three critics, one argument — the Merchant cannot be trusted:</strong><ul>
+<li><strong>Tolliver:</strong> "The Merchant participates in the blindness of his creature January in not realizing the extent to which he is talking of his own sore." The Merchant <strong>unconsciously self-reveals</strong>.</li>
+<li><strong>Burger:</strong> The tale is an "aesthetic vehicle" for the Merchant's cynicism — a man aware of the gap between "words and reality" yet unable to apply that awareness to himself.</li>
+<li><strong>Wagenknecht:</strong> "Trust the tale, not the teller" — the narrative reveals truths the Merchant does not intend.</li></ul>
+<strong>Synthesis:</strong><ul>
+<li>Together these critics show that the Merchant is <strong>Chaucer's most sophisticated unreliable narrator</strong>.</li>
+<li>He is not simply lying — he is <strong>blind to his own bias</strong> (Tolliver), <strong>trapped by his own profession's logic</strong> (Burger), and <strong>undermined by the story he tells</strong> (Wagenknecht).</li>
+<li>The audience must read <strong>against the grain</strong> of the Merchant's narration to find Chaucer's meaning.</li></ul>
+<strong>Exam Use:</strong> Combining all three critics in one paragraph creates a powerful, layered argument about unreliable narration — much stronger than citing just one.`
+  },
+  {
+    section: 5,
+    question: "How do Hannah, Davidson, and Tolliver collectively reframe May's role in the tale?",
+    answer: `<strong>Three readings of May — commodity, victor, and agent:</strong><ul>
+<li><strong>Tolliver:</strong> May is <strong>"currency"</strong> and <strong>"property"</strong> — January buys her and spends her. She is a passive commodity in the male economic system.</li>
+<li><strong>Davidson:</strong> May's <strong>"triumph mocks the inappropriateness of aged posturing"</strong> — she wins. The ending is her victory over a system that treated her as an object.</li>
+<li><strong>Hannah:</strong> January <strong>"cannot satisfy his wife"</strong> and defaults on the <strong>"marital debt"</strong> — May's adultery is a response to male failure, not simply female wickedness.</li></ul>
+<strong>Synthesis:</strong><ul>
+<li>Read together, these critics trace May's arc: she <strong>begins</strong> as commodity (Tolliver), <strong>acts</strong> because of male inadequacy (Hannah), and <strong>triumphs</strong> over patriarchal pretension (Davidson).</li>
+<li>This collective reading <strong>challenges the Merchant's misogynistic framing</strong> — May is not evil; she is resourceful within a system that commodifies her.</li></ul>
+<span class="link-quote"><strong>Link to text:</strong> May moves from "stille as stoon" (passive, silent, objectified on her wedding night) to writing a letter "right of hire hand" (active agency) to climbing on January's back (physical dominance). The text supports the critics' trajectory.</span>
+<strong>Exam Use:</strong> A three-critic synthesis on May makes a sophisticated feminist argument — much stronger than relying on a single reading.`
+  },
+];
+
+// ========== APP LOGIC ==========
+let currentIndex = 0, filteredCards = [...cards], cardProgress = {}, currentMode = 'study';
+cards.forEach((_, i) => { cardProgress[i] = { seen: 0, mastered: false }; });
+function initApp() {
+  const s = document.getElementById('catSelect'); s.innerHTML = '<option value="all">All Critics</option>';
+  sections.forEach(sec => { s.innerHTML += `<option value="${sec.id}">${sec.id}. ${sec.title}</option>`; });
+  const l = document.getElementById('sectionList'); l.innerHTML = '';
+  sections.forEach(sec => { const c = cards.filter(x => x.section === sec.id).length; l.innerHTML += `<div class="section-item" data-section="${sec.id}" onclick="jumpToSection(${sec.id})"><div class="section-num">${sec.id}</div><span>${sec.title}</span><span class="section-count">${c}</span></div>`; });
+  filterCards();
+}
+function filterCards() { const c = document.getElementById('catSelect').value, h = document.getElementById('hideMastered').checked; filteredCards = cards.filter((x, i) => { if (c !== 'all' && x.section !== parseInt(c)) return false; if (h && cardProgress[i]?.mastered) return false; return true; }); currentIndex = 0; renderCard(); updateStats(); updateSH(); }
+function renderCard() { if (!filteredCards.length) { document.getElementById('cardQuestion').textContent = 'No cards to show! Try changing filters.'; ['cardAnswer','cardSection','cardCategory','cardCategoryBack'].forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ''; }); document.getElementById('navCount').textContent = '0 cards'; document.getElementById('progressDots').innerHTML = ''; document.getElementById('progressText').textContent = ''; return; } const card = filteredCards[currentIndex], gi = cards.indexOf(card), sec = sections.find(s => s.id === card.section), pr = cardProgress[gi]; pr.seen = Math.min(pr.seen + 1, 5); document.getElementById('cardSection').textContent = TOPIC; document.getElementById('cardCategory').textContent = sec ? sec.title : ''; document.getElementById('cardQuestion').textContent = card.question; document.getElementById('cardCategoryBack').textContent = 'Answer'; document.getElementById('cardAnswer').innerHTML = card.answer; const d = document.getElementById('progressDots'); d.innerHTML = ''; for (let i = 0; i < 5; i++) d.innerHTML += `<div class="progress-dot${i < pr.seen ? ' filled' : ''}"></div>`; document.getElementById('progressText').textContent = `${pr.seen}/5`; document.getElementById('navCount').textContent = `Card ${currentIndex + 1} of ${filteredCards.length}`; document.getElementById('prevBtn').disabled = currentIndex === 0; document.getElementById('nextBtn').disabled = currentIndex === filteredCards.length - 1; document.getElementById('flashcard').classList.remove('flipped'); updateSH(); }
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { if (currentIndex < filteredCards.length - 1) { currentIndex++; renderCard(); } }
+function prevCard() { if (currentIndex > 0) { currentIndex--; renderCard(); } }
+function markKnown() { const gi = cards.indexOf(filteredCards[currentIndex]); cardProgress[gi].mastered = true; cardProgress[gi].seen = 5; updateStats(); if (document.getElementById('hideMastered').checked) filterCards(); else renderCard(); }
+function resetCard() { const gi = cards.indexOf(filteredCards[currentIndex]); cardProgress[gi].mastered = false; cardProgress[gi].seen = 0; updateStats(); renderCard(); }
+function shuffleCards() { for (let i = filteredCards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]]; } currentIndex = 0; renderCard(); }
+function jumpToSection(id) { document.getElementById('catSelect').value = id; filterCards(); }
+function updateSH() { if (!filteredCards.length) return; const cs = filteredCards[currentIndex]?.section; document.querySelectorAll('.section-item').forEach(el => el.classList.toggle('active', parseInt(el.dataset.section) === cs)); }
+function updateStats() { let m = 0, p = 0, n = 0; cards.forEach((_, i) => { const pr = cardProgress[i]; if (pr.mastered) m++; else if (pr.seen > 0) p++; else n++; }); document.getElementById('statTotal').textContent = cards.length; document.getElementById('statMastered').textContent = m; document.getElementById('statProgress').textContent = p; document.getElementById('statNew').textContent = n; }
+function setMode(mode) { currentMode = mode; document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active')); if (mode === 'study') { document.querySelectorAll('.mode-btn')[0].classList.add('active'); document.getElementById('studyMode').classList.remove('hidden'); document.getElementById('allCardsMode').classList.add('hidden'); } else { document.querySelectorAll('.mode-btn')[1].classList.add('active'); document.getElementById('studyMode').classList.add('hidden'); document.getElementById('allCardsMode').classList.remove('hidden'); renderAllCards(); } }
+function renderAllCards(f = '') { const g = document.getElementById('allCardsGrid'); g.innerHTML = ''; cards.forEach((card, i) => { if (f && !card.question.toLowerCase().includes(f.toLowerCase()) && !card.answer.toLowerCase().includes(f.toLowerCase())) return; const sec = sections.find(s => s.id === card.section); const p = cardProgress[i]; let st = 'not-started', sT = 'Not Started'; if (p.mastered) { st = 'mastered'; sT = 'Mastered'; } else if (p.seen > 0) { st = 'in-progress'; sT = 'In Progress'; } g.innerHTML += `<div class="mini-card" onclick="goToCard(${i})"><div class="mc-cat">${sec ? sec.title : ''}</div><div class="mc-q">${card.question}</div><span class="mc-status ${st}">${sT}</span></div>`; }); }
+function goToCard(gi) { setMode('study'); document.getElementById('catSelect').value = 'all'; document.getElementById('hideMastered').checked = false; filteredCards = [...cards]; currentIndex = gi; renderCard(); }
+function searchCards(q) { renderAllCards(q); }
+document.addEventListener('keydown', e => { if (currentMode !== 'study') return; if (e.key === 'ArrowRight') nextCard(); else if (e.key === 'ArrowLeft') prevCard(); else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipCard(); } });
+initApp();
+</script>
+</body>
+</html>
