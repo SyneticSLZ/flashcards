@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tudor Rebellions — Full Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fdf6f8;
+  --white:#ffffff;
+  --pink-light:#fce8ee;
+  --pink:#e8a0b4;
+  --pink-dark:#c4607e;
+  --text:#2d1f26;
+  --muted:#9a7080;
+  --border:rgba(196,96,126,0.15);
+
+  --henry7:#8b5cf6;
+  --henry8:#d94f3d;
+  --edward:#3a8fc2;
+  --mary:#c9a84c;
+  --elizabeth:#2a9e65;
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Lora',Georgia,serif;
+  line-height:1.7;
+  padding-bottom:4rem;
+  background-image:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(232,160,180,0.18) 0%,transparent 60%);
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:3rem 2rem 2rem;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(to bottom,#fce8ee,var(--bg));
+}
+header h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:900;
+  background:linear-gradient(135deg,#c4607e,#e8a0b4,#c4607e);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+header p{color:var(--muted);font-style:italic;margin-top:0.5rem;font-size:1rem}
+
+/* TOC */
+.toc{
+  max-width:900px;margin:2rem auto;padding:1.5rem 2rem;
+  background:var(--white);border:1px solid var(--border);border-radius:14px;
+  box-shadow:0 2px 12px rgba(196,96,126,0.07);
+}
+.toc h2{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--pink-dark);margin-bottom:1rem;letter-spacing:0.03em}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.3rem 2rem}
+.toc a{color:var(--muted);text-decoration:none;font-size:0.9rem;transition:color 0.2s}
+.toc a:hover{color:var(--pink-dark)}
+.toc-monarch{font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-top:0.8rem;margin-bottom:0.2rem;color:var(--text)}
+
+/* MONARCH SECTIONS */
+.monarch-section{max-width:900px;margin:3rem auto 0;padding:0 1.5rem}
+.monarch-header{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.2rem 1.8rem;border-radius:12px;
+  margin-bottom:2rem;
+}
+.monarch-header h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff}
+.monarch-header .dates{font-size:0.85rem;color:rgba(255,255,255,0.75);font-style:italic;margin-top:0.15rem}
+.monarch-header .count{margin-left:auto;font-size:0.8rem;background:rgba(255,255,255,0.2);padding:0.25rem 0.7rem;border-radius:999px;color:#fff}
+
+.henry7-head{background:linear-gradient(135deg,#7c3aed,#a855f7)}
+.henry8-head{background:linear-gradient(135deg,#c0392b,#e74c3c)}
+.edward-head{background:linear-gradient(135deg,#1d6fa4,#3a8fc2)}
+.mary-head{background:linear-gradient(135deg,#a07820,#c9a84c)}
+.elizabeth-head{background:linear-gradient(135deg,#1e7a4f,#2a9e65)}
+
+/* REBELLION CARD */
+.rebellion{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:16px;
+  margin-bottom:2rem;
+  box-shadow:0 2px 16px rgba(196,96,126,0.06);
+  overflow:hidden;
+}
+.rebellion-header{
+  padding:1.2rem 1.8rem;
+  display:flex;align-items:flex-start;gap:1rem;
+  border-bottom:1px solid var(--border);
+}
+.rebellion-number{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px;
+}
+.rebellion-title{flex:1}
+.rebellion-title h3{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;line-height:1.2}
+.rebellion-title .meta{font-size:0.8rem;color:var(--muted);font-style:italic;margin-top:0.2rem}
+.tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem}
+.tag{font-size:0.7rem;padding:0.15rem 0.55rem;border-radius:999px;border:1px solid;font-family:'Lora',serif;letter-spacing:0.03em}
+
+.rebellion-body{padding:1.5rem 1.8rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:650px){.rebellion-body{grid-template-columns:1fr}}
+
+.section{margin-bottom:0}
+.section-title{
+  font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;
+  color:var(--pink-dark);margin-bottom:0.55rem;font-family:'Lora',serif;
+  padding-bottom:0.35rem;border-bottom:1.5px solid var(--pink-light);
+}
+.section ul{padding-left:1.1rem}
+.section li{font-size:0.92rem;margin-bottom:0.35rem;line-height:1.55}
+.section p{font-size:0.92rem;line-height:1.6}
+
+.stat{
+  display:inline-block;font-weight:700;
+  background:var(--pink-light);color:var(--pink-dark);
+  padding:0.05rem 0.35rem;border-radius:4px;
+}
+.stat-green{background:#e6f7ef;color:#1a7a47}
+.stat-blue{background:#e8f4fb;color:#1a5f8a}
+.stat-amber{background:#fef8e6;color:#7a5e00}
+
+.full-width{grid-column:1/-1}
+
+/* Sticky back-to-top */
+.back-top{
+  position:fixed;bottom:2rem;right:2rem;
+  width:42px;height:42px;border-radius:50%;
+  background:var(--pink-dark);color:#fff;
+  border:none;cursor:pointer;font-size:1.1rem;
+  box-shadow:0 4px 16px rgba(196,96,126,0.3);
+  transition:all 0.2s;display:flex;align-items:center;justify-content:center;
+  text-decoration:none;
+}
+.back-top:hover{background:#a84e68;transform:translateY(-2px)}
+
+hr.divider{border:none;border-top:1px solid var(--border);margin:2rem 0}
+
+/* ── VIEW TOGGLE ── */
+.view-toggle{
+  display:flex;justify-content:center;gap:0.5rem;
+  padding:1.4rem 1rem 0;
+}
+.vt-btn{
+  padding:0.55rem 1.8rem;border-radius:999px;
+  border:1.5px solid var(--pink);background:transparent;
+  font-family:'Lora',serif;font-size:0.95rem;cursor:pointer;
+  transition:all 0.2s;color:var(--muted);
+}
+.vt-btn.on{background:var(--pink-dark);color:#fff;border-color:var(--pink-dark)}
+.vt-btn:hover:not(.on){color:var(--pink-dark);border-color:var(--pink-dark)}
+
+/* ── FLASHCARD VIEW ── */
+#card-view{display:none;padding-bottom:4rem}
+#card-view.active{display:block}
+#notes-view.hidden{display:none}
+
+.fc-monarch{
+  max-width:760px;margin:2.5rem auto 0;padding:0 1.5rem;
+}
+.fc-monarch-head{
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0.9rem 1.4rem;border-radius:10px;
+  margin-bottom:1.5rem;
+}
+.fc-monarch-head h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#fff}
+.fc-monarch-head .fcm-dates{font-size:0.8rem;color:rgba(255,255,255,0.7);font-style:italic}
+.fc-monarch-head .fcm-count{margin-left:auto;font-size:0.75rem;background:rgba(255,255,255,0.2);padding:0.2rem 0.6rem;border-radius:999px;color:#fff}
+
+/* fc card pair */
+.fc-pair{margin-bottom:1.8rem}
+.fc-pair-label{
+  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);font-family:'Lora',serif;font-weight:600;
+  margin-bottom:0.6rem;padding-left:0.2rem;
+}
+
+/* the flip scene */
+.fc-scene{
+  perspective:1200px;cursor:pointer;user-select:none;
+  border-radius:16px;
+}
+.fc-scene:active{transform:scale(0.995)}
+.fc-wrap{
+  min-height:200px;position:relative;
+  transform-style:preserve-3d;
+  transition:transform 0.6s cubic-bezier(0.35,0,0.1,1.1);
+  border-radius:16px;
+}
+.fc-wrap.flipped{transform:rotateY(180deg)}
+.fc-face{
+  position:absolute;width:100%;min-height:200px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:16px;padding:1.6rem 1.8rem;
+  display:flex;flex-direction:column;
+}
+.fc-front{
+  background:#fff;
+  border:1px solid rgba(196,96,126,0.12);
+  box-shadow:0 4px 20px rgba(196,96,126,0.08);
+  justify-content:center;align-items:center;text-align:center;
+}
+.fc-back{
+  background:#fff8fa;
+  border:1px solid rgba(196,96,126,0.12);
+  box-shadow:0 4px 20px rgba(196,96,126,0.08);
+  transform:rotateY(180deg);
+  justify-content:flex-start;
+}
+.fc-type{
+  font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);font-family:'Lora',serif;margin-bottom:1rem;
+}
+.fc-prompt{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1rem,2.5vw,1.35rem);
+  font-weight:700;line-height:1.35;color:var(--text);
+}
+.fc-tap{font-size:0.72rem;color:var(--pink);font-style:italic;margin-top:1rem}
+.fc-back-title{
+  font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
+  font-weight:700;padding-bottom:0.55rem;border-bottom:1.5px solid;
+  margin-bottom:0.9rem;font-family:'Lora',serif;
+}
+.fc-back-body{
+  font-family:'Lora',serif;
+  font-size:clamp(0.88rem,2vw,0.98rem);
+  line-height:1.7;color:#2d1f26;
+}
+.fc-back-body strong{font-weight:700}
+.fc-num{
+  display:inline-block;font-weight:700;
+  padding:0.05rem 0.3rem;border-radius:4px;
+}
+.fc-hint{
+  font-size:0.75rem;color:var(--muted);font-style:italic;
+  text-align:center;margin-top:0.7rem;min-height:1.1em;
+}
+
+/* fc progress */
+.fc-progress{
+  max-width:760px;margin:1.5rem auto 0;padding:0 1.5rem;
+}
+.fc-prog-meta{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--muted);font-style:italic;margin-bottom:0.4rem}
+.fc-prog-meta .fc-known{color:#2a9e65}
+.fc-track{height:3px;background:rgba(196,96,126,0.12);border-radius:2px;overflow:hidden}
+.fc-fill{height:100%;background:linear-gradient(90deg,var(--pink-dark),var(--pink));border-radius:2px;transition:width 0.4s ease}
+
+/* fc filter tabs */
+.fc-filters{
+  display:flex;gap:0.45rem;flex-wrap:wrap;justify-content:center;
+  padding:1.2rem 1.5rem 0;max-width:760px;margin:0 auto;
+}
+.fc-f{
+  padding:0.32rem 0.9rem;border-radius:999px;border:1.5px solid;
+  background:transparent;font-family:'Lora',serif;font-size:0.82rem;
+  cursor:pointer;transition:all 0.2s;color:var(--muted);
+}
+.fc-f:hover{color:var(--text)}
+.fc-f[data-m="all"]{border-color:var(--pink)}.fc-f[data-m="all"].on{background:var(--pink-dark);color:#fff;border-color:var(--pink-dark)}
+.fc-f[data-m="h7"]{border-color:var(--pink)}.fc-f[data-m="h7"].on{background:var(--pink-dark);color:#fff;border-color:var(--pink-dark)}
+.fc-f[data-m="h8"]{border-color:var(--pink)}.fc-f[data-m="h8"].on{background:var(--pink-dark);color:#fff;border-color:var(--pink-dark)}
+.fc-f[data-m="e6"]{border-color:var(--pink)}.fc-f[data-m="e6"].on{background:var(--pink-dark);color:#fff;border-color:var(--pink-dark)}
+.fc-f[data-m="m1"]{border-color:var(--pink)}.fc-f[data-m="m1"].on{background:var(--pink-dark);color:#fff;border-color:var(--pink-dark)}
+.fc-f[data-m="e1"]{border-color:var(--pink)}.fc-f[data-m="e1"].on{background:var(--pink-dark);color:#fff;border-color:var(--pink-dark)}
+
+/* fc single card navigator */
+.fc-nav-wrap{
+  max-width:760px;margin:0 auto;padding:0 1.5rem;
+  display:flex;flex-direction:column;align-items:center;
+}
+.fc-nav{display:flex;align-items:center;gap:1.2rem;margin-top:1.4rem}
+.fc-nbtn{
+  width:44px;height:44px;border-radius:50%;
+  border:1.5px solid rgba(196,96,126,0.25);background:#fff;
+  color:var(--muted);font-size:1.1rem;cursor:pointer;
+  transition:all 0.2s;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(196,96,126,0.07);
+}
+.fc-nbtn:hover:not(:disabled){border-color:var(--pink-dark);color:var(--pink-dark);background:var(--pink-light)}
+.fc-nbtn:disabled{opacity:0.25;cursor:not-allowed}
+.fc-nctr{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--muted);min-width:56px;text-align:center}
+
+.fc-mark-row{
+  display:flex;gap:0.8rem;margin-top:1rem;
+  opacity:0;transform:translateY(5px);transition:opacity 0.25s,transform 0.25s;pointer-events:none;
+}
+.fc-mark-row.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.fc-mbtn{
+  padding:0.4rem 1.3rem;border-radius:8px;border:1.5px solid;
+  background:transparent;font-family:'Lora',serif;font-size:0.88rem;cursor:pointer;transition:all 0.2s;
+}
+.fc-mbtn.ok{border-color:#2a9e65;color:#2a9e65}.fc-mbtn.ok:hover{background:#2a9e65;color:#fff}
+.fc-mbtn.no{border-color:#e07d3c;color:#e07d3c}.fc-mbtn.no:hover{background:#e07d3c;color:#fff}
+
+/* card slide transition */
+.fc-scene{transition:opacity 0.18s,transform 0.18s}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="font-size:1.8rem;margin-bottom:0.5rem">♚</div>
+  <h1>Tudor Rebellions</h1>
+  <p>19 rebellions · All 4 source documents · Grouped by monarch</p>
+</header>
+
+<div class="view-toggle">
+  <button class="vt-btn on" id="btnNotes" onclick="setView('notes')">📄 Notes</button>
+  <button class="vt-btn" id="btnCards" onclick="setView('cards')">🃏 Flashcards</button>
+</div>
+
+<div id="notes-view">
+
+<!-- TOC -->
+<div class="toc" style="max-width:900px;margin:2rem auto">
+  <h2>Contents</h2>
+  <div class="toc-grid">
+    <div>
+      <div class="toc-monarch" style="color:#7c3aed">Henry VII (1485–1509)</div>
+      <a href="#lovel">1. Lovel &amp; Stafford Rebellion (1486)</a><br>
+      <a href="#simnel">2. Simnel Rebellion (1487)</a><br>
+      <a href="#yorkshire">3. Yorkshire Rebellion (1489)</a><br>
+      <a href="#cornish">4. Cornish Rebellion (1497)</a><br>
+      <a href="#warbeck">5. Perkin Warbeck (1491–99)</a>
+    </div>
+    <div>
+      <div class="toc-monarch" style="color:#c0392b">Henry VIII (1509–1547)</div>
+      <a href="#amicable">6. Amicable Grant (1525)</a><br>
+      <a href="#silken">7. Silken Thomas (1534–37)</a><br>
+      <a href="#lincs">8. Lincolnshire Rising (1536)</a><br>
+      <a href="#pilgrimage">9. Pilgrimage of Grace (1536)</a>
+    </div>
+    <div>
+      <div class="toc-monarch" style="color:#1d6fa4">Edward VI (1547–1553)</div>
+      <a href="#western">10. Western Rebellion (1549)</a><br>
+      <a href="#kett">11. Kett's Rebellion (1549)</a><br>
+      <div class="toc-monarch" style="color:#a07820">Mary I (1553–1558)</div>
+      <a href="#northumberland">12. Northumberland's Rebellion (1553)</a><br>
+      <a href="#wyatt">13. Wyatt's Rebellion (1554)</a>
+    </div>
+    <div>
+      <div class="toc-monarch" style="color:#1e7a4f">Elizabeth I (1558–1603)</div>
+      <a href="#oneill">14. Shane O'Neill (1558–67)</a><br>
+      <a href="#northern">15. Northern Earls (1569)</a><br>
+      <a href="#fitzmaurice">16. Fitzmaurice (1569 &amp; 1579)</a><br>
+      <a href="#oxfordshire">17. Oxfordshire Rising (1596)</a><br>
+      <a href="#essex">18. Essex Revolt (1601)</a><br>
+      <a href="#tyrone">19. Tyrone's Rebellion (1593–1603)</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HENRY VII -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="monarch-section">
+  <div class="monarch-header henry7-head">
+    <div>
+      <h2>Henry VII</h2>
+      <div class="dates">r. 1485–1509 · 5 serious revolts</div>
+    </div>
+    <div class="count">5 rebellions</div>
+  </div>
+
+  <!-- LOVEL -->
+  <div class="rebellion" id="lovel">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#7c3aed">1</div>
+      <div class="rebellion-title">
+        <h3>Lovel &amp; Stafford Rebellion</h3>
+        <div class="meta">1486 · Yorkshire &amp; Worcestershire · Days</div>
+        <div class="tags">
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Dynastic</span>
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Yorkist</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Francis Viscount Lovel — a former <strong>Lord Chamberlain</strong> and Yorkist associate — and <strong>Humphrey and Thomas Stafford</strong> raised troops to kill Henry VII as he progressed north</li>
+          <li>Viewed Henry as a usurper after Bosworth — "if he could overthrow a king, so could they"</li>
+          <li>Lovel was a former close ally of Richard III — personal loyalty and Yorkist ideology drove the revolt</li>
+          <li>A mixture of personal and political factors; common link was desire to remove the king</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Lovel tried to rouse Yorkshire against the king; Humphrey and Thomas Stafford did the same in Worcester — both areas had been popular with the Yorkist kings</li>
+          <li>Both were unable to get enough support from their retainers before Henry suppressed the conspiracies</li>
+          <li>The Staffords had fought for Richard III at Bosworth but had not been captured; taking sanctuary, they then fled to Worcester</li>
+          <li>Staffords pre-emptively arrested at <strong>Culham Church sanctuary</strong>; Lovel fled abroad — no major battle was fought</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Minor — small-scale assassination attempt in peripheral areas</li>
+          <li>No noble defections beyond Lovel and the Staffords themselves</li>
+          <li>No military engagement required</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Swift pre-emptive action — agents tracked rebels immediately</li>
+          <li>Staffords arrested at Culham Church; Lovel fled abroad — no retribution recorded in sources</li>
+          <li>No major policy changes needed</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Poor organisation, no broad popular or noble support, and Henry's swift pre-emptive intelligence meant it was crushed before it could mobilise effectively. Rebels had no real military plan beyond assassination.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMNEL -->
+  <div class="rebellion" id="simnel">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#7c3aed">2</div>
+      <div class="rebellion-title">
+        <h3>Simnel Rebellion</h3>
+        <div class="meta">1487 · Battle of Stoke · Months</div>
+        <div class="tags">
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Dynastic</span>
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Foreign-backed</span>
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Battle</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Lambert Simnel posed as the <strong>Earl of Warwick</strong> — a young prince Henry kept imprisoned in the Tower with a strong claim to the throne</li>
+          <li>Led by the <strong>Earl of Lincoln</strong> — a royal councillor and Lord Lieutenant of Ireland whom Richard III had named as his heir; dissatisfied with the role Henry had assigned him</li>
+          <li><strong>Margaret of Burgundy</strong> (sister of Yorkist kings Edward IV and Richard III) funded approximately <span class="stat">2,000</span> foreign mercenaries</li>
+          <li><strong>Gerald, Earl of Kildare</strong>, and approximately <span class="stat">40</span> Irish nobles backed Simnel, believing their interests were best served by overthrowing the regime</li>
+          <li>Simnel's Yorkist supporters believed they would gain more from killing Henry than from serving him</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Henry consulted the Great Council; paraded the real Earl of Warwick publicly at St Paul's</li>
+          <li>Rebels invaded; the presence of <span class="stat">2,000</span> German mercenaries and <span class="stat">40</span> Irish nobles with their 'wild' tenants <strong>deterred many English from joining</strong> as the army progressed south from Lancashire</li>
+          <li>Rebels raised only <span class="stat">~4,000–5,000</span> troops and failed to advance beyond Nottinghamshire — some <span class="stat">150 miles</span> from the capital</li>
+          <li>Henry raised <span class="stat">~15,000</span> royal troops; decisive clash at <strong>Battle of Stoke Field</strong></li>
+          <li><span class="stat">4,000</span> rebel deaths; Earl of Lincoln killed; Simnel captured and <strong>pardoned</strong> — made a kitchen boy</li>
+          <li>Warbeck's backers included <strong>Lord Fitzwater</strong> (steward of the royal household) and <strong>Sir William Stanley</strong> (Henry's step-uncle and lord chamberlain); when Warbeck finally landed in Cornwall, he gathered mainly <span class="stat">~6,000</span> Cornish miners, artisans and farmers — not one was a noble or gentleman</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Serious</strong> — foreign-backed invasion with noble leadership</li>
+          <li>Required a pitched battle to defend the throne — highest stakes of any early revolt</li>
+          <li><span class="stat">~8,000</span> rebels including professional Burgundian mercenaries</li>
+          <li>One of Henry VII's most dangerous challenges</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Great Council consulted; Warwick paraded as propaganda</li>
+          <li>Troops raised via commissions of array</li>
+          <li>Government strengthened north with Council after the revolt</li>
+          <li>Fines and bonds placed on suspects</li>
+          <li>Henry VII issued <span class="stat">138</span> Acts of Attainder — used bonds to bind two-thirds of nobility by 1509</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>English Yorkists were deterred by the presence of foreign mercenaries — reduced domestic support. Henry's Warwick parade had effectively undercut the pretender's claim before battle. The rebels lacked sufficient English noble backing, and Lincoln's death at Stoke removed the movement's leadership entirely.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- YORKSHIRE -->
+  <div class="rebellion" id="yorkshire">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#7c3aed">3</div>
+      <div class="rebellion-title">
+        <h3>Yorkshire Rebellion</h3>
+        <div class="meta">1489 · Yorkshire · Short duration</div>
+        <div class="tags">
+          <span class="tag" style="color:#a07820;border-color:#e8c56b">Taxation</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">Mono-causal</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Protest against a <span class="stat">£100,000</span> parliamentary grant for war with France</li>
+          <li>Northern counties felt <strong>traditionally exempt</strong> — they bore the cost of defending the Scottish border; Northumberland, Westmorland and Cumberland had been exempted by the king on account of poverty</li>
+          <li>Rebels also affected by a <strong>bad harvest in 1488</strong> and took exception to the news that the unpopular Henry Percy would lead the tax commission</li>
+          <li>No intention to overthrow the monarch — purely a tax grievance</li>
+          <li>In 1515, Henry VIII remitted payments from <span class="stat">19</span> Yorkshire towns and villages as they were so impoverished</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>The <strong>Earl of Northumberland</strong> was murdered by rebels while collecting the tax</li>
+          <li>Sir John Egremont (gentry) emerged as a leader among leaderless commoners</li>
+          <li>Henry VII personally raised a large army and marched north</li>
+          <li>Rebels fled as the royal army approached York — <strong>no battle fought</strong></li>
+          <li>Retribution: <span class="stat">6</span> rebels executed, including <strong>John Chamber</strong></li>
+          <li>Policy change: northern counties <strong>exempted from the tax</strong></li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Limited — a localised tax protest with no aim to overthrow the monarch</li>
+          <li>No noble leadership after Northumberland's murder</li>
+          <li>Rebels dispersed without battle when Henry's army approached</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Henry raised large army; rebels fled immediately</li>
+          <li><span class="stat">6</span> executed including John Chamber</li>
+          <li>Northern counties exempted from the tax — a government concession</li>
+          <li>Partial rebel success: the tax demand was effectively abandoned for the north</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>No military capacity, no noble leadership after Northumberland's murder, and Henry's overwhelming force caused immediate collapse. The rebels had no realistic plan beyond refusing to pay — when royal troops arrived, resistance evaporated. Despite tactical failure, they achieved the concession they sought.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORNISH -->
+  <div class="rebellion" id="cornish">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#7c3aed">4</div>
+      <div class="rebellion-title">
+        <h3>Cornish Rebellion</h3>
+        <div class="meta">1497 · Cornwall → Blackheath, London · Weeks</div>
+        <div class="tags">
+          <span class="tag" style="color:#a07820;border-color:#e8c56b">Taxation</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">March to London</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>In January 1497 parliament voted <span class="stat">£60,000</span> for war against the Scots — rebels wanted "to punish those responsible for the tax imposed on the people without any reasonable cause" (chronicler Holinshed)</li>
+          <li>Customarily, wars against Scotland were paid by a scutage and only by the <strong>four northern counties</strong> — Cornwall argued this was not their burden</li>
+          <li>Two royal councillors blamed as "evil advisers": <strong>John Morton</strong> (Lord Chancellor) and <strong>Reginald Bray</strong> (king's chief financial adviser)</li>
+          <li>Cornwall had a strong cultural tradition and resisted government intrusions — the Celtic language was widely spoken by commoners in the sixteenth century; John Norden wrote that Cornish "retained a kind of concealed envy against the English"; the Dean of Exeter Cathedral Dr Heynes called the region a <em>'perilous country'</em> (1537)</li>
+          <li>The county of Somerset was renowned for its truculent attitude — it contributed most of the rebels who marched to Blackheath in 1497</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Led by <strong>Thomas Flamank</strong> (lawyer from Bodmin), <strong>Michael Joseph</strong> (blacksmith), and <strong>Lord Audley</strong> — an impoverished Somerset peer whose father had been treasurer of England but was dismissed by Richard III and never trusted by Henry VII</li>
+          <li>Rebels chose <strong>Blackheath</strong> as their encampment — as rebels Wat Tyler and Jack Cade had done in 1381 and 1450; rebels claimed they wished <em>"to do no creature hurt"</em></li>
+          <li>Up to <span class="stat">15,000</span> marched through Devon and Somerset; numbers grew to perhaps <span class="stat">15,000</span> but around <span class="stat">5,000</span> deserted as the march entered its fourth week — returning to farms for the June harvest</li>
+          <li>When the march reached Somerset, <span class="stat">22 gentry</span>, <span class="stat">4 sheriffs</span>, <span class="stat">3 MPs</span> and <span class="stat">4 abbots</span> were among the 4,000 who enlisted there</li>
+          <li>The Provost of Penryn, the collector of the war tax in Cornwall, escaped to Taunton before being <strong>murdered in the marketplace</strong></li>
+          <li>Henry recalled troops from Scotland; defeated rebels at Blackheath — <span class="stat">1,000</span> rebel deaths; all <span class="stat">3</span> leaders executed; Somerset and Cornwall fined <span class="stat">£14,000</span></li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Serious</strong> — the largest rebel army to reach London under Henry VII</li>
+          <li><span class="stat">15,000</span> at Blackheath distracted Henry from the Scottish campaign</li>
+          <li>Coincided with Perkin Warbeck's activity — a dangerous dual threat</li>
+          <li>Required recall of troops from Scotland</li>
+          <li>Trade in the south-west disrupted</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Henry recalled troops from Scotland; raised noble retainers</li>
+          <li>Defeated at Blackheath; <span class="stat">3</span> leaders executed</li>
+          <li>Somerset &amp; Cornwall fined <span class="stat">£14,000</span> collectively</li>
+          <li>Trade disrupted across the south-west</li>
+          <li>No lasting policy change — tax was not rescinded</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Numbers fluctuated throughout the long march — some <span class="stat">5,000</span> deserted in the fourth week to return to farms for harvest. No artillery, no City of London support. London was consistently loyal to the Tudors and never rallied to a pretender. Henry's superior forces ended it decisively at Blackheath. Unlike Yorkshire (1489), Cornwall got no tax concession in return.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WARBECK -->
+  <div class="rebellion" id="warbeck">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#7c3aed">5</div>
+      <div class="rebellion-title">
+        <h3>Perkin Warbeck's Rebellion</h3>
+        <div class="meta">1491–1499 · Multiple invasions · 8 years</div>
+        <div class="tags">
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Dynastic</span>
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Foreign-backed</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">Pretender</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Warbeck posed as <strong>Richard, Duke of York</strong> for <span class="stat">8 years</span></li>
+          <li>Backed by <span class="stat">3</span> foreign powers: <strong>France, Burgundy, and Scotland</strong> — all seeking to destabilise England</li>
+          <li>Domestic support from disaffected Yorkists, <strong>merchants unhappy at trade embargoes with Flanders</strong>, and renegade Scottish, Irish and Flemish adventurers</li>
+          <li><strong>Lord Fitzwater</strong> (steward of the royal household) and <strong>Sir William Stanley</strong> (Henry's step-uncle and lord chamberlain) were among the notable English nobles caught up in the conspiracy</li>
+          <li>France and Burgundy used Warbeck as a diplomatic weapon against Henry</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Multiple invasion attempts over <span class="stat">8 years</span></li>
+          <li>Henry issued <span class="stat">51</span> attainders against English supporters; Stanley executed 1495</li>
+          <li>Two diplomatic treaties removed foreign support: <strong>Treaty of Étaples</strong> (France) and <strong>Treaty of Ayton</strong> (Scotland)</li>
+          <li>Warbeck landed in Cornwall and got only as far as <strong>Taunton</strong> — some <span class="stat">160 miles</span> from London — before foreign support evaporated in <strong>September 1497</strong></li>
+          <li>Final invasion attempt: only <span class="stat">1,500</span> Cornish miners, artisans and farmers — <strong>not one was a noble or gentleman</strong></li>
+          <li>Warbeck captured; confessed; executed <strong>1499</strong>; the <strong>real Earl of Warwick</strong> also executed 1499 — eliminating all Yorkist pretender threats</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Serious and prolonged</strong> — <span class="stat">8</span> years of multiple invasion attempts with foreign backing</li>
+          <li>Required execution of even loyal figures like Stanley</li>
+          <li>Foreign powers gave diplomatic weight to a pretender claim</li>
+          <li><span class="stat">51</span> attainders show the breadth of English involvement</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Intelligence agents tracked Warbeck for <span class="stat">8</span> years</li>
+          <li>Stanley executed 1495 as pre-emptive measure</li>
+          <li>Two treaties (Étaples, Ayton) to remove foreign backing</li>
+          <li>Warbeck and Warwick both executed 1499</li>
+          <li><span class="stat">51</span> attainders — foreign policy shaped by need to isolate the pretender</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Henry systematically removed all 3 foreign backers through diplomacy. By the final invasion, Warbeck could attract only 1,500 supporters. No English nobles defected in the last attempt. Henry's patient diplomatic strategy proved more effective than military suppression alone. Executing both Warbeck and the real Warwick in 1499 permanently ended the Yorkist pretender threat.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HENRY VIII -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="monarch-section">
+  <div class="monarch-header henry8-head">
+    <div>
+      <h2>Henry VIII</h2>
+      <div class="dates">r. 1509–1547 · 4 rebellions</div>
+    </div>
+    <div class="count">4 rebellions</div>
+  </div>
+
+  <!-- AMICABLE GRANT -->
+  <div class="rebellion" id="amicable">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#d94f3d">6</div>
+      <div class="rebellion-title">
+        <h3>Amicable Grant Crisis</h3>
+        <div class="meta">1525 · Suffolk &amp; Kent · Short protests</div>
+        <div class="tags">
+          <span class="tag" style="color:#a07820;border-color:#e8c56b">Taxation</span>
+          <span class="tag" style="color:#2a9e65;border-color:#6ee7b7">Rebel success</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Wolsey demanded a <strong>non-parliamentary forced loan</strong> for war with France — coming on top of recent demands that had caused deep resentment</li>
+          <li>In 1522, Wolsey had raised <span class="stat">£260,000</span> in forced loans, which he said would be repaid from the next parliamentary subsidy — this never happened</li>
+          <li>In 1523, Wolsey tried to get parliament to vote a subsidy of <span class="stat">£800,000</span> but parliament offered only <span class="stat">£151,000</span> payable over four years; the Church was expected to pay <span class="stat">~£120,000</span></li>
+          <li>The Grant made excessive demands: laity up to <span class="stat">16.5%</span> if rated above £50/year; clergy up to <span class="stat">33%</span> if above £10 — many paying tax for the first time at rates they could ill afford</li>
+          <li>Grave shortage of coinage and rising unemployment following a fall in wool prices added to the distress</li>
+          <li>Suffolk protesters declared: <em>"since you ask who is our captain, for sooth his name is Poverty for he and his cousin Necessity have brought us to this doing"</em></li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>As many as <span class="stat">4,000</span> rural peasants, urban artisans and unemployed people gathered in <strong>Sudbury and Lavenham</strong>, Suffolk; similar anti-tax protests voiced in other parts of the country</li>
+          <li>The Amicable Grant protesters in 1525 apparently intended walking <span class="stat">50 miles</span> from Lavenham to London to confront Wolsey — and appear only to have been stopped by <strong>someone removing the clapper from the church bell</strong>, which would have been the signal to commence the march</li>
+          <li>Wolsey initially bullied; stressed obedience; halved the grant — still refused; grant <strong>completely abandoned</strong> — raised <span class="stat">£0</span></li>
+          <li>No significant retribution — no executions recorded; French invasion plans cancelled entirely</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Widespread but peaceful — no violence; <span class="stat">£0</span> raised; threatened the entire French campaign</li>
+          <li>Royal councillors and the <strong>Archbishop of Canterbury</strong> sympathised with the complaints — internal sympathy removed the political will to enforce it</li>
+          <li>Opposition in London was too close to the government for comfort</li>
+          <li>One of the few Tudor uprisings that achieved its main aim</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Grant abandoned — <span class="stat">£0</span> raised; no significant retribution recorded</li>
+          <li>Henry VIII had the <em>"neat let out"</em> of being able to blame Wolsey, so <strong>"the government emerged with credit and the king enhanced his undeserved reputation for generosity"</strong></li>
+          <li>French invasion cancelled — foreign policy entirely derailed</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why the Government Failed (not the rebels)</div>
+        <p>The grant had no legal basis, the rates were impossibly high, and Wolsey had no enforcement mechanism. Councillor and Archbishop sympathy removed the political will to pursue it. The <span class="stat">4,000</span> protesters in Sudbury and Lavenham — combined with similar protests across the country — made enforcement impossible without military force that would have caused far greater disorder than the grant was worth.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SILKEN THOMAS -->
+  <div class="rebellion" id="silken">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#d94f3d">7</div>
+      <div class="rebellion-title">
+        <h3>Silken Thomas's Rebellion</h3>
+        <div class="meta">1534–1537 · Ireland (Pale &amp; Munster) · 3 years</div>
+        <div class="tags">
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Irish</span>
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Religious</span>
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Political</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>From 1532, Cromwell started to <strong>favour Kildare's rivals</strong> for government offices; the Earl began to resent his declining influence in London and Dublin court circles</li>
+          <li>September 1533, Henry ordered the Earl to visit London; the Earl replied by <strong>sending his wife</strong> and began transferring weapons and gunpowder from Dublin Castle to his own estates</li>
+          <li>The Earl was eventually brought to London and lodged in the Tower, <strong>dying there in 1534</strong> — Thomas then ignored similar requests to visit London</li>
+          <li>He and <strong>5 uncles</strong> raised ~<span class="stat">1,000</span> men in Munster and invaded the Pale</li>
+          <li>Although rebels called on the Catholic Church and condemned Henry's religious reforms, the textbook argues the uprising was <strong>primarily political in cause and intent</strong> — Thomas's real objective was to expel the English administration and become sole ruler of Ireland</li>
+          <li>Led by Irish nobility (Kildare family), clergy, and commoners</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Thomas renounced loyalty to Henry in a public ceremony</li>
+          <li>Rebellion lasted <span class="stat">3</span> years across the Irish Pale and Munster</li>
+          <li>English deployed <span class="stat">2,300</span> troops under Skeffington — largest force sent to Ireland at that point</li>
+          <li>Confrontation after <span class="stat">14</span> months — Maynooth Castle besieged and taken</li>
+          <li>Thomas surrendered hoping for mercy</li>
+          <li>Thomas and his <strong>5 uncles</strong> all executed in London</li>
+          <li><span class="stat">200+</span> people fined; lands attainted; ~70 executed</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Significant threat to English control of the Pale</li>
+          <li>Never threatened England directly but required <span class="stat">2,300</span> troops and <span class="stat">3</span> years to suppress</li>
+          <li>Permanently broke the powerful Kildare dynasty</li>
+          <li>Contained — could not unite sufficient Irish support for a national rising</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li><span class="stat">2,300</span> troops under Skeffington; Maynooth besieged</li>
+          <li>Thomas and his <strong>5 uncles</strong> executed in London</li>
+          <li><span class="stat">200+</span> fined; lands attainted</li>
+          <li>Kildare dynasty destroyed — restructured English administration in Ireland</li>
+          <li>Showed Henry VIII's willingness to use force to maintain Irish control</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Promised Spanish and papal support never arrived. English military force of 2,300 troops overwhelmed ~1,000 rebels. Thomas could not unite sufficient Irish clan support. The 3-year duration showed Irish resilience but ultimately insufficient resources and isolation defeated the rebellion.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINCOLNSHIRE -->
+  <div class="rebellion" id="lincs">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#d94f3d">8</div>
+      <div class="rebellion-title">
+        <h3>Lincolnshire Rising</h3>
+        <div class="meta">October 1536 · Lincolnshire · Weeks</div>
+        <div class="tags">
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Religious</span>
+          <span class="tag" style="color:#a07820;border-color:#e8c56b">Taxation</span>
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Political factions</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Two sets of royal commissioners alarmed local people: one investigating parish clergy, one closing smaller monasteries — each caused resentment</li>
+          <li>Rebels from <strong>Louth and Horncastle</strong> drew up articles requesting abbeys be preserved; they were proud of their <strong>295-foot spire at Louth</strong>, completed 1515, and feared church plate would be seized</li>
+          <li>Opposition to <strong>Thomas Cromwell's policies</strong> and the 1534 Subsidy Act (yield <span class="stat">£80,000</span>)</li>
+          <li>In Lincolnshire, rumours of a tax on <strong>white meat and horned cattle</strong> alarmed people further</li>
+          <li>Linked to the <strong>Aragonese faction</strong> at court; among Lincoln rebels were: <strong>Sir Robert Dymoke</strong> (once Catherine's chancellor), <strong>Sir Christopher Willoughby</strong> (knight of the body), and <strong>Lord Hussey</strong> (chamberlain to Princess Mary)</li>
+          <li><span class="stat">~20,000</span> rebels mobilised across Lincolnshire</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>The rising <strong>began in Louth</strong> at the hands of <strong>"Captain Cobbler"</strong> (Nicholas Melton, a cobbler) and the local clergy — leadership and control soon passed to the gentry</li>
+          <li>The <strong>Dymokes and Willoughbys</strong> ultimately led the Lincolnshire rising; the sheriff of Lincoln Sir Edward Dymoke, Sir Christopher Willoughby, Sir Robert Bowes, Sir Ingram Percy and Sir Stephen Hammerton were all gentry captains of their troops</li>
+          <li>Thomas Moigne, the recorder of Lincoln, also took a prominent part; Henry VIII sent a firm ultimatum; gentry leaders lost nerve and submitted — <strong>no battles fought</strong></li>
+          <li>Rising spread directly to Yorkshire, triggering the <strong>Pilgrimage of Grace</strong> with <span class="stat">30,000+</span> additional rebels; total rising including Pilgrimage reached <span class="stat">50,000</span></li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Significant as the trigger for England's largest rebellion</li>
+          <li><span class="stat">~20,000</span> in Lincolnshire alone</li>
+          <li>As a standalone revolt — serious but quickly suppressed by gentry wavering</li>
+          <li>As the fuse for the Pilgrimage — the most dangerous moment of Henry's reign</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Henry's firm ultimatum caused immediate gentry collapse</li>
+          <li>No major battles, no major retribution on its own</li>
+          <li>Rising dissolved into the Pilgrimage of Grace — government had to deal with the much larger northern movement instead</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed as a Standalone Revolt</div>
+        <p>~20,000 rebels had no military capacity to resist Henry's ultimatum. Gentry leadership collapsed at the first sign of royal firmness — they had too much to lose. The rising was quickly overtaken by the larger Pilgrimage movement which absorbed its energy and participants.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILGRIMAGE OF GRACE -->
+  <div class="rebellion" id="pilgrimage">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#d94f3d">9</div>
+      <div class="rebellion-title">
+        <h3>Pilgrimage of Grace</h3>
+        <div class="meta">1536 · 7 northern counties · Months</div>
+        <div class="tags">
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Religious</span>
+          <span class="tag" style="color:#a07820;border-color:#e8c56b">Taxation</span>
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Dynastic</span>
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Multi-causal</span>
+          <span class="tag" style="color:#2a9e65;border-color:#6ee7b7">Largest Tudor rebellion</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes — Multi-causal</div>
+        <ul>
+          <li><strong>Religious (main):</strong> over <span class="stat">100</span> monasteries scheduled to close; monks in Lancashire encouraged people to rise up when <span class="stat">4</span> monasteries closed in September 1536; rebels argued dissolution would end poor relief, children's education, and preaching — marched under the <strong>Five Wounds of Christ</strong> banner. The banner of St Cuthbert was also carried from Durham Cathedral</li>
+          <li><strong>Heresy fears:</strong> diversity of religious beliefs in the king's council felt to be encouraging heretical ideas; rebels wanted continental reformers Melanchthon and Oecolampadius condemned as heretics; government's assault on saints, pilgrimages and holy days deeply resented — <em>"people revered their saints and enjoyed going on pilgrimages, and they were determined to preserve them"</em></li>
+          <li><strong>Political/factional:</strong> Aragonese faction opposed to Henry; Lord Darcy absented himself from parliament debates on the Act of Succession to avoid arrest — he was also <strong>out of favour with the king</strong>; Sir Robert Constable fiercely opposed the divorce; Cromwell, Cranmer, Audley and Rich were self-made men from politically obscure backgrounds — Lord Darcy called Cromwell <em>"the very original and chief causer of all this rebellion and mischief"</em>; specific personal grievances among gentry: the <strong>Willoughbys in Lincolnshire</strong> resented the Duke of Suffolk's acquisition of family lands; <strong>Sir Ingram Percy of Alnwick had been disinherited</strong></li>
+          <li><strong>Economic:</strong> rents rose <span class="stat">8-fold</span> on Clifford estates (Aske wanted the entry fine or "gressum" fixed at 2 years' rent); food prices rose <span class="stat">217%</span> 1491–1550; on average only <span class="stat">3%</span> of monastic wealth went to the poor — but Cartmel Priory gave <span class="stat">10%</span> of its income in alms and Furness Abbey housed <span class="stat">13</span> paupers and paid <span class="stat">£12/year</span> to 8 local widows</li>
+          <li><strong>Taxation:</strong> Item 14 of the Pontefract Articles requested discharge from the 1534 Subsidy Act (<span class="stat">£80,000</span>); in Lincolnshire, rumours of a tax on white meat and horned cattle alarmed people further</li>
+          <li><strong>Enclosures:</strong> Item 13 called for all enclosures since 1489 to be pulled down; <span class="stat">300</span> people at Giggleswick, Yorkshire, had pulled down hedges and dykes; riots at Fressington in Cumberland</li>
+          <li><strong>Social:</strong> Statute of Uses angered gentry by blocking land division; rack-rents eightfold on Clifford estates; gentry and commoners fighting on the same side but for different reasons</li>
+          <li><strong>Dynastic:</strong> demanded restoration of <strong>Princess Mary</strong> to the succession; feared Henry might determine succession by will rather than parliament, passing it to the Scottish line via Margaret</li>
+          <li><strong>Regional variations:</strong> Cumberland — tithes and poor clergy; north Lancashire/Yorkshire — dissolution and restoration of the faith; Lincolnshire — fear of further fiscal demands; Percy estates in Yorkshire — tenant-landlord relations good, peasants joined landlords in protesting government policy</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Up to <span class="stat">50,000</span> rebels across <span class="stat">7</span> northern counties — the largest Tudor rebellion; among the leading nobles were younger sons and relatives of the <strong>four major northern houses — Stanley, Neville, Percy and Clifford</strong> — including Sir Ingram and Sir Thomas Percy, Lords Darcy and Hussey, <strong>George Lumley</strong> (son of Lord Lumley), <strong>John Neville, Lord Latimer</strong>, and his younger brother Marmaduke</li>
+          <li>Led by <strong>Robert Aske</strong> — attorney to the Earl of Northumberland, dubbed the <strong>'Great Captain'</strong>; several minor nobles and gentry deferred to his leadership; although many gentry later claimed they were threatened, it was widely reported that once the rebellion began, the gentry were <em>"first harnessed of all others"</em> — they put on armour first, implying greater willingness than they admitted</li>
+          <li>Excellent organisation: villages elected <span class="stat">1</span> captain, towns as many as <span class="stat">4</span>; each recruit given a badge, food and wages, and took the pilgrim oath of good behaviour; all pilgrims swore to be <em>"true to God, the king and the commons"</em></li>
+          <li>When <span class="stat">8,000</span> rebels approached York, Aske arranged that half camped outside while the rest accompanied him — <strong>all paid for their board and lodging</strong></li>
+          <li>Towns that yielded to violent threats: Barnard Castle, <strong>Lincoln, Hull, York, Lancaster, Durham</strong> (1536); fear tactics widespread — the Abbot of Jervaulx threatened with beheading; Marmaduke Neville's wife and goods threatened; Sir Roger Cholmeley told his house would be looted; at Horncastle, William Leach told the sheriff <em>"be sworn to do as we do, or else it shall cost you your life"</em> — 100 men waited outside</li>
+          <li><span class="stat">300</span> representatives from all counties north of the River Don assembled near Doncaster in November 1536; <span class="stat">40</span> pilgrims selected to parley with the Duke of Norfolk; the commons feared the gentry were going to betray them — "as had happened at Lincoln earlier in October"</li>
+          <li>Aske had a following of <span class="stat">40,000</span> at Pontefract but <strong>had no wish to do battle</strong> with Norfolk's troops assembled nearby; he wrote to rebels at Clitheroe Moor ordering them not to fight the Earl of Derby's troops</li>
+          <li>Henry used <span class="stat">2</span> truces and pardons at Doncaster to buy time; <strong>Bigod's secondary revolt</strong> (1537) gave pretext for mass retribution; <span class="stat">178</span> executed including Aske, Darcy, and approximately <span class="stat">20</span> clergy</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Very serious — the most dangerous domestic threat of Henry VIII's reign</strong></li>
+          <li><span class="stat">50,000</span> rebels including nobles, gentry, and clergy across <span class="stat">7</span> counties</li>
+          <li>Henry could not raise comparable forces — had to rely on deception</li>
+          <li>Only rebels' loyalty to the crown and Henry's false pardons prevented overthrow</li>
+          <li>Propaganda: Morrison's <em>Lamentation</em> condemned sedition</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Henry consulted Cromwell; agents gathered intelligence</li>
+          <li>Morrison's propaganda condemned sedition</li>
+          <li><span class="stat">2</span> truces and false pardons at Doncaster — deliberately buying time</li>
+          <li>Troops raised under Norfolk; Bigod's revolt used as pretext</li>
+          <li><span class="stat">178</span> executed including Aske, Darcy, ~<span class="stat">20</span> clergy</li>
+          <li><strong>Statute of Uses repealed 1536</strong>; Statute of Wills 1540 passed</li>
+          <li>Monastic dissolutions <strong>paused 1537–39</strong> as partial concession</li>
+          <li>Council of North <strong>reformed</strong></li>
+          <li>Cromwell's Injunctions issued 1538</li>
+          <li>One-third of JPs replaced after 1536</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>The rebels' deep loyalty to the crown prevented them from taking decisive radical action even when they held the military advantage. Henry's 2 false pardons at Doncaster lulled the rebels into dispersal. When Bigod's revolt gave Henry a pretext, he abandoned the pardons and executed 178. Leadership was also fragmented — Aske united groups but the nobility's support was ambiguous. The 24 articles had too many different objectives to pursue a single coherent aim.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- EDWARD VI -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="monarch-section">
+  <div class="monarch-header edward-head">
+    <div>
+      <h2>Edward VI</h2>
+      <div class="dates">r. 1547–1553 · Crisis year: 1549</div>
+    </div>
+    <div class="count">2 rebellions</div>
+  </div>
+
+  <!-- WESTERN -->
+  <div class="rebellion" id="western">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#1d6fa4">10</div>
+      <div class="rebellion-title">
+        <h3>Western / Prayer Book Rebellion</h3>
+        <div class="meta">1549 · Devon &amp; Cornwall → Exeter · ~2 months</div>
+        <div class="tags">
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Religious (main)</span>
+          <span class="tag" style="color:#a07820;border-color:#e8c56b">Taxation</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">Siege</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li><strong>Religious (main):</strong> <span class="stat">13</span> of <span class="stat">14</span> articles demanded restoration not reformation; they rejected everything new — the English Prayer Book (called a "Christmas game"), the English Bible and revised liturgy of 1547; they argued only church councils had the right to implement religious reform, not secular authorities</li>
+          <li>Specific demands included: return of <strong>papal relics and images</strong>; restoration of chantries; at least <strong>2 monasteries in every county</strong>; a Latin Mass celebrated with bread only; return to the <strong>Act of Six Articles 1539</strong></li>
+          <li>Philip Nichols, a government propagandist, called the local priests who stirred up hysteria "whelps of the Romish litter"</li>
+          <li>Resented gentry enriching from Church lands; wanted gentry households worth 100 marks (£66) <strong>limited to one servant</strong></li>
+          <li><strong>Taxation (subsidiary):</strong> opposed the <strong>1548 sheep and cloth tax</strong> (1d per sheep) — Devon was a largely enclosed county and was affected more than most</li>
+          <li>The sheep tax fell due just <span class="stat">2 weeks</span> after the prayer book was introduced — combustible timing; the tax hit poorer peasants as wealthy clothiers raised prices to offset it</li>
+          <li>Led by <strong>Sir Humphrey Arundell</strong> (military experience) and gentry like Winslade; no enclosure complaints</li>
+          <li>Violence broke out four days before the new prayer book was due to be used in Bodmin, and the day after it was first used at Sampford Courtenay</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Disturbances started at <strong>Sampford Courtenay</strong>, where <strong>Thomas Underhill</strong> (a tailor) appears to have started the initial protest; the vicars of St Clare, St Ives and Poundstock all travelled to Exeter with the Cornish rebels</li>
+          <li><strong>Robert Welsh</strong>, vicar of St Thomas', Exeter — a well-known wrestler — may have been "the most significant figure in uniting the Devon and Cornish rebels"; he led the rebel host at the siege of Exeter</li>
+          <li>~<span class="stat">7,000</span> rebels besieged <strong>Exeter</strong> for <span class="stat">6</span> weeks; the rebels kidnapped local gentry, detained passing merchants, and put the <strong>sheriff of Devon under house arrest</strong></li>
+          <li>The nine captains commanding the siege comprised <span class="stat">3</span> Devon gentry, <span class="stat">3</span> Cornish gentry and <span class="stat">3</span> commoners; the Cornish rebels walked just <span class="stat">50 miles</span> to Exeter — a far more manageable distance than the 1497 march to London</li>
+          <li>Hints of social radicalism at the Clyst camp outside Exeter — some wanted to <em>"kill all the gentlemen"</em>, though nothing further transpired</li>
+          <li>When the rebels' final petition was presented to the Crown, it contained <strong>no reference to any economic grievances</strong> — yet it was these that really mattered to the peasants</li>
+          <li><strong>William Hellyons</strong> was cut down at Sampford Courtenay when he tried to buy off the rebel host with a cartload of provisions</li>
+          <li>The Exeter rebels made overtures to demonstrators in <strong>Winchester, Hampshire</strong> in July 1549 — but Winchester was discouraged from marching to their assistance; Western rebels declared <em>"God save king Edward, for we be his, both body and soul"</em></li>
+          <li>Somerset deployed <span class="stat">1,400</span> foreign mercenaries under Lord Russell; rebels crushed at Sampford Courtenay — <span class="stat">4,000</span> killed; <span class="stat">100+</span> executed; leaders including Arundell executed 1550</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Serious</strong> regional threat — Exeter besieged for <span class="stat">6</span> weeks, south-west paralysed</li>
+          <li>Combined with Kett's rebellion (same year) — <span class="stat">1549</span> was Edward VI's most dangerous year</li>
+          <li>Somerset's government was destabilised and he fell from power the same year</li>
+          <li>Propaganda needed: Cranmer's sermons; Cheke's <em>Hurt of Sedition</em></li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li><span class="stat">1,400</span> foreign mercenaries deployed (shows domestic military inadequacy)</li>
+          <li><span class="stat">4,000</span> killed at Sampford Courtenay; <span class="stat">100+</span> executed in towns</li>
+          <li>Leaders executed 1550</li>
+          <li><strong>Subsidy Act and Vagrancy Act repealed</strong></li>
+          <li>Poor laws introduced</li>
+          <li>Somerset fell from power — rebellion contributed to his political downfall</li>
+          <li>Local officials failed to prevent siege of Exeter — highlighted muster failures</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>No noble support whatsoever. 1,400 mercenaries overwhelmed rebel forces. Internal tensions between Devon and Cornwall contingents weakened military cohesion. The rebels' strategy — besieging Exeter — was defensive rather than nationally threatening. The prayer book was not reversed: Henry's religious changes had momentum the rebels could not halt.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KETT -->
+  <div class="rebellion" id="kett">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#1d6fa4">11</div>
+      <div class="rebellion-title">
+        <h3>Kett's Rebellion</h3>
+        <div class="meta">1549 · Norfolk (Mousehold Heath / Norwich) · 7 weeks</div>
+        <div class="tags">
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Economic (main)</span>
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Social</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">Protestant</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li><strong>Economic (main):</strong> illegal enclosures; rents up <span class="stat">30%</span> since 1548; wheat prices increased by <span class="stat">50%</span> in 1548; <span class="stat">60%</span> of Norfolk land held by just <span class="stat">46</span> gentry and merchants who were often JPs or had connections to county authorities — "ensured their interests were well served"</li>
+          <li>Norfolk was a <strong>densely populated county</strong> and good flat fertile land was scarce; many tenant farmers actually favoured enclosure but opposed lords of the manor pasturing flocks on common land — when they took landlords to court, magistrates (usually landlords themselves) sided with the landowners</li>
+          <li>Rents up 30% since 1548; a number of landlords had revived old <strong>feudal dues</strong> such as castleward; copyholders and freeholders complained of being forced off their lands</li>
+          <li>Triggered by a local dispute between <strong>Robert Kett</strong> and <strong>John Flowerdew</strong> (Norfolk's feodary); Flowerdew was unpopular in Wymondham — Kett dismantled his own fences before the locals could, winning their support</li>
+          <li>Rebels believed they would have the government's backing since a commission was already investigating illegal enclosures — they were taking the law into their own hands</li>
+          <li><strong>Protestant in nature:</strong> Bishop of Norwich William Rugge was old and unsympathetic to radical reform; rebels wanted better-educated and resident clergy, competent teaching of the catechism, and good-quality sermons</li>
+          <li>Unique demand: rebels wanted all <strong>bondmen made free</strong> — likely referring to tenants on the <span class="stat">40</span> manors belonging to the Howard family (under Crown administration since 1546)</li>
+          <li><span class="stat">17</span> of <span class="stat">29</span> demands focused on enclosures, rents and landlords — "as close to a class war as any rebellion in the sixteenth century"</li>
+          <li>Riots and hedge-breaking also occurred in Sussex, Kent, Cambridgeshire, the Midlands and south-west — but only in Norfolk did riots turn to open rebellion</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li><span class="stat">16,000</span> rebels camped on <strong>Mousehold Heath</strong> for <span class="stat">7</span> weeks; Kett ran the camp like a model local government — each of the <span class="stat">24</span> Norfolk hundreds elected <span class="stat">2</span> governors to sit on an advisory council; courts of justice imposed disciplinary fines; proclamations and warrants issued promising <em>"no violence or injury be done to any honest or poor man"</em></li>
+          <li>Twice-daily prayers taken under the <strong>Oak of Reformation</strong> by minister <strong>Thomas Conyers</strong>; Kett sent search parties for food and beer, negotiated with the Mayor of Norwich to purchase provisions and <strong>gunpowder</strong>, and arranged for artillery to be brought from the coast</li>
+          <li>Kett travelled just <span class="stat">10 miles</span> from Wymondham to Norwich — a manageable distance that retained a large following</li>
+          <li>A royal force under the <strong>Marquis of Northampton</strong> was first sent and <strong>defeated</strong> — rebels held the city for a week before retiring to their encampment; discipline maintained throughout; no one was killed until royal troops and foreign mercenaries arrived</li>
+          <li>Kett <strong>rejected the offer of pardon</strong>; gentry who refused to cooperate were humiliated — <strong>Sir Roger Wodehouse</strong> bribed rebels with three carts of food and drink, only to be chased, imprisoned and have his provisions seized; <strong>Thomas Gawdy MP</strong> and other gentry were chained and used as <strong>battle shields</strong> at Dussindale</li>
+          <li>Warwick sent with <span class="stat">12,000</span> troops; rebels fatally abandoned the Mousehold hilltop position; ~<span class="stat">3,000</span> killed at Dussindale; Kett hanged from <strong>Norwich Castle</strong> December 1549</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Serious</strong> — <span class="stat">16,000</span> rebels held Norwich (England's 2nd city) for <span class="stat">7</span> weeks</li>
+          <li>Largest rebel camp of the Tudor period; operating as a shadow government</li>
+          <li>Combined with Western rebellion — <span class="stat">1549</span> was the most dangerous year of Edward's reign</li>
+          <li>Required <span class="stat">12,000</span> royal troops to suppress</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Warwick deployed <span class="stat">12,000</span> troops; ~<span class="stat">3,000</span> killed at Dussindale</li>
+          <li>Kett hanged December 1549; captains executed</li>
+          <li><strong>Enclosure Act</strong> passed — restricted enclosure rights</li>
+          <li>Led to policy changes including poor laws</li>
+          <li>Somerset fell from power partly due to 1549 crises</li>
+          <li>JPs' numbers continued to rise — <span class="stat">&gt;50</span> per county by 1603</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>The decisive tactical error: rebels abandoned the strong defensive hilltop position on Mousehold Heath to fight on open ground against 12,000 trained royal troops. In open battle they had no chance. Despite 29 demands, 0 were immediately met. The rebellion was economically focused and lacked the noble or gentry leadership needed to force concessions at a national level.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- MARY I -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="monarch-section">
+  <div class="monarch-header mary-head">
+    <div>
+      <h2>Mary I (inc. Northumberland's coup)</h2>
+      <div class="dates">r. 1553–1558 · 2 rebellions</div>
+    </div>
+    <div class="count">2 rebellions</div>
+  </div>
+
+  <!-- NORTHUMBERLAND -->
+  <div class="rebellion" id="northumberland">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#c9a84c">12</div>
+      <div class="rebellion-title">
+        <h3>Northumberland's Rebellion / Lady Jane Grey</h3>
+        <div class="meta">1553 · Cambridge &amp; East Anglia · 9 days</div>
+        <div class="tags">
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Dynastic</span>
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Political</span>
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Coup</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Duke of Northumberland had crushed Kett's rebellion; became Lord President of the Council; married his son Guildford Dudley to <strong>Lady Jane Grey</strong> (Henry VII's great-niece) in May 1553</li>
+          <li>Edward VI's original Devise limited the throne to the <strong>male heirs of Lady Frances Grey and her daughters</strong>; as Edward's health declined it was altered so Lady Jane herself would succeed</li>
+          <li>There is historical debate: some see Northumberland as a power-seeker, others argue it was <strong>Edward's own idea</strong> to preserve Protestantism — with the claim that Northumberland would have organised it better, arresting Mary before she could flee to East Anglia</li>
+          <li>Fear of Catholic Mary reversing Protestant reforms was a genuine ideological motive alongside Northumberland's political survival</li>
+          <li>Earls of Oxford and Huntingdon among noble supporters; power retention was Northumberland's primary motive</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Jane Grey proclaimed queen; reigned for just <span class="stat">9</span> days</li>
+          <li>Northumberland had support of the earls of Oxford and Huntingdon, and <strong>lords Grey and Clinton</strong> — but significantly more nobles rallied to Mary's defence</li>
+          <li>Most of Northumberland's army of <span class="stat">~2,000</span> deserted when a confrontation seemed likely; his forces deserted at Cambridge — <strong>no battle fought</strong></li>
+          <li>Northumberland was <em>"always likely to fail in his bid to topple Mary Tudor, the legitimate daughter of Henry VIII"</em></li>
+          <li><span class="stat">3</span> executed: Northumberland, Gates, and Palmer; Jane Grey initially spared — later executed after Wyatt's rebellion</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Serious dynastic threat — aimed to completely overturn the lawful succession</li>
+          <li>However collapsed within <span class="stat">9</span> days — the fastest collapse of any Tudor rebellion</li>
+          <li>Shows the strength of legitimist sentiment: even Protestant nobles would not back an illegitimate claimant</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Mary's swift popular mobilisation negated the coup entirely</li>
+          <li><span class="stat">3</span> executed: Northumberland, Gates, Palmer</li>
+          <li>Mary ascended as <strong>first queen regnant</strong> of England</li>
+          <li>Demonstrated limits of conciliar manipulation of succession without popular support</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Northumberland fatally misjudged popular and noble attachment to legitimate succession. He had 0 genuine popular support outside his own narrow faction. The nobility's immediate desertion of Jane reflected a broad rejection of dynastic manipulation. Mary's willingness to ride to East Anglia and personally rally support proved decisive.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WYATT -->
+  <div class="rebellion" id="wyatt">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#c9a84c">13</div>
+      <div class="rebellion-title">
+        <h3>Wyatt's Rebellion</h3>
+        <div class="meta">1554 · Kent → London · 18 days</div>
+        <div class="tags">
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Political (main)</span>
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Religious</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">Anti-Spanish</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li><strong>Political (main):</strong> Mary I's planned marriage to <strong>Philip II of Spain</strong> — feared Spanish political dominance. Although the marriage agreement set <strong>clear limits on Philip's influence</strong> and defined conditions for any children, Wyatt and supporters placed little trust in the Spanish prince</li>
+          <li>Wyatt told a colleague: <em>"You may not so much as name religion, for that will withdraw from us the hearts of many"</em> — he framed the rebellion as national defence against foreigners, not a religious protest</li>
+          <li>Demands were ostensibly for "better counsel and councillors" — rebels denied aiming to harm Mary; a wise insurance policy should the uprising fail</li>
+          <li><strong>Religious (subsidiary):</strong> Kent was a <strong>strongly Protestant county</strong> in the forefront of reform since the 1530s; <strong>Maidstone</strong> supplied <span class="stat">78</span> rebels; Cranbrook and Tonbridge also had local Protestant support</li>
+          <li>Co-conspirators in other counties: <strong>Duke of Suffolk</strong> (Leicestershire), <strong>Sir Peter Carew</strong> (Devon), <strong>Sir James Croft</strong> (Herefordshire) — all with Protestant leanings</li>
+          <li>John Proctor's official <em>Historie of Wyates Rebellion</em> (1554) claimed rebels were solely motivated by xenophobia — exactly what Mary wanted people to believe, obscuring the Protestant dimension</li>
+          <li>Rumour fuelled the rising: over 100 Spaniards "armed with harness, arquebuses and morions, with matchlight" were reported at Rochester; Plymouth rumoured they planned to "rape all the women in Devon"</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Wyatt had expected the Duke of Suffolk and his brothers (Leicestershire), Sir James Croft (Herefordshire) and Sir Peter Carew (Devon) to rise simultaneously, plus French troops — <strong>none transpired</strong></li>
+          <li>Instead Wyatt had to rely on the county militia and gentry: <strong>Sir Henry Isley, Sir George Harper and Thomas Culpepper</strong> — all former sheriffs — and a host of minor gentry and their tenants</li>
+          <li>Notably, only <span class="stat">2</span> leading Kentishmen — <strong>Lord Abergavenny and Sir Robert Southwell</strong> — were openly loyal to the government</li>
+          <li>~<span class="stat">3,000</span> Kent rebels marched on London over <span class="stat">18</span> days; Wyatt was "a good strategist but a poor tactician" — he understood the need for nation-wide support but delayed his entry into London when time was of the essence</li>
+          <li>Norfolk sent to stop Wyatt — some of his troops <strong>defected to Wyatt</strong>; Mary's Guildhall speech held London; rebels reached <strong>Ludgate</strong> but were blocked; Wyatt got to within <span class="stat">3 miles</span> of the City of London</li>
+          <li>Expected French support sent <span class="stat">0</span> troops; rebel numbers dwindled approaching the capital; Wyatt captured</li>
+          <li><span class="stat">71</span> executed including Wyatt, Duke of Suffolk, and Lady Jane Grey</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Serious</strong> — rebels reached London's gates; Mary nearly fled</li>
+          <li>Norfolk's troops defecting shows how precarious Mary's position was</li>
+          <li>Mary's personal courage at Guildhall was the single act that saved her throne</li>
+          <li>Foreign marriage proceeded — but xenophobia rose sharply afterward</li>
+          <li><span class="stat">71</span> executions show the severity of the perceived threat</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Council consulted; Exeter garrisoned; propaganda denounced plot</li>
+          <li>Norfolk's troops sent but some defected</li>
+          <li>Mary's Guildhall speech held London — decisive intervention</li>
+          <li>Rebels defeated at Ludgate</li>
+          <li><span class="stat">71</span> executed including Wyatt, Suffolk, and Lady Jane Grey</li>
+          <li>Spanish marriage proceeded — but popular xenophobia intensified</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>The City of London refused to open its gates — the citizens did not rise in support. Expected French support sent 0 troops. Rebel numbers dwindled over 18 days. Mary's Guildhall speech held London — the decisive moment. Wyatt was a good strategist but poor tactician; he understood the need for nation-wide support but delayed his entry into London when time was of the essence.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ELIZABETH I -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="monarch-section">
+  <div class="monarch-header elizabeth-head">
+    <div>
+      <h2>Elizabeth I</h2>
+      <div class="dates">r. 1558–1603 · 6 rebellions</div>
+    </div>
+    <div class="count">6 rebellions</div>
+  </div>
+
+  <!-- SHANE O'NEILL -->
+  <div class="rebellion" id="oneill">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#1e7a4f">14</div>
+      <div class="rebellion-title">
+        <h3>Shane O'Neill's Rebellion</h3>
+        <div class="meta">1558–1567 · Ulster · 9 years</div>
+        <div class="tags">
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Irish</span>
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Religious</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">Guerrilla</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Ulster clan chief refused to accept English authority over Ulster</li>
+          <li>O'Neill <strong>wanted to rule Ulster and was willing to murder his older brother</strong> to achieve it — which stirred up resentment against him among other Irish clans</li>
+          <li>When he begged forgiveness from Queen Elizabeth, she agreed to recognise him as <strong>captain of Tyrone and the O'Neill</strong>, head of the clan — but he soon resumed plotting</li>
+          <li>Defence of Gaelic Catholicism against Tudor Protestant rule; claimed to be <em>"the true defender of the faith"</em></li>
+          <li>Plotted with <strong>Charles IX of France</strong> and <strong>Mary Queen of Scots</strong></li>
+          <li>Clan tenants, foreign French/Scottish, and Catholic clergy provided support</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Guerrilla warfare using remote Ulster terrain for <span class="stat">9</span> years</li>
+          <li>England initially used <strong>diplomacy</strong> — even recognising O'Neill's authority</li>
+          <li>England raised only <span class="stat">~700</span> troops — showing limits of conventional military response in Ulster</li>
+          <li>Military defeat was imminent in <strong>1567</strong></li>
+          <li>O'Neill was <strong>murdered by rival MacDonnells</strong> before the English delivered the final blow</li>
+          <li><span class="stat">0</span> formal English executions required — ended by internal Irish clan violence</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Prolonged regional threat exhausting English resources over <span class="stat">9</span> years</li>
+          <li>Foreign connections added diplomatic complications</li>
+          <li>England could only deploy <span class="stat">~700</span> troops — shows difficulty of Ulster terrain</li>
+          <li>Unique ending: not suppressed by England but ended by rival Irish clan</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Initial diplomacy; then ~<span class="stat">700</span> troops raised</li>
+          <li>O'Neill murdered by MacDonnells 1567 — <span class="stat">0</span> formal English retribution needed</li>
+          <li>No major foreign policy impact — French support for O'Neill never fully materialised</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Could not maintain Irish clan unity over 9 years. French support never fully materialised despite plotting with 2 foreign powers. English military pressure steadily eroded his position. Ultimately ended not by English military success but by the internal Irish clan rivalries that he had failed to transcend.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NORTHERN EARLS -->
+  <div class="rebellion" id="northern">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#1e7a4f">15</div>
+      <div class="rebellion-title">
+        <h3>Northern Earls' Rebellion (Rising of the North)</h3>
+        <div class="meta">1569 · 4 northern counties · 2 months</div>
+        <div class="tags">
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Catholic/Religious</span>
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Dynastic</span>
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Political factions</span>
+          <span class="tag" style="color:#2a9e65;border-color:#6ee7b7">Last noble revolt</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li><strong>Catholic/Religious (main):</strong> Northumberland had <strong>converted to Catholicism in 1567</strong>; Westmorland was <strong>born and bred a Catholic</strong>; both resented the newly appointed Protestant-minded Bishop Pilkington to Durham</li>
+          <li>Rebel proclamations issued at <strong>Darlington, Staindrop and Richmond</strong> declared the cause was <em>"a new found religion and heresy, contrary to God's word"</em> which they intended "amending and redressing"</li>
+          <li>Many northern aristocratic families had retained the Catholic faith despite Elizabethan statutes requiring regular church attendance or a fine of <span class="stat">5p a week</span> — some paid the fine; wealthier nobles had private chapels and celebrated Mass privately</li>
+          <li>For <span class="stat">10 years</span> the government made no concerted attempt to enforce the Act of Uniformity; Sir Ralph Sadler informed Cecil that <em>"the common people are ignorant, superstitious and altogether blinded with the old popish doctrine, and therefore so favour the cause which the rebels make the colour of their rebellion, that though their persons be here with us, the hearts are with them"</em></li>
+          <li>The Earl of Sussex, President of the Council of the North, took the opposite view: that religion was merely <strong>"a cloak for political motives"</strong> used to rally popular support</li>
+          <li>Sincere Catholic families included: <strong>the Nortons from Ripon, the Inglebys of Ripley, and the Cholmeleys from Whitby</strong> — all had ancestors who took part in the Pilgrimage of Grace; <strong>Francis Norton</strong> paraded with the Five Wounds of Christ banner "just as he had done 70 years before"</li>
+          <li><strong>Thomas Markenfeld and Nicholas Morton</strong> had recently returned from the continent anticipating armed uprising; Morton warned hesitant rebels of "dangers touching our souls and the loss of our country"</li>
+          <li><strong>Dynastic:</strong> Northumberland stated under interrogation: <em>"Our first object in assembling was the reformation of religion and preservation of the person of the Queen of Scots"</em></li>
+          <li><strong>Political:</strong> Northumberland (aged <span class="stat">70</span>) no longer a political force; resented losing his wardenship of the middle march to a local rival; Westmorland was in financial difficulties and was badgered by his wife to stand up for his beliefs</li>
+          <li><span class="stat">90%</span> of rebels were NOT tenants of the rebel earls — demonstrating broad independent religious motivation, not feudal obligation</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>The earls <strong>initially intended releasing Mary Queen of Scots</strong> from house arrest, marrying her to the Duke of Norfolk and forcing Elizabeth to recognise Mary as heir presumptive — <em>"once it became clear that the rebels could not get to Mary, the rebellion turned into a demonstration of northern opposition against Elizabeth's religious and political policies"</em></li>
+          <li>~<span class="stat">6,000</span> rebels marched across <span class="stat">4</span> counties; restored Mass in <strong>Durham Cathedral</strong>; no major noble family intervened — no one came from Lancashire, Cheshire or Cumberland; even some of <strong>Neville's own tenants</strong> were reluctant to get involved</li>
+          <li>A crippling organisational failure: when Northumberland came to pay <span class="stat">1,000</span> footmen at <strong>North Allerton</strong>, he and Westmorland could raise only <span class="stat">£20 between them</span> — <span class="stat">600</span> potential troops <strong>deserted there and then</strong></li>
+          <li>The belief that a Spanish army under Alva was preparing to give them military support <strong>"remained wishful thinking"</strong></li>
+          <li>Walsingham's intelligence tracked the plot; Mary pre-emptively moved to Coventry; <span class="stat">12,000</span> royal troops assembled under Sussex — rebels fled without battle in just <span class="stat">2</span> months</li>
+          <li><span class="stat">450–600</span> executed; lands attainted; raids into Scotland burned <span class="stat">~300</span> villages; <strong>last significant noble-led rebellion in England</strong></li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Serious</strong> — the last major Catholic rebellion in England</li>
+          <li>Spanish support would have made it far more dangerous — but it never arrived</li>
+          <li><span class="stat">600</span> executions show how seriously Elizabeth's government judged it</li>
+          <li>Elizabeth's progresses had built bonds with subjects — helped prevent broader support</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Walsingham's intelligence was crucial</li>
+          <li>Mary pre-emptively moved to Coventry before rebels could free her</li>
+          <li><span class="stat">12,000</span> troops under Sussex assembled</li>
+          <li><span class="stat">450–600</span> executed; lands attainted</li>
+          <li>Raids burned <span class="stat">~300</span> Scottish villages</li>
+          <li>Elizabethan religious settlement held — no major Catholic revolts post-1569</li>
+          <li>Government seized earls' lands; Church settlement strengthened</li>
+          <li>Under Elizabeth: 1572 Act trained militia; lords lieutenant used more systematically</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Poor organisation and insufficient planning time and funds. The government's pre-emptive move of Mary to Coventry removed the rebels' central objective before they started. Spanish support never materialised. When 12,000 royal troops assembled against 6,000 rebels, they fled without battle — showing the earls lacked either the military capacity or the will to fight. The last significant noble rebellion in England: after 1569, nobles found legal and political channels preferable to armed revolt.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FITZMAURICE -->
+  <div class="rebellion" id="fitzmaurice">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#1e7a4f">16</div>
+      <div class="rebellion-title">
+        <h3>Fitzmaurice Fitzgerald's Rebellions</h3>
+        <div class="meta">1569 &amp; 1579 · Munster, Ireland · Years each</div>
+        <div class="tags">
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Irish</span>
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Catholic/Religious</span>
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Foreign-backed</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li><strong>First rebellion (1569) — primarily political:</strong> Fitzmaurice resented Elizabeth's attempts to colonise Ireland and the imposition of <strong>martial law</strong> in the wake of Shane O'Neill's uprising; he was especially aggrieved that his cousin, the <strong>Earl of Desmond, had been put in the Tower</strong> following a feud with the Butler clan</li>
+          <li>Fitzgerald claimed Elizabeth wanted to introduce <em>"another newly invented kind of religion"</em> — but the main grievance of most rebels was the <strong>growing presence of English adventurers in the new plantations</strong> and their brutal treatment of native Irish</li>
+          <li><strong>Second rebellion (1579) — more pronounced religious dimension:</strong> Fitzgerald had returned from Rome and was aware of the <strong>Bull of Excommunication against Elizabeth (1570)</strong>, which freed Catholics from obedience to her; he saw an opportunity to rally the Catholic Irish against English rule</li>
+          <li>Before 1570 no serious effort had been made by English governments to enforce the Protestant faith in Ireland — it would have been "unworkable, unwelcome and unwise"; Fitzgerald played the <strong>Catholic card</strong> but at heart lay political animosity against new English settlers</li>
+          <li>The scale of the second rebellion was remarkable: <strong>Munster, Ulster, Leinster and Connaught</strong> all rose in revolt; the pope gave his blessing; <span class="stat">600</span> Spanish and Italian troops were despatched</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li><strong>First rebellion (1569):</strong> The Munster rebellion took <span class="stat">4 years</span> to suppress; Fitzmaurice evaded capture using hit-and-run guerrilla tactics — he <strong>evaded capture until 1573</strong> after four years of intermittent hostilities; English reprisals executed <span class="stat">800</span> between 1569–72</li>
+          <li><strong>Second rebellion (1579):</strong> Fitzgerald returned from Rome; obtained papal blessing; <span class="stat">600</span> Spanish and Italian troops landed at <strong>Smerwick</strong>; but Fitzmaurice was killed early in the campaign before it could gain momentum</li>
+          <li>Lord Grey discovered in 1579 that <strong>no sooner was Fitzgerald killed than the Earl of Desmond took his place</strong> and prolonged the rebellion for another <span class="stat">4 years</span> — the <strong>Earl of Desmond</strong> had spent five years in the Tower of London but it still did not prevent him from joining the Geraldine rebellion</li>
+          <li><span class="stat">600</span>-strong Smerwick garrison massacred after surrender; <strong>Munster Plantations</strong> established as direct policy response</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Significant due to <strong>papal and Spanish backing</strong> — exactly the international Catholic threat Elizabeth feared</li>
+          <li><span class="stat">600</span> foreign troops at Smerwick — rare military intervention</li>
+          <li><span class="stat">800</span> executed in English reprisals shows severity of government response</li>
+          <li>Contributed to growing template for Tyrone's much larger rebellion</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Sidney raised troops; <span class="stat">800</span> executed 1569–72</li>
+          <li>Smerwick garrison of <span class="stat">600</span> massacred after surrender (1580)</li>
+          <li>Fitzmaurice killed early in 1579 campaign</li>
+          <li><strong>Munster Plantations</strong> established — major policy shift in Ireland</li>
+          <li>Showed English willingness to massacre foreign forces and colonise as response</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Spain sent only 600 troops — wholly insufficient for a national uprising. Fitzmaurice died before the 1579 revolt gained momentum — losing its most capable leader at the critical moment. Irish clan unity proved impossible to sustain across 2 rebellions. English military presence, although stretched, was ultimately too strong without a massive Spanish fleet.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OXFORDSHIRE -->
+  <div class="rebellion" id="oxfordshire">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#1e7a4f">17</div>
+      <div class="rebellion-title">
+        <h3>Oxfordshire Rebellion</h3>
+        <div class="meta">1596 · Oxfordshire · Hours</div>
+        <div class="tags">
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Enclosures</span>
+          <span class="tag" style="color:#a07820;border-color:#e8c56b">Economic</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">Never started</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>In 1593 the government had lifted restrictions on enclosing open fields, citing <em>"the great plenty and cheapness of grain"</em> — new enclosures then appeared at <strong>Hampton Gay and Hampton Poyle</strong> in Oxfordshire</li>
+          <li>The government's optimism was misplaced: a run of bad harvests followed — food riots in Gloucestershire, Wiltshire and Somerset (1586); Kent and Essex (1595); Sussex, Norfolk, Kent and south-west (1596)</li>
+          <li><span class="stat">4</span> men planned to seize arms and artillery from the home of <strong>Lord Norris</strong>, the Lord Lieutenant of Oxford, and march to London — they expected many more to join them</li>
+          <li>Led by <strong>Bartholomew Steer</strong> (carpenter); only commoners (servants, tradesmen) — no nobility or gentry involvement</li>
+          <li>Nationally, only <span class="stat">~3%</span> of land in the most seriously affected counties was enclosed under the Tudors — the perceived threat exceeded the reality</li>
+          <li>The Privy Council feared similar plans existed to seize food and attack gentry, but no further disturbances occurred</li>
+          <li>William Cecil had warned that <em>"nothing will sooner lead men into sedition than dearth of victual"</em></li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Only <span class="stat">4</span> men turned up at Enslow Hill — plan completely collapsed before it started</li>
+          <li>Sheriffs pre-alerted by informants — poor secrecy betrayed the conspirators</li>
+          <li><span class="stat">4</span> conspirators arrested before the rising could start</li>
+          <li>Leaders <strong>Bradshaw and Burton</strong> tortured and executed</li>
+          <li>Parliament passed the <strong>Tillage Act 1597</strong> and Husbandry Act as direct policy response</li>
+          <li>Government over-reacted given the tiny scale — shows perceived anxiety about enclosure unrest</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Negligible in practice</strong> — only <span class="stat">4</span> men assembled</li>
+          <li>The government's use of torture and execution shows how even tiny conspiracies were treated seriously</li>
+          <li>Food riots in multiple counties that year provided a volatile backdrop</li>
+          <li>Shows <strong>decline in popular support for rebellion</strong> by end of Tudor period</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Sheriffs alerted; <span class="stat">4</span> arrested pre-emptively</li>
+          <li>Bradshaw and Burton tortured and executed</li>
+          <li><strong>Tillage Act 1597</strong> passed — direct policy concession</li>
+          <li>Husbandry Act 1597 also passed</li>
+          <li>Lords lieutenant suppressed disturbances using 1572 militia reforms</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Betrayed by poor secrecy before it even started. Only 4 of the planned hundreds assembled — organisers badly misjudged popular appetite for violent revolt. By 1596 the middling sort upheld order as officers; the community had shifted toward legal petitioning rather than violence. The doctrine of obedience was deeply embedded. Yet the Tillage Act 1597 shows the government took the underlying grievance seriously.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESSEX -->
+  <div class="rebellion" id="essex">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#1e7a4f">18</div>
+      <div class="rebellion-title">
+        <h3>Essex Revolt</h3>
+        <div class="meta">1601 · London · 12 hours</div>
+        <div class="tags">
+          <span class="tag" style="color:#7c3aed;border-color:#c4b5fd">Political factions</span>
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Dynastic</span>
+          <span class="tag" style="color:#6b7280;border-color:#d1d5db">Court coup</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>Factional rivalry with <strong>Robert Cecil</strong> — Essex suspended from the Privy Council, banned from court, charged with treason; declared bitterly: <em>"The queen hath thrust me down to a private life. I cannot serve with base obsequiousness"</em></li>
+          <li>Essex financially ruined after the queen <strong>rescinded his patent to sell sweet wine</strong> in late 1600 — his primary source of income; his reputation and credit were in ruin</li>
+          <li>Cecil was Master of the Court of Wards and Chancellor of the Duchy of Lancaster — <em>"held all the aces"</em>; his clients (Lord Cobham, Lord Buckhurst, Sir John Stanhope) dominated court patronage. Essex called them <em>"base upstarts and caterpillars devouring the state's resources"</em></li>
+          <li>Essex's clients — earls of <strong>Bedford, Rutland and Southampton</strong> — still looked to him for patronage but he could deliver nothing</li>
+          <li>Essex planned a demonstration of noble force which he believed the City of London would support, leading to the queen readmitting him to favour — <em>"Essex gambled on his popularity and strength as a factional leader — and lost"</em></li>
+          <li>Also aimed to influence the succession toward <strong>James VI of Scotland</strong> as heir presumptive — positioning himself as "kingmaker"</li>
+          <li>Essex confessed after capture that he had <strong>lied under examination</strong> — further damaging his reputation</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>Essex <strong>hired a troupe of actors to perform Shakespeare's <em>Richard II</em></strong> on the eve of the rebellion — the re-enactment reminded Londoners that the deposition of a monarch would not be unprecedented</li>
+          <li>He marched with the earls of <strong>Southampton, Sussex and Rutland</strong>, lords Cromwell, Mounteagle and Sandys, and <span class="stat">twelve</span> deputy lieutenants of the counties through London's streets — expecting the City to rally to his cause; instead most Londoners <em>"stood and watched his assembly pass by in bemusement"</em></li>
+          <li>Essex got as far as <strong>Fenchurch Street</strong> before retreating by river back to his house; once he failed to enlist the support of the <strong>mayor and sheriff of London</strong> — whom he mistakenly thought would back him — he decided to retreat</li>
+          <li>Finding Ludgate blocked, Essex was forced to withdraw in total disarray — <em>"he had no exit strategy"</em></li>
+          <li>Surrendered within <span class="stat">12</span> hours; <span class="stat">3</span> executed (Essex, Merrick, Cuffe); Earl of Rutland fined <span class="stat">£30,000</span></li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li>Serious courtier-led political threat — aimed to seize control of the Privy Council</li>
+          <li>Collapsed in <span class="stat">12</span> hours with only <span class="stat">300</span> supporters</li>
+          <li>The <span class="stat">£30,000</span> fine on Rutland and <span class="stat">3</span> executions demonstrate how seriously the government treated it</li>
+          <li><strong>End of noble rebellions</strong> in English history</li>
+          <li>Doctrine of obedience: Essex revolt was seen as a <em>sin</em> against God — contributed to its quick failure</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Intelligence pre-empted every move</li>
+          <li>City gates closed; artillery prepared — no confrontation needed</li>
+          <li>Essex surrendered in <span class="stat">12</span> hours</li>
+          <li><span class="stat">3</span> executed; Rutland fined <span class="stat">£30,000</span></li>
+
+          <li><strong>Last noble rebellion in English history</strong></li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Essex fatally misjudged London's willingness to support him — 300 followers were entirely insufficient. Government intelligence had known his plans from the start. The City refused to open its gates. By 1601, the middling sort upheld order; humanism and the doctrine of obedience had civilised the nobility away from feudal rebellion. Essex had no exit strategy and his forces deserted him in the streets.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYRONE -->
+  <div class="rebellion" id="tyrone">
+    <div class="rebellion-header">
+      <div class="rebellion-number" style="background:#1e7a4f">19</div>
+      <div class="rebellion-title">
+        <h3>Tyrone's Rebellion (Nine Years' War)</h3>
+        <div class="meta">1593–1603 · All Ireland · ~10 years</div>
+        <div class="tags">
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Irish</span>
+          <span class="tag" style="color:#1d6fa4;border-color:#7fc4e8">Catholic/Religious</span>
+          <span class="tag" style="color:#c0392b;border-color:#f1948a">Foreign-backed</span>
+          <span class="tag" style="color:#2a9e65;border-color:#6ee7b7">Most serious Irish rebellion</span>
+        </div>
+      </div>
+    </div>
+    <div class="rebellion-body">
+      <div class="section">
+        <div class="section-title">Causes</div>
+        <ul>
+          <li>It was ironic that the decision to take <strong>Hugh O'Neill away from Ireland as a child</strong> and bring him up in the household of the <strong>Earl of Leicester</strong> backfired so spectacularly — when he returned in 1593 he was eager to be recognised as the O'Neill ruler of Ulster</li>
+          <li>Between <strong>1593 and 1594</strong> O'Neill had actually come to the <strong>defence of English garrisons</strong> when other clans attacked them — but in his estimation he had not been adequately rewarded; by <strong>1595</strong> he had "had enough"</li>
+          <li>The <strong>plantations in Connaught and Munster</strong> provoked deep ill-feeling: new owners raised rents, claimed land to which they were not entitled, and bribed juries to obtain favourable verdicts</li>
+          <li>Government policies of compositions (taxes), establishing Protestant churches at the expense of Catholics, and seizing attainted lands from rebels, fuelled resentment further</li>
+          <li>A system of garrisons contained localised disturbances but <strong>Ulster lay largely outside effective English rule</strong></li>
+          <li>O'Neill's aim was blatantly political: to expel the new English settlers and Anglo-Irish administration, and to achieve independence</li>
+          <li>Broad support: nobility, gentry, commoners, foreign Spanish, and clergy; over <span class="stat">6,000</span> rebel fighters at peak; used bogs and forests strategically</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">What Happened</div>
+        <ul>
+          <li>National uprising across Ulster and beyond — the most serious Irish rebellion of the Tudor period; O'Neill employed effective guerrilla tactics using inhospitable terrain (bogs and forests); the Irish wisely <strong>avoided military confrontations unless an English army was outnumbered or caught isolated</strong></li>
+          <li>English humiliated at <strong>Battle of Yellow Ford (1598)</strong> — English troops suffered heavy losses</li>
+          <li>O'Neill and English commanders agreed truces in <strong>1596 and 1599</strong> — but these were simply <em>"regarded as a device to buy more time"</em></li>
+          <li>Essex sent with <span class="stat">17,000</span> troops — failed; Essex disgraced; <strong>Lord Mountjoy</strong> then deployed with <span class="stat">15,000</span> troops</li>
+          <li>Spanish landed <span class="stat">~3,000</span> troops at <strong>Kinsale (1601)</strong> — too far south for effective coordination with Ulster rebels; English soldiers were usually better trained and equipped but Tudors had <em>"consistently underestimated the nature of the problem and the amount of money needed"</em></li>
+          <li><span class="stat">30,000</span> English troops deployed by 1603; O'Neill submitted and was paradoxically pardoned; <strong>Ulster Plantation</strong> established</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Threat Level</div>
+        <ul>
+          <li><strong>Most serious Irish rebellion of the entire Tudor period</strong></li>
+          <li>National in scope; Spanish-backed; nearly unsuppressible conventionally</li>
+          <li><span class="stat">17,000</span> troops under Essex failed — showed the scale of the challenge</li>
+          <li>Yellow Ford (1598) was England's worst Irish defeat</li>
+          <li>Spanish landing at Kinsale was a direct foreign invasion</li>
+          <li>Cost: <span class="stat">~£2 million</span> — enormous financial strain</li>
+          <li>Threatened English control of all Ireland</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Government Response &amp; Impact</div>
+        <ul>
+          <li>Initial diplomacy; then escalating military commitment</li>
+          <li>Essex sent with <span class="stat">17,000</span> troops — failed; Essex disgraced and later executed (Essex Revolt)</li>
+          <li>Mountjoy deployed; Spanish defeated at Kinsale with <span class="stat">~3,000</span> troops (1601)</li>
+          <li><span class="stat">30,000</span> English troops by 1603</li>
+          <li>Cost <span class="stat">~£2 million</span></li>
+          <li>O'Neill paradoxically pardoned — pragmatic settlement</li>
+          <li><strong>Ulster Plantation</strong> established; clans weakened; property destroyed</li>
+        </ul>
+      </div>
+      <div class="section full-width">
+        <div class="section-title">Why It Failed</div>
+        <p>Spain landed <span class="stat">~3,000</span> troops at Kinsale — too far south for effective coordination with Ulster rebels. Mountjoy's sustained campaigns destroyed O'Neill's supply lines. Despite Yellow Ford, the English had the resources and the will to sustain the campaign over <span class="stat">~10 years</span>. O'Neill was ultimately pardoned in a pragmatic settlement — the Ulster Plantation followed.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- KEY CONTEXT BOX -->
+<div style="max-width:900px;margin:3rem auto;padding:0 1.5rem">
+  <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.8rem;box-shadow:0 2px 12px rgba(196,96,126,0.06)">
+    <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--pink-dark);margin-bottom:1rem">Key Cross-Cutting Context</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div>
+        <div class="section-title" style="color:var(--pink-dark);border-color:var(--pink-light)">Inflation &amp; Economic Context</div>
+        <ul style="font-size:0.9rem;padding-left:1.1rem;line-height:1.6">
+          <li>Population: <strong>~2 million in 1485</strong>; rose to <strong>over 4 million by 1603</strong> — labour shortage early meant wages were high and land rents comparatively low; landlords granted long leases of 99 years which still had years to run early in the period</li>
+          <li>Foodstuffs index (1491–1500 = 100): 1531–40 = 161; 1541–50 = 217; 1551–60 = 315; 1561–70 = 298</li>
+          <li>Agricultural wages index: 1531–40 = 110; 1541–50 = 118; 1551–60 = 160; 1561–70 = 177</li>
+          <li>Rents rose 8-fold on Clifford estates by 1536; rents up 30% in Norfolk by 1548; wheat prices rose 50% in 1548</li>
+          <li>Good harvests occurred on the eve of rebellions in 1536, 1546–8 and 1567–9 — famine was rarely the direct cause</li>
+          <li>One in four Tudor harvests failed on average; worst were 1555–6 and 1596–7</li>
+          <li>Cecil warned: <em>"nothing will sooner lead men into sedition than dearth of victual"</em></li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-title" style="color:var(--pink-dark);border-color:var(--pink-light)">The 'Evil Councillors' Theme</div>
+        <ul style="font-size:0.9rem;padding-left:1.1rem;line-height:1.6">
+          <li>A recurring justification throughout the period — rebels blamed ministers, not the monarch</li>
+          <li><strong>1497 Cornish:</strong> Reginald Bray and John Morton dubbed "evil advisers"</li>
+          <li><strong>1525 Amicable Grant:</strong> Suffolk protesters said they would "complain of the Cardinal" to the king</li>
+          <li><strong>1536 Pilgrimage:</strong> Cromwell, Cranmer, Audley and Rich targeted in ballads; rebels swore oath against "villein blood and evil councillors against the commonwealth"; Darcy called Cromwell "the very original and chief causer of all this rebellion"</li>
+          <li><strong>1554 Wyatt:</strong> "We seek no harm to the Queen but better counsel and councillors"</li>
+          <li><strong>1569 Northern Earls:</strong> held William Cecil responsible</li>
+          <li><strong>1601 Essex:</strong> aimed to remove Robert Cecil, calling him and his clients "base upstarts and caterpillars devouring the state's resources"</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-title" style="color:var(--pink-dark);border-color:var(--pink-light)">Role of Rumour in Rebellions</div>
+        <ul style="font-size:0.9rem;padding-left:1.1rem;line-height:1.6">
+          <li>Rumour played a key part in bringing about rebellion — fear and anger lay behind many revolts</li>
+          <li><strong>Yorkshire 1536:</strong> people believed parish plate would be seized, churches destroyed, taxes imposed on christenings, marriages and burials; laws against eating white meat, geese and chickens</li>
+          <li><strong>West Country 1549:</strong> stories that babies would be baptised only on Sundays, endangering dying children's souls; in King's Lynn: gentlemen's servants alleged to have "killed poor men in their harvest work"</li>
+          <li><strong>Kent 1554:</strong> over 100 Spaniards "armed with harness, arquebuses and morions, with matchlight" reported at Rochester; in Plymouth it was rumoured they planned to rape all the women in Devon</li>
+          <li>Rumours, once begun, were hard to stop and quickly proved infectious — spreading from county to county</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-title" style="color:var(--pink-dark);border-color:var(--pink-light)">Decline in Rebellion Support &amp; Frequency</div>
+        <ul style="font-size:0.9rem;padding-left:1.1rem;line-height:1.6">
+          <li>Henry VII faced <span class="stat">5</span> serious revolts, <span class="stat">3</span> of which aimed to overthrow him; summer of 1497 was particularly critical — England at war with Scotland, Cornish rebels at Blackheath, Warbeck claiming the throne simultaneously; the Spanish ambassador wrote <em>"the whole kingdom was against the King"</em> but also noted <em>"had the king lost the battle he would have been finished off and beheaded"</em></li>
+          <li>Frequency by period: 1485–1509 six rebellions; 1509–1547 three; 1547–1553 two; 1558–1568 two; 1568–1603 seven (mostly Irish)</li>
+          <li>1549 worst year: between June and August, <span class="stat">27</span> English counties experienced revolts — but only in Devon/Cornwall and Norfolk/Suffolk did they become prolonged rebellions</li>
+          <li>1536: last time broad noble + gentry + clergy + commons united; 1549: mainly commons; 1569: last noble-led revolt in England; 1596: only commons; 1601: some nobles but City refused</li>
+          <li>After 1570, Elizabeth faced only <span class="stat">one</span> rebellion of note — the Essex revolt lasting less than 12 hours; she had plots on her life (Ridolfi, Babington, Throckmorton) but none grew into a rebellion</li>
+          <li>As late as 1541, Henry VIII was still eliminating members of the <strong>Pole family</strong>, descended from the Plantagenets — "thereafter there were no more scions of the House of York lurking in the political woodwork"</li>
+          <li>Reasons for decline: dynastic unrest ended as pretenders eliminated; Elizabethan Church settlement of 1559 was moderate and largely satisfactory; social/economic problems peaked in 1540s; government helped unemployed, JPs and lords lieutenant kept closer watch; people encouraged to resolve grievances by litigation and parliamentary bills</li>
+          <li>JPs grew from &lt;10 per county (1485) to &gt;50 by 1603; nobles increasingly saw benefits of allying with the ruling family and turned to council and parliament instead of rebellion</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-title" style="color:var(--pink-dark);border-color:var(--pink-light)">Leadership — Key Patterns</div>
+        <ul style="font-size:0.9rem;padding-left:1.1rem;line-height:1.6">
+          <li>Most disturbances started with the lower ranks — craftsmen, artisans, labourers — who looked to their social superiors to lead and articulate their complaints; gentry usually assumed control, willingly or under duress</li>
+          <li><strong>Age mattered:</strong> Simnel was too young to command respect; the earls in 1569 were too old to lead a rebel army; Warbeck was 25, Wyatt 33, Kett 57 at the time of their uprisings</li>
+          <li>Aske (Pilgrimage) and Kett are regarded by historians as the outstanding English rebel leaders; Hugh O'Neill is the most effective Irish leader of the period — all could unite disparate factions and command thousands in a disciplined manner</li>
+          <li><strong>Commoner leaders:</strong> Michael Joseph (blacksmith, 1497); Nicholas Melton "Captain Cobbler" (cobbler, Louth 1536); Robert Welsh, vicar of St Thomas' Exeter — a well-known wrestler (1549); Bartholomew Steer (carpenter, Oxfordshire 1596); Thomas Underhill (tailor, Sampford Courtenay 1549)</li>
+          <li>Nobles were the "natural" leaders but the Tudor nobility became less inclined to treasonous activity over the period — after 1569, no major noble family led an English rebellion</li>
+          <li>London was consistently loyal to the Tudors and never rallied to a pretender, illegitimate claimant or would-be usurper</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-title" style="color:var(--pink-dark);border-color:var(--pink-light)">Why Rebellions Failed — Key Patterns</div>
+        <ul style="font-size:0.9rem;padding-left:1.1rem;line-height:1.6">
+          <li><strong>Government strategy:</strong> play for time; offer pardons to all but the ringleaders; agree to discuss grievances on condition rebels disperse — once dispersed, the likelihood of complaints being addressed was slim; Tudor rebellions are "littered with examples of betrayal by the authorities"</li>
+          <li><strong>Provincialism:</strong> most aimed to resolve local grievances and had no desire to link up with other areas; only once did rebels make contact across regions — Exeter rebels made overtures to Winchester in July 1549, but Winchester was discouraged</li>
+          <li><strong>The longer a rebellion continued, the more likely it would fail</strong> — rebels quarrelled, deserted, food supplies ran out, families were left behind, harvests needed collecting; if a royal army was approaching, death on the battlefield was not a welcome prospect</li>
+          <li><strong>Lack of funding:</strong> rebels had inadequate cavalry, weapons, ammunition and supplies; at North Allerton 1569, both northern earls could raise only £20 between them; government troops could bide their time until ready to attack</li>
+          <li><strong>Only one rebellion involving commons achieved its objective:</strong> the Amicable Grant — precisely because several councillors alerted the king to the likely consequences; all dynastic rebellions failed; most demonstrations achieved only partial concessions</li>
+          <li>Rebels needed to consider that "rebellions were always going to fail as long as the government held its nerve"</li>
+        </ul>
+      </div>
+        <ul style="font-size:0.9rem;padding-left:1.1rem;line-height:1.6">
+          <li>Homily on Obedience called rebellion the "mother of mischiefs"</li>
+          <li>Great Chain of Being: Dudley (1509) said commons "not presume" to judge superiors</li>
+          <li>Rebels consistently denied treasonous intent — claimed loyalty to the crown; this was also a legal insurance policy given execution for treason</li>
+          <li>In Yorkshire 1536 and Durham 1569, some rebels were forced by landlords to take part; some paid to join at Maidstone 1554; some at Louth 1536 participated out of adventure</li>
+          <li>Most rebels left no record of their motives — understanding depends on depositions from the literate minority who may have been biased or lying</li>
+          <li>Shift to litigation over violence across the period</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-title" style="color:var(--pink-dark);border-color:var(--pink-light)">England vs Ireland Comparison</div>
+        <ul style="font-size:0.9rem;padding-left:1.1rem;line-height:1.6">
+          <li>English: short, localised, declining frequency; peaceful tactics common; solved by pardons and policy changes</li>
+          <li>Irish: prolonged violent guerrilla wars using inhospitable terrain — they avoided military confrontations unless an English army was outnumbered or caught isolated; Irish rebellions ended with plantations</li>
+          <li>English: rare foreign troops after 1497; Irish: Spanish in 1579 and 1601</li>
+          <li>Northern Earls (1569) lasted 2 months; O'Neill (1558–67) lasted 9 years; Tyrone ~10 years; Munster rebellion (1569) took <strong>4 years</strong> to suppress</li>
+          <li>Until 1534, the Earls of Kildare acted as Crown's deputy lieutenants — there were <strong>no rebellions</strong>; between 1534 and 1603, <strong>five major Irish rebellions</strong> occurred</li>
+          <li>Scale of English commitment grew enormously: Henry VII's Lord Deputy Poynings defended the Pale with just <span class="stat">400</span> troops in the 1490s; Essex took <span class="stat">17,000</span> and Mountjoy <span class="stat">15,000</span> a century later</li>
+          <li>Henry became <strong>King of Ireland in 1541</strong> rather than just 'Lord of Ireland' — this changed his relationship with Gaelic chiefs who were now obliged to "surrender and regrant" their lands according to English usage; this Anglicisation led to fierce resistance</li>
+          <li>Irish clan leaders regularly pledged loyalty but acted dishonourably when it suited them — a truce was simply <em>"a device to buy more time"</em></li>
+          <li>Social and economic issues rarely figured overtly in Irish rebellions — inseparable from underlying political causes when they did</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#" class="back-top" title="Back to top">↑</a>
+
+</div><!-- end notes-view -->
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FLASHCARD VIEW -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="card-view">
+
+  <div class="fc-progress">
+    <div class="fc-prog-meta">
+      <span id="fcLabel">Card 1 of 38</span>
+      <span class="fc-known" id="fcKnown">✓ 0 known</span>
+    </div>
+    <div class="fc-track"><div class="fc-fill" id="fcFill" style="width:2.6%"></div></div>
+  </div>
+
+  <div class="fc-filters">
+    <button class="fc-f on" data-m="all">All (38)</button>
+    <button class="fc-f" data-m="h7">Henry VII</button>
+    <button class="fc-f" data-m="h8">Henry VIII</button>
+    <button class="fc-f" data-m="e6">Edward VI</button>
+    <button class="fc-f" data-m="m1">Mary I</button>
+    <button class="fc-f" data-m="e1">Elizabeth I</button>
+  </div>
+
+  <div class="fc-nav-wrap">
+    <div style="text-align:center;margin-top:1.5rem">
+      <span style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--muted)" id="fcRebellion"></span>
+      &nbsp;<span style="font-size:0.75rem;padding:0.15rem 0.55rem;border-radius:999px;border:1px solid;font-family:'Lora',serif" id="fcBadge"></span>
+    </div>
+
+    <div class="fc-scene" id="fcScene" onclick="fcFlip()" style="width:100%;max-width:680px;margin-top:1rem">
+      <div class="fc-wrap" id="fcWrap">
+        <div class="fc-face fc-front" id="fcFront">
+          <div class="fc-type" id="fcType"></div>
+          <div class="fc-prompt" id="fcPrompt"></div>
+          <div class="fc-tap">tap to reveal</div>
+        </div>
+        <div class="fc-face fc-back" id="fcBack">
+          <div class="fc-back-title" id="fcBackTitle"></div>
+          <div class="fc-back-body" id="fcBackBody"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-hint" id="fcHint">Click to reveal · ← → arrow keys to navigate</div>
+
+    <div class="fc-mark-row" id="fcMarkRow">
+      <button class="fc-mbtn no" onclick="fcMark(false)">↩ Still learning</button>
+      <button class="fc-mbtn ok" onclick="fcMark(true)">✓ Got it!</button>
+    </div>
+
+    <div class="fc-nav">
+      <button class="fc-nbtn" id="fcPrev" onclick="fcGo(-1)">←</button>
+      <span class="fc-nctr" id="fcCtr">1 / 38</span>
+      <button class="fc-nbtn" id="fcNext" onclick="fcGo(1)">→</button>
+    </div>
+  </div>
+
+</div><!-- end card-view -->
+
+<script>
+// ── VIEW TOGGLE ──────────────────────────────────────────────────
+function setView(v){
+  const notes = document.getElementById('notes-view');
+  const cards = document.getElementById('card-view');
+  const bn = document.getElementById('btnNotes');
+  const bc = document.getElementById('btnCards');
+  if(v==='notes'){
+    notes.classList.remove('hidden');
+    cards.classList.remove('active');
+    bn.classList.add('on'); bc.classList.remove('on');
+  } else {
+    notes.classList.add('hidden');
+    cards.classList.add('active');
+    bc.classList.add('on'); bn.classList.remove('on');
+    fcRender(fcIdx);
+  }
+}
+
+// ── FLASHCARD DATA ───────────────────────────────────────────────
+const COLS = {h7:'#7c3aed',h8:'#d94f3d',e6:'#1d6fa4',m1:'#a07820',e1:'#1e7a4f'};
+const MLABELS = {h7:'Henry VII',h8:'Henry VIII',e6:'Edward VI',m1:'Mary I',e1:'Elizabeth I'};
+
+const FC = [
+  {r:"Lovel & Stafford Rebellion",yr:"1486",m:"h7",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Lovel & Stafford Rebellion (1486)",
+   bt:"Overview · Causes · Threat",
+   back:`Francis Viscount Lovel (former <strong>Lord Chamberlain</strong>) and <strong>Humphrey and Thomas Stafford</strong> raised troops in Yorkshire and Worcestershire to assassinate Henry VII during his northern progress. The Staffords had fought for Richard III at Bosworth but not been captured — taking sanctuary they fled to Worcester. Unable to get enough support from their retainers; Staffords arrested at Culham Church; Lovel fled abroad. <strong>No battle fought</strong> — minor threat with no noble defections beyond these three.`},
+  {r:"Lovel & Stafford Rebellion",yr:"1486",m:"h7",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Lovel & Stafford Rebellion (1486)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Henry used agents to track rebels; Staffords pre-emptively arrested at <strong>Culham Church</strong> sanctuary; Lovel fled — <strong>no battle fought</strong>, no retribution recorded in sources. Failed: poor organisation, no broad support, and Henry's swift pre-emptive intelligence prevented any military mobilisation.`},
+
+  {r:"Simnel Rebellion",yr:"1487",m:"h7",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Simnel Rebellion (1487)",
+   bt:"Overview · Causes · Threat",
+   back:`Lambert Simnel posed as the Earl of Warwick, backed by <strong>Earl of Lincoln</strong> (Richard III's named heir and Lord Lieutenant of Ireland) and <strong>~2,000 Burgundian mercenaries</strong> funded by Margaret of Burgundy. <strong>Gerald, Earl of Kildare</strong>, and ~<strong>40 Irish nobles</strong> also backed the rising. Henry pre-emptively paraded the real Warwick at St Paul's. <strong>Serious</strong> — a foreign-backed invasion requiring a pitched battle to defend the throne.`},
+  {r:"Simnel Rebellion",yr:"1487",m:"h7",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Simnel Rebellion (1487)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Henry consulted the Great Council, paraded real Warwick publicly, raised <strong>~15,000</strong> royal troops. The presence of <strong>2,000 German mercenaries</strong> deterred many English from joining as the army progressed south from Lancashire; rebels raised only <strong>4,000–5,000</strong> and failed to advance beyond Nottinghamshire (<strong>150 miles</strong> from London). Crushed at Battle of Stoke — <strong>4,000 rebel deaths</strong>; Lincoln killed. Simnel pardoned and made a kitchen boy.`},
+
+  {r:"Yorkshire Rebellion",yr:"1489",m:"h7",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Yorkshire Rebellion (1489)",
+   bt:"Overview · Causes · Threat",
+   back:`Protest against a <strong>£100,000</strong> parliamentary grant for French war — northern counties felt traditionally exempt as they bore Scottish border costs. Rebels also affected by a <strong>bad harvest in 1488</strong> and took exception to news that the unpopular <strong>Henry Percy</strong> would lead the tax commission. Percy was <strong>murdered</strong> while collecting the tax. Leaderless commoners; Sir John Egremont emerged as gentry figure. <strong>No intention to overthrow</strong> the monarch — a tax grievance only.`},
+  {r:"Yorkshire Rebellion",yr:"1489",m:"h7",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Yorkshire Rebellion (1489)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Henry VII raised a large army; rebels fled without battle. <strong>6 executed</strong> including John Chamber. Northern counties subsequently <strong>exempted from the tax</strong> — rebels achieved their core demand despite military collapse. Failed militarily but secured the concession they sought.`},
+
+  {r:"Cornish Rebellion",yr:"1497",m:"h7",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Cornish Rebellion (1497)",
+   bt:"Overview · Causes · Threat",
+   back:`Up to <strong>15,000</strong> rebels marched to London protesting a <strong>£60,000</strong> grant for Scottish war. Led by Flamank (lawyer from Bodmin), Joseph (blacksmith), and Lord Audley — an impoverished Somerset peer whose father had been treasurer of England. <strong>44 priests</strong> joined; <strong>22 gentry, 4 sheriffs, 3 MPs and 4 abbots</strong> enlisted as the march passed through Somerset. The Cornish had <em>"a kind of concealed envy against the English"</em> (John Norden). <strong>Serious</strong> — largest rebel force to reach London under Henry VII.`},
+  {r:"Cornish Rebellion",yr:"1497",m:"h7",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Cornish Rebellion (1497)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Henry recalled troops from Scotland; <strong>1,000 rebel deaths</strong> at Blackheath; all <strong>3 leaders</strong> (Audley, Flamank, Joseph) executed; Somerset and Cornwall fined <strong>£14,000</strong> collectively. Failed: no artillery, no City of London support, and numbers fluctuated throughout the long march.`},
+
+  {r:"Perkin Warbeck's Rebellion",yr:"1491–99",m:"h7",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Perkin Warbeck's Rebellion (1491–99)",
+   bt:"Overview · Causes · Threat",
+   back:`Warbeck posed as Richard, Duke of York, backed by <strong>3 foreign powers</strong> — France, Burgundy, and Scotland. Henry issued <strong>51 attainders</strong> against English supporters, including <strong>Lord Fitzwater</strong> (steward of the royal household) and <strong>Sir William Stanley</strong> (Henry's step-uncle and lord chamberlain). Final invasion attracted only <strong>1,500</strong> Cornish miners, artisans and farmers — <strong>not one was a noble or gentleman</strong>. <strong>Serious, prolonged</strong> — 8 years requiring 2 diplomatic treaties to end.`},
+  {r:"Perkin Warbeck's Rebellion",yr:"1491–99",m:"h7",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Perkin Warbeck's Rebellion (1491–99)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Stanley pre-emptively arrested <strong>1495</strong>; treaties of <strong>Étaples</strong> (France) and <strong>Ayton</strong> (Scotland) cut all foreign support. Final <strong>1,500</strong>-man invasion failed. Warbeck and the real Earl of Warwick both executed <strong>1499</strong>. Failed: Henry removed all 3 foreign backers through diplomacy before each invasion could gain traction.`},
+
+  {r:"Amicable Grant Crisis",yr:"1525",m:"h8",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Amicable Grant (1525)",
+   bt:"Overview · Causes · Threat",
+   back:`Wolsey had raised <strong>£260,000</strong> in forced loans in 1522 (which he said would be repaid — it wasn't), then demanded a non-parliamentary forced loan of up to <strong>33%</strong> on clergy and <strong>16.5%</strong> on laity for war with France. Widespread refusal in Suffolk and Kent; protests centred at <strong>Lavenham</strong>. Raised <strong>£0</strong>. Coming on top of recent demands at a time of <strong>rising unemployment</strong> and falling wool prices — exposed the limits of prerogative taxation.`},
+  {r:"Amicable Grant Crisis",yr:"1525",m:"h8",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Amicable Grant (1525)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`<strong>4,000</strong> gathered at Sudbury and Lavenham, Suffolk. Protesters apparently stopped from marching to London only by someone <strong>removing the clapper from the church bell</strong>. Grant abandoned — <strong>£0 raised</strong>; French invasion cancelled; no executions. Royal councillors and <strong>Archbishop of Canterbury</strong> sympathised. Henry VIII had the <em>"neat let out"</em> of blaming Wolsey — the government <em>"emerged with credit and the king enhanced his undeserved reputation for generosity."</em>`},
+
+  {r:"Silken Thomas's Rebellion",yr:"1534–37",m:"h8",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Silken Thomas's Rebellion (1534–37)",
+   bt:"Overview · Causes · Threat",
+   back:`From 1532, Cromwell favoured Kildare's rivals; the Earl was summoned to London, transferred weapons from Dublin Castle to his own estates, and died in the Tower <strong>1534</strong>. Thomas and his <strong>5 uncles</strong> raised <strong>~1,000 men</strong> in Munster and invaded the Pale. Although he invoked Catholicism, the rebellion was <strong>primarily political</strong> — his objective was to expel the English administration and become <strong>sole ruler of Ireland</strong>. Required <strong>2,300</strong> English troops and lasted <strong>3 years</strong>.`},
+  {r:"Silken Thomas's Rebellion",yr:"1534–37",m:"h8",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Silken Thomas's Rebellion (1534–37)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`<strong>2,300</strong> troops under Skeffington; confrontation after <strong>14 months</strong>; Thomas and his <strong>5 uncles</strong> all executed in London; <strong>200+ fined</strong>; ~<strong>70 executed</strong>; lands attainted. Failed: promised Spanish and papal support never arrived; 2,300 English troops overwhelmed ~1,000 rebels; insufficient Irish unity to sustain the campaign for 3 years.`},
+
+  {r:"Lincolnshire Rising",yr:"1536",m:"h8",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Lincolnshire Rising (1536)",
+   bt:"Overview · Causes · Threat",
+   back:`<strong>~20,000</strong> rebels rose against the dissolution of smaller monasteries and Cromwell's policies. Rebels from <strong>Louth and Horncastle</strong> drew up articles; they were proud of their <strong>295-foot spire at Louth</strong> (completed 1515) and feared church plate would be seized. Lord Hussey (chamberlain to Princess Mary) gave noble support; Sir Robert Dymoke, Sir Christopher Willoughby also linked to the Aragonese faction. Spread to Yorkshire triggering the Pilgrimage — total rising reached <strong>50,000</strong>.`},
+  {r:"Lincolnshire Rising",yr:"1536",m:"h8",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Lincolnshire Rising (1536)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Henry's firm ultimatum caused gentry leaders to lose nerve and submit — <strong>no battles fought</strong>. Dissolved into the Pilgrimage of Grace within weeks. Failed: <strong>~20,000</strong> rebels had no military capacity; gentry leadership collapsed at the first sign of royal firmness.`},
+
+  {r:"Pilgrimage of Grace",yr:"1536",m:"h8",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Pilgrimage of Grace (1536)",
+   bt:"Overview · Causes · Threat",
+   back:`The largest Tudor rebellion — <strong>up to 50,000</strong> rebels across <strong>7</strong> northern counties under the Five Wounds banner, led by Robert Aske — attorney to the Earl of Northumberland, dubbed the <strong>"Great Captain"</strong> by contemporaries. Presented <strong>24 Pontefract Articles</strong> covering dissolution of <strong>100+</strong> monasteries, restoration of Princess Mary, the 1534 Subsidy Act (£80,000), and enclosures since 1489. Henry could not raise comparable forces — the <strong>most serious domestic threat</strong> of his reign.`},
+  {r:"Pilgrimage of Grace",yr:"1536",m:"h8",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Pilgrimage of Grace (1536)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Henry used <strong>2 truces</strong> and pardons at Doncaster to buy time; Aske had <strong>40,000</strong> at Pontefract but <strong>had no wish to do battle</strong> with Norfolk's troops — he wrote ordering rebels not to fight the Earl of Derby's men. Bigod's secondary revolt gave pretext for mass retribution; <strong>178 executed</strong> including Aske, Darcy, and ~<strong>20 clergy</strong>. Statute of Uses repealed <strong>1536</strong>; Council of North reformed; dissolutions paused <strong>1537–39</strong>. Henry's <strong>2 false pardons</strong> were never overcome.`},
+
+  {r:"Western Rebellion",yr:"1549",m:"e6",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Western / Prayer Book Rebellion (1549)",
+   bt:"Overview · Causes · Threat",
+   back:`<strong>~7,000</strong> Devon and Cornwall rebels besieged Exeter for <strong>6 weeks</strong>, calling the new English Prayer Book a <em>"Christmas game."</em> Disturbances started by <strong>Thomas Underhill</strong> (a tailor) at Sampford Courtenay; <strong>Robert Welsh</strong>, vicar of St Thomas' and a well-known wrestler, was the most significant figure in uniting the Devon and Cornish rebels. Presented <strong>14 articles</strong>; nine captains comprised <strong>3 Devon gentry, 3 Cornish gentry and 3 commoners</strong>. Also opposed the <strong>1548 sheep tax</strong>. <strong>Serious</strong> — Somerset's government destabilised the same year.`},
+  {r:"Western Rebellion",yr:"1549",m:"e6",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Western Rebellion (1549)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`<strong>1,400</strong> foreign mercenaries deployed under Lord Russell; <strong>4,000 killed</strong> at Sampford Courtenay; <strong>100+</strong> executed in western towns; leaders including Arundell executed <strong>1550</strong>; Subsidy Act and Vagrancy Act repealed. Failed: no noble support; internal tensions between Devon and Cornwall contingents throughout.`},
+
+  {r:"Kett's Rebellion",yr:"1549",m:"e6",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Kett's Rebellion (1549)",
+   bt:"Overview · Causes · Threat",
+   back:`<strong>16,000</strong> Norfolk rebels camped on Mousehold Heath under Robert Kett for <strong>7 weeks</strong>, occupying Norwich. Issued <strong>29 demands</strong> — <strong>17</strong> targeting enclosures and rents (up <strong>30%</strong> since 1548; wheat prices up <strong>50%</strong> in 1548); <strong>60%</strong> of Norfolk land held by just <strong>46</strong> gentry families. Unique demand: all <strong>bondmen to be made free</strong>. <strong>Serious</strong> — the largest rebel camp of the Tudor period; historians describe it as the closest to a <strong>class war</strong> of any Tudor rebellion.`},
+  {r:"Kett's Rebellion",yr:"1549",m:"e6",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Kett's Rebellion (1549)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`A royal force under the <strong>Marquis of Northampton</strong> was first sent and <strong>defeated</strong>. Warwick then deployed <strong>12,000</strong> troops; <strong>Thomas Gawdy MP</strong> and other gentry were chained and used as <strong>battle shields</strong> at Dussindale; <strong>~3,000 killed</strong>; Kett hanged from Norwich Castle <strong>December 1549</strong>. Enclosure Act passed. Failed: rebels fatally abandoned their strong Mousehold hilltop position to fight in open ground against <strong>12,000</strong> trained royal troops.`},
+
+  {r:"Northumberland's Rebellion",yr:"1553",m:"m1",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Northumberland's Rebellion (1553)",
+   bt:"Overview · Causes · Threat",
+   back:`Duke of Northumberland married his son Guildford Dudley to Lady Jane Grey in May 1553; manipulated Edward VI's Devise to exclude Mary and Elizabeth. Earls of Oxford, Huntingdon, and <strong>lords Grey and Clinton</strong> backed it. Most of Northumberland's army of <strong>~2,000 deserted</strong> when confrontation seemed likely. Jane reigned just <strong>9 days</strong>. Northumberland was <em>"always likely to fail"</em> — Mary was the legitimate daughter of Henry VIII.`},
+  {r:"Northumberland's Rebellion",yr:"1553",m:"m1",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Northumberland's Rebellion (1553)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`There is historical debate: some see it as Northumberland's power grab, others argue <strong>Edward himself</strong> may have inspired the Devise to preserve Protestantism. Northumberland's army of <strong>~2,000 deserted</strong> at Cambridge — <strong>no battle fought</strong>. <strong>3 executed</strong>: Northumberland, Gates, and Palmer. Northumberland was <em>"always likely to fail"</em> — Mary was the legitimate daughter of Henry VIII. Jane reigned just <strong>9 days</strong>.`},
+
+  {r:"Wyatt's Rebellion",yr:"1554",m:"m1",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Wyatt's Rebellion (1554)",
+   bt:"Overview · Causes · Threat",
+   back:`<strong>~3,000</strong> Kent rebels marched on London opposing Mary I's marriage to Philip of Spain. Wyatt told a colleague <em>"you may not so much as name religion"</em> — he framed it as national defence. Lasted just <strong>18 days</strong>. Wyatt was a <strong>good strategist but poor tactician</strong> — understood the need for nation-wide support but delayed entry into London when time was of the essence. <strong>Serious</strong> — rebels reached Ludgate; Norfolk's troops partly defected to Wyatt; Mary's Guildhall speech saved her throne.`},
+  {r:"Wyatt's Rebellion",yr:"1554",m:"m1",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Wyatt's Rebellion (1554)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Co-conspirators in Leicestershire (Suffolk), Devon (Carew) and Herefordshire (Croft) all failed to rise; only <strong>2 leading Kentishmen</strong> (Abergavenny and Southwell) were openly loyal to the government. Wyatt relied on <strong>Sir Henry Isley, Sir George Harper and Thomas Culpepper</strong> — all former sheriffs. Rebels reached <strong>Ludgate, 3 miles from the City</strong> — then defeated. <strong>71 executed</strong> including Wyatt, Duke of Suffolk, and Lady Jane Grey. French support sent <strong>0 troops</strong>.`},
+
+  {r:"Shane O'Neill's Rebellion",yr:"1558–67",m:"e1",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Shane O'Neill's Rebellion (1558–67)",
+   bt:"Overview · Causes · Threat",
+   back:`Shane O'Neill wanted to rule Ulster and was <strong>willing to murder his older brother</strong> to achieve it — which stirred up resentment against him. When he begged forgiveness, Elizabeth agreed to recognise him as captain of Tyrone, but he soon plotted with <strong>Charles IX of France and Mary Queen of Scots</strong>, claiming to be <em>"the true defender of the faith."</em> England could only deploy <strong>~700 troops</strong> — showing the difficulty of conventional military response in Ulster terrain over <strong>9 years</strong>.`},
+  {r:"Shane O'Neill's Rebellion",yr:"1558–67",m:"e1",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Shane O'Neill's Rebellion (1558–67)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`England used diplomacy initially, recognising O'Neill's authority; later raised <strong>~700 troops</strong>. O'Neill murdered by rival MacDonnells in <strong>1567</strong> before the English delivered the final blow — <strong>0 formal English executions</strong> required. Failed: could not maintain Irish clan unity over <strong>9 years</strong>; French support never fully materialised.`},
+
+  {r:"Northern Earls' Rebellion",yr:"1569",m:"e1",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Northern Earls' Rebellion (1569)",
+   bt:"Overview · Causes · Threat",
+   back:`Earls of Northumberland (converted Catholic, <strong>1567</strong>) and Westmorland (born Catholic) led <strong>~6,000</strong> rebels across <strong>4</strong> counties. Initially aimed to release Mary Queen of Scots and marry her to the Duke of Norfolk — once they could not reach Mary, <em>"the rebellion turned into a demonstration of northern opposition."</em> Lasted <strong>2 months</strong>. Notably <strong>90%</strong> of rebels were NOT tenants of the rebel earls — broad independent religious motivation. The <strong>last significant noble-led revolt</strong> in England.`},
+  {r:"Northern Earls' Rebellion",yr:"1569",m:"e1",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Northern Earls' Rebellion (1569)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`When Northumberland came to pay <strong>1,000 footmen</strong> at North Allerton, he and Westmorland could raise only <strong>£20 between them</strong> — <strong>600</strong> potential troops deserted there and then. The belief that a Spanish army under Alva would help was <em>"wishful thinking."</em> Walsingham's intelligence tracked the plot; Mary moved to Coventry; <strong>12,000</strong> royal troops assembled — rebels fled without battle; <strong>450–600 executed</strong>; raids burned <strong>~300 Scottish villages</strong>; lands attainted.`},
+
+  {r:"Fitzmaurice Fitzgerald's Rebellions",yr:"1569 & 1579",m:"e1",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Fitzmaurice Fitzgerald's Rebellions (1569 & 1579)",
+   bt:"Overview · Causes · Threat",
+   back:`Two Munster rebellions. <strong>1569</strong>: Fitzmaurice resented English colonisation and imposition of martial law; especially aggrieved that his cousin the <strong>Earl of Desmond had been put in the Tower</strong>. The <strong>1579</strong> revolt brought papal blessing and <strong>600</strong> Spanish and Italian troops at Smerwick — rare direct foreign military intervention. English reprisals executed <strong>800 people 1569–72</strong>. Led directly to the <strong>Munster Plantations</strong>.`},
+  {r:"Fitzmaurice Fitzgerald's Rebellions",yr:"1569 & 1579",m:"e1",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Fitzmaurice Fitzgerald's Rebellions (1569 & 1579)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`First rebellion: Fitzmaurice evaded capture for <strong>4 years</strong> before resurfacing in 1579. Second rebellion: Fitzmaurice killed early; <strong>Earl of Desmond</strong> (who had spent <strong>5 years in the Tower</strong>) took his place and prolonged the rebellion for another <strong>4 years</strong>; <strong>600</strong>-strong Smerwick garrison massacred; <strong>800 executed 1569–72</strong>; Munster Plantations established. Failed: Spain sent only <strong>600 troops</strong>; Fitzmaurice died before momentum built.`},
+
+  {r:"Oxfordshire Rebellion",yr:"1596",m:"e1",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Oxfordshire Rebellion (1596)",
+   bt:"Overview · Causes · Threat",
+   back:`Carpenter Bartholomew Steer planned to assemble at Enslow Hill and seize arms — only <strong>4 men turned up</strong>. Triggered by new enclosures at Hampton Gay; only <strong>~3%</strong> of land in affected counties was actually enclosed. <strong>4 consecutive bad harvests</strong> provided the backdrop. Negligible in practice — illustrates the sharp <strong>decline in popular appetite</strong> for rebellion by the end of the Tudor period.`},
+  {r:"Oxfordshire Rebellion",yr:"1596",m:"e1",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Oxfordshire Rebellion (1596)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Sheriffs pre-alerted by informants; <strong>4 conspirators</strong> arrested before the rising could start; leaders Bradshaw and Burton tortured and executed; <strong>Tillage Act 1597</strong> and Husbandry Act passed as direct policy response. Failed: betrayed by poor secrecy; only <strong>4 of the planned hundreds</strong> assembled.`},
+
+  {r:"Essex Revolt",yr:"1601",m:"e1",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Essex Revolt (1601)",
+   bt:"Overview · Causes · Threat",
+   back:`Earl of Essex — suspended from Privy Council and ruined after losing his <strong>sweet wine patent</strong> — hired actors to perform <strong>Shakespeare's <em>Richard II</em></strong> the eve before marching <strong>~300</strong> supporters through London. He got as far as <strong>Fenchurch Street</strong> before retreating by river. Expected the mayor and sheriff of London to back him — they did not. Earls of Southampton, Sussex, Rutland, lords Cromwell, Mounteagle and Sandys, and <strong>12 deputy lieutenants</strong> accompanied him. Lasted just <strong>12 hours</strong>.`},
+  {r:"Essex Revolt",yr:"1601",m:"e1",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Essex Revolt (1601)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`Intelligence pre-empted every move; city gates closed; Essex surrendered in <strong>12 hours</strong>; <strong>3 executed</strong> — Essex, Merrick, Cuffe; Earl of Rutland fined <strong>£30,000</strong>. The <strong>last noble rebellion in English history</strong>. Failed: Essex misjudged London's willingness to support him; City refused to rise; 300 followers were entirely insufficient.`},
+
+  {r:"Tyrone's Rebellion",yr:"1593–1603",m:"e1",n:1,
+   type:"Overview · Causes · Threat",
+   front:"Rebellion Overview: Tyrone's Rebellion (1593–1603)",
+   bt:"Overview · Causes · Threat",
+   back:`It was ironic that O'Neill was <strong>raised in the household of the Earl of Leicester</strong> — when he returned to Ireland in 1593 he was eager to be recognised as O'Neill ruler of Ulster. Between <strong>1593–94</strong> he had defended English garrisons — but felt inadequately rewarded; by <strong>1595</strong> he had "had enough." Over <strong>6,000</strong> rebel fighters at peak; English humiliated at <strong>Yellow Ford (1598)</strong>. Cost England <strong>~£2 million</strong>. Spanish landed <strong>~3,000 troops</strong> at Kinsale (1601).`},
+  {r:"Tyrone's Rebellion",yr:"1593–1603",m:"e1",n:2,
+   type:"Government Response · Outcome",
+   front:"Government Response & Outcome: Tyrone's Rebellion (1593–1603)",
+   bt:"Response · Outcome · Why It Failed",
+   back:`<strong>17,000</strong> troops under Essex failed; <strong>Mountjoy</strong> deployed with <strong>15,000</strong> troops; O'Neill agreed truces in <strong>1596 and 1599</strong> — simply <em>"a device to buy more time"</em>; Spanish defeated at Kinsale <strong>(1601)</strong>; <strong>30,000</strong> English troops deployed by <strong>1603</strong>; O'Neill paradoxically pardoned; Ulster Plantation established. Cost <strong>~£2 million</strong>. Failed: Spanish landed too far south at Kinsale for effective coordination with Ulster rebels.`}
+];
+
+// ── FLASHCARD STATE ──────────────────────────────────────────────
+let fcPool = [...FC];
+let fcIdx = 0;
+let fcFlipped = false;
+let fcKnownSet = new Set();
+let fcActiveM = 'all';
+
+function fcRender(i){
+  const c = fcPool[i];
+  if(!c) return;
+  fcFlipped = false;
+  document.getElementById('fcWrap').classList.remove('flipped');
+  const col = COLS[c.m];
+
+  document.getElementById('fcRebellion').textContent = `${c.r} (${c.yr})`;
+  const badge = document.getElementById('fcBadge');
+  badge.textContent = `Card ${c.n} of 2 · ${MLABELS[c.m]}`;
+  badge.style.cssText = `background:var(--pink-light);color:var(--pink-dark);border-color:var(--pink)`;
+
+  document.getElementById('fcType').textContent = c.type;
+  document.getElementById('fcPrompt').textContent = c.front;
+
+  const bt = document.getElementById('fcBackTitle');
+  bt.textContent = c.bt;
+  bt.style.cssText = `color:var(--pink-dark);border-color:var(--pink)`;
+
+  const bb = document.getElementById('fcBackBody');
+  bb.innerHTML = c.back;
+  bb.querySelectorAll('strong').forEach(s=>s.style.color='var(--pink-dark)');
+
+  document.getElementById('fcMarkRow').classList.remove('show');
+  document.getElementById('fcHint').textContent = 'Click to reveal · ← → arrow keys to navigate';
+
+  document.getElementById('fcPrev').disabled = i===0;
+  document.getElementById('fcNext').disabled = i===fcPool.length-1;
+  document.getElementById('fcCtr').textContent = `${i+1} / ${fcPool.length}`;
+
+  const pct = ((i+1)/fcPool.length)*100;
+  document.getElementById('fcFill').style.width = pct+'%';
+  document.getElementById('fcLabel').textContent = `Card ${i+1} of ${fcPool.length}`;
+  document.getElementById('fcKnown').textContent = `✓ ${fcKnownSet.size} known`;
+}
+
+function fcFlip(){
+  fcFlipped = !fcFlipped;
+  document.getElementById('fcWrap').classList.toggle('flipped', fcFlipped);
+  if(fcFlipped){
+    document.getElementById('fcMarkRow').classList.add('show');
+    document.getElementById('fcHint').textContent = 'How did you do? · Click to flip back';
+  } else {
+    document.getElementById('fcMarkRow').classList.remove('show');
+    document.getElementById('fcHint').textContent = 'Click to reveal · ← → arrow keys to navigate';
+  }
+}
+
+function fcGo(dir){
+  const ni = fcIdx + dir;
+  if(ni<0||ni>=fcPool.length) return;
+  const sc = document.getElementById('fcScene');
+  sc.style.transition = 'opacity 0.16s,transform 0.16s';
+  sc.style.opacity='0';
+  sc.style.transform=`translateX(${dir>0?'-40px':'40px'})`;
+  setTimeout(()=>{
+    fcIdx=ni; fcRender(fcIdx);
+    sc.style.transition='none';
+    sc.style.transform=`translateX(${dir>0?'40px':'-40px'})`;
+    sc.style.opacity='0';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      sc.style.transition='opacity 0.2s,transform 0.2s';
+      sc.style.opacity='1';sc.style.transform='translateX(0)';
+    }));
+  },160);
+}
+
+function fcMark(ok){
+  if(ok) fcKnownSet.add(fcIdx); else fcKnownSet.delete(fcIdx);
+  document.getElementById('fcKnown').textContent=`✓ ${fcKnownSet.size} known`;
+  if(fcIdx<fcPool.length-1) fcGo(1); else fcRender(fcIdx);
+}
+
+document.querySelectorAll('.fc-f').forEach(b=>b.addEventListener('click',()=>{
+  const m = b.dataset.m;
+  fcActiveM = m;
+  fcKnownSet.clear();
+  fcPool = m==='all' ? [...FC] : FC.filter(c=>c.m===m);
+  fcIdx=0; fcRender(0);
+  document.querySelectorAll('.fc-f').forEach(x=>x.classList.toggle('on',x.dataset.m===m));
+}));
+
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('card-view').classList.contains('active')){
+    if(e.key==='ArrowRight') fcGo(1);
+    else if(e.key==='ArrowLeft') fcGo(-1);
+    else if(e.key===' '||e.key==='Enter'){e.preventDefault();fcFlip();}
+    else if(e.key==='k'||e.key==='K') fcMark(true);
+    else if(e.key==='j'||e.key==='J') fcMark(false);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaucer Context – Flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --parchment: #f5f0e8;
+  --ink: #1a1510;
+  --rust: #8b4513;
+  --gold: #c9a84c;
+  --gold-soft: #e8d5a0;
+  --deep-green: #2d4a3e;
+  --cream: #faf7f0;
+  --shadow: rgba(26, 21, 16, 0.12);
+  --card-bg: #fffdf8;
+  --accent-bg: #f0ebe0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--parchment);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Decorative background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(139, 69, 19, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 24px 16px 80px; }
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 40px 0 32px;
+}
+
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+header h1 span {
+  display: block;
+  font-size: 0.38em;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  color: var(--rust);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+  font-size: 0.82rem;
+  color: var(--rust);
+  font-weight: 500;
+}
+
+.stats-bar .stat { display: flex; align-items: center; gap: 6px; }
+.stats-bar .dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot.total { background: var(--gold); }
+.dot.done { background: var(--deep-green); }
+.dot.remaining { background: var(--rust); opacity: 0.5; }
+
+/* NAV CHAPTERS */
+.chapter-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 24px 0 32px;
+}
+
+.chapter-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1.5px solid var(--gold-soft);
+  border-radius: 100px;
+  background: var(--card-bg);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.chapter-btn:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.chapter-btn.active {
+  background: var(--deep-green);
+  color: var(--cream);
+  border-color: var(--deep-green);
+}
+
+/* VIEW TOGGLE */
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 28px;
+  background: var(--accent-bg);
+  border-radius: 12px;
+  padding: 4px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.view-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0.6;
+}
+
+.view-btn.active {
+  background: var(--card-bg);
+  box-shadow: 0 2px 8px var(--shadow);
+  opacity: 1;
+}
+
+/* FLASHCARD */
+.flashcard-container {
+  perspective: 1200px;
+  margin: 0 auto 24px;
+  max-width: 720px;
+}
+
+.flashcard-wrapper {
+  position: relative;
+  min-height: 340px;
+}
+
+.flashcard {
+  width: 100%;
+  min-height: 340px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.flashcard.flipped { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  min-height: 340px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-front {
+  background: var(--card-bg);
+  border: 1.5px solid var(--gold-soft);
+  box-shadow: 0 8px 32px var(--shadow), 0 2px 8px rgba(201, 168, 76, 0.08);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, var(--deep-green), #1e3a2e);
+  color: var(--cream);
+  border: 1.5px solid rgba(201, 168, 76, 0.3);
+  box-shadow: 0 8px 32px var(--shadow);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.card-chapter-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--rust);
+  margin-bottom: 16px;
+}
+
+.card-back .card-chapter-label { color: var(--gold); }
+
+.card-question {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.card-answer {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: rgba(250, 247, 240, 0.92);
+}
+
+.card-answer p { margin-bottom: 12px; }
+.card-answer p:last-child { margin-bottom: 0; }
+
+.card-answer strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.flip-hint {
+  margin-top: auto;
+  padding-top: 16px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.45;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* CARD NAV */
+.card-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-soft);
+  background: var(--card-bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+.nav-btn:hover {
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.card-counter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--rust);
+  min-width: 80px;
+  text-align: center;
+}
+
+/* PROGRESS */
+.progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 4px;
+  background: var(--accent-bg);
+  border-radius: 4px;
+  margin: 16px auto 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--rust));
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* LIST VIEW */
+.list-view { max-width: 720px; margin: 0 auto; }
+
+.list-chapter {
+  margin-bottom: 32px;
+}
+
+.list-chapter-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--deep-green);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gold-soft);
+  margin-bottom: 16px;
+}
+
+.list-card {
+  background: var(--card-bg);
+  border: 1px solid var(--gold-soft);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.list-card:hover { box-shadow: 0 4px 16px var(--shadow); }
+
+.list-card-header {
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.list-card-header .q-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  color: var(--rust);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.list-card-header .arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+  opacity: 0.4;
+  font-size: 0.9rem;
+}
+
+.list-card.open .arrow { transform: rotate(180deg); }
+
+.list-card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.list-card.open .list-card-body {
+  max-height: 800px;
+}
+
+.list-card-body-inner {
+  padding: 0 20px 20px 60px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(26, 21, 16, 0.8);
+}
+
+.list-card-body-inner p { margin-bottom: 10px; }
+.list-card-body-inner p:last-child { margin-bottom: 0; }
+.list-card-body-inner strong { color: var(--rust); font-weight: 600; }
+
+/* SHUFFLE BTN */
+.shuffle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 auto 24px;
+  padding: 8px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1.5px solid var(--gold-soft);
+  border-radius: 100px;
+  background: var(--card-bg);
+  color: var(--rust);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.shuffle-btn:hover { background: var(--gold-soft); }
+
+@media (max-width: 600px) {
+  .app { padding: 16px 12px 60px; }
+  .card-face { padding: 24px 20px; }
+  .chapter-btn { font-size: 0.72rem; padding: 6px 12px; }
+  .list-card-body-inner { padding-left: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<script>
+const DATA = [
+  {
+    chapter: "Pilgrims & Pilgrimages",
+    cards: [
+      {
+        q: "What were pilgrimages and why did they become popular in the 12th–13th centuries?",
+        a: `Pilgrimages were journeys to sacred places as acts of religious devotion. They surged in popularity during the 12th and 13th centuries because the threats to the Christian world from infidels and heathens in the East were at their height. The passion to defend Christianity manifested in the Crusades and a general upsurge in religious fervour. <strong>Shrines were established across Europe</strong> at places of religious significance — Canterbury Cathedral (site of Becket's assassination), Walsingham in Norfolk (visions of the Virgin Mary), the cathedral city of Cologne, Compostela, and even Jerusalem itself after Emperor Frederick II negotiated peace.`
+      },
+      {
+        q: "What was the traditional image of a pilgrim, and what emblems did they carry?",
+        a: `The traditional pilgrim was someone who travelled <strong>humbly and simply, dressed in plain clothes, often on foot, carrying a staff</strong>. The key emblem was the <strong>scallop or cockle shell</strong>, worn on a cap or hood. This was particularly the symbol of St James, patron saint of military crusaders, whose shrine was at Compostela in northern Spain — one of the great pilgrim routes across Europe. The shells were originally real, but later moulded in lead like other pilgrim badges.`
+      },
+      {
+        q: "How had pilgrimage changed by Chaucer's time?",
+        a: `By the time Chaucer wrote, pilgrimage had become <strong>less exclusively devotional</strong> and more like a profitable business and popular pastime — essentially an early tourist industry. The Venetians ran a regular ferry service to the Holy Land. The monks of Cluny operated a chain of hotels between their monastery and Compostela. <strong>Travel guides</strong> were produced with accommodation info. One Compostela guide even included Basque vocabulary. Horse traders hired out horses to pilgrims. There was fierce competition between religious establishments for popular relics, leading to obvious forgeries — at least two places claimed to have John the Baptist's head.`
+      },
+      {
+        q: "What souvenirs did pilgrims collect?",
+        a: `Pilgrims brought home souvenirs and housed them in local churches. The 14th-century traveller William Wey deposited his maps, a reproduction of St Veronica's handkerchief, and stones from the Holy Land in his Wiltshire village church. <strong>Badges and emblems of lead</strong> were sold at shrines and eagerly purchased — the cockle shell for St James, the palm tree from Jericho. At Canterbury you could buy an image of the saint's head, St Thomas riding a horse, a little bell, or a small ampulla (bottle) for sacred water. Permission to manufacture these was given from Rome.`
+      },
+      {
+        q: "How do Chaucer's pilgrims reflect different motives for pilgrimage?",
+        a: `Some pilgrims have genuinely devout reasons: <strong>the Knight</strong> has come straight from military expeditions fighting for Christendom, his coat still stained from his armour. Others are less pious: <strong>the Wife of Bath</strong>, though an enthusiastic pilgrim, hardly travels in a spirit of devotion — she lists places she's visited like a seasoned tourist ticking off attractions. By using pilgrimage as a framework, <strong>Chaucer was able to show how attitudes and standards were changing and old values were being lost</strong>.`
+      }
+    ]
+  },
+  {
+    chapter: "Geoffrey Chaucer — Biographical Notes",
+    cards: [
+      {
+        q: "What are the key facts about Chaucer's early life and family background?",
+        a: `Chaucer was born around <strong>1340</strong> (the actual date is uncertain, but he was near sixty when he died). His father and grandfather were both <strong>vintners — wealthy London merchants</strong> who supplied wines to the king's court. He was introduced to court life in his teens; by the age of sixteen he was employed in the service of the wife of the king's son, Lionel, later Duke of Clarence.`
+      },
+      {
+        q: "What happened to Chaucer during the wars with France?",
+        a: `In <strong>1359</strong>, Chaucer fought in France in the army of Edward III. He was <strong>captured and imprisoned</strong>, but was released on payment of his ransom by the duke. This shows he was clearly valued by the king and other members of the powerful royal family.`
+      },
+      {
+        q: "How was Chaucer connected to John of Gaunt and the royal family?",
+        a: `In the <strong>1360s</strong>, Chaucer married Philippa de Roet, whose half-sister was <strong>Katherine Swynford</strong> — originally nurse and governess to John of Gaunt's children, then his mistress, and ultimately his third wife. This link with the powerful Duke of Lancaster was crucial: the duke became <strong>Chaucer's patron and friend</strong>, later giving him a pension of £10 a year. In the 1360s and 1370s, Chaucer was sent on diplomatic missions to France, Genoa, Florence, and Lombardy.`
+      },
+      {
+        q: "What were Chaucer's major career milestones and works?",
+        a: `<strong>1370?</strong> — Wrote The Boke of the Duchess. <strong>1374</strong> — Made comptroller of customs for the Port of London; also granted a pitcher of wine daily. <strong>1374</strong> — Began The House of Fame (unfinished). <strong>1382</strong> — Wrote The Parlement of Fowles, possibly for Richard II's marriage. <strong>1385–8</strong> — Wrote Troilus and Criseyde. <strong>1386</strong> — Appointed 'knight of the shire' (parliamentary representative) for Kent, like the Franklin in The Canterbury Tales. <strong>1388</strong> — Went on a pilgrimage, possibly formulating ideas for The Canterbury Tales.`
+      },
+      {
+        q: "What were Chaucer's later years and financial difficulties like?",
+        a: `Despite royal patronage, Chaucer was <strong>an extravagant man and money slipped through his fingers</strong>. In 1389 he was appointed clerk of the king's works by Richard II, but the position lasted only two years. He may have lost favour during political upheavals of Richard's reign. Richard gave him a pension of £20 for life, which Chaucer frequently asked for 'in advance'. He faced threats of arrest for non-payment of debts, warded off by letters of protection from the crown. <strong>1391</strong> — Spent time in Petherton, Somerset, as deputy forester. <strong>1399</strong> — Henry IV (John of Gaunt's son) became king and awarded Chaucer a new pension of 40 marks (~£26). <strong>1400</strong> — Chaucer died in October and was buried in Westminster Abbey.`
+      }
+    ]
+  },
+  {
+    chapter: "Chaucer the Writer & Scholar",
+    cards: [
+      {
+        q: "What literary influences shaped Chaucer's writing?",
+        a: `Although active in diplomatic life, Chaucer was an <strong>extremely well-read man</strong>. His works show the influence of <strong>classical writers</strong> as well as more recent French and Italian works. The range of biblical, classical, and contemporary literary references in the Wife of Bath's prologue and tale bear witness to his 'bookishness'. He confesses to owning <strong>sixty books</strong> — a very considerable library for the time. Many of the ideas and themes in The Canterbury Tales were adapted from works of classical and contemporary sources known to him and his audiences.`
+      },
+      {
+        q: "What are some of Chaucer's best-known works and their influences?",
+        a: `His earliest works like <strong>The Boke of the Duchess</strong> show the influence of French romances — the works of twelfth-century Marie de France and the Roman de la Rose. It is a dream poem and a lament for Blanche of Lancaster, John of Gaunt's first wife. <strong>The House of Fame</strong> (unfinished) suggests both French and Italian influences, with the dreamer meeting categories of famous people like Dante's Inferno (1265–1321). Chaucer admired <strong>Petrarch and Boccaccio</strong>, whom he reportedly met on diplomatic business in Italy. Boccaccio's Decameron (written ~40 years before The Canterbury Tales) uses a similar linking device of storytelling in a group setting.`
+      },
+      {
+        q: "How did Chaucer demonstrate his scholarly depth?",
+        a: `In <strong>Troilus and Criseyde</strong>, his retelling of love and betrayal during the Trojan Wars, he shows his debt to classical writers — considered one of his best works. The Canterbury Tales are full of allusions to <strong>Homer, Horace, Virgil, Ovid, and Plato</strong>, plus Old and New Testament references. He showed a scholarly understanding of the writings of theologians like <strong>St Jerome and St Augustine</strong>. He greatly admired the Roman philosopher <strong>Boethius</strong> and translated his De Consolatione Philosophiae from Latin into English. He also had an interest in <strong>astronomy and astrology</strong>, writing A Treatise on the Astrolabe for his young son 'little Lewïse', who died in childhood.`
+      }
+    ]
+  },
+  {
+    chapter: "Merchants in Chaucer's Day",
+    cards: [
+      {
+        q: "What was the economic landscape for merchants in Chaucer's era?",
+        a: `The fourteenth century was a time of <strong>increasing prosperity and expanding markets</strong> for the merchant class. By Chaucer's death in 1400, merchants were trading all over the known world. There was very little distinction between a prosperous merchant's business and a bank — banks were beginning to rely on <strong>promissory notes</strong> rather than risky transportation of bullion. A paper stating an agreed sum could be given by one branch and exchanged for cash in another branch, even in another country. With over <strong>70 different currencies</strong>, paper 'bills' made payments much simpler. However, with the increase in trade came a corresponding increase in debt, and merchants frequently loaned large amounts.`
+      },
+      {
+        q: "How does Chaucer portray the Merchant character?",
+        a: `Although Chaucer describes his Merchant as being in debt, this doesn't necessarily mean he was a poor man, a trickster, or inefficient — today we might say he has a <strong>cashflow problem</strong>. He is certainly concerned with his bargains and his balance sheet. The Merchant appears <strong>well-travelled</strong>, wearing very fashionable clothing including a hat from Flanders. He is interested in the protection of sea trade routes and tells a story set in Italy (Lombardy), a city-state known for its merchant bankers and money-lenders.`
+      },
+      {
+        q: "How was the Merchant connected to the wool trade and what social tensions did merchants face?",
+        a: `The Merchant is depicted as a <strong>wool merchant</strong> — Canterbury in the 14th century produced a great deal of wool, so this is fitting. He is on pilgrimage not for religion but for <strong>monetary gain</strong>. Merchants frequently became <strong>money lenders who charged interest</strong>, which was seen as disrespecting God — they were considered sinners because of usury and operating outside the Church's moral framework. There were growing <strong>tensions between the old feudal system and the emerging middle class</strong>, making merchants seen as untrustworthy. Yet they were a <strong>fact of life</strong>, essential to the economic and social fabric — particularly through the wool trade — and they brought wealth to England through overseas commerce.`
+      },
+      {
+        q: "What does the Merchant's choice of tale reveal about him?",
+        a: `It is fitting that the Merchant tells a tale of <strong>a knight, someone of higher status</strong> — but that January should be as concerned about 'chevissaunce' (financial dealings) as the Merchant himself. Chaucer suggests the Merchant <strong>has a high opinion of himself</strong> and is justifying his own interest in goods and property. The character of the knight seems influenced by <strong>mercantile imagery</strong> — just as adverts sell us a fantasy image, January looks in the 'commune market-place' for a wife who suits his 'heigh fantasye'. Many merchants of Chaucer's day were <strong>wealthier than some nobility</strong>, and perhaps the Merchant has delusions of grandeur — by choosing courtly love and 'gentilesse', he hopes to be seen as 'gentil' himself. His frequent use of market-place language exposes his real character.`
+      }
+    ]
+  },
+  {
+    chapter: "Courtly Love",
+    cards: [
+      {
+        q: "How did the Roman poet Ovid influence the concept of courtly love?",
+        a: `The Roman poet <strong>Ovid</strong> undoubtedly provided inspiration for the developing concept of courtly love. His works pictured a lover as the <strong>slave of passion</strong> — sighing, trembling, growing pale and sleepless, even dying for love. This idea of love as an overwhelming, uncontrollable force became central to the courtly love tradition in the later Middle Ages, where it developed into a <strong>highly conventionalised code</strong> prescribing the behaviour of ladies and their lovers.`
+      },
+      {
+        q: "What was courtly love and how did it differ from real marriage practices?",
+        a: `At a time when marriages were a matter of <strong>alliances and business, love was considered an irrelevance</strong>. Brides were chosen for their dowry (the money they would bring) or for their status. Sometimes wealthy men like January would choose a bride for her looks and potential as a mother. <strong>Courtly love</strong> was part of the chivalric code and existed more as a literary device than a real historic practice. Conventionally, a nobleman who fell in love with a woman of equal or higher status proved his love by performing noble deeds or writing poetry and songs about her beauty.`
+      },
+      {
+        q: "What were the conventions and characteristics of courtly love?",
+        a: `Love was experienced as <strong>a kind of sickness over which the lovers had no control</strong>. The knight was not supposed to tell his lady of his love but to suffer in silence until she took pity on him. Courtly love was <strong>not restricted to courtship leading to marriage</strong>, and could sometimes be presented as adulterous, though in poetry it was often given a quasi-religious significance with the love of a noble lady leading the knight to perform selfless deeds of heroism.`
+      },
+      {
+        q: "How does Chaucer parody courtly love in The Merchant's Tale?",
+        a: `The affair between May and Damyan is <strong>a ludicrous parody of courtly love</strong>. He is not a knight and he performs no great deeds for his lady. She is not worthy of his worship. Their sordid little liaison is <strong>based on lust</strong>. Chaucer makes the parody even more significant through the <strong>pear tree story</strong>, sourced from Boccaccio's Decameron (ninth story, day seven), about a young wife deceiving her elderly husband. She pretends anyone up the tree 'sees' those on the ground making love. The husband climbs the tree, sees his wife and her lover, but when he struggles down, she convinces him the pear tree made him see it. He accepts her word but chops down the tree.`
+      },
+      {
+        q: "What is the significance of the garden and The Roman de la Rose?",
+        a: `Chaucer places the pear tree within a magnificent garden which on one level references <strong>the Garden of Eden</strong>, and on another is an intertextual reference to <strong>The Roman de la Rose</strong>, a medieval French allegory Chaucer partly translated. It is based on the courtly love tradition about a poet's love for his lady — she is represented as a rosebud in a beautiful garden and, unlike May, she is <strong>unattainable</strong>. For Chaucer's contemporary audience, January's attempt to reproduce this garden would be an example of his <strong>hubris</strong>, and May and Damyan's endeavour to be courtly lovers would have been perceived as <strong>coarsely comic</strong>.`
+      }
+    ]
+  },
+  {
+    chapter: "The Debate on Marriage",
+    cards: [
+      {
+        q: "Which tales form the 'marriage debate' in The Canterbury Tales?",
+        a: `Critics have often argued that much of the middle section of The Canterbury Tales is concerned with marriage. The four tales of <strong>the Wife of Bath, the Clerk, the Merchant, and the Franklin</strong> are centrally concerned with marriage, though several other tales also deal with married couples. These four tales are linked through <strong>imagery, theme, and language</strong>, and the pilgrims talk to each other between tales, referring to the stories and tellers.`
+      },
+      {
+        q: "What is the Wife of Bath's view of marriage?",
+        a: `The Wife of Bath, in her very long prologue, talks of her own experience of marriage, which she views as <strong>a battle that she must win at all costs</strong>. She claims she first married when she was 12, and her first three husbands were wealthy old men. She managed them by bullying and using sexual blackmail. Her fourth husband paid her back for all the suffering she endured. Her fifth marriage was to a man half her age; she considers herself happy, though he used to beat her when they were first married. <strong>Eventually she achieved mastery over him as well</strong>. Her tale is of a fairy-tale marriage between a knight at King Arthur's court and an ugly old woman — she magically <strong>becomes beautiful when he gives her 'sovereignty'</strong>. The Wife interprets the tale to get another young husband.`
+      },
+      {
+        q: "How does the Clerk respond to the Wife of Bath?",
+        a: `The Clerk tells an allegorical tale of the improbably long-suffering <strong>Griselda</strong>, married to a count called Walter who tests her fidelity past human endurance. She promises never to disagree with him. He takes away her daughter, then her son, claiming they must be removed. About ten years later he tells her he's taking a new wife and sends her back to her father nearly naked. When the 'new bride' arrives, it turns out to be their daughter — Walter was only testing her. <strong>Griselda keeps her word through all suffering</strong>. The Clerk says his story represents the relationship between Christ and his church, and makes a gently ironic reference to the Wife of Bath in his epilogue.`
+      },
+      {
+        q: "How does the Merchant's Tale fit into the marriage debate?",
+        a: `The Clerk's tale of the submissive Griselda is followed abruptly by the Merchant's prologue and his own experience of marital suffering. The tale he tells is <strong>confused in style: a mixture of ironic debate, realistic description, the well-known fabliau of the pear tree, and a folk tale</strong>. May, the character, appears to be quite close to the Wife of Bath's Prologue — she is similar to the young Wife described there. Chaucer wants us to see the Merchant as deeply moved by the Clerk's Tale, compelled to launch into an account of his own suffering during his brief marriage. The tale of January begins with a long eulogy of marriage, but as the Merchant is himself unhappily married, this must be <strong>ironic</strong>. It has two strands: one is a naively exaggerated description of holy matrimony; the other is a darker, more selfish view of marriage as providing great conveniences for an ageing lecher.`
+      },
+      {
+        q: "How does the Franklin's Tale resolve the marriage debate?",
+        a: `The Franklin's tale is closer to a romance. His story involves a marriage between a knight and a lady who begin as courtly lovers. They agree that after marriage they will <strong>combine the ideals of courtly love with the ideals of matrimony</strong>. Like January and May, their marriage is threatened by a young squire who falls ill with desire for the wife. She makes a rash promise to fulfil his desires if he can remove dangerous rocks. He achieves this and demands she keep her word. She eventually manages to remain faithful through the help of her husband and the generosity of the young squire. <strong>The conclusion seems to be that love and mutual respect must be the foundations of a successful marriage</strong>.`
+      }
+    ]
+  },
+  {
+    chapter: "The Myth of Pluto & Proserpina",
+    cards: [
+      {
+        q: "What is the myth of Pluto and Proserpina?",
+        a: `It is one of the Roman myths explaining <strong>the seasons of the year</strong>. A parallel Greek version features Hades capturing Persephone. <strong>Pluto</strong> was god of the Underworld, of death and darkness. <strong>Proserpina</strong> was the daughter of Ceres, goddess of harvest and agriculture. Pluto saw Proserpina gathering flowers in the Valley of Enna, where there was perpetual spring. He fell in love with her and carried her off to his kingdom. Ceres was so grieved that <strong>all the plants died and winter covered the earth</strong>.`
+      },
+      {
+        q: "How was the myth resolved, and what does it explain?",
+        a: `Ceres begged Jupiter, king of the Gods, to help release her daughter. Jupiter agreed, <strong>provided Proserpina had not eaten anything</strong> during her stay in the Underworld. Unfortunately, she had sucked juice from pomegranate seeds. A compromise was reached: she could rejoin her mother on earth for <strong>six months of the year</strong>, but had to return to Pluto for the rest. When Proserpina appears, Ceres and the earth rejoice and plants bloom; when she returns to Pluto, everything withers and dies. This explains the cycle of the seasons.`
+      },
+      {
+        q: "How does the myth of Pluto and Proserpina relate to The Merchant's Tale?",
+        a: `Pluto and Proserpina represent <strong>winter and spring</strong> (as do January and May), and <strong>death and rebirth</strong>. Though Chaucer's Pluto and Proserpina seem very cultured and urbane for a pagan king of the Underworld and his stolen bride, their conversation continues the debate on the nature of the relationship between men and women. Chaucer seems to intend <strong>an ironic comment on the marriage of January and May</strong> by including another couple where the bride flees from her husband for six months of the year. The Merchant also draws attention to the beauty of the garden — so special that it is chosen by gods and goddesses for their pleasure.`
+      }
+    ]
+  },
+  {
+    chapter: "Themes in The Merchant's Tale",
+    cards: [
+      {
+        q: "What questions should you consider about the theme of MARRIAGE?",
+        a: `<strong>(a)</strong> To what extent has Chaucer depicted a recognisable portrait of a certain type of man in January? Are there still men today who look for a wife who will be there only to please them? <strong>(b)</strong> Can you make any deductions about Chaucer's own attitude to marriage from The Merchant's Tale? <strong>(c)</strong> Do you feel that Chaucer is sympathetic to January's way of choosing a wife? <strong>(d)</strong> How much sympathy do you feel Chaucer has for May and Damyan?`
+      },
+      {
+        q: "What questions should you consider about GARDENS in the tale?",
+        a: `<strong>(a)</strong> How does Chaucer use the symbolism of the garden and its gate to reflect the wider themes of the tale? <strong>(b)</strong> Why do you think Chaucer has set the seduction scene in the garden? <strong>(c)</strong> What effect does Chaucer achieve with the introduction of Pluto and Proserpina into the garden?`
+      },
+      {
+        q: "What questions should you consider about CHAUCER'S STYLE?",
+        a: `<strong>(a)</strong> Choose two or three examples of the different styles Chaucer employs in The Merchant's Tale and show how each is used to illuminate his intentions. <strong>(b)</strong> What methods does Chaucer use to distinguish between the voices of his characters? <strong>(c)</strong> To what extent do you feel that May and Damyan are merely stereotypes?`
+      },
+      {
+        q: "What questions should you consider about TALE AND TELLER?",
+        a: `<strong>(a)</strong> To what extent would you say that in The Merchant's Tale Chaucer achieved an unusually close association between the tale and the teller? <strong>(b)</strong> What do you think is the purpose of the Host's reaction to The Merchant's Tale?`
+      },
+      {
+        q: "What questions should you consider about BLINDNESS AND SEEING?",
+        a: `<strong>(a)</strong> At the end of the tale, January says he sees 'as wel as evere I mighte'. To what extent would you say January ever 'sees' clearly during the tale? <strong>(b)</strong> In many stories where blindness is both symbolic and real, the protagonist is often brought to clearer self-perception through actual blindness. Would you say this is true of January or the Merchant?`
+      },
+      {
+        q: "What questions should you consider about SEXUALITY, IMAGERY, and APPEARANCE VS REALITY?",
+        a: `<strong>Sexuality:</strong> (a) To what extent do Chaucer's blunt and coarse descriptions of sexual themes reflect his moral judgement of the characters? (b) Is there any love in The Merchant's Tale? <strong>Imagery:</strong> (a) Discuss the effects of animal imagery. (b) How does Chaucer use the contrast between fantasy and reality? (c) How effective is the repeated image of wax and impression? <strong>Appearance & Reality:</strong> (a) Choose vivid scenes and comment on their effectiveness. (b) There is great disparity between the idealised descriptions of January's household/garden and his behaviour — is the gap between appearance and reality one of Chaucer's major themes?`
+      }
+    ]
+  },
+  {
+    chapter: "Looking Back at The Merchant's Tale",
+    cards: [
+      {
+        q: "Lines 33–186: How does Chaucer present January's views on marriage in the opening section?",
+        a: `This is where the Merchant praises marriage and January becomes progressively more committed to his particular ideas about wedlock. It is a way to <strong>avoid the sin of fornication</strong>, which he admits he has always committed, 'for wedlok is so esy and so clene'. Though he speaks of the spiritual justification for marriage, there is a much <strong>greater concentration on the material convenience and pleasure</strong> to be obtained from an obedient wife. His praise of marriage becomes increasingly unrealistic and therefore almost <strong>savagely sarcastic</strong> when contrasted with the Merchant's thorough disenchantment after only two months' experience.`
+      },
+      {
+        q: "Lines 187–256: What does January's self-delusion reveal when he tells his friends of his decision?",
+        a: `January calls his friends to tell them of his decision. He acknowledges his age but compares himself to <strong>a blossoming tree or an evergreen</strong> — this wilful self-delusion prefigures the disillusion which occurs, appropriately enough, in a garden. He describes the kind of wife he wants: young ('she shal nat passe twenty yeer') and <strong>malleable ('warm wex')</strong>. The Merchant makes it clear that January thinks of his young wife as <strong>a commodity to be possessed</strong>.`
+      },
+      {
+        q: "Lines 257–364: What roles do Placebo and Justinus play as January's advisors?",
+        a: `January listens to the contradictory advice of his brothers, <strong>Placebo and Justinus</strong>, though he rejects any views that do not match his exaggerated image of marriage. <strong>Placebo</strong>, faithful to his name (meaning 'I will please'), does not give advice but merely agrees. <strong>Justinus</strong> echoes the Merchant by referring to his own experience of marriage. He also supports his views by citing authorities, which January defies: 'Straw for your Senek!'`
+      },
+      {
+        q: "Lines 365–483: How does Chaucer develop the theme of fantasy vs. reality in January's anticipation of marriage?",
+        a: `January moves towards <strong>fantasising the pleasure</strong> that marriage to a young wife will bring him. Chaucer is making explicit the theme of <strong>the difference between fantasy and reality</strong>. He also emphasises January's <strong>lack of spiritual awareness</strong> as he compares the pleasures he hopes to obtain from marriage with those of Heaven.`
+      },
+      {
+        q: "Lines 484–496: What is notable about the description of the wedding itself?",
+        a: `This section describes the wedding of January and May. It is an <strong>extremely short section</strong>, suggesting that the holy sacrament of marriage was <strong>not of paramount importance to January</strong>. It seems just a quick skip through the conventions of the marriage service; even the priest seems in a hurry — 'And seyde his orisons, as is usage'.`
+      },
+      {
+        q: "Lines 497–605: What happens at the marriage feast and how is Damyan introduced?",
+        a: `The marriage feast is described with <strong>romantic imagery</strong>, suggesting wealth and culture, though the presence of <strong>Venus and Bacchus</strong> imply a certain sensual licentiousness. It is during the marriage feast that <strong>Damyan is introduced</strong>, and the reader is left in no doubt that he is going to introduce the uncertainty in the story — he is compared to a snake: 'Lyk to the nadder in bosom sly untrewe'.`
+      },
+      {
+        q: "Lines 606–653: How does the wedding night contrast with January's earlier fantasies?",
+        a: `Chaucer's description of the wedding night brings in a rather <strong>sour note of reality</strong>. The close-up description of the <strong>slack skin on January's neck and his hoarse singing</strong> is an unpleasant contrast with his earlier idealisation of the married state. <strong>May's internal commentary</strong> on January's love-making is not very elegant: 'She preyseth nat his pleying worth a bene' (l.642). The wording of her image recalls to the reader January's anticipation of the joys of marriage: 'noon oother lif is worth a bene'.`
+      },
+      {
+        q: "Lines 654–808: How does Chaucer undercut any romantic idealism in the love-letter exchange between Damyan and May?",
+        a: `Damyan and May exchange love letters, but Chaucer ensures that they are <strong>not perceived as romantically idealised figures</strong> by describing May's reading of Damyan's letter <strong>in the toilet</strong>, then her casting the fragments into the 'privee'. Damyan recovers from his lovesickness ludicrously quickly and rushes to bow to January <strong>like a 'dogge for the bowe'</strong>.`
+      },
+      {
+        q: "Lines 809–1006: What is the significance of January's garden and how does the key become important?",
+        a: `Here the Merchant describes how January creates a <strong>beautiful walled garden</strong> for May and himself to amuse themselves in. The implicit comparison with the <strong>Garden of Eden</strong> is shocking and would remind Chaucer's audience of the terrible consequences of the fall of man. January keeps the <strong>only key ('clicket') to the gate ('wicket')</strong>, reinforcing the theme of property. Only he can obtain access to the garden and to May. In the middle of his good fortune, <strong>January is struck blind</strong> and May is able to take an imprint of the key in wax so that Damyan may make a copy. One spring day, Damyan precedes them into the garden and <strong>climbs a pear tree</strong> to wait for May.`
+      },
+      {
+        q: "Lines 1007–1107: What role do Pluto and Proserpina play in the tale's climax?",
+        a: `The Merchant digresses from his main story to describe how <strong>Pluto and Proserpina</strong> come from the Underworld to take gentle exercise in the garden. They <strong>argue about the deception of January</strong>. Pluto asserts that he will <strong>restore January's sight</strong> if May deceives him, and Proserpina says she will ensure that May has a good excuse: <strong>'a suffisant answere'</strong>.`
+      },
+      {
+        q: "Lines 1108–1206: How does the climactic deception scene play out?",
+        a: `The climax of the tale is the <strong>deception of January</strong>. May professes to long for a pear (using the excuse that pregnant women have strange longings). She climbs on January's back to reach Damyan in the tree. When they begin to make love, <strong>Pluto keeps his promise and restores January's sight</strong>. He yells when he sees his wife and servant in an embrace. But as she had promised, <strong>Proserpina gives May an excuse</strong>: she had been told that to 'strugle with a man upon a tree' would restore his sight. Chaucer gives the reader the impression that <strong>January chooses to accept her excuse</strong> rather than lose her. Though January has been given back his sight, he chooses to <strong>remain blind to the consequences of his rash choice of bride</strong>.`
+      },
+      {
+        q: "Lines 1207–1228: What is the significance of the epilogue spoken by the Host?",
+        a: `The epilogue to the Merchant's tale is spoken entirely by <strong>the Host</strong>. He has perhaps been influenced by the cynicism of the tale, and claims that the Merchant has proved that <strong>women are deceitful</strong>. His short description of his unhappy marriage is his 'tale'. This conversation also <strong>takes the reader back to the framework</strong> of The Canterbury Tales and to the idea of the pilgrimage. Once again the reader questions the Merchant's motives for undertaking a spiritual journey.`
+      }
+    ]
+  },
+  {
+    chapter: "May — A Feminist Reading",
+    cards: [
+      {
+        q: "How can May be read through a feminist lens, and what does her silence signify?",
+        a: `From a <strong>feminist approach</strong>, May is essentially a <strong>trophy wife</strong>. When the marriage is described as a 'stoone' (a binding contract), May <strong>doesn't say anything</strong> — Chaucer is commenting on the terrible situation for women. Her silence is significant: it reflects what <strong>society would accept</strong> as normal for a woman. She is <strong>absent as a voice</strong> in the early part of the story, having no agency in her own marriage.`
+      },
+      {
+        q: "How does May's character develop through rebellion, and what is Chaucer saying about women?",
+        a: `As the story progresses, May does <strong>more than simply rebel</strong> — she takes control. January eventually gets his <strong>comeuppance</strong>, which can be read as a moment of <strong>women's liberation</strong>. Chaucer is commenting on the <strong>role of women in society</strong>: women can be expected to behave in a certain way but will not always comply and <strong>will rebel</strong>. Importantly, Chaucer doesn't condone her actions — he simply <strong>lays it out for us to see</strong>. The tale's ending is <strong>cyclical</strong>: May comes back with a child, and things return to 'normal', suggesting people will always act this way.`
+      }
+    ]
+  },
+  {
+    chapter: "Religion in Chaucer's England",
+    cards: [
+      {
+        q: "What was the religious context of Chaucer's England?",
+        a: `England in Chaucer's time was <strong>Catholic, pre-break from Rome</strong>. The Bible and Mass were in <strong>Latin</strong>, making them inaccessible to most people. This coincides with the <strong>Wycliffe Bible</strong> being written in English between <strong>1382–95</strong>, a radical and controversial development. The Church held enormous power, and religious life shaped every aspect of society.`
+      },
+      {
+        q: "What major historical events shaped the religious and social backdrop of The Canterbury Tales?",
+        a: `Several seismic events formed the backdrop: the <strong>Crusades</strong> (1096–15th century) drove religious fervour and the pilgrimage tradition. The <strong>Hundred Years' War</strong> (1337–1453) between England and France created political instability and economic strain. The <strong>Black Death</strong> (1347–1359) devastated the population, causing massive social upheaval, labour shortages, and a questioning of religious authority. These events collectively shaped the world Chaucer's pilgrims inhabit.`
+      }
+    ]
+  },
+  {
+    chapter: "The Fabliau Tradition",
+    cards: [
+      {
+        q: "What is a fabliau, and how does it apply to The Merchant's Tale?",
+        a: `A fabliau is essentially an <strong>extended joke or trick</strong> — a short comic tale, usually bawdy, involving deception, cunning characters, and often a cuckolded husband. The Merchant's Tale draws on this tradition through the <strong>fabliau of the pear tree</strong>, a well-known story of romance and deception. The form was popular in medieval French literature, and Chaucer uses it to undercut any pretensions of courtly behaviour, making the tale's climax <strong>coarsely comic rather than romantic</strong>.`
+      }
+    ]
+  },
+  {
+    chapter: "Gardens — Symbolism & Significance",
+    cards: [
+      {
+        q: "What did gardens symbolise in medieval society, and what is the 'hortus conclusus'?",
+        a: `Gardens were <strong>symbolic of wealth and status</strong> — large private homes often had carefully designed gardens, while monasteries used them for herbs and medicinal plants. The <strong>hortus conclusus</strong> (enclosed garden) was a <strong>sacred, contained and private space</strong>, sometimes used in art to portray the sinless <strong>Virgin Mary</strong>. January's garden reflects this: the <strong>enclosed nature</strong> is seen in his obsessive concern over the 'clicket' which fits the 'wicket', and that he allows <strong>'no wight suffren bere the key'</strong> — it is about possession and control.`
+      },
+      {
+        q: "What are the religious and pagan dimensions of January's garden?",
+        a: `The garden operates on multiple symbolic levels. It is a <strong>religious space — Edenic</strong>, recalling the Garden of Eden and the Fall. Yet it is also a <strong>pagan place</strong>, associated with <strong>Priapus</strong>, the god of gardens and fertility. The <strong>Song of Solomon</strong> is relevant too — traditionally read as an allegory of love between God and the Church. January quotes and adapts it when he says <strong>'ris up, my wyf, my love, my lady free'</strong>, but the fact he uses it for physical pleasure rather than spirituality shows his misuse of sacred language. Notably, the Song of Solomon is itself <strong>erotic</strong>.`
+      },
+      {
+        q: "How does January's garden function as a 'locus amoenus' and connect to The Romance of the Rose?",
+        a: `The garden is a <strong>locus amoenus</strong> (a place of pleasure): <strong>'so fair a gardyn woot I nowher noon'</strong>, designed for the couple alone — <strong>'no wight but they two'</strong> — to 'walk and pleye' and do <strong>'thinges whiche that were nat doon abedde'</strong>. Crucially, Chaucer translated an edition of <strong>The Romance of the Rose</strong>, and the tale draws on its parallel symbolism. May herself compares January's garden to it: <strong>'I verraily suppose / that he that wroot the Romance of the Rose / ne koude of it the beautee wel devise'</strong>. Both May and the garden are described as <strong>'fresshe'</strong>, linking woman and nature as objects of desire.`
+      },
+      {
+        q: "How does the imagery of flowers and deflowering work in the garden scenes?",
+        a: `May uses the language of flowers and virginity to <strong>persuade January of her fidelity</strong>. The phrase <strong>'my wifhood thilke tendre flour'</strong> (I entrust my wifehood to you) carries a double meaning — the word 'flour' evokes <strong>deflowering</strong>, virginity, and the garden's blossoms simultaneously. This floral imagery connects May to the garden itself, reinforcing how January sees both his wife and his garden as <strong>beautiful possessions</strong> to be enclosed, controlled, and enjoyed.`
+      }
+    ]
+  },
+  {
+    chapter: "Audience & Social Context",
+    cards: [
+      {
+        q: "Who was the audience for Chaucer's work, and why does this matter?",
+        a: `Chaucer's audience was the <strong>upper class, educated classes, and the mercantile class</strong> — these were the only people who could read. This is significant because it means his <strong>satire, irony, and literary allusions</strong> were aimed at an audience who would understand references to classical authors, courtly love conventions, and contemporary social tensions. The fact that merchants were part of this audience adds another layer to The Merchant's Tale — Chaucer's listeners would have <strong>recognised the social types</strong> he was portraying.`
+      }
+    ]
+  },
+  {
+    chapter: "Pluto, Proserpina & Biblical Law",
+    cards: [
+      {
+        q: "How do Pluto and Proserpina parallel January and May, and what biblical law is relevant?",
+        a: `The parallels between the two couples are deliberate: both involve <strong>an older, powerful figure and a younger, constrained woman</strong>, and both relate to themes of <strong>seasonal change</strong> (the names January and May mirror winter and spring, just as Pluto and Proserpina represent death and rebirth). Proserpina must stay with Pluto for <strong>six months of the year</strong>, mirroring May's entrapment in marriage. Significantly, <strong>Leviticus 20:10</strong> states that adultery is <strong>punishable by death</strong> — a stark biblical backdrop that heightens the stakes of May's deception and Chaucer's audience would have been keenly aware of.`
+      }
+    ]
+  }
+];
+
+let state = {
+  view: 'cards',
+  chapter: 'all',
+  cardIndex: 0,
+  flipped: false,
+  openCards: {}
+};
+
+function getFilteredCards() {
+  if (state.chapter === 'all') {
+    return DATA.flatMap(ch => ch.cards.map(c => ({ ...c, chapter: ch.chapter })));
+  }
+  const ch = DATA.find(d => d.chapter === state.chapter);
+  return ch ? ch.cards.map(c => ({ ...c, chapter: ch.chapter })) : [];
+}
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let shuffledCards = null;
+
+function render() {
+  const app = document.getElementById('app');
+  const cards = shuffledCards || getFilteredCards();
+  const total = cards.length;
+
+  app.innerHTML = `
+    <header>
+      <h1>Chaucer Context<span>The Merchant's Prologue & Tale — Flashcards</span></h1>
+      <div class="stats-bar">
+        <div class="stat"><div class="dot total"></div>${total} cards</div>
+        <div class="stat"><div class="dot done"></div>${state.view === 'cards' ? state.cardIndex + 1 : total} viewed</div>
+      </div>
+    </header>
+
+    <div class="chapter-nav">
+      <button class="chapter-btn ${state.chapter === 'all' ? 'active' : ''}" onclick="setChapter('all')">All Chapters</button>
+      ${DATA.map(ch => `<button class="chapter-btn ${state.chapter === ch.chapter ? 'active' : ''}" onclick="setChapter('${ch.chapter.replace(/'/g, "\\'")}')">${ch.chapter.split('—')[0].trim()}</button>`).join('')}
+    </div>
+
+    <div class="view-toggle">
+      <button class="view-btn ${state.view === 'cards' ? 'active' : ''}" onclick="setView('cards')">⬦ Flashcards</button>
+      <button class="view-btn ${state.view === 'list' ? 'active' : ''}" onclick="setView('list')">☰ List</button>
+    </div>
+
+    ${state.view === 'cards' ? renderCards(cards, total) : renderList()}
+  `;
+}
+
+function renderCards(cards, total) {
+  if (total === 0) return '<p style="text-align:center;opacity:0.5;margin-top:40px;">No cards in this chapter.</p>';
+  const card = cards[state.cardIndex];
+  const progress = ((state.cardIndex + 1) / total) * 100;
+
+  return `
+    <button class="shuffle-btn" onclick="doShuffle()">⟳ Shuffle</button>
+    <div class="flashcard-container">
+      <div class="flashcard-wrapper">
+        <div class="flashcard ${state.flipped ? 'flipped' : ''}" onclick="flipCard()">
+          <div class="card-face card-front">
+            <div class="card-chapter-label">${card.chapter}</div>
+            <div class="card-question">${card.q}</div>
+            <div class="flip-hint">Tap to reveal answer</div>
+          </div>
+          <div class="card-face card-back">
+            <div class="card-chapter-label">${card.chapter}</div>
+            <div class="card-answer">${card.a.split('. ').reduce((acc, s, i) => {
+              if (i === 0) return `<p>${s}.`;
+              if (i % 3 === 0) return acc + `</p><p>${s}.`;
+              return acc + ` ${s}.`;
+            }, '') + '</p>'}</div>
+            <div class="flip-hint" style="color:rgba(250,247,240,0.35)">Tap to see question</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-nav">
+      <button class="nav-btn" onclick="prevCard()" ${state.cardIndex === 0 ? 'disabled' : ''}>◀</button>
+      <div class="card-counter">${state.cardIndex + 1} / ${total}</div>
+      <button class="nav-btn" onclick="nextCard()" ${state.cardIndex === total - 1 ? 'disabled' : ''}>▶</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+  `;
+}
+
+function renderList() {
+  const chapters = state.chapter === 'all' ? DATA : DATA.filter(ch => ch.chapter === state.chapter);
+  return `<div class="list-view">${chapters.map(ch => `
+    <div class="list-chapter">
+      <div class="list-chapter-title">${ch.chapter}</div>
+      ${ch.cards.map((card, i) => {
+        const key = ch.chapter + i;
+        const open = state.openCards[key];
+        return `
+          <div class="list-card ${open ? 'open' : ''}">
+            <div class="list-card-header" onclick="toggleListCard('${key.replace(/'/g, "\\'")}')">
+              <div class="q-icon">Q</div>
+              <div>${card.q}</div>
+              <div class="arrow">▼</div>
+            </div>
+            <div class="list-card-body">
+              <div class="list-card-body-inner">${card.a.replace(/\. /g, '. ').split('. ').reduce((acc, s, i) => {
+                if (i === 0) return `<p>${s}.`;
+                if (i % 3 === 0) return acc + `</p><p>${s}.`;
+                return acc + ` ${s}.`;
+              }, '') + '</p>'}</div>
+            </div>
+          </div>`;
+      }).join('')}
+    </div>
+  `).join('')}</div>`;
+}
+
+function setChapter(ch) {
+  state.chapter = ch;
+  state.cardIndex = 0;
+  state.flipped = false;
+  shuffledCards = null;
+  render();
+}
+
+function setView(v) {
+  state.view = v;
+  render();
+}
+
+function flipCard() {
+  state.flipped = !state.flipped;
+  render();
+}
+
+function nextCard() {
+  const cards = shuffledCards || getFilteredCards();
+  if (state.cardIndex < cards.length - 1) {
+    state.cardIndex++;
+    state.flipped = false;
+    render();
+  }
+}
+
+function prevCard() {
+  if (state.cardIndex > 0) {
+    state.cardIndex--;
+    state.flipped = false;
+    render();
+  }
+}
+
+function doShuffle() {
+  shuffledCards = shuffleArray(getFilteredCards());
+  state.cardIndex = 0;
+  state.flipped = false;
+  render();
+}
+
+function toggleListCard(key) {
+  state.openCards[key] = !state.openCards[key];
+  render();
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (state.view !== 'cards') return;
+  if (e.key === 'ArrowRight') nextCard();
+  if (e.key === 'ArrowLeft') prevCard();
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipCard(); }
+});
+
+render();
+</script>
+</body>
+</html>

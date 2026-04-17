@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Western Rebellion 1549 — Flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #f8f6f1;
+    --ink: #1a1410;
+    --ink-mid: #3a2e1e;
+    --deep: #1e3a5f;
+    --deep2: #2a4f7c;
+    --gold: #9a7b2f;
+    --gold-light: #c4a24a;
+    --border: #b8c8d8;
+    --border-soft: #cdd8e4;
+    --stone: #6a7a88;
+    --stone-light: #8a9aa8;
+    --shadow: rgba(26,20,16,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--bg);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Crect width='6' height='6' fill='%23f8f6f1'/%3E%3Ccircle cx='1' cy='1' r='0.6' fill='%23e8e4dc' opacity='0.35'/%3E%3Ccircle cx='4' cy='4' r='0.6' fill='%23e8e4dc' opacity='0.35'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse at 15% 15%, #eef3f8 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 85%, #eef1f5 0%, transparent 55%);
+    min-height: 100vh;
+    font-family: 'EB Garamond', serif;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 16px 40px;
+  }
+
+  /* ── HEADER ── */
+  header { text-align: center; margin-bottom: 24px; }
+  .header-bar {
+    display: flex; align-items: center; gap: 14px;
+    justify-content: center; margin-bottom: 10px;
+  }
+  .header-bar::before, .header-bar::after {
+    content: ''; flex: 1; max-width: 110px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--deep), transparent);
+  }
+  .header-icon { color: var(--deep); font-size: 1rem; }
+  header h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(0.95rem, 2.8vw, 1.55rem);
+    color: var(--ink); letter-spacing: 0.04em; line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(30,58,95,0.12);
+  }
+  header .subtitle {
+    font-family: 'Cinzel', serif; font-size: 0.68rem;
+    letter-spacing: 0.2em; color: var(--stone); margin-top: 5px;
+    text-transform: uppercase;
+  }
+  .ornament {
+    color: var(--deep); font-size: 0.85rem;
+    letter-spacing: 5px; margin: 8px 0 0; display: block;
+  }
+
+  /* ── NAV ── */
+  #section-nav {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 5px; max-width: 880px; width: 100%; margin-bottom: 18px;
+  }
+  .sec-btn {
+    font-family: 'Cinzel', serif; font-size: 0.54rem;
+    letter-spacing: 0.07em; padding: 6px 11px;
+    border: 1px solid var(--border-soft);
+    background: rgba(255,255,255,0.55); color: var(--stone);
+    cursor: pointer; border-radius: 2px;
+    transition: all 0.22s ease; text-transform: uppercase;
+    position: relative; overflow: hidden;
+  }
+  .sec-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--deep); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.22s ease; z-index: 0;
+  }
+  .sec-btn:hover::before, .sec-btn.active::before { transform: scaleX(1); }
+  .sec-btn span { position: relative; z-index: 1; }
+  .sec-btn:hover span, .sec-btn.active span { color: #fff; }
+  .sec-btn.active { border-color: var(--deep); }
+
+  .sec-title-bar {
+    font-family: 'Cinzel', serif; font-size: 0.63rem; letter-spacing: 0.18em;
+    color: var(--stone); text-transform: uppercase; text-align: center;
+    margin-bottom: 14px; display: flex; align-items: center;
+    gap: 10px; justify-content: center; max-width: 720px; width: 100%;
+  }
+  .sec-title-bar::before, .sec-title-bar::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* ── PROGRESS ── */
+  .prog-wrap {
+    width: min(720px, 95vw); height: 3px;
+    background: rgba(184,200,216,0.3); border-radius: 2px;
+    margin-bottom: 20px; overflow: hidden;
+  }
+  .prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--deep), var(--gold-light));
+    border-radius: 2px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 0 6px rgba(30,58,95,0.35);
+  }
+
+  /* ── CARD ── */
+  .scene {
+    perspective: 1400px; width: min(720px, 95vw); height: 460px;
+    margin-bottom: 20px; cursor: pointer;
+  }
+  .card {
+    width: 100%; height: 100%; position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.35,0.1,0.15,1);
+  }
+  .card.flipped { transform: rotateY(180deg); }
+  .card-face {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: 4px; display: flex; flex-direction: column; overflow: hidden;
+  }
+
+  .card-front {
+    background: #faf9f6; border: 1px solid var(--border);
+    box-shadow: 0 2px 0 rgba(30,58,95,0.12), 0 8px 32px var(--shadow),
+                inset 0 0 60px rgba(238,243,248,0.5);
+  }
+  .card-front::before {
+    content: ''; position: absolute; inset: 6px;
+    border: 1px solid rgba(184,200,216,0.35); border-radius: 2px; pointer-events: none;
+  }
+  .card-back {
+    background: linear-gradient(160deg, #faf9f6 0%, #eff4f8 100%);
+    border: 1px solid var(--border); border-top: 3px solid var(--deep);
+    transform: rotateY(180deg);
+    box-shadow: 0 2px 0 rgba(30,58,95,0.1), 0 8px 32px var(--shadow);
+  }
+
+  .card-hdr {
+    padding: 10px 18px 9px; display: flex; align-items: center;
+    justify-content: space-between; flex-shrink: 0;
+    border-bottom: 1px solid rgba(184,200,216,0.5);
+  }
+  .card-front .card-hdr { background: rgba(238,243,248,0.55); }
+  .card-back .card-hdr { background: rgba(30,58,95,0.04); }
+
+  .hdr-label {
+    font-family: 'Cinzel', serif; font-size: 0.5rem;
+    letter-spacing: 0.16em; color: var(--stone); text-transform: uppercase;
+  }
+  .badge {
+    font-family: 'Cinzel', serif; font-size: 0.47rem;
+    letter-spacing: 0.12em; padding: 2px 8px; border-radius: 1px; text-transform: uppercase;
+  }
+  .badge-q { background: rgba(184,200,216,0.2); color: var(--stone); border: 1px solid var(--border); }
+  .badge-a { background: rgba(30,58,95,0.08); color: var(--deep2); border: 1px solid rgba(30,58,95,0.22); }
+
+  .card-body {
+    flex: 1; overflow-y: auto;
+    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  }
+  .card-body::-webkit-scrollbar { width: 4px; }
+  .card-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* Question layout */
+  .q-wrap {
+    height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 24px 30px; text-align: center;
+  }
+  .q-icon { color: var(--deep); font-size: 1.1rem; margin-bottom: 14px; opacity: 0.5; }
+  .q-text {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.87rem, 1.95vw, 1.08rem);
+    color: var(--ink); line-height: 1.65; font-weight: 600;
+  }
+  .q-icon-b { color: var(--gold); font-size: 0.75rem; margin-top: 14px; opacity: 0.4; }
+
+  /* Answer layout */
+  .a-wrap { padding: 14px 20px 16px; }
+  .a-wrap ul { list-style: none; padding: 0; }
+  .a-wrap ul li {
+    padding: 5px 0 5px 20px; position: relative;
+    border-bottom: 1px solid rgba(184,200,216,0.28);
+    font-size: clamp(0.8rem, 1.58vw, 0.93rem);
+    line-height: 1.62; color: var(--ink-mid);
+  }
+  .a-wrap ul li:last-child { border-bottom: none; }
+  .a-wrap ul li::before {
+    content: '⚑'; position: absolute; left: 2px; top: 6px;
+    font-size: 0.42rem; color: var(--deep); opacity: 0.55;
+  }
+  .a-wrap strong { color: var(--deep2); font-weight: 600; }
+  .a-wrap em { color: var(--stone); font-style: italic; }
+
+  .flip-hint {
+    flex-shrink: 0; text-align: center; font-family: 'Cinzel', serif;
+    font-size: 0.5rem; letter-spacing: 0.14em; color: var(--stone-light);
+    padding: 7px; border-top: 1px solid rgba(184,200,216,0.4);
+    text-transform: uppercase; background: rgba(238,243,248,0.3);
+  }
+
+  /* ── CONTROLS ── */
+  .controls { display: flex; align-items: center; gap: 16px; }
+  .btn {
+    font-family: 'Cinzel', serif; font-size: 0.67rem; letter-spacing: 0.1em;
+    padding: 9px 22px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.55); color: var(--ink-mid);
+    cursor: pointer; border-radius: 2px; transition: all 0.2s;
+    text-transform: uppercase; position: relative; overflow: hidden;
+  }
+  .btn::before {
+    content: ''; position: absolute; inset: 0; background: var(--deep);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .btn:hover::before { opacity: 1; }
+  .btn:hover { color: #fff; border-color: var(--deep); }
+  .btn-inner { position: relative; z-index: 1; }
+  .btn:disabled { opacity: 0.22; cursor: not-allowed; }
+  .btn:disabled::before { display: none; }
+
+  .prog-text {
+    font-family: 'Cinzel', serif; font-size: 0.68rem;
+    color: var(--stone); min-width: 68px; text-align: center;
+  }
+  .key-hint {
+    font-family: 'EB Garamond', serif; font-style: italic;
+    font-size: 0.75rem; color: var(--stone-light); margin-top: 12px;
+  }
+  .key-hint kbd {
+    font-family: 'Cinzel', serif; font-style: normal; font-size: 0.58rem;
+    padding: 1px 5px; border: 1px solid var(--border);
+    border-radius: 2px; background: rgba(255,255,255,0.7); color: var(--stone);
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+  .scene { animation: fadeUp 0.38s ease both; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-bar"><span class="header-icon">✠</span></div>
+  <h1>The Western Rebellion</h1>
+  <p class="subtitle">The Prayer Book Rising · Devon &amp; Cornwall · 1549</p>
+  <span class="ornament">⸻ ✦ ⸻</span>
+</header>
+
+<div id="section-nav"></div>
+<div class="sec-title-bar"><span id="sec-title-text"></span></div>
+
+<div class="prog-wrap"><div class="prog-fill" id="prog-fill"></div></div>
+
+<div class="scene" onclick="flipCard()">
+  <div class="card" id="card">
+    <div class="card-face card-front">
+      <div class="card-hdr">
+        <span class="hdr-label" id="front-label"></span>
+        <span class="badge badge-q">Question</span>
+      </div>
+      <div class="card-body" onclick="event.stopPropagation()">
+        <div class="q-wrap">
+          <div class="q-icon">✠</div>
+          <div class="q-text" id="card-q"></div>
+          <div class="q-icon-b">⸻ ✦ ⸻</div>
+        </div>
+      </div>
+      <div class="flip-hint">Click card or press Space to reveal answer</div>
+    </div>
+    <div class="card-face card-back">
+      <div class="card-hdr">
+        <span class="hdr-label" id="back-label"></span>
+        <span class="badge badge-a">Answer</span>
+      </div>
+      <div class="card-body" onclick="event.stopPropagation()">
+        <div class="a-wrap"><div id="card-a"></div></div>
+      </div>
+      <div class="flip-hint">Click card or press Space to flip back</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" id="btn-prev" onclick="prevCard()"><span class="btn-inner">← Prev</span></button>
+  <span class="prog-text" id="prog-text"></span>
+  <button class="btn" id="btn-next" onclick="nextCard()"><span class="btn-inner">Next →</span></button>
+</div>
+<div class="key-hint"><kbd>←</kbd> <kbd>→</kbd> navigate &nbsp;·&nbsp; <kbd>Space</kbd> flip</div>
+
+<script>
+const SECTIONS = [
+
+  /* ══════════════════════════════════════
+     1. CAUSES — RELIGIOUS
+  ══════════════════════════════════════ */
+  {
+    label: 'Causes: Religious',
+    cards: [
+      {
+        q: 'What were the religious causes of the Western Rebellion?',
+        a: `<ul>
+          <li>Triggered by the introduction of the <strong>Edwardian Protestant Book of Common Prayer on Whitsunday, June 1549</strong>, in Sampford Courtenay, Devon — parishioners forced the priest to revert to the Latin Mass the following week, calling the new liturgy <em>"a Christmas game"</em></li>
+          <li>In Cornwall, opposition began earlier: <strong>April 1548</strong>, with the murder of <strong>William Body</strong>, a government agent removing Catholic images from shrines in Helston and St. Keverne — 10 men were hanged for the murder</li>
+          <li>Rebels demanded restoration of the <strong>Six Articles (1539)</strong>, the Latin Mass with bread only, papal relics and images, chantries, and at least <strong>2 monasteries per county</strong></li>
+          <li><strong>13 of the 14 articles</strong> focused on religious restoration, not reformation — a striking indicator of how dominant religion was as a cause</li>
+          <li>Rebels rejected the English Bible and the revised liturgy of 1547</li>
+          <li>They demanded a return to clerics: <strong>John Moreman</strong> and <strong>Richard Crispin</strong></li>
+          <li>They demanded the return of <strong>Cardinal Pole</strong> as political leader</li>
+          <li>Rebels questioned secular authorities' right to reform religion at all</li>
+          <li>The chantries were dissolved in 1549, which had a significant impact on Cornwall</li>
+          <li>The Cornish rebels also wanted <strong>Edward to come of age</strong> before any changes were imposed, and challenged the Protector's right to enact them</li>
+        </ul>`
+      },
+      {
+        q: 'Why did the rebels reject the English Prayer Book, and what did their religious demands reveal about their character?',
+        a: `<ul>
+          <li>Parishioners at Sampford Courtenay forced the priest to revert to the Latin Mass, calling the new English service <em>"a Christmas game"</em> — showing contempt for the Protestant liturgy</li>
+          <li>The Cornish rebels added a demand that the liturgy be in <strong>Cornish, not English</strong> — as many did not speak English, the English Prayer Book was just as alien to them as Latin, but without the sacred tradition</li>
+          <li>Devon's first complaints demanded <strong>wafers not "common bread"</strong> and Latin services — demonstrating attachment to the traditional visual and sensory aspects of Catholic worship</li>
+          <li><strong>13 of 14 articles</strong> focused on religious restoration — rebels wanted to restore the mass, relics, images, chantries, monasteries and Six Articles, not gain anything new</li>
+          <li>The final petition contained <strong>no economic grievances at all</strong> — showing the rebels' primary identity as a religious movement by the end</li>
+          <li>Their <em>"We will have"</em> demands showed a <strong>lack of deference</strong> unusual for the period and challenged the authority of the Edwardian regime on spiritual matters</li>
+          <li>Rebels rejected both the English Bible and the revised liturgy of 1547 — amounting to a rejection of the entire Edwardian Reformation</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     2. CAUSES — ECONOMIC & SOCIAL
+  ══════════════════════════════════════ */
+  {
+    label: 'Causes: Economic & Social',
+    cards: [
+      {
+        q: 'What were the economic and social causes of the Western Rebellion?',
+        a: `<ul>
+          <li>A tax introduced in <strong>1548</strong> levied <strong>1d (0.42p) on sheep</strong> and <strong>½d (0.21p) on woollen cloth</strong>, hitting poor peasants hardest — wealthy clothiers and sheep farmers raised prices to compensate; Devon, being largely enclosed, was impacted more than most</li>
+          <li>The <strong>Duke of Somerset's Subsidy Act</strong> aimed to raise funds amid an acute financial shortage and to encourage tillage, but fuelled significant resentment</li>
+          <li>Somerset's 1549 Subsidy Act also aimed to provide financial relief to the monarchy during periods of high taxation</li>
+          <li><strong>Price inflation and crop failure 1549–51</strong> raised food and wool prices, compounding economic hardship</li>
+          <li>No complaints about enclosures or rack-renting specifically — but there was resentment towards the <strong>gentry for enriching themselves via Church lands</strong></li>
+          <li>Rebels wanted to <strong>limit gentry households worth 100 marks (£66) to just 1 servant</strong> — a direct attack on gentry power and wealth</li>
+          <li>Second demands (July) included specifically Cornish grievances: inadequacies of the parish clergy, baptism and burial being withheld, liturgy in Cornish, restoration of the 1534 Treason Act, and repeal of the tax on sheep and cloth</li>
+        </ul>`
+      },
+      {
+        q: 'What was the link between the economic/social and religious causes of the Western Rebellion?',
+        a: `<ul>
+          <li>The gentry had gained from the Reformation — for example through <strong>monastic lands</strong> — which directly linked religious and social grievances in the rebels' minds</li>
+          <li>The gentry were also the ones who implemented the unpopular religious changes on behalf of the government, making them targets for rebel anger on both fronts</li>
+          <li>Rebels attacked the gentry directly: they robbed them at <strong>St Michael's Mount</strong> and shouted <em>"Kill the Gentlemen"</em> at Bodmin — showing that social and religious grievances merged into a single anti-gentry hostility</li>
+          <li>The complaint about gentry servants (limiting households to 1 servant) reflected economic resentment at the same class benefiting from Reformation while ordinary people suffered the consequences</li>
+          <li>Lay protests against religious policy also intersected with resentment about new taxes — particularly in small market towns in Devon</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     3. REGIONAL VARIATIONS
+  ══════════════════════════════════════ */
+  {
+    label: 'Regional Variations',
+    cards: [
+      {
+        q: 'What were the distinctive features of the Cornish rebellion?',
+        a: `<ul>
+          <li>Cornwall had a <strong>strong cultural tradition and resentment of English government</strong> — a separatist county with no great love for imposed changes from London</li>
+          <li>First trouble in <strong>Helston, April 1548</strong>: 10 men were hanged for murdering <strong>William Body</strong>, a government agent removing Catholic images from shrines</li>
+          <li>Spring 1549: Protests spread across Cornwall, led by <strong>Humphrey Arundell</strong> from Bodmin</li>
+          <li>Religious causes pre-dated 1549: rebels wanted <strong>Edward to come of age</strong> before religious changes were made; they challenged the Protector's legal right to impose reforms</li>
+          <li>Chantries were dissolved in 1549, which had a direct impact on the county</li>
+          <li><strong>Second phase, 6 July 1549</strong>: the Cornish persuaded Arundell to lead them; they camped at Bodmin then marched into Devon to join forces with the Devon rebels</li>
+          <li>The Cornish rebels demanded the liturgy be in <strong>Cornish, not English</strong> — pointing out that as most Cornish people did not understand English, the English Prayer Book was as foreign to them as Latin, but without the sacred tradition</li>
+        </ul>`
+      },
+      {
+        q: 'What were the distinctive features of the Devon rebellion?',
+        a: `<ul>
+          <li>Devon was affected more by the <strong>Subsidy Act</strong> than Cornwall — as a long-enclosed county, taxes on sheep and cloth hit harder</li>
+          <li><strong>Whitsun 1549</strong>: Citizens of Sampford Courtenay rebelled against the new service, forcing the priest to revert to the Latin Mass</li>
+          <li>Trouble first broke out in Devon — the main early rebels moved to <strong>Exeter by 23 June</strong> (first phase of the rebellion)</li>
+          <li>Devon's first complaints were drawn up by Devon protesters: wanted <strong>wafers not "common bread"</strong> and Latin services</li>
+          <li>Lay protest in Devon operated against religious policy/rituals in <strong>small market towns</strong>, but taxes were also a factor</li>
+          <li>Second demands (July) included Cornish grievances added to the list: inadequacies of parish clergy, baptism and burial being withheld, liturgy in Cornish, restoration of the 1534 Treason Act, and repeal of the tax on sheep/cloth</li>
+        </ul>`
+      },
+      {
+        q: 'What did Devon and Cornwall have in common, and how did regional differences affect the rebellion?',
+        a: `<ul>
+          <li>Both counties shared the core religious grievance — rejection of the Protestant Prayer Book and demand for restoration of the Catholic Mass and Six Articles</li>
+          <li>Both counties resented the gentry class that had enriched itself through Reformation while implementing unpopular changes on ordinary people</li>
+          <li>However, the rebellion was marked by <strong>Devon/Cornwall animosity</strong> — internal tensions between the two groups weakened organisation and discipline</li>
+          <li>Devon rebels were the first to act (Whitsun 1549), while the Cornish joined the second phase (6 July 1549) under Arundell</li>
+          <li>Devon's concerns were more economic (Subsidy Act impact) while Cornwall's were more cultural and constitutional (challenging the Protector's right to reform religion)</li>
+          <li>The demands evolved: the <strong>first set of complaints were Devon-led</strong>; the second set of demands (July) incorporated Cornish grievances — including the demand for a Cornish liturgy</li>
+          <li>These differences, combined with tensions between the peasantry, clergy and gentry within the rebel host, contributed to the ultimate failure of the rebellion</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     4. OBJECTIVES
+  ══════════════════════════════════════ */
+  {
+    label: 'Objectives',
+    cards: [
+      {
+        q: 'What were the objectives of the Western Rebellion?',
+        a: `<ul>
+          <li><strong>Primary objective — religious restoration:</strong> Restore the Six Articles, Latin Mass with bread only, papal relics and images, chantries, and at least 2 monasteries per county</li>
+          <li>Return Church land from the gentry</li>
+          <li>Return <strong>Cardinal Pole</strong> as a political leader</li>
+          <li>Return clerics <strong>John Moreman</strong> and <strong>Richard Crispin</strong></li>
+          <li>Question and challenge secular authorities' right to reform religion at all</li>
+          <li><strong>Social/economic objectives:</strong> Repeal the 1548 tax on sheep and cloth</li>
+          <li>Limit gentry households to <strong>1 servant</strong> to reduce exploitation of ordinary people</li>
+          <li>Aim to destroy the Protestantizing gentry and restore the <strong>Henry VIII-era Catholic Mass</strong></li>
+          <li>No direct requests to restore the papacy as such</li>
+          <li>Their <em>"We will have"</em> demands showed a striking <strong>lack of deference</strong> — and a direct challenge to the authority of the Edwardian regime</li>
+          <li>The <strong>final petition contained no economic grievances</strong> — showing the predominantly religious character of the rebellion by its end</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     5. SIZE
+  ══════════════════════════════════════ */
+  {
+    label: 'Size',
+    cards: [
+      {
+        q: 'How large was the Western Rebellion, and what do the numbers tell us about its scale?',
+        a: `<ul>
+          <li>The rebellion peaked at <strong>7,000–10,000 rebels</strong> in total — 7,000 collectively in some assessments, with 5,000–6,000 rebels facing 8,600 government troops in the main engagements</li>
+          <li>At its height, the rebels <strong>besieged Exeter with approximately 10,000</strong> — surrounding one of the most important cities in the south-west for <strong>six weeks</strong></li>
+          <li>Individual battles involved thousands: <strong>1,000 rebels were killed at Clyst St Mary</strong>; <strong>900 prisoners were executed at Clyst Heath</strong></li>
+          <li>Total deaths across the rebellion are estimated at <strong>4,000–5,500</strong> (with estimates of 4,000; 5,500; and 3,000 in battles across different sources)</li>
+          <li>By comparison, the Pilgrimage of Grace had involved around <strong>40,000</strong> — making the Western Rebellion significantly smaller in national terms</li>
+          <li>The government raised <strong>8,600 troops</strong>, including German and Italian mercenaries redeployed from Scotland, to suppress the rising</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     6. SUPPORT
+  ══════════════════════════════════════ */
+  {
+    label: 'Support',
+    cards: [
+      {
+        q: 'Who supported the Western Rebellion, and what was the social composition of the rebel force?',
+        a: `<ul>
+          <li>A <strong>broad cross-section of society</strong>: at least 8 priests, several JPs, 2 mayors (e.g. <strong>Henry Bray of Bodmin</strong>), gentry (Arundell, Winslade, Bury), farmers, labourers, artisans, and itinerant unemployed</li>
+          <li>Rebels were bound by an oath <em>"to be true to God, the king and the commons"</em> — echoing the language of the Pilgrimage of Grace</li>
+          <li><strong>No noble support</strong> — a significant weakness compared to the Pilgrimage of Grace which attracted leading northern nobles</li>
+          <li>Sympathy in <strong>Exeter</strong>: many inhabitants supported the rebel cause even as the city authorities resisted the siege</li>
+          <li>The rebellion drew from widespread fears that the government was <strong>destroying the spiritual ways</strong> of ordinary people, compounded by resentment of new taxes</li>
+          <li>The total rebel force is estimated at <strong>5,000–6,000</strong> in the main phase of fighting</li>
+          <li>Leadership came from <strong>minor gentry on the fringe of politics</strong> — not the great noble families — reflecting the absence of elite backing</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     7. LEADERSHIP & ORGANISATION
+  ══════════════════════════════════════ */
+  {
+    label: 'Leadership & Organisation',
+    cards: [
+      {
+        q: 'Who were the key leaders of the Western Rebellion?',
+        a: `<ul>
+          <li><strong>Humphrey Arundell</strong> (lay leader): Military experience from France in 1544; aged 36; staunch Catholic landowner; led the Cornish contingent from Bodmin; overall military commander of the rebellion</li>
+          <li><strong>John Winslade</strong> (lay leader): Well-liked and generous; part of the Cornish gentry leadership</li>
+          <li><strong>John Bury</strong> (lay leader): Second in command of the Devon contingent</li>
+          <li><strong>Henry Bray</strong>: Mayor of Bodmin — one of two mayors who actively joined the rebels, giving the rebellion local civic legitimacy in Cornwall</li>
+          <li><strong>Robert Welsh</strong> (clerical leader): Vicar of St Thomas, Exeter; a wrestler who was notable for <strong>uniting the Devon and Cornish contingents</strong>; eventually captured and executed at Sampford Courtenay</li>
+          <li><strong>Other clergy:</strong> Vicars of St Clare, St Uny and Poundstock — clergy provided religious authority and legitimacy to the rising</li>
+          <li><strong>Thomas/William Underhill</strong> (tailor) and <strong>William Segar</strong> (labourer) from Sampford Courtenay — representing the commons who had triggered the original protest</li>
+          <li>Leadership overall came from <strong>minor gentry on the fringe of politics</strong> — there were no great noble figures</li>
+        </ul>`
+      },
+      {
+        q: 'How was the Western Rebellion organised, and what were the strengths and weaknesses of its organisation?',
+        a: `<ul>
+          <li>The rebels established <strong>camps at Sampford Courtenay, Crediton and Clyst</strong> as bases of operations</li>
+          <li><strong>9 captains</strong> commanded the siege of Exeter — 3 Devon gentry, 3 Cornish gentry, 3 commoners — showing a structured, balanced leadership</li>
+          <li>The rebels <strong>issued 15 articles</strong> of demands, demonstrating organised political thinking</li>
+          <li>The rebellion was <strong>well-organised</strong> and concentrated its forces quickly — the rebels were capable of coordinated military operations including a six-week siege of Exeter</li>
+          <li>After early defeats, the rebels <strong>regrouped at Sampford Courtenay</strong> — showing resilience and discipline</li>
+          <li>The final petition to the Crown had <strong>no economic grievances</strong> — suggesting the leadership was able to shape and focus the movement's demands</li>
+          <li><strong>Weaknesses:</strong> Animosity between Devon and Cornwall created internal tensions; calls to <em>"kill all gentlemen"</em> at Clyst showed dangerous class tensions within the rebel host; the peasantry, clergy and gentry had conflicting priorities</li>
+          <li>Despite relatively good organisation, they <strong>failed to take Exeter</strong> — the city remained loyal to the government throughout the siege</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     8. LIMITED SUCCESS & FAILURE
+  ══════════════════════════════════════ */
+  {
+    label: 'Success & Failure',
+    cards: [
+      {
+        q: 'In what ways did the Western Rebellion achieve limited success?',
+        a: `<ul>
+          <li>The rebels <strong>besieged Exeter for 6 weeks</strong> — a significant military achievement that disrupted government authority in the south-west</li>
+          <li>Forced the government into <strong>multiple battles</strong>: Fenny Bridges, Clyst St Mary, Clyst Heath, and Sampford Courtenay — demonstrating the scale of the challenge they posed</li>
+          <li>Widely considered to have contributed to the <strong>fall of Somerset</strong> (arrested October 1549, executed 1552) — the rebellion was one of the crises that destroyed his political credibility</li>
+          <li>Led to the <strong>repeal of the Subsidy and Vagrancy Acts</strong>, and the introduction of an <strong>Enclosure Act protecting peasants</strong> — tangible policy concessions</li>
+          <li>While it did not halt the Reformation, it arguably <strong>quickened the pace</strong> of religious change — the Second Prayer Book (1552) emerged as the government pushed ahead more decisively after the rebellion</li>
+        </ul>`
+      },
+      {
+        q: 'Why did the Western Rebellion ultimately fail?',
+        a: `<ul>
+          <li><strong>No foreign aid</strong> — the rebels received no support from Catholic powers abroad despite the religious nature of the rising</li>
+          <li>The rebels <strong>remained in the West Country</strong> and never marched to London — without threatening the capital, they could not force a political settlement</li>
+          <li><strong>Failed to take Exeter</strong> — the city remained loyal to the government throughout, denying the rebels a major strategic base and symbolic victory</li>
+          <li><strong>Heavy losses</strong> in battle: approximately 3,000 died in the fighting, which weakened the resistance and accelerated collapse</li>
+          <li><strong>No noble support</strong> and no collaboration with other rebel groups — in particular, they failed to join forces with Kett's Rebellion (Norfolk, July 1549, 15,000 rebels), which coincided with the Western Rebellion</li>
+          <li>The government raised <strong>8,600 troops</strong>, including German and Italian mercenaries redeployed from Scotland — a professional force that outmatched the rebel army</li>
+          <li><strong>Internal divisions</strong>: animosity between Devon and Cornwall; class tensions between the peasantry, clergy and gentry; the slogan "kill all gentlemen" at Clyst illustrated how fractured the rebel host was</li>
+          <li>The rebellion coincided with unrest in 25 counties and the threat of Scottish war and French invasion — but rebel forces in different areas <strong>failed to coordinate</strong></li>
+          <li>The rebellion was <strong>crushed at Sampford Courtenay</strong> on 17 August 1549</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     9. THREAT TO THE GOVERNMENT
+  ══════════════════════════════════════ */
+  {
+    label: 'Threat to Government',
+    cards: [
+      {
+        q: 'Why was the Western Rebellion a serious threat to the Edwardian government?',
+        a: `<ul>
+          <li>A serious <strong>regional threat</strong>: 7,000–10,000 rebels besieged Exeter for 6 weeks, involving 5 battles or skirmishes and causing 4,000–5,500 deaths</li>
+          <li><strong>Devastating timing</strong>: The rebellion coincided with <strong>Kett's Rebellion</strong> in Norfolk (July 1549, approximately 15,000 rebels), unrest in approximately <strong>25 counties</strong>, an ongoing war in Scotland, and the threat of a French invasion — stretching government resources to breaking point</li>
+          <li>1549 was known as the <strong>'year of great commotion'</strong> precisely because of this simultaneous crisis across England</li>
+          <li>The government was <strong>ill-informed and slow to respond</strong> — this allowed the rebellion to grow from a local protest into a major regional military confrontation</li>
+          <li>Rebels showed <strong>violence</strong>: they murdered Hellyons, attacked gentry, and called to <em>'kill all gentlemen'</em> — directly threatening the social order</li>
+          <li>Their <em>"We will have"</em> demands showed a <strong>lack of deference</strong> that challenged the entire authority of the Edwardian regime</li>
+          <li>The rebellion directly contributed to the <strong>fall of Somerset</strong> — a major political consequence</li>
+          <li>Government troops were <strong>stationed in the north</strong> ('rough wooing' of Scotland), making it harder to assemble a rapid response force in the south-west</li>
+        </ul>`
+      },
+      {
+        q: 'Why was the Western Rebellion NOT the most serious threat of the Tudor period? How does it compare?',
+        a: `<ul>
+          <li>The rebels had <strong>no aim to overthrow the monarch</strong> — unlike Lambert Simnel (1487), Perkin Warbeck (1497) or Northumberland (1553), which were dynastic challenges to the Crown itself</li>
+          <li>The rebels <strong>remained in the West Country</strong> and never marched on London — without threatening the capital, the rebellion could not be truly decisive</li>
+          <li>They <strong>failed to take Exeter</strong> — in contrast, the Pilgrimage of Grace rebels took York, a far more dramatic symbol of rebel success</li>
+          <li><strong>No noble or foreign support</strong> — the Pilgrimage of Grace attracted leading northern nobles and had the potential to draw in Spanish support; the Western Rebellion had neither</li>
+          <li>The rebel force of <strong>5,000–6,000</strong> was far smaller than the Pilgrimage of Grace's approximately <strong>40,000</strong></li>
+          <li>The Western Rising was <strong>crushed by mid-August</strong> — relatively quickly once the government committed sufficient forces under Lord Russell</li>
+          <li>However, in the context of the 1549 crisis as a whole — multiple simultaneous rebellions, war with Scotland, French threat — it was one of the most dangerous <strong>combinations</strong> of pressures any Tudor government faced</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     10. GOVERNMENT RESPONSE — AT THE TIME
+  ══════════════════════════════════════ */
+  {
+    label: 'Government Response',
+    cards: [
+      {
+        q: 'How did the central government respond to the Western Rebellion at the time?',
+        a: `<ul>
+          <li>Somerset initially <strong>saw the rising as isolated</strong> and treated it as a local problem — a serious miscalculation that allowed it to grow</li>
+          <li>He relied on local authorities (sheriffs, JPs, mayors) to contain the rebellion, but <strong>they failed</strong> to do so</li>
+          <li>Sent <strong>Sir Peter Carew</strong> (a former sheriff and soldier) to negotiate — the mission was <strong>disastrous</strong>; his men burnt barns at Crediton, inflaming the situation and driving more people to join the rebels</li>
+          <li><strong>Lord John Russell</strong> was sent to lead forces — initially commanding a mishmash force, but his army swelled to <strong>8,600 troops</strong> including German and Italian mercenaries redeployed from the Scottish border</li>
+          <li><strong>Battle of Fenny Bridges (28 July)</strong>: Inconclusive result</li>
+          <li><strong>Battle of Clyst St Mary (4 August)</strong>: Government victory — 1,000 rebels killed, 900 prisoners executed at Clyst Heath on 6 August</li>
+          <li><strong>Exeter relieved</strong> after the battles of Clyst</li>
+          <li><strong>Final defeat at Sampford Courtenay (17 August)</strong> — the rebellion was crushed</li>
+          <li><strong>Post-rebellion reprisals</strong>: Lands confiscated; terror campaign conducted; English language enforced in liturgy and common usage — notably, <strong>no Cornish Bible translation was ever made</strong></li>
+          <li><strong>Harsh executions</strong>: Arundell and other leaders were hanged, drawn and quartered in January 1550</li>
+          <li><strong>Robert Welsh</strong> was captured and executed at Sampford Courtenay</li>
+        </ul>`
+      },
+      {
+        q: 'What were the subsequent (longer-term) consequences of the government\'s response to the Western Rebellion?',
+        a: `<ul>
+          <li><strong>Somerset fell</strong>: He was arrested in October 1549 and executed in 1552 — the Western Rebellion (alongside Kett's) destroyed his political credibility</li>
+          <li><strong>Act for the Punishment of Unlawful Assemblies (November 1549)</strong>: Made gatherings of this kind a <strong>felony or treason</strong> — a direct legislative response to 1549 unrest</li>
+          <li><strong>Lords lieutenant</strong> were given control of shire levies — strengthening the local military command structure to prevent future unrest</li>
+          <li><strong>Subsidy Act and Vagrancy Act repealed</strong>; a new <strong>Enclosure Act protecting peasants</strong> was introduced — acknowledging the economic grievances that had fuelled the rebellion</li>
+          <li>Religious reform was not reversed; instead the <strong>Second Prayer Book (1552)</strong> was introduced — the government pushed ahead with the Reformation more decisively</li>
+          <li><strong>No repetition</strong> of 1549 unrest — JPs became more vigilant; the legislative and administrative changes made a repeat very difficult</li>
+          <li>English was permanently enforced in church and common usage in the south-west — with no Cornish Bible translation, the Cornish language continued its decline</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ══════════════════════════════════════
+     11. ROLE OF CENTRAL & LOCAL AUTHORITIES
+  ══════════════════════════════════════ */
+  {
+    label: 'Central & Local Authorities',
+    cards: [
+      {
+        q: 'What was the role of central authorities in dealing with the Western Rebellion?',
+        a: `<ul>
+          <li><strong>Somerset underestimated</strong> the rebellion and treated it as isolated — a critical error that allowed it to escalate</li>
+          <li>There was an <strong>absent powerful Privy Councillor</strong> in the south-west — no senior figure was on the ground to coordinate an early response</li>
+          <li>Sent <strong>Sir Peter Carew</strong> to negotiate — this was disastrous; his men's burning of barns at Crediton provoked further escalation</li>
+          <li>Redeployed <strong>mercenaries from Scotland</strong> (German and Italian troops) to supplement the forces available — reflecting how the Scottish border commitment had weakened home defence</li>
+          <li><strong>Lord Russell</strong> eventually commanded the army and successfully crushed the rebellion</li>
+          <li>Used <strong>foreign troops</strong> (German and Italian mercenaries) as a significant part of the government force — a sign of how thinly stretched English military resources were in 1549</li>
+          <li><strong>Post-rebellion:</strong> Executions, land confiscations, legislative changes (Unlawful Assemblies Act, Nov 1549)</li>
+          <li>Lords lieutenant were introduced to control <strong>shire levies</strong>, improving future local military response</li>
+        </ul>`
+      },
+      {
+        q: 'What was the role of local authorities in dealing with the Western Rebellion, and why did they fail?',
+        a: `<ul>
+          <li>Sheriffs, JPs and mayors were initially relied upon to contain the rebellion — but they were <strong>overwhelmed and not strong enough</strong></li>
+          <li>The <strong>Sheriff of Devon</strong> was placed under house arrest by the rebels — a dramatic illustration of local authority collapsing in the face of the rising</li>
+          <li><strong>Lord Russell was absent in London</strong> when the rebellion broke out, leaving the south-west without effective military leadership at the critical early stage</li>
+          <li><strong>Sir John Arundell</strong> was out of favour with the government and unable to exercise authority effectively</li>
+          <li><strong>Sir Peter Carew</strong> (former sheriff) provoked escalation rather than resolving the situation — his actions at Crediton worsened the crisis</li>
+          <li>The <strong>Mayor of Bodmin, Henry Bray</strong>, actively joined the rebels rather than suppressing them — representing a complete breakdown of local loyalist authority in Cornwall</li>
+          <li><strong>Exeter authorities</strong> resisted the rebel siege throughout — they even provided poor relief to residents to prevent them betraying the city to the rebels; this was one of the few local successes for the government side</li>
+          <li><strong>Gentry divisions over tactics</strong> encouraged aggression and inconsistency in the government's early response — different local figures pulled in different directions</li>
+        </ul>`
+      }
+    ]
+  }
+
+];
+
+let sec = 0, card = 0, flipped = false;
+
+function buildNav() {
+  const nav = document.getElementById('section-nav');
+  nav.innerHTML = '';
+  SECTIONS.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.className = 'sec-btn' + (i === 0 ? ' active' : '');
+    b.innerHTML = `<span>${s.label}</span>`;
+    b.onclick = () => selectSection(i);
+    nav.appendChild(b);
+  });
+}
+
+function selectSection(i) {
+  sec = i; card = 0; flipped = false;
+  document.querySelectorAll('.sec-btn').forEach((b, j) => b.classList.toggle('active', j === i));
+  document.getElementById('card').classList.remove('flipped');
+  render();
+}
+
+function render() {
+  const s = SECTIONS[sec], c = s.cards[card];
+  document.getElementById('sec-title-text').textContent = s.label;
+  document.getElementById('front-label').textContent = s.label;
+  document.getElementById('back-label').textContent = s.label;
+  document.getElementById('card-q').textContent = c.q;
+  document.getElementById('card-a').innerHTML = c.a;
+  document.getElementById('prog-text').textContent = `${card + 1} / ${s.cards.length}`;
+  document.getElementById('prog-fill').style.width = ((card + 1) / s.cards.length * 100) + '%';
+  document.getElementById('btn-prev').disabled = card === 0;
+  document.getElementById('btn-next').disabled = card === s.cards.length - 1;
+}
+
+function flipCard() {
+  flipped = !flipped;
+  document.getElementById('card').classList.toggle('flipped', flipped);
+}
+
+function prevCard() {
+  if (card > 0) { card--; flipped = false; document.getElementById('card').classList.remove('flipped'); render(); }
+}
+
+function nextCard() {
+  if (card < SECTIONS[sec].cards.length - 1) { card++; flipped = false; document.getElementById('card').classList.remove('flipped'); render(); }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === ' ') { e.preventDefault(); flipCard(); }
+});
+
+buildNav();
+render();
+</script>
+</body>
+</html>

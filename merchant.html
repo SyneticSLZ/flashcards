@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcard — Chaucer: The Merchant's Tale Quotes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf5ef;--card-bg:#fff;--text:#1a1a1a;--text-muted:#6b6b6b;--pink:#f472b6;--pink-light:#fbcfe8;--pink-hot:#ec4899;--gold:#f59e0b;--gold-light:#fde68a;--green:#34d399;--green-bg:#d1fae5;--blue:#818cf8;--blue-bg:#e0e7ff;--red:#fb7185;--red-bg:#ffe4e6;--magenta:#f0abfc;--magenta-bg:#fae8ff;--border:#e5e0da;--radius:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+h1,h2,h3{font-family:'Fraunces',serif}
+.app{max-width:1320px;margin:0 auto;padding:20px 24px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.logo h1{font-size:22px;font-weight:700;letter-spacing:-0.5px}
+.mode-toggle{display:flex;background:var(--card-bg);border:2px solid var(--border);border-radius:40px;overflow:hidden}
+.mode-btn{padding:10px 22px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.mode-btn.active{background:var(--gold);color:#fff;border-radius:40px}
+.main{display:grid;grid-template-columns:1fr 340px;gap:24px}
+@media(max-width:900px){.main{grid-template-columns:1fr}.sidebar{order:-1}}
+.toolbar{display:flex;align-items:center;gap:16px;padding:14px 20px;background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);margin-bottom:20px;flex-wrap:wrap}
+.cat-select{padding:8px 16px;border:2px solid var(--border);border-radius:30px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;background:var(--card-bg);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.hide-mastered{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;cursor:pointer;user-select:none}
+.hide-mastered input{width:16px;height:16px;accent-color:var(--pink-hot)}
+.shuffle-btn{margin-left:auto;padding:8px 18px;border:2px solid var(--border);border-radius:30px;background:var(--card-bg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.shuffle-btn:hover{background:var(--gold-light);border-color:var(--gold)}
+.card-container{perspective:1200px;margin-bottom:16px}
+.flashcard{position:relative;min-height:400px;border-radius:var(--radius);border:2.5px solid var(--text);cursor:pointer;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.2,.2,1);user-select:none}
+.flashcard.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;border-radius:var(--radius);backface-visibility:hidden;padding:36px 32px;display:flex;flex-direction:column;overflow-y:auto}
+.card-front{background:linear-gradient(145deg,#f9a8d4,#f472b6,#ec4899);color:var(--text)}
+.card-back{background:linear-gradient(145deg,#fde68a,#fbbf24,#f59e0b);transform:rotateY(180deg);color:var(--text)}
+.card-category{display:inline-block;padding:5px 14px;background:rgba(255,255,255,.85);border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;align-self:center;margin-bottom:20px}
+.card-section{font-size:11px;font-weight:500;color:rgba(0,0,0,.5);text-align:center;margin-bottom:8px}
+.card-question{font-family:'Fraunces',serif;font-size:21px;font-weight:700;line-height:1.35;text-align:center;margin:auto 0;padding:10px 0}
+.card-hint{text-align:center;font-size:13px;color:rgba(0,0,0,.45);margin-top:auto}
+.card-back .card-category{background:rgba(255,255,255,.7)}
+.card-answer{font-size:14.5px;line-height:1.7;margin:8px 0;flex:1}
+.card-answer strong{font-weight:700}
+.card-answer ul{padding-left:18px;margin:6px 0}
+.card-answer li{margin:5px 0}
+.card-answer .quote{font-style:italic;background:rgba(255,255,255,.35);padding:6px 12px;border-radius:8px;border-left:3px solid rgba(0,0,0,.2);margin:8px 0;display:block;line-height:1.6}
+.sparkle{position:absolute;font-size:20px;opacity:.6}
+.sparkle-1{top:20px;right:28px}
+.sparkle-2{bottom:56px;left:20px}
+.progress-bar{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 0}
+.progress-bar span{font-size:12px;color:var(--text-muted);font-weight:500}
+.progress-dots{display:flex;gap:4px}
+.progress-dot{width:24px;height:5px;border-radius:3px;background:rgba(0,0,0,.12);transition:background .2s}
+.progress-dot.filled{background:var(--text)}
+.actions{display:flex;justify-content:center;gap:12px;margin:12px 0 16px}
+.action-btn{padding:10px 24px;border-radius:30px;border:2px solid var(--border);background:var(--card-bg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.action-btn:hover{transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.action-btn.know{background:var(--gold-light);border-color:var(--gold);color:#92400e}
+.action-btn.know:hover{background:var(--gold)}
+.action-btn.reset:hover{background:#fee2e2;border-color:var(--red)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:2px solid var(--border)}
+.nav-btn{padding:8px 20px;border:2px solid var(--border);border-radius:30px;background:var(--card-bg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s}
+.nav-btn:hover:not(:disabled){background:var(--gold-light);border-color:var(--gold)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.nav-count{font-size:13px;color:var(--text-muted);font-weight:500}
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.stats-box{background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);padding:24px}
+.stats-box h2{font-size:18px;font-weight:700;margin-bottom:16px}
+.stat-card{display:flex;align-items:center;justify-content:space-between;padding:16px;border-radius:12px;margin-bottom:10px}
+.stat-card:last-child{margin-bottom:0}
+.stat-label{font-size:12px;font-weight:500;color:var(--text-muted)}
+.stat-value{font-size:32px;font-weight:700;font-family:'Fraunces',serif;margin-top:2px}
+.stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.stat-total .stat-icon{background:var(--blue-bg);color:var(--blue)}
+.stat-total{background:#f0f0ff}
+.stat-mastered .stat-icon{background:var(--green-bg);color:var(--green)}
+.stat-mastered{background:#ecfdf5}
+.stat-progress .stat-icon{background:var(--red-bg);color:var(--red)}
+.stat-progress{background:#fff1f2}
+.stat-new .stat-icon{background:var(--magenta-bg);color:var(--magenta)}
+.stat-new{background:#fdf4ff}
+.sections-box{background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);padding:24px}
+.sections-box h2{font-size:18px;font-weight:700;margin-bottom:14px}
+.section-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;transition:all .15s;font-size:13px;font-weight:500;margin-bottom:4px}
+.section-item:hover{background:var(--pink-light)}
+.section-item.active{background:var(--pink-light);font-weight:700}
+.section-num{width:24px;height:24px;border-radius:50%;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.section-item.active .section-num{background:var(--pink-hot)}
+.section-count{margin-left:auto;font-size:11px;color:var(--text-muted);background:var(--bg);padding:2px 8px;border-radius:10px}
+.all-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:20px}
+.mini-card{background:var(--card-bg);border:2px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .2s}
+.mini-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:var(--pink)}
+.mini-card .mc-cat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--pink-hot);margin-bottom:6px}
+.mini-card .mc-q{font-family:'Fraunces',serif;font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.4}
+.mini-card .mc-status{font-size:11px;padding:3px 10px;border-radius:20px;display:inline-block;font-weight:600}
+.mc-status.mastered{background:var(--green-bg);color:#065f46}
+.mc-status.in-progress{background:var(--gold-light);color:#92400e}
+.mc-status.not-started{background:#f3f4f6;color:#6b7280}
+.all-cards-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.all-cards-header h2{font-family:'Fraunces',serif;font-size:24px}
+.search-box{padding:10px 18px;border:2px solid var(--border);border-radius:30px;font-family:'DM Sans',sans-serif;font-size:13px;width:260px;background:var(--card-bg)}
+.search-box:focus{outline:none;border-color:var(--pink)}
+.hidden{display:none!important}
+.card-face::-webkit-scrollbar{width:6px}
+.card-face::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="logo"><div class="logo-icon">📚</div><h1>Flashcard</h1></div>
+    <div class="mode-toggle">
+      <button class="mode-btn active" onclick="setMode('study')">Study Mode</button>
+      <button class="mode-btn" onclick="setMode('all')">All Cards</button>
+    </div>
+  </div>
+  <div id="studyMode">
+    <div class="main">
+      <div class="study-area">
+        <div class="toolbar">
+          <select class="cat-select" id="catSelect" onchange="filterCards()"></select>
+          <label class="hide-mastered"><input type="checkbox" id="hideMastered" onchange="filterCards()"> Hide Mastered</label>
+          <button class="shuffle-btn" onclick="shuffleCards()">⇄ Shuffle</button>
+        </div>
+        <div class="card-container">
+          <div class="flashcard" id="flashcard" onclick="flipCard()">
+            <div class="card-face card-front">
+              <div class="card-section" id="cardSection"></div>
+              <div class="card-category" id="cardCategory"></div>
+              <div class="card-question" id="cardQuestion"></div>
+              <div class="card-hint">Click to reveal answer</div>
+              <div class="sparkle sparkle-1">✦</div>
+              <div class="sparkle sparkle-2">✦</div>
+              <div class="progress-bar"><div class="progress-dots" id="progressDots"></div><span id="progressText">0/5</span></div>
+            </div>
+            <div class="card-face card-back">
+              <div class="card-category" id="cardCategoryBack">Answer</div>
+              <div class="card-answer" id="cardAnswer"></div>
+              <div class="card-hint">Click to flip back</div>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="action-btn know" onclick="markKnown()">✓ I Know This</button>
+          <button class="action-btn reset" onclick="resetCard()">↺ Reset Progress</button>
+        </div>
+        <div class="nav">
+          <button class="nav-btn" id="prevBtn" onclick="prevCard()">‹ Previous</button>
+          <span class="nav-count" id="navCount">Card 1 of 20</span>
+          <button class="nav-btn" id="nextBtn" onclick="nextCard()">Next ›</button>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stats-box">
+          <h2>Study Statistics</h2>
+          <div class="stat-card stat-total"><div><div class="stat-label">Total Cards</div><div class="stat-value" id="statTotal">0</div></div><div class="stat-icon">📋</div></div>
+          <div class="stat-card stat-mastered"><div><div class="stat-label">Mastered</div><div class="stat-value" id="statMastered">0</div></div><div class="stat-icon">✅</div></div>
+          <div class="stat-card stat-progress"><div><div class="stat-label">In Progress</div><div class="stat-value" id="statProgress">0</div></div><div class="stat-icon">📖</div></div>
+          <div class="stat-card stat-new"><div><div class="stat-label">Not Started</div><div class="stat-value" id="statNew">0</div></div><div class="stat-icon">🆕</div></div>
+        </div>
+        <div class="sections-box"><h2>Sections</h2><div id="sectionList"></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="allCardsMode" class="hidden">
+    <div class="all-cards-header">
+      <h2>All Flashcards</h2>
+      <input type="text" class="search-box" placeholder="Search cards..." oninput="searchCards(this.value)">
+    </div>
+    <div class="all-cards-grid" id="allCardsGrid"></div>
+  </div>
+</div>
+
+<script>
+const TOPIC = "Chaucer: The Merchant's Tale — Key Quotes & Analysis";
+
+const sections = [
+  { id: 1, title: "The Merchant (Gen. Prologue)" },
+  { id: 2, title: "The Merchant's Prologue" },
+  { id: 3, title: "Januarie" },
+  { id: 4, title: "Placebo" },
+  { id: 5, title: "Justinas" },
+  { id: 6, title: "May" },
+  { id: 7, title: "Proserpina" },
+  { id: 8, title: "The Host's Conclusion" },
+  { id: 9, title: "Key Moments & Actions" },
+];
+
+const cards = [
+  // ===== 1. THE MERCHANT (GENERAL PROLOGUE) =====
+  {
+    section: 1,
+    question: "What does the Merchant's 'forked berd' suggest in the General Prologue?",
+    answer: `<span class="quote">"forked berd"</span>
+<strong>Analysis:</strong><ul>
+<li>The forked beard carries <strong>Edenic connotations</strong> — it visually evokes a <strong>serpent's tongue</strong>, associating the Merchant with the <strong>snake from the Garden of Eden</strong>.</li>
+<li>"Edenic" = associated with Eden, the Fall, temptation, and deception.</li>
+<li>This subtly suggests the Merchant is <strong>untrustworthy, duplicitous</strong> — a man with a forked (split/double) nature.</li>
+<li>It foreshadows the tale's themes of <strong>deception in marriage</strong> and the Fall narrative (the garden, the tree, sexual transgression).</li></ul>
+<strong>Exam Use:</strong> Links the Merchant's physical appearance to the tale's deeper theological symbolism — Eden, the serpent, the corruption of paradise.`
+  },
+  {
+    section: 1,
+    question: "What is significant about the Merchant being in 'dette'?",
+    answer: `<span class="quote">"So witty no one knew he was in <strong>dette</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li>The Merchant presents a <strong>façade of prosperity</strong> while secretly being in debt — he is skilled at <strong>concealing the truth</strong>.</li>
+<li>This establishes the Merchant as a character defined by <strong>appearances vs reality</strong> — a central theme of the entire tale.</li>
+<li>His financial deception mirrors the <strong>marital deception</strong> at the heart of his story: just as he hides his debt, May hides her adultery, and Januarie hides from the truth of his own situation.</li></ul>
+<strong>Exam Use:</strong> The Merchant's own duplicity colours his narration — he is a bitter, unreliable narrator whose personal failures shape how he tells the tale.`
+  },
+
+  // ===== 2. THE MERCHANT'S PROLOGUE =====
+  {
+    section: 2,
+    question: "What does the 'snare' metaphor reveal about the Merchant's view of marriage?",
+    answer: `<span class="quote">"<strong>snare</strong>" / "we wedded men live in <strong>sorwe and care</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Snare"</strong> presents women as <strong>predatory</strong> — marriage is a trap that ensnares men. The word carries connotations of hunting, capture, and loss of freedom.</li>
+<li><strong>Structural emphasis:</strong> "Snare" rhymes with and ends the couplet — this <strong>end-position</strong> gives the word extra weight and emphasis, making the trap feel inescapable.</li>
+<li><strong>"We wedded men"</strong> — the <strong>plural "we"</strong> universalises his suffering. The Merchant doesn't just complain about <em>his</em> marriage — he claims <strong>all married men</strong> suffer this way.</li>
+<li><strong>"Sorwe and care"</strong> — a doublet that reinforces misery through repetition.</li></ul>
+<strong>Exam Use:</strong> Shows how the Merchant's misogynistic bitterness shapes the entire narrative. His personal unhappiness becomes a universal condemnation of women and marriage.`
+  },
+  {
+    section: 2,
+    question: "What is the effect of calling his wife a 'shrewe' and the 'thise monthes two' detail?",
+    answer: `<span class="quote">"His wife is a <strong>shrewe</strong>" / "<strong>thise monthes two</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Shrewe"</strong> (shrew) = a sharp-tongued, domineering woman. A stock misogynistic term that reduces his wife to a <strong>medieval anti-feminist stereotype</strong>.</li>
+<li><strong>"Thise monthes two"</strong> — the Merchant has only been married for <strong>two months</strong>, yet complains of immense suffering.</li>
+<li>This is <strong>comic undercutting</strong>: the brevity of the marriage makes his extreme bitterness seem <strong>absurd and disproportionate</strong>, undermining his credibility.</li>
+<li>Chaucer uses this detail to invite the audience to <strong>laugh at</strong> the Merchant, not just sympathise with him.</li></ul>
+<strong>Exam Use:</strong> Demonstrates Chaucer's use of irony — the Merchant's exaggerated self-pity after just two months makes him a comic figure, even as his bitterness poisons the tale he tells.`
+  },
+  {
+    section: 2,
+    question: "What is the significance of the tale being set in Pavia, Italy?",
+    answer: `<span class="quote">Set in <strong>Pavia, Italy</strong> — known for brothels</span>
+<strong>Analysis:</strong><ul>
+<li>Pavia was associated in the medieval imagination with <strong>sexual licence and prostitution</strong>.</li>
+<li>Setting the tale here immediately signals that <strong>sex, lust, and moral corruption</strong> will be central themes.</li>
+<li>It creates an <strong>ironic backdrop</strong> for Januarie's idealistic fantasies about marriage — he dreams of marital bliss in a city synonymous with sexual commerce.</li>
+<li>The Italian setting also connects to the <strong>fabliau tradition</strong> and Boccaccio's <em>Decameron</em>, grounding the tale in a genre of bawdy, comic storytelling about sexual deception.</li></ul>
+<strong>Exam Use:</strong> The setting choice signals genre (fabliau), theme (lust/deception), and irony (paradise sought in a city of sin) — all in a single detail.`
+  },
+
+  // ===== 3. JANUARIE =====
+  {
+    section: 3,
+    question: "How do different characters describe Januarie's age — 'old and hoor' vs 'stapen in age' vs 'a man of age'?",
+    answer: `<span class="quote">Januarie: "<strong>old and hoor</strong>" / Placebo: "<strong>stapen in age</strong>" / Justinas: "<strong>ye been a man of age</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Old and hoor"</strong> (old and grey-haired) — the narrator's blunt, unflattering description. Direct, harsh, undeniable.</li>
+<li><strong>"Stapen in age"</strong> — Placebo's euphemism, meaning "advanced in years." This is deliberately <strong>softer and more tactful</strong> — it indirectly comments on Januarie's age without the brutal honesty. This fits Placebo's character as the <strong>yes-man who flatters</strong>.</li>
+<li><strong>"Ye been a man of age"</strong> — Justinas is more honest than Placebo but still <strong>diplomatic</strong>. He acknowledges reality without Placebo's sycophancy.</li></ul>
+<strong>Exam Use:</strong> The three descriptions of the same thing (old age) reveal each character's relationship with truth. The narrator is blunt, Placebo flatters, Justinas balances honesty with tact — a microcosm of the tale's exploration of truth, deception, and self-deception.`
+  },
+  {
+    section: 3,
+    question: "What does 'lusty lyf' and the 'old boef / tendre veel' metaphor reveal about Januarie?",
+    answer: `<span class="quote">"<strong>Lusty lyf</strong>" / "Old <strong>boef</strong> is the <strong>tendre veel</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Lusty lyf"</strong> — describes Januarie's life of sexual indulgence. The <strong>liquid alliteration</strong> (repeated 'l' sounds) creates a smooth, sensuous, almost self-indulgent sound — the sound <em>enacts</em> the luxury it describes.</li>
+<li><strong>"Old boef is the tendre veel"</strong> — a food/sex metaphor. Januarie compares old beef (himself) with tender veal (a young wife).</li>
+<li><strong>"Boef" vs "veel":</strong> Beef is tough, cheap, past its best. Veal is young, tender, and <strong>more expensive</strong> — suggesting Januarie sees a young wife as a luxury commodity to be consumed.</li>
+<li><strong>"Tendre"</strong> = young, soft, delicate — it <strong>sexualises youth</strong>, reducing May to a piece of meat for Januarie's appetite.</li>
+<li>The metaphor links <strong>eating and sex</strong> — Januarie "consumes" women. This commodification of women is central to the tale's critique.</li></ul>
+<strong>Exam Use:</strong> Perfect for essays on gender, commodification, and the male gaze. Januarie literally describes marriage as purchasing and consuming young female flesh.`
+  },
+  {
+    section: 3,
+    question: "What does the 'mirour' in the marketplace reveal about how Januarie views women?",
+    answer: `<span class="quote">"Many a fair shap and many a fair visage" / the "<strong>mirour</strong>" in the market place</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Many a fair shap and many a fair visage"</strong> — <strong>rhetorical balance</strong> (parallel structure): "many a fair... many a fair..." The repetition creates a sense of women as <strong>interchangeable objects</strong> to be browsed.</li>
+<li>The <strong>"mirour" (mirror) in the marketplace</strong> — Januarie imagines women revolving before him like goods in a market. He is the <strong>consumer; they are the merchandise</strong>.</li>
+<li>This is a <strong>male gaze</strong> image: women are visual objects to be inspected, compared, and selected — they have no agency, personality, or voice in this process.</li>
+<li>The marketplace setting reduces <strong>marriage to a commercial transaction</strong> — buying a wife like buying goods.</li></ul>
+<strong>Exam Use:</strong> Key quote for the commodification of women. The mirror/marketplace image perfectly captures Januarie's reduction of women to visual objects for male consumption — and by extension, the patriarchal marriage market of medieval society.`
+  },
+  {
+    section: 3,
+    question: "How does Januarie try to justify his desire for sex within marriage?",
+    answer: `<span class="quote">Worried that paradise on earth means he can't reach heaven — but decides sex is acceptable because it is "<strong>as alle wedded men doon with hire wives</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li>Januarie's theological worry is absurd: he fears that if marriage is <strong>too pleasurable</strong>, he won't get into heaven — but he wants the pleasure anyway.</li>
+<li>His solution is self-serving rationalisation: sex is fine because <strong>"all married men do it with their wives"</strong> — he hides behind the institution of marriage to legitimise his lust.</li>
+<li>This reveals Januarie's <strong>self-deception</strong>: he doesn't want marriage for companionship, love, or partnership — he wants <strong>sex on tap</strong> with religious permission.</li>
+<li>The irony is devastating: he wants a <strong>private paradise</strong> (the garden) for sexual pleasure, but this "paradise" will become the site of his humiliation — just as Eden was the site of the Fall.</li></ul>
+<strong>Exam Use:</strong> Links sex, religion, and self-deception. Januarie corrupts the language of faith to justify lust — mirroring how the tale's garden corrupts the idea of paradise.`
+  },
+
+  // ===== 4. PLACEBO =====
+  {
+    section: 4,
+    question: "What does Placebo's name and his line 'I consente and conferme everydeel' reveal?",
+    answer: `<span class="quote">Name: <strong>Placebo</strong> = "I shall please" / "<strong>I consente and conferme everydeel</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li><strong>Placebo</strong> literally means <strong>"I shall please"</strong> in Latin — his name <em>is</em> his character. He exists only to agree, flatter, and tell Januarie what he wants to hear.</li>
+<li><strong>"I consente and conferme everydeel"</strong> — "I consent and confirm in every way." The <strong>alliteration</strong> of "consente and conferme" creates a smooth, easy flow — the sound itself is agreeable, mirroring Placebo's sycophancy.</li>
+<li>Placebo never challenges, questions, or advises — he simply <strong>validates</strong>. He is a <strong>yes-man</strong>, the opposite of a true friend.</li>
+<li>His role reveals that Januarie <strong>surrounds himself with flatterers</strong> who reinforce his delusions rather than challenging them.</li></ul>
+<strong>Exam Use:</strong> Placebo embodies the dangers of sycophancy — by confirming "everydeel," he enables Januarie's catastrophic self-deception. A good counsellor (Justinas) is ignored; the flatterer is embraced.`
+  },
+
+  // ===== 5. JUSTINAS =====
+  {
+    section: 5,
+    question: "How does Justinas contrast with Placebo — 'Senek', 'avisement', and his view of marriage?",
+    answer: `<span class="quote">Employs the teachings of "<strong>Senek</strong>" (Seneca) / Don't take a "<strong>wyf withouten avisement</strong>" / His wife: "<strong>cost and care</strong>" / "<strong>all blisses bare</strong>" / "<strong>ye shal nat plesen hire</strong>"</span>
+<strong>Analysis:</strong><ul>
+<li><strong>"Senek"</strong> (Seneca) — Justinas invokes the <strong>Stoic philosopher</strong>, grounding his advice in <strong>logic and reason over emotion</strong>. This contrasts sharply with Januarie's lust-driven decision-making.</li>
+<li><strong>"Wyf withouten avisement"</strong> — don't take a wife without <strong>careful deliberation</strong>. Rational, measured advice that Januarie ignores.</li>
+<li><strong>"Cost and care"</strong> — a blunt doublet describing what marriage actually brings. Notice it echoes the Merchant's own <strong>"sorwe and care"</strong> from the Prologue.</li>
+<li><strong>"All blisses bare"</strong> — "devoid of all happiness." Justinas' marriage has been joyless.</li>
+<li><strong>"Ye shal nat plesen hire"</strong> — "you will not please her." A brutally honest warning that an old man cannot sexually satisfy a young wife.</li></ul>
+<strong>Exam Use:</strong> Justinas represents <strong>reason, experience, and honesty</strong> — everything Januarie refuses to hear. His name suggests "the just/honest one." The tragedy is that good advice is available but actively rejected in favour of flattery (Placebo).`
+  },
+
+  // ===== 6. MAY =====
+  {
+    section: 6,
+    question: "What is significant about May writing Damyan a letter 'right of hire hand'? (ll. 784–785)",
+    answer: `<span class="quote">"Right of hire hand a <strong>lettre</strong> made she, / In which she <strong>graunteth hym hire verray grace</strong>"</span>
+<strong>Translation:</strong> "In her own hand a letter she made, / In which she grants him her true grace."<br><br>
+<strong>Analysis:</strong><ul>
+<li><strong>"Right of hire hand"</strong> — May writes the letter <strong>herself</strong>, with her own hand. This is a moment of <strong>female agency</strong> — she is not passive; she actively initiates the affair.</li>
+<li><strong>"Hire verray grace"</strong> — "her true grace/favour." The word <strong>"grace"</strong> carries <strong>religious connotations</strong> (divine grace, mercy) — May's sexual consent is mockingly dressed in the language of spiritual blessing.</li>
+<li>This <strong>parodies courtly love conventions</strong>: the lady "granting grace" to her suitor is a standard trope, but here it's used for a sordid adultery plot.</li>
+<li>May's decisiveness contrasts with Januarie's dithering — she knows exactly what she wants and acts on it.</li></ul>
+<strong>Exam Use:</strong> Key moment for May's agency and the tale's subversion of courtly love. The religious language ("grace") applied to adultery creates sharp irony.`
+  },
+
+  // ===== 7. PROSERPINA =====
+  {
+    section: 7,
+    question: "What does Proserpina promise to give women? (ll. 1054–1058)",
+    answer: `<span class="quote">"That I shal yeven hire <strong>suffisant answere</strong>, / And alle wommen after, for hir sake... / With <strong>face boold</strong> they shulle hemself excuse, / And <strong>bere hem doun</strong> that wolden hem accuse."</span>
+<strong>Translation:</strong> "I shall give her a sufficient answer, / And all women afterwards, for her sake... / With bold face they shall excuse themselves, / And bear down those who would accuse them."<br><br>
+<strong>Analysis:</strong><ul>
+<li>Proserpina (Queen of the Underworld) grants May — and <strong>all women after her</strong> — the gift of a <strong>"suffisant answere"</strong>: the ability to talk their way out of any accusation.</li>
+<li><strong>"Face boold"</strong> — women will be brazen, unapologetic, shameless in their self-defence. There's no guilt here — only confident deflection.</li>
+<li><strong>"Bere hem doun"</strong> — women will <strong>overwhelm</strong> their accusers with words. The accused become the dominant party.</li>
+<li>This is both <strong>anti-feminist satire</strong> (women are divinely gifted liars) AND a <strong>proto-feminist moment</strong> (women gain linguistic power to resist male authority).</li>
+<li>Proserpina's intervention mirrors <strong>Pluto's</strong> (who restores Januarie's sight) — the divine husband and wife argue just like the mortal couples, universalising marital conflict.</li></ul>
+<strong>Exam Use:</strong> Crucial passage for gender essays. It can be read as misogynistic (women are natural deceivers) OR as empowering (women gain rhetorical agency against patriarchal control). The ambiguity is the point.`
+  },
+
+  // ===== 8. THE HOST'S CONCLUSION =====
+  {
+    section: 8,
+    question: "What does the Host's concluding speech reveal about medieval attitudes to women? (ll. 1209–1213)",
+    answer: `<span class="quote">"Lo, whiche <strong>sleightes and subtilitees</strong> / In wommen been! For ay as <strong>bisy as bees</strong> / Been they, us <strong>sely men</strong> for to deceyve, / And from the <strong>soothe</strong> evere wol they weyve"</span>
+<strong>Translation:</strong> "Lo, what tricks and craftiness / Are in women! For always as busy as bees / Are they, us innocent men to deceive, / And from the truth ever will they deviate."<br><br>
+<strong>Analysis:</strong><ul>
+<li><strong>"Sleightes and subtilitees"</strong> — a doublet emphasising women's cunning. The sibilant 's' sounds create a <strong>hissing, serpentine quality</strong> — linking women to the Edenic serpent.</li>
+<li><strong>"Bisy as bees"</strong> — a simile suggesting women are <strong>constantly, industriously</strong> working to deceive. It's comic but also implies female intelligence and energy.</li>
+<li><strong>"Sely men"</strong> — "innocent/simple men." The Host casts men as hapless <strong>victims</strong> — a deeply ironic claim given Januarie's own foolishness, manipulation, and commodification of May.</li>
+<li><strong>"From the soothe evere wol they weyve"</strong> — women "deviate from truth." But the tale has shown that <strong>Januarie</strong> is the greatest self-deceiver — he refuses to see the truth even when his sight is literally restored.</li></ul>
+<strong>Exam Use:</strong> The Host's speech seems to confirm misogynistic readings, but Chaucer undermines it through dramatic irony — the real fool in the tale is Januarie, not the women. The Host misreads his own tale.`
+  },
+
+  // ===== 9. KEY MOMENTS & ACTIONS =====
+  {
+    section: 9,
+    question: "What is significant about May climbing on Januarie's back to reach the tree? (ll. 1132–1134)",
+    answer: `<span class="quote">"Thanne sholde I <strong>clymbe</strong> wel ynogh," quod she, / "So I my <strong>foot myghte sette upon youre bak</strong>."</span>
+<strong>Translation:</strong> "Then I should climb well enough," said she, / "If I might set my foot upon your back."<br><br>
+<strong>Analysis:</strong><ul>
+<li>May literally <strong>stands on Januarie's back</strong> to reach Damyan in the tree — Januarie is the <strong>physical stepping-stone</strong> to her adultery.</li>
+<li>This is a powerful <strong>visual metaphor</strong>: Januarie is used, walked over, and humiliated — he enables his own cuckolding without realising it.</li>
+<li>The image inverts the expected power dynamic — the <strong>old husband bends down</strong> while the young wife <strong>climbs over him</strong> to reach her lover.</li>
+<li>It echoes the <strong>Edenic Fall</strong>: like Eve reaching for the forbidden fruit in the tree, May reaches up into the pear tree for forbidden sexual pleasure — with Januarie as the unwitting accomplice.</li></ul>
+<strong>Exam Use:</strong> One of the tale's most memorable images. Works for essays on power, gender, the Fall, and dramatic irony — Januarie literally supports the act that destroys him.`
+  },
+  {
+    section: 9,
+    question: "How does Chaucer describe Damyan and May's sex in the tree? (ll. 1140–1141)",
+    answer: `<span class="quote">"And sodeynly anon this Damyan / Gan <strong>pullen up the smok, and in he throng</strong>."</span>
+<strong>Translation:</strong> "And suddenly at once this Damian / Pulled up the smock, and in he thrust."<br><br>
+<strong>Analysis:</strong><ul>
+<li>The language is <strong>brutally direct, crude, and physical</strong> — no romance, no courtly love poetry. Just "pulled up the smock, and in he thrust."</li>
+<li>This is pure <strong>fabliau</strong> — the genre of bawdy, comic, sexually explicit medieval tales. The bluntness is deliberate and genre-appropriate.</li>
+<li><strong>"Sodeynly anon"</strong> (suddenly at once) — the speed emphasises how <strong>unromantic and transactional</strong> the encounter is. There's no build-up, no tenderness — just a quick physical act.</li>
+<li>The contrast between Januarie's <strong>elaborate romantic fantasies</strong> (the garden, the paradise imagery) and this <strong>crude two-line reality</strong> is devastatingly ironic.</li>
+<li><strong>"Throng"</strong> — a forceful, aggressive verb that strips any remaining pretence of courtly love from the scene.</li></ul>
+<strong>Exam Use:</strong> Essential for tone and genre analysis. The crude directness demolishes the courtly love framework — the "paradise" garden produces not spiritual elevation but a quick, sordid coupling in a tree.`
+  },
+  {
+    section: 9,
+    question: "How does May's deception after being caught link to Proserpina's gift?",
+    answer: `<strong>Context:</strong> When Pluto restores Januarie's sight and he sees May and Damyan in the tree, May immediately deploys the <strong>"suffisant answere"</strong> promised by Proserpina.<br><br>
+<strong>How it connects:</strong><ul>
+<li>May claims she was told that <strong>struggling with a man in a tree</strong> would cure Januarie's blindness — so she was doing it <strong>for his benefit</strong>.</li>
+<li>Januarie — despite having <strong>literally seen</strong> the adultery with his own restored eyes — <strong>chooses to believe her</strong>.</li>
+<li>This is the tale's ultimate irony: <strong>physical sight is restored but moral/intellectual blindness remains</strong>. Januarie would rather believe an absurd lie than face the truth.</li>
+<li>Proserpina's gift works not because the lie is convincing, but because Januarie <strong>wants to be deceived</strong> — his self-deception is voluntary.</li></ul>
+<strong>Exam Use:</strong> The climactic moment that ties together every theme: sight/blindness, truth/deception, male self-deception, female agency, and the Edenic Fall. Januarie's willingness to believe the lie is the tale's most devastating commentary on marriage and human nature.`
+  },
+
+  // ===== THEMATIC OVERVIEW CARDS =====
+  {
+    section: 3,
+    question: "How does the tale use the Garden/Eden motif through Januarie?",
+    answer: `<strong>The Garden as False Paradise:</strong><ul>
+<li>Januarie builds a <strong>private walled garden</strong> — his personal Eden, designed for sexual pleasure with May.</li>
+<li>He carries the <strong>only key</strong>, symbolising his desire for total control over May's sexuality.</li>
+<li>But the garden becomes the site of his <strong>humiliation</strong>, not his pleasure — just as Eden was the site of the Fall.</li></ul>
+<strong>Key Parallels:</strong><ul>
+<li><strong>The tree:</strong> Like the Tree of Knowledge, the pear tree is where transgression occurs.</li>
+<li><strong>The woman:</strong> Like Eve, May reaches into the tree for forbidden fruit (sex with Damyan).</li>
+<li><strong>The serpent:</strong> Damyan lurks in the tree like the serpent — hidden, waiting.</li>
+<li><strong>Blindness/Knowledge:</strong> Januarie's sight is restored (like Adam's eyes being opened), but unlike Adam, he <strong>chooses to remain blind</strong>.</li></ul>
+<strong>Exam Use:</strong> The Edenic parallel is the tale's deepest structural motif. But Chaucer inverts it: in Genesis, knowledge brings pain; in the Merchant's Tale, restored sight brings... nothing. Januarie refuses knowledge. The Fall is not from innocence to knowledge, but from delusion to <em>chosen</em> delusion.`
+  },
+];
+
+// ========== APP LOGIC ==========
+let currentIndex = 0, filteredCards = [...cards], cardProgress = {}, currentMode = 'study';
+cards.forEach((_, i) => { cardProgress[i] = { seen: 0, mastered: false }; });
+function initApp() {
+  const s = document.getElementById('catSelect'); s.innerHTML = '<option value="all">All Sections</option>';
+  sections.forEach(sec => { s.innerHTML += `<option value="${sec.id}">${sec.id}. ${sec.title}</option>`; });
+  const l = document.getElementById('sectionList'); l.innerHTML = '';
+  sections.forEach(sec => { const c = cards.filter(x => x.section === sec.id).length; l.innerHTML += `<div class="section-item" data-section="${sec.id}" onclick="jumpToSection(${sec.id})"><div class="section-num">${sec.id}</div><span>${sec.title}</span><span class="section-count">${c}</span></div>`; });
+  filterCards();
+}
+function filterCards() { const c = document.getElementById('catSelect').value, h = document.getElementById('hideMastered').checked; filteredCards = cards.filter((x, i) => { if (c !== 'all' && x.section !== parseInt(c)) return false; if (h && cardProgress[i]?.mastered) return false; return true; }); currentIndex = 0; renderCard(); updateStats(); updateSH(); }
+function renderCard() { if (!filteredCards.length) { document.getElementById('cardQuestion').textContent = 'No cards to show! Try changing filters.'; ['cardAnswer','cardSection','cardCategory','cardCategoryBack'].forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ''; }); document.getElementById('navCount').textContent = '0 cards'; document.getElementById('progressDots').innerHTML = ''; document.getElementById('progressText').textContent = ''; return; } const card = filteredCards[currentIndex], gi = cards.indexOf(card), sec = sections.find(s => s.id === card.section), pr = cardProgress[gi]; pr.seen = Math.min(pr.seen + 1, 5); document.getElementById('cardSection').textContent = TOPIC; document.getElementById('cardCategory').textContent = sec ? sec.title : ''; document.getElementById('cardQuestion').textContent = card.question; document.getElementById('cardCategoryBack').textContent = 'Answer'; document.getElementById('cardAnswer').innerHTML = card.answer; const d = document.getElementById('progressDots'); d.innerHTML = ''; for (let i = 0; i < 5; i++) d.innerHTML += `<div class="progress-dot${i < pr.seen ? ' filled' : ''}"></div>`; document.getElementById('progressText').textContent = `${pr.seen}/5`; document.getElementById('navCount').textContent = `Card ${currentIndex + 1} of ${filteredCards.length}`; document.getElementById('prevBtn').disabled = currentIndex === 0; document.getElementById('nextBtn').disabled = currentIndex === filteredCards.length - 1; document.getElementById('flashcard').classList.remove('flipped'); updateSH(); }
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { if (currentIndex < filteredCards.length - 1) { currentIndex++; renderCard(); } }
+function prevCard() { if (currentIndex > 0) { currentIndex--; renderCard(); } }
+function markKnown() { const gi = cards.indexOf(filteredCards[currentIndex]); cardProgress[gi].mastered = true; cardProgress[gi].seen = 5; updateStats(); if (document.getElementById('hideMastered').checked) filterCards(); else renderCard(); }
+function resetCard() { const gi = cards.indexOf(filteredCards[currentIndex]); cardProgress[gi].mastered = false; cardProgress[gi].seen = 0; updateStats(); renderCard(); }
+function shuffleCards() { for (let i = filteredCards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]]; } currentIndex = 0; renderCard(); }
+function jumpToSection(id) { document.getElementById('catSelect').value = id; filterCards(); }
+function updateSH() { if (!filteredCards.length) return; const cs = filteredCards[currentIndex]?.section; document.querySelectorAll('.section-item').forEach(el => el.classList.toggle('active', parseInt(el.dataset.section) === cs)); }
+function updateStats() { let m = 0, p = 0, n = 0; cards.forEach((_, i) => { const pr = cardProgress[i]; if (pr.mastered) m++; else if (pr.seen > 0) p++; else n++; }); document.getElementById('statTotal').textContent = cards.length; document.getElementById('statMastered').textContent = m; document.getElementById('statProgress').textContent = p; document.getElementById('statNew').textContent = n; }
+function setMode(mode) { currentMode = mode; document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active')); if (mode === 'study') { document.querySelectorAll('.mode-btn')[0].classList.add('active'); document.getElementById('studyMode').classList.remove('hidden'); document.getElementById('allCardsMode').classList.add('hidden'); } else { document.querySelectorAll('.mode-btn')[1].classList.add('active'); document.getElementById('studyMode').classList.add('hidden'); document.getElementById('allCardsMode').classList.remove('hidden'); renderAllCards(); } }
+function renderAllCards(f = '') { const g = document.getElementById('allCardsGrid'); g.innerHTML = ''; cards.forEach((card, i) => { if (f && !card.question.toLowerCase().includes(f.toLowerCase()) && !card.answer.toLowerCase().includes(f.toLowerCase())) return; const sec = sections.find(s => s.id === card.section); const p = cardProgress[i]; let st = 'not-started', sT = 'Not Started'; if (p.mastered) { st = 'mastered'; sT = 'Mastered'; } else if (p.seen > 0) { st = 'in-progress'; sT = 'In Progress'; } g.innerHTML += `<div class="mini-card" onclick="goToCard(${i})"><div class="mc-cat">${sec ? sec.title : ''}</div><div class="mc-q">${card.question}</div><span class="mc-status ${st}">${sT}</span></div>`; }); }
+function goToCard(gi) { setMode('study'); document.getElementById('catSelect').value = 'all'; document.getElementById('hideMastered').checked = false; filteredCards = [...cards]; currentIndex = gi; renderCard(); }
+function searchCards(q) { renderAllCards(q); }
+document.addEventListener('keydown', e => { if (currentMode !== 'study') return; if (e.key === 'ArrowRight') nextCard(); else if (e.key === 'ArrowLeft') prevCard(); else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipCard(); } });
+initApp();
+</script>
+</body>
+</html>

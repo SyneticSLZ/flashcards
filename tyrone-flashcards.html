@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tyrone's Rebellion – Flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, #ececec 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, #f5f5f5 0%, transparent 60%);
+    min-height: 100vh;
+    font-family: 'EB Garamond', serif;
+    color: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  header { text-align: center; margin-bottom: 20px; }
+
+  header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3.5vw, 2rem);
+    color: #1a1a1a;
+    letter-spacing: 0.08em;
+  }
+
+  header p { font-style: italic; color: #555; font-size: 0.9rem; margin-top: 4px; }
+
+  #section-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    max-width: 900px;
+    margin-bottom: 20px;
+  }
+
+  .sec-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    background: rgba(0,0,0,0.02);
+    color: #555;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .sec-btn:hover, .sec-btn.active {
+    background: #5a1a1a;
+    border-color: #888;
+    color: white;
+  }
+
+  .scene {
+    perspective: 1200px;
+    width: min(720px, 95vw);
+    height: 450px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.4,0.2,0.2,1);
+    cursor: pointer;
+  }
+
+  .card.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+  }
+
+  .card-front {
+    background: linear-gradient(145deg, #f8f8f8 0%, #fff 100%);
+    border-color: #999;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  .card-back {
+    background: linear-gradient(145deg, #f0f0f0 0%, #f8f8f8 100%);
+    transform: rotateY(180deg);
+    border-color: #b05050;
+    box-shadow: 0 4px 24px rgba(160,60,60,0.08);
+  }
+
+  .card-header {
+    padding: 12px 18px 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    background: rgba(0,0,0,0.02);
+  }
+
+  .card-section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: #555;
+    text-transform: uppercase;
+  }
+
+  .badge {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .badge-q { background: rgba(0,0,0,0.05); color: #333; border: 1px solid rgba(0,0,0,0.12); }
+  .badge-a { background: rgba(160,60,60,0.08); color: #b05050; border: 1px solid rgba(160,60,60,0.22); }
+
+  .card-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 22px;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+  }
+  .card-body::-webkit-scrollbar { width: 4px; }
+  .card-body::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+  .card-question {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.95rem, 2.2vw, 1.18rem);
+    color: #1a1a1a;
+    text-align: center;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .card-answer {
+    font-size: clamp(0.83rem, 1.7vw, 0.97rem);
+    line-height: 1.68;
+    color: #1a1a1a;
+  }
+
+  .card-answer ul { padding-left: 0; list-style: none; }
+  .card-answer ul li {
+    padding: 4px 0 4px 18px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .card-answer ul li:last-child { border-bottom: none; }
+  .card-answer ul li::before {
+    content: '⚔';
+    position: absolute;
+    left: 0; top: 5px;
+    font-size: 0.58rem;
+    color: #5a1a1a;
+    opacity: 0.5;
+  }
+  .card-answer strong { color: #5a1a1a; }
+
+  .flip-hint {
+    text-align: center;
+    font-style: italic;
+    font-size: 0.72rem;
+    color: #aaa;
+    padding: 7px;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .controls { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+
+  .btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 9px 20px;
+    border: 1px solid #ccc;
+    background: rgba(0,0,0,0.02);
+    color: #333;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .btn:hover { background: rgba(90,26,26,0.08); border-color: #b05050; color: #5a1a1a; }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .progress-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    color: #555;
+    min-width: 70px;
+    text-align: center;
+  }
+
+  .progress-bar-wrap {
+    width: min(720px, 95vw);
+    height: 3px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #5a1a1a, #b05050);
+    border-radius: 2px;
+    transition: width 0.35s ease;
+  }
+
+  .divider { text-align: center; color: #bbb; font-size: 0.9rem; letter-spacing: 8px; margin: 2px 0 14px; }
+  .section-title { font-family: 'Cinzel', serif; text-align: center; font-size: 0.72rem; color: #888; letter-spacing: 0.12em; margin-bottom: 16px; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+  .scene { animation: fadeIn 0.35s ease; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚔ Tyrone's Rebellion ⚔</h1>
+  <p>The Nine Years' War, 1593–1603 — Revision Flashcards</p>
+</header>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<div id="section-nav"></div>
+<div class="section-title" id="section-title"></div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="progress-bar"></div>
+</div>
+
+<div class="scene" id="card-scene" onclick="flipCard()">
+  <div class="card" id="card">
+    <div class="card-face card-front">
+      <div class="card-header">
+        <span class="card-section-label" id="front-section"></span>
+        <span class="badge badge-q">QUESTION</span>
+      </div>
+      <div class="card-body" onclick="event.stopPropagation()">
+        <div class="card-question" id="card-question"></div>
+      </div>
+      <div class="flip-hint">Click card to reveal answer</div>
+    </div>
+    <div class="card-face card-back">
+      <div class="card-header">
+        <span class="card-section-label" id="back-section"></span>
+        <span class="badge badge-a">ANSWER</span>
+      </div>
+      <div class="card-body" onclick="event.stopPropagation()">
+        <div class="card-answer" id="card-answer"></div>
+      </div>
+      <div class="flip-hint">Click card to go back</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" id="btn-prev" onclick="prevCard()">&#8592; Prev</button>
+  <span class="progress-text" id="progress-text"></span>
+  <button class="btn" id="btn-next" onclick="nextCard()">Next &#8594;</button>
+</div>
+
+<script>
+const sections = [
+  {
+    id: 'key-terms',
+    label: 'Key Terms',
+    cards: [
+      {
+        q: 'What is meant by "Policy of Conciliation"?',
+        a: `<ul>
+          <li>A peaceful method in which a compromise was reached between the English and the Anglo-Irish</li>
+        </ul>`
+      },
+      {
+        q: 'What is meant by "Tanistry"?',
+        a: `<ul>
+          <li>The Irish system that governed the inheritance of titles and land</li>
+          <li>All those who bore the family name — known as a clan — were ruled by a leader chosen from among the adult males of that clan</li>
+          <li>Inheritance of land and titles did not necessarily move from father to eldest son, as it did in England</li>
+          <li>The tanist (heir) could be a nephew, a cousin or a more distant relative from the same family</li>
+          <li>Under tanistry, the strongest man was in charge — an English title of earl did legitimise it, but the Gaelic chiefs would fight over who had power and land</li>
+        </ul>`
+      },
+      {
+        q: 'What is meant by "Tenants-in-Chief"?',
+        a: `<ul>
+          <li>Under the medieval system of land ownership in England, technically all land was owned by the king</li>
+          <li>His nobility were his tenants; their rent was usually paid through military service in the king's armies</li>
+          <li>The monarch could also exercise rights over the lands of tenants-in-chief, including the right to administer their estates if the tenant died while the heir was a minor</li>
+          <li>Lands forfeited by a tenant-in-chief who was executed also reverted to the Crown</li>
+        </ul>`
+      },
+      {
+        q: 'What is an "Anglo-Irish Lord"?',
+        a: `<ul>
+          <li>A descendant of earlier English settlers who had intermarried with the indigenous Irish</li>
+          <li>Over hundreds of years, these Anglo-Irish nobles had developed their own identity</li>
+          <li>Most spoke the native language of Ireland, Gaelic, and were proud of their independent status</li>
+        </ul>`
+      },
+      {
+        q: 'What is "The Pale"?',
+        a: `<ul>
+          <li>The area that surrounded Dublin</li>
+          <li>Traditionally, English rule did not extend 'beyond the Pale'</li>
+          <li>Lands beyond the Pale were known as 'the Irishry'</li>
+        </ul>`
+      },
+      {
+        q: 'What is "Composition"?',
+        a: `<ul>
+          <li>Traditionally, landowners in Ireland had to pay various charges to both the English and their Irish overlords</li>
+          <li>Landlords had to pay money to the English known as a 'cess', to cover the cost of garrisons (troops permanently stationed in a town or fortress)</li>
+          <li>The same landlords also had to give money to their Irish chieftain to cover the cost of his private army and household</li>
+          <li>The English plan was to commute (transfer) these payments into one single payment to the English authorities — this system was known as composition</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'causes',
+    label: 'Causes',
+    cards: [
+      {
+        q: 'What were the long-term background causes of Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>The rebellion was a reaction to the ongoing Tudor conquest of Ireland</li>
+          <li>Hugh Roe O'Donnell and Hugh O'Neill both opposed the extension of royal administration, though they focused more on religious issues</li>
+          <li>Very Catholic region — O'Neill and O'Donnell were deeply Catholic, and exiled Roman Catholics had been trained as missionaries who went to Ireland to spread the message that Catholicism would only survive if Elizabeth was defeated</li>
+          <li>1570 — Elizabeth was excommunicated from the Catholic Church, causing outrage among the Anglo-Irish lords who were very Catholic; this also enabled Spanish troops to intervene</li>
+          <li>Plantation systems — attempted to make one in Ulster to colonise it with English settlers; plantations failed in Ulster between 1574–76 due to widespread resistance; further attempts 1579–83 also failed</li>
+          <li>Massacres in the 1570s: massive escalation — 1574: 200 members of the O'Neill Clan were killed when invited to a feast; 1575: 500 of the O'Donnell clan were killed in a surprise raid</li>
+        </ul>`
+      },
+      {
+        q: 'What were the immediate causes and trigger events of Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>Lord Deputy Fitzwilliam had focused much of his attention at the start of the 1590s on the north of Ireland (Ulster), which he was tasked with bringing under crown control</li>
+          <li>There were problems with Fitzwilliam's policies and he was accused of corruption</li>
+          <li>Henry Bagenal, an English colonist who settled in Newry, ran for the provincial presidency — he appeared to impose crown authority through sheriffs appointed by the Dublin government</li>
+          <li>Fitzwilliam attempted to impose sheriff authority on the O'Neill and O'Donnell territories, but their rulers refused</li>
+          <li>O'Donnell drove Captain Willis out of Tyrconnell in 1592</li>
+          <li>1593 — troops from Tyrone led by Cormac MacBaron resisted Willis' appointment as sheriff of Maguire's Fermanagh; Willis was then kicked out of Fermanagh</li>
+          <li>As a result, crown forces gathered under Sir Henry Bagenal's command to crush Maguire and his allies</li>
+          <li>The main reason O'Neill initially aided the English was his desire to be crowned Lord President of Ulster, but Elizabeth I was concerned O'Neill was planning to overpower her; instead, she nominated Henry Bagenal for the position</li>
+          <li>O'Neill was offended, and in February 1595 he joined his allies in open rebellion</li>
+          <li>When Tyrone was about to explain his actions to the Queen in London, three Spanish diplomats from Philip II arrived, effectively ending any chance of peace and paving the way for the war</li>
+          <li>After a failed negotiation in 1595, English armies broke into Ulster and were driven back by force by a trained army</li>
+        </ul>`
+      },
+      {
+        q: 'What role did religion play as a cause of Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>Hugh Roe O'Donnell and Hugh O'Neill both focused primarily on religious issues in opposing crown authority</li>
+          <li>Ireland was very Catholic, and the region deeply resented Protestant English rule</li>
+          <li>Exiled Roman Catholics were trained as missionaries and sent to Ireland to spread the message that Catholicism would only survive if Elizabeth was defeated</li>
+          <li>In 1570, Elizabeth was excommunicated from the Catholic Church — this caused outrage among the Anglo-Irish lords who were very Catholic</li>
+          <li>Excommunication also made it religiously permissible for Catholic powers like Spain to intervene against Elizabeth — in 1601, 4,000 Spanish troops arrived to help the rebels</li>
+          <li>In 1595, O'Neill and O'Donnell offered to be vassals to King Philip II of Spain</li>
+        </ul>`
+      },
+      {
+        q: 'What role did the plantation system play as a cause of Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>The English attempted to set up plantation systems in Ulster — colonising the land with English settlers</li>
+          <li>Plantations failed in Ulster between 1574–76 due to widespread resistance</li>
+          <li>Further attempts to establish plantations in Ulster took place 1579–83</li>
+          <li>The ongoing attempt to colonise Irish land was a direct and persistent grievance fuelling resistance</li>
+          <li>The English had established a small colony in Ulster, near Carrickfergus, in the 1570s</li>
+        </ul>`
+      },
+      {
+        q: 'What role did the tanistry system play in causing conflict with the English?',
+        a: `<ul>
+          <li>Tanistry — the Irish hereditary system where the strongest man (chosen from among the adult males of a clan) was leader, rather than the eldest son inheriting as in English law</li>
+          <li>Donnell/Neil clashed often because of the tanistry system</li>
+          <li>The English took away Gaelic titles and land and gave them back under the English system of 'Earldom'</li>
+          <li>Under the tanistry system, Irish chiefs did not accept the English 'Earl' title — it undermined their traditional authority</li>
+          <li>Hugh O'Neill's own background was shaped by this clash: Matthew O'Neill was appointed heir by his father Conn even though it did not follow tanistry; Shane O'Neill became heir by force after murdering Matthew; Brian (Matthew's first heir) was also murdered</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'objectives',
+    label: 'Objectives',
+    cards: [
+      {
+        q: 'What were the main objectives of Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>Fighting against English rule in Ireland — led by Hugh O'Neill of Tyrone and Hugh Roe O'Donnell of Tyrconnell</li>
+          <li>Opposed the extension of royal administration into Ulster and Gaelic Ireland more widely</li>
+          <li>Focused on religious issues — defending and preserving Catholicism; spread the message that Catholicism would only survive if Elizabeth was defeated</li>
+          <li>Reaction to the ongoing Tudor conquest of Ireland</li>
+          <li>O'Neill and O'Donnell offered to be vassals to King Philip II of Spain in 1595 — seeking foreign backing and recognition</li>
+          <li>The main personal reason O'Neill had initially aided the English was his desire to be crowned Lord President of Ulster — when denied this, rebellion became his objective</li>
+          <li>Resist and expel sheriffs imposed by the Dublin government — maintain Gaelic governance and autonomy in Ulster</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'size',
+    label: 'Size of the Rebellion',
+    cards: [
+      {
+        q: 'How large and widespread was Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>Hugh O'Neill, the Earl of Tyrone, raised support from every Irish province against English rule</li>
+          <li>The majority of the fighting took place in the northern province of Ulster</li>
+          <li>Previously, Gaelic clans had feuds and disagreements among themselves — but Tyrone's rebellion was the first time they united together against the English, making it uniquely threatening</li>
+          <li>It was a broad Irish alliance, not merely a localised Ulster revolt</li>
+          <li>Bagenal launched an initial attack on 22 September 1593 and was joined four days later by O'Neill</li>
+          <li>Bagenal and O'Neill won the Battle of Belleek on 10 October after defeating Maguire's blocking forces</li>
+          <li>The alliance won several significant battles — the Battle of Clontibret (1595) and the Battle of the Yellow Ford (1598)</li>
+          <li>In 1601, 4,000 Spanish troops arrived to support the rebels — demonstrating the international scale of the conflict</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'support',
+    label: 'Support',
+    cards: [
+      {
+        q: 'What support did Tyrone\'s Rebellion receive, both domestic and foreign?',
+        a: `<ul>
+          <li>Hugh O'Neill raised support from every Irish province against English rule</li>
+          <li>The Irish alliance was led by Hugh O'Neill of Tyrone and Hugh Roe O'Donnell of Tyrconnell — combining the two most powerful Gaelic lords of Ulster</li>
+          <li>In February 1595, O'Neill joined his allies in open rebellion</li>
+          <li>In 1595, O'Neill and O'Donnell offered to be vassals to King Philip II of Spain — seeking official foreign backing</li>
+          <li>When Tyrone was about to explain his actions to the Queen in London, three Spanish diplomats from Philip II arrived — effectively ending any chance of peace</li>
+          <li>Elizabeth's 1570 excommunication enabled Spanish support — in 1601, 4,000 Spanish troops arrived to help the rebels</li>
+          <li>Scottish clans supplied soldiers and materials to O'Neill, complicating the English strategic situation</li>
+          <li>The Irish alliance won some battles, including the Battle of Clontibret (1595) and the Battle of the Yellow Ford (1598)</li>
+          <li>The Treaty of Mellifont brought an end to the war, forcing the defeated northern lords to flee Ireland</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'leadership',
+    label: 'Leadership',
+    cards: [
+      {
+        q: 'Who was Hugh O\'Neill and what was his background?',
+        a: `<ul>
+          <li>Hugh O'Neill descended from the powerful Irish clan of Tír Eoghain, which ruled the core of Ulster</li>
+          <li>His father, Matthew, was the well-liked son of Conn the Lame — the first O'Neill to be crowned Earl of Tyrone</li>
+          <li>Matthew had been appointed as his father's heir, even though this did not follow the Irish custom of tanistry</li>
+          <li>Under tanistry, the eldest surviving son of the earl should inherit the throne — which should have been Shane O'Neill</li>
+          <li>Shane became heir by force after murdering Matthew; Brian (Matthew's first heir) was also murdered</li>
+          <li>As a result, the English authorities seized Hugh (the next heir) from Tyrone</li>
+          <li>Hugh fought for Tyrone's control with Turlough Lynagh O'Neill and was inaugurated as 'the O'Neill' after Turlough died</li>
+          <li>Hugh also murdered Shane's son — his main rival for the title</li>
+          <li>Hugh O'Neill was granted the English law birthright of Earl of Tyrone by the parliament of 1585</li>
+          <li>Hugh fled and married Bagenal's sister, Mabel, against Bagenal's wishes — Mabel died a few years after the marriage, reportedly in despair over O'Neill's mistresses</li>
+        </ul>`
+      },
+      {
+        q: 'What were the key leadership figures on both sides of Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li><strong>Hugh O'Neill (Earl of Tyrone):</strong> Raised support from every Irish province; combined English legal title (Earl of Tyrone, granted 1585) with Gaelic leadership ('the O'Neill'); the central rebel leader</li>
+          <li><strong>Hugh Roe O'Donnell (Tyrconnell):</strong> Co-led the Irish alliance; opposed extension of royal administration and focused on religious issues; drove Captain Willis out of Tyrconnell in 1592</li>
+          <li><strong>Cormac MacBaron:</strong> Led O'Neill's troops in resisting Willis' appointment as sheriff of Maguire's Fermanagh in 1593</li>
+          <li><strong>Lord Deputy Fitzwilliam:</strong> Elizabeth's lord deputy; focused on bringing Ulster under crown control at the start of the 1590s; accused of corruption; his aggressive policies helped provoke resistance</li>
+          <li><strong>Sir Henry Bagenal:</strong> English colonist settled in Newry; ran for provincial presidency; appeared to impose crown authority through sheriffs; O'Neill's personal enemy (eloped with his sister); commanded crown forces against Maguire; launched attack 22 September 1593 alongside O'Neill; won Battle of Belleek October 1593; later defeated and killed at the Battle of the Yellow Ford (1598)</li>
+          <li><strong>Lord Mountjoy:</strong> Elizabeth's eventual effective military commander; persuaded Tyrone to submit; oversaw the English decisive victory and the Treaty of Mellifont (1603)</li>
+        </ul>`
+      },
+      {
+        q: 'What errors did Elizabeth make in her leadership response to Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>Elizabeth underestimated the scale of O'Neill's revolt</li>
+          <li>She made several unwise appointments in responding to the rebellion</li>
+          <li>She deployed insufficient resources until her military commander, Lord Mountjoy, persuaded Tyrone to submit</li>
+          <li>She nominated Henry Bagenal — O'Neill's personal enemy — for the Lord Presidency of Ulster, which directly caused O'Neill to join the rebellion</li>
+          <li>The English authorities initially paid little attention to the rebellion</li>
+          <li>After a failed negotiation in 1595, English armies broke into Ulster and were driven back by force</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'organisation',
+    label: 'Organisation',
+    cards: [
+      {
+        q: 'How was Tyrone\'s Rebellion organised, and what geographical advantages did the rebels have?',
+        a: `<ul>
+          <li>Fighting against English rule was an Irish alliance led by Hugh O'Neill of Tyrone and Hugh Roe O'Donnell of Tyrconnell</li>
+          <li>The majority of the fighting took place in the northern province of Ulster</li>
+          <li>The natural defences of Ulster made it difficult for the English forces to confront O'Neill directly</li>
+          <li>There were only two possible entry points into Ulster for troops coming from the south — one at Newry (east), one at Sligo (west)</li>
+          <li>The route from Newry had easily defended passes</li>
+          <li>The clan of O'Connor ruled Sligo Castle, which was threatened by the O'Donnells — limiting English use of the western route</li>
+          <li>The English had established a small colony near Carrickfergus in Ulster in the 1570s, but this would be at a disadvantage against O'Neill due to the terrain, which formed an effective barrier on the eastern edge of O'Neill territory</li>
+          <li>Scottish clans supplied soldiers and materials to O'Neill, further complicating the English strategic situation</li>
+          <li>The English also had to keep an eye on their territorial influence along the Route</li>
+          <li>After a failed negotiation in 1595, English armies broke into Ulster and were driven back by force by a trained army</li>
+          <li>The Irish alliance won the Battle of Clontibret (1595) and the Battle of the Yellow Ford (1598)</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'limited-success',
+    label: 'Limited Success & Failure',
+    cards: [
+      {
+        q: 'Why did Tyrone\'s Rebellion ultimately fail, despite its early successes?',
+        a: `<ul>
+          <li>The Irish alliance won some battles — the Battle of Clontibret (1595) and the Battle of the Yellow Ford (1598) — but ultimately the English won the decisive victory</li>
+          <li>Elizabeth eventually deployed effective military leadership: Lord Mountjoy persuaded Tyrone to submit</li>
+          <li>The Treaty of Mellifont (1603) brought an end to the war and forced the defeated northern lords to flee Ireland</li>
+          <li>The natural defences of Ulster had helped O'Neill resist English forces, but could not sustain resistance indefinitely</li>
+          <li>The English strategic situation was complicated by Scottish clans supplying O'Neill — but English forces adapted</li>
+          <li>After a failed negotiation in 1595, English armies broke into Ulster and were eventually able to overcome the trained Irish army</li>
+          <li>The English authorities had initially paid little attention to the rebellion — but once they committed sufficient resources under Mountjoy the rebels could not hold out</li>
+          <li>The Spanish support (4,000 troops arriving in 1601) came too late and in insufficient strength to secure a rebel victory</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'threat',
+    label: 'Threat to the Government',
+    cards: [
+      {
+        q: 'Why was Tyrone\'s Rebellion such a serious threat to the Elizabethan government?',
+        a: `<ul>
+          <li>Previously, Gaelic clans had feuds and disagreements among themselves — but Tyrone's was the first time they united together against the English, making it uniquely threatening</li>
+          <li>Hugh O'Neill raised support from every Irish province — this was not a localised Ulster revolt but a broad national alliance</li>
+          <li>Elizabeth underestimated the scale of his revolt, made several unwise appointments and deployed insufficient resources</li>
+          <li>Excommunication of Elizabeth in 1570 allowed for Spanish support — in 1601, 4,000 Spanish troops arrived to help the rebels; Spain was England's most powerful enemy</li>
+          <li>In 1595, O'Neill and O'Donnell offered to be vassals to King Philip II of Spain — establishing an explicit foreign alliance</li>
+          <li>When Tyrone was about to explain his actions to the Queen in London, three Spanish diplomats from Philip II arrived, effectively ending any chance of peace and paving the way for the war</li>
+          <li>The Irish alliance won significant battles — Clontibret (1595) and the Battle of the Yellow Ford (1598)</li>
+          <li>The natural defences of Ulster made it very difficult for English forces to confront O'Neill</li>
+          <li>Only two possible entry points into Ulster from the south; the route from Newry had easily defended passes; Scottish clans also supplied soldiers and materials to O'Neill</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'gov-response',
+    label: 'Government Response',
+    cards: [
+      {
+        q: 'How did the English government respond to Tyrone\'s Rebellion over the course of the conflict?',
+        a: `<ul>
+          <li>Lord Deputy Fitzwilliam had focused much of his attention at the start of the 1590s on bringing Ulster under crown control — imposing sheriff authority across territories</li>
+          <li>There were problems with Fitzwilliam's policies and he was accused of corruption</li>
+          <li>Henry Bagenal was used to impose crown authority through sheriffs appointed by the Dublin government; Fitzwilliam attempted to use this in O'Neill and O'Donnell territories but their rulers refused</li>
+          <li>Crown forces gathered under Sir Henry Bagenal's command to crush Maguire and his allies; Bagenal launched the attack on 22 September 1593 and was joined four days later by O'Neill; Bagenal and O'Neill won the Battle of Belleek on 10 October 1593</li>
+          <li>Elizabeth I was concerned that O'Neill was planning to overpower her — instead of granting O'Neill the Lord Presidency of Ulster (his ambition), she nominated Henry Bagenal, directly triggering O'Neill's rebellion</li>
+          <li>The English authorities initially paid little attention to the rebellion</li>
+          <li>After a failed negotiation in 1595, English armies broke into Ulster and were driven back by force by a trained army</li>
+          <li>Ultimately, Elizabeth underestimated the scale of his revolt, made several unwise appointments and deployed insufficient resources — until Lord Mountjoy persuaded Tyrone to submit</li>
+          <li>The English won the decisive victory; the Treaty of Mellifont (1603) brought an end to the war and forced the defeated northern lords to flee Ireland</li>
+        </ul>`
+      },
+      {
+        q: 'What was the Treaty of Mellifont (1603) and what were its consequences?',
+        a: `<ul>
+          <li>The Treaty of Mellifont in 1603 brought an end to the Nine Years' War (Tyrone's Rebellion)</li>
+          <li>It forced the defeated northern lords to flee Ireland — known as the 'Flight of the Earls'</li>
+          <li>It established the conditions for the Plantation of Ulster — colonising Ireland with English (and Scottish) settlers</li>
+          <li>The war outlived Elizabeth herself — it survived her death in 1603, making it one of the most sustained and costly challenges of her reign</li>
+          <li>Lord Mountjoy was the commander who finally persuaded Tyrone to submit, securing the English decisive victory</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    id: 'central-local',
+    label: 'Central & Local Authorities',
+    cards: [
+      {
+        q: 'What was the role of central and local authorities in dealing with Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li><strong>Central authority (Elizabeth I):</strong> Underestimated the scale of O'Neill's revolt; made several unwise appointments; deployed insufficient resources; nominated Bagenal over O'Neill for the Lord Presidency — directly triggering the rebellion</li>
+          <li><strong>Lord Deputy Fitzwilliam (Dublin government):</strong> Focused on bringing Ulster under crown control at the start of the 1590s; imposed sheriff authority across territories; accused of corruption; his aggressive and problematic policies helped provoke resistance</li>
+          <li><strong>Henry Bagenal (local enforcer):</strong> English colonist in Newry; ran for provincial presidency; imposed crown authority through Dublin-appointed sheriffs; attempted to impose sheriffs on O'Neill and O'Donnell territories — refused by their rulers; commanded crown forces against Maguire 1593; won Battle of Belleek alongside O'Neill October 1593; later killed at the Battle of the Yellow Ford (1598)</li>
+          <li><strong>Captain Willis (local authority):</strong> Driven out of Tyrconnell by O'Donnell in 1592; resisted as sheriff of Maguire's Fermanagh by Cormac MacBaron in 1593; kicked out of Fermanagh — showing the limits of local crown authority</li>
+          <li><strong>Lord Mountjoy (military command):</strong> Elizabeth's effective military commander who finally turned the tide; persuaded Tyrone to submit; secured the English decisive victory and the Treaty of Mellifont 1603</li>
+          <li>The Treaty of Mellifont 1603 ended the war — forced the defeated northern lords to flee Ireland; established the Plantation of Ulster colonising Ireland</li>
+          <li>The war lasted nine years and outlived Elizabeth's death — testament to how seriously English authority had been challenged</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ── BATTLES & KEY EVENTS ── */
+  {
+    id: 'battles',
+    label: 'Battles & Key Events',
+    cards: [
+      {
+        q: 'What was the significance of the Attack on Blackwater Fort (February 1595)?',
+        a: `<ul>
+          <li><strong>Irish significance:</strong> The first clear escalation into open rebellion led by Hugh O'Neill — it demonstrated the Irish ability to challenge English military infrastructure and marked a decisive shift from local unrest into an organised, large-scale revolt</li>
+          <li><strong>English significance:</strong> Exposed the weakness of frontier forts and English control in Ulster — forced the Crown to recognise the seriousness of O'Neill's threat and triggered the commitment of more troops and resources to Ireland</li>
+        </ul>`
+      },
+      {
+        q: 'What was the significance of the Battle of Clontibret (June 1595)?',
+        a: `<ul>
+          <li><strong>Irish significance:</strong> A major early victory which significantly boosted the confidence and legitimacy of O'Neill — it encouraged wider Gaelic support and recruitment, and demonstrated the effectiveness of Irish tactics such as ambush and use of terrain</li>
+          <li><strong>English significance:</strong> A humiliating defeat for a professional English army — highlighted poor leadership and a lack of military preparedness; increased the urgency for a stronger military response from the Crown</li>
+        </ul>`
+      },
+      {
+        q: 'What was the significance of the Anglo-Irish Truce (March 1596)?',
+        a: `<ul>
+          <li><strong>Irish significance:</strong> Bought O'Neill time to consolidate power and alliances — allowed him to strengthen his forces and actively seek Spanish aid; demonstrated that O'Neill was negotiating from a position of strength</li>
+          <li><strong>English significance:</strong> A temporary pause caused by overstretch — England was simultaneously at war with Spain, showing its inability to defeat the rebels quickly; Sir John Norreys was sent to calm the situation; a high-risk decision as it gave the rebels time to become significantly more dangerous</li>
+        </ul>`
+      },
+      {
+        q: 'What was the significance of the Battle of Yellow Ford and the collapse of the Munster Plantation (1598)?',
+        a: `<ul>
+          <li><strong>Irish significance:</strong> A decisive victory at the peak of O'Neill's power — sparked widespread rebellion beyond Ulster, giving the conflict a national dimension; the collapse of the Munster Plantation represented a fundamental rejection of English colonisation and control across Ireland</li>
+          <li><strong>English significance:</strong> One of the worst defeats in Ireland, with approximately <strong>1,500 killed</strong> — the loss of the Munster Plantation directly undermined English colonisation policy; a crisis moment that forced a major rethink of military and political strategy in Ireland</li>
+          <li><strong>Impact of the shock of defeat:</strong> Encouraged further rebellion across Ireland; strengthened the Irish belief that the English could be defeated; increased momentum and recruitment for the rebellion</li>
+          <li><strong>English political consequences of Yellow Ford:</strong> Caused political shock in England and serious fear of the total loss of Ireland — led to a huge financial and military commitment, and the appointment of stronger leadership, notably the Earl of Essex and later Lord Mountjoy</li>
+        </ul>`
+      },
+      {
+        q: 'What was the significance of the English loss at Curlew Pass (August 1599)?',
+        a: `<ul>
+          <li><strong>Irish significance:</strong> Continued success reinforced Irish tactical superiority in guerrilla and ambush warfare — undermined English attempts to regain the initiative and maintained the momentum built after Yellow Ford</li>
+          <li><strong>English significance:</strong> A further military embarrassment, particularly during the Earl of Essex's campaign — showed the continued vulnerability of English forces to guerrilla tactics; contributed directly to the failure of Essex's campaign and the loss of royal confidence in him</li>
+        </ul>`
+      },
+      {
+        q: 'What was the significance of the Arrival of Spanish troops (January 1601)?',
+        a: `<ul>
+          <li><strong>Irish significance:</strong> A major boost — the realisation of international Catholic support; raised hopes of a decisive victory against England; however, the Spanish landing at <strong>Kinsale in the far south</strong> (caused by storms diverting the fleet) created serious strategic problems for O'Neill and O'Donnell, who were based in Ulster</li>
+          <li><strong>English significance:</strong> A serious threat — raised the prospect of a wider European war being fought on Irish soil; forced a rapid and decisive response from Lord Mountjoy</li>
+        </ul>`
+      },
+      {
+        q: 'What was the significance of the Battle of Kinsale (1601)?',
+        a: `<ul>
+          <li><strong>Irish significance:</strong> A crushing defeat — destroyed the coordinated Irish-Spanish effort; exposed fundamental weaknesses in Irish coordination and logistics; the turning point that led directly to the collapse of the rebellion</li>
+          <li><strong>English significance:</strong> A decisive victory — England regained control of the war; demonstrated the effectiveness of the reformed English army under Lord Mountjoy; marked the beginning of the end of Tyrone's Rebellion and the Nine Years' War</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ── KEY LEADERS ── */
+  {
+    id: 'leaders-detail',
+    label: 'Key Leaders',
+    cards: [
+      {
+        q: 'Who was Hugh O\'Neill (Earl of Tyrone) and how effective was he as a leader?',
+        a: `<ul>
+          <li>Earl of Tyrone; a Gaelic lord but raised partly within the English system — giving him a unique ability to operate across both cultures</li>
+          <li>Highly educated, politically astute, and fluent in both Gaelic and English cultural traditions</li>
+          <li>Overall leader of the rebellion — built alliances across Ulster and beyond</li>
+          <li>Organised a more <strong>'modern' army</strong> — introduced muskets and Spanish-style tactics, narrowing the military gap with English forces</li>
+          <li>Led the key victories, including the Battle of Yellow Ford (1598)</li>
+          <li><strong>Effectiveness — strengths:</strong> Highly effective in the early to mid-war period; unified disparate clans into a coherent fighting force; achieved major military victories; a skilled diplomat (securing Spanish support, negotiating truces)</li>
+          <li><strong>Effectiveness — limitations:</strong> Struggled to coordinate effectively at a national level (e.g. at Kinsale); at times overly cautious</li>
+          <li><strong>Overall verdict:</strong> Central to turning a regional Ulster revolt into a national threat</li>
+        </ul>`
+      },
+      {
+        q: 'Who was Red Hugh O\'Donnell and how effective was he as a leader?',
+        a: `<ul>
+          <li>Lord of Tyrconnell; younger and more aggressive than O'Neill</li>
+          <li>Had escaped English captivity — giving him a strong and personal anti-English stance</li>
+          <li>Key military commander alongside O'Neill during the rebellion</li>
+          <li>Led campaigns in both Ulster and Connacht, helping to spread the rebellion geographically</li>
+          <li>Travelled to Spain to personally secure military support</li>
+          <li><strong>Effectiveness — strengths:</strong> Militarily dynamic and aggressive; important in spreading the rebellion beyond Ulster</li>
+          <li><strong>Effectiveness — weakness:</strong> His absence in Spain at the critical moment of Kinsale (1601) was a significant factor in the defeat</li>
+          <li><strong>Overall verdict:</strong> Crucial to the rebellion but less strategically consistent than O'Neill</li>
+        </ul>`
+      },
+      {
+        q: 'Who were Fitzthomas Fitzgerald, Richard Tyrrell and Florence MacCarthy, and how effective were they?',
+        a: `<ul>
+          <li><strong>Fitzthomas Fitzgerald (Súgán Earl of Desmond):</strong> Member of the Geraldine dynasty in Munster; put forward as a claimant to revive Desmond clan power; led the Munster rebellion after 1598; acted primarily as a <strong>symbolic figure</strong> to attract support against English plantations; limited effectiveness — the Munster rebellion was initially significant but poorly coordinated and was quickly suppressed; more symbolic than strategically important</li>
+          <li><strong>Richard Tyrrell:</strong> Experienced Gaelic Irish military commander; operated mainly in Leinster; led forces there to stretch English military resources; played a key role in the victory at <strong>Curlew Pass (1599)</strong>; tactically effective through ambush warfare and use of terrain; helped extend the rebellion beyond Ulster; limitation — his impact was largely regional and not decisive nationally; overall a valuable supporting commander</li>
+          <li><strong>Florence MacCarthy:</strong> Munster lord with a claim to Desmond lands; politically ambiguous and a cautious operator; a potential leader of southern resistance linked to Spanish plans; largely <strong>ineffective in practice</strong> — reluctant to fully commit, failed to mobilise strong southern resistance; his indecision weakened coordination with the Spanish at Kinsale; overall represents a missed opportunity for the rebellion</li>
+        </ul>`
+      }
+    ]
+  },
+
+  /* ── ORGANISATION ── */
+  {
+    id: 'organisation-detail',
+    label: 'Military Organisation',
+    cards: [
+      {
+        q: 'How effective was the support base within Ireland for Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>Strong support in Ulster — O'Neill's core power base where clan networks provided consistent manpower and resources</li>
+          <li>After Yellow Ford (1598), the rebellion spread nationally, including a significant Munster uprising — backing came from Gaelic lords and some Old English Catholics</li>
+          <li><strong>Evaluation:</strong> Crucial in turning the revolt into a national rebellion at its peak (1598–99); however, support was uneven and fragile — the Munster uprising collapsed quickly, demonstrating that the national dimension was not as solid as it appeared</li>
+        </ul>`
+      },
+      {
+        q: 'How effective was Spanish support for Tyrone\'s Rebellion?',
+        a: `<ul>
+          <li>Spain provided financial aid, weapons and eventually troops (arriving at Kinsale, 1601) — motivated by the wider Anglo-Spanish conflict</li>
+          <li><strong>Evaluation:</strong> Important both psychologically and materially — it gave the rebellion international credibility and real military resources; however, the support arrived too late, was poorly coordinated with Irish forces, and landed in the wrong location (Kinsale in the far south due to storms), far from O'Neill's Ulster base; ultimately failed to deliver the decisive victory that had been hoped for</li>
+        </ul>`
+      },
+      {
+        q: 'How effective were the Irish military equipment, numbers, modernisation and tactics?',
+        a: `<ul>
+          <li><strong>Military equipment:</strong> Increasing use of muskets and gunpowder; Spanish supplies improved Irish firepower; however, the Irish still lacked heavy artillery compared to the English — this inferior siege capability proved a critical weakness at Kinsale</li>
+          <li><strong>Military numbers and structure:</strong> Large forces raised through clan networks; a core of experienced troops served under O'Neill and O'Donnell; strong in numbers during peak years, but quality and discipline were inconsistent; difficulty sustaining large armies over time revealed logistical weaknesses</li>
+          <li><strong>Modernisation:</strong> O'Neill trained troops in European-style drill and formations and adopted firearms and more structured command — a major factor in early success that narrowed the gap with the English army; demonstrates O'Neill's adaptability; however, modernisation was not fully institutionalised and broke down under pressure at Kinsale</li>
+          <li><strong>Tactics:</strong> Guerrilla warfare, ambushes and expert use of terrain; deliberate avoidance of pitched battles (mostly); key examples — Clontibret (1595) and Curlew Pass (1599); one of the rebellion's most important strengths as it neutralised English advantages in equipment and numbers; highly effective in Ulster; however, the failure at Kinsale — where the Irish were forced to fight more conventionally — exposed the limits of this approach</li>
+        </ul>`
+      },
+      {
+        q: 'How effective was Ulster\'s terrain as a military asset for the rebels?',
+        a: `<ul>
+          <li>The Ulster landscape of bogs, forests and difficult mountain routes strongly favoured ambush tactics and defensive warfare</li>
+          <li><strong>Evaluation:</strong> A major advantage for the rebels — it slowed English advances and their supply lines; enabled smaller Irish forces to defeat larger, better-equipped English armies; however, this advantage was significantly reduced when the rebellion moved to Munster and Kinsale, where the terrain was less familiar and the tactical environment less favourable to Irish guerrilla methods</li>
+        </ul>`
+      },
+      {
+        q: 'How significant were the Irish military victories in sustaining the rebellion?',
+        a: `<ul>
+          <li>Key victories: <strong>Clontibret (1595), Yellow Ford (1598), Curlew Pass (1599)</strong></li>
+          <li>These victories boosted morale and recruitment, and fundamentally undermined English authority in Ireland</li>
+          <li><strong>Evaluation:</strong> Essential in building momentum and spreading the rebellion — created a genuine crisis for the English government; however, none of the victories were followed by a decisive strategic move (such as a march on Dublin); momentum was lost after 1599, and the failure to convert military success into political victory ultimately contributed to defeat at Kinsale and the end of the rebellion</li>
+        </ul>`
+      },
+      {
+        q: 'What do the English troop commitments and O\'Neill\'s army composition reveal about the military balance of the war?',
+        a: `<ul>
+          <li>Lord Mountjoy ultimately required <strong>13,000 troops</strong> to combat O'Neill's rebellion — indicating the enormous scale of the military commitment eventually needed to suppress it</li>
+          <li>English soldiers were usually better trained and equipped than their Irish opponents, but until the 1590s the Tudors <strong>consistently underestimated</strong> the nature of the problem confronting local garrisons and the amount of money needed to maintain effective control in Ireland</li>
+          <li>Tyrone provided considerable military expertise and built up an army of approximately <strong>2,500 cavalry and infantry combined</strong> — comprised of native mercenary soldiers trained by veteran English and Spanish instructors</li>
+          <li>This Irish force notably included some <strong>survivors from the Spanish Armada</strong>, shipwrecked on Ireland's coast, who brought further military experience to O'Neill's ranks</li>
+          <li><strong>Essex's campaign (1599):</strong> The Earl of Essex was sent to Ireland with <strong>17,000 men</strong> — the largest English force committed to Ireland up to that point — but he failed to confront Tyrone directly and achieved nothing decisive</li>
+          <li>Essex was subsequently replaced by <strong>Lord Mountjoy</strong>, who was given far greater military support and resources, and who ultimately succeeded in suppressing the rebellion</li>
+        </ul>`
+      }
+    ]
+  }
+];
+
+let currentSection = 0;
+let currentCard = 0;
+let isFlipped = false;
+
+function buildSectionNav() {
+  const nav = document.getElementById('section-nav');
+  nav.innerHTML = '';
+  sections.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sec-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = s.label;
+    btn.onclick = () => selectSection(i);
+    nav.appendChild(btn);
+  });
+}
+
+function selectSection(idx) {
+  currentSection = idx;
+  currentCard = 0;
+  isFlipped = false;
+  document.querySelectorAll('.sec-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.getElementById('card').classList.remove('flipped');
+  renderCard();
+}
+
+function renderCard() {
+  const section = sections[currentSection];
+  const cards = section.cards;
+  const c = cards[currentCard];
+
+  document.getElementById('section-title').textContent = section.label.toUpperCase();
+  document.getElementById('front-section').textContent = section.label;
+  document.getElementById('back-section').textContent = section.label;
+  document.getElementById('card-question').textContent = c.q;
+  document.getElementById('card-answer').innerHTML = c.a;
+  document.getElementById('progress-text').textContent = `${currentCard + 1} / ${cards.length}`;
+
+  const pct = ((currentCard + 1) / cards.length) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+
+  document.getElementById('btn-prev').disabled = currentCard === 0;
+  document.getElementById('btn-next').disabled = currentCard === cards.length - 1;
+}
+
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('card').classList.toggle('flipped', isFlipped);
+}
+
+function prevCard() {
+  if (currentCard > 0) {
+    currentCard--;
+    isFlipped = false;
+    document.getElementById('card').classList.remove('flipped');
+    renderCard();
+  }
+}
+
+function nextCard() {
+  const cards = sections[currentSection].cards;
+  if (currentCard < cards.length - 1) {
+    currentCard++;
+    isFlipped = false;
+    document.getElementById('card').classList.remove('flipped');
+    renderCard();
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === ' ') { e.preventDefault(); flipCard(); }
+});
+
+buildSectionNav();
+renderCard();
+</script>
+</body>
+</html>

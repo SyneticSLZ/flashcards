@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilgrimage of Grace — Flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --parchment: #faf7f2;
+    --parchment-dark: #f0ebe0;
+    --ink: #1c1208;
+    --ink-light: #3d2e0f;
+    --crimson: #8b1a1a;
+    --gold: #b8860b;
+    --stone: #7a7060;
+    --stone-light: #a09880;
+    --border: #c8b89a;
+    --shadow: rgba(28,18,8,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--parchment);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23faf7f2'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23e8e0d0' opacity='0.4'/%3E%3Ccircle cx='3' cy='3' r='0.5' fill='%23e8e0d0' opacity='0.4'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse at 10% 10%, #f5ede0 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 90%, #ede5d5 0%, transparent 50%);
+    min-height: 100vh;
+    font-family: 'EB Garamond', serif;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 16px 40px;
+  }
+  header { text-align: center; margin-bottom: 24px; }
+  .header-rule {
+    display: flex; align-items: center; gap: 14px; justify-content: center; margin-bottom: 8px;
+  }
+  .header-rule::before, .header-rule::after {
+    content: ''; flex: 1; max-width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  header h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1rem, 3vw, 1.65rem);
+    color: var(--ink); letter-spacing: 0.04em; line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(184,134,11,0.15);
+  }
+  header .subtitle {
+    font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.2em;
+    color: var(--stone); margin-top: 6px; text-transform: uppercase;
+  }
+  .ornament { color: var(--gold); font-size: 0.9rem; letter-spacing: 6px; margin: 10px 0 0; display: block; }
+
+  #section-nav {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 5px; max-width: 860px; width: 100%; margin-bottom: 18px;
+  }
+  .sec-btn {
+    font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.07em;
+    padding: 6px 11px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.5); color: var(--stone); cursor: pointer;
+    border-radius: 2px; transition: all 0.22s ease; text-transform: uppercase;
+    position: relative; overflow: hidden;
+  }
+  .sec-btn::before {
+    content: ''; position: absolute; inset: 0; background: var(--crimson);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.22s ease; z-index: 0;
+  }
+  .sec-btn:hover::before, .sec-btn.active::before { transform: scaleX(1); }
+  .sec-btn span { position: relative; z-index: 1; }
+  .sec-btn:hover span, .sec-btn.active span { color: #fff; }
+  .sec-btn.active { border-color: var(--crimson); }
+
+  .section-title-bar {
+    font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.18em;
+    color: var(--stone); text-transform: uppercase; text-align: center;
+    margin-bottom: 14px; display: flex; align-items: center;
+    gap: 10px; justify-content: center; max-width: 720px; width: 100%;
+  }
+  .section-title-bar::before, .section-title-bar::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .progress-wrap {
+    width: min(720px, 95vw); height: 3px; background: rgba(200,184,154,0.3);
+    border-radius: 2px; margin-bottom: 20px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--crimson), var(--gold));
+    border-radius: 2px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 0 6px rgba(139,26,26,0.4);
+  }
+
+  .scene {
+    perspective: 1400px; width: min(720px, 95vw); height: 460px;
+    margin-bottom: 20px; cursor: pointer;
+  }
+  .card {
+    width: 100%; height: 100%; position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.35,0.1,0.15,1);
+  }
+  .card.flipped { transform: rotateY(180deg); }
+  .card-face {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: 4px; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .card-front {
+    background: var(--parchment); border: 1px solid var(--border);
+    box-shadow: 0 2px 0 rgba(184,134,11,0.2), 0 8px 32px var(--shadow), inset 0 0 60px rgba(240,235,224,0.6);
+  }
+  .card-front::before {
+    content: ''; position: absolute; inset: 6px;
+    border: 1px solid rgba(200,184,154,0.4); border-radius: 2px; pointer-events: none;
+  }
+  .card-back {
+    background: linear-gradient(160deg, #faf7f2 0%, #f3ede0 100%);
+    border: 1px solid var(--border); border-top: 3px solid var(--crimson);
+    transform: rotateY(180deg);
+    box-shadow: 0 2px 0 rgba(139,26,26,0.15), 0 8px 32px var(--shadow);
+  }
+  .card-header {
+    padding: 10px 18px 9px; display: flex; align-items: center;
+    justify-content: space-between; flex-shrink: 0;
+    border-bottom: 1px solid rgba(200,184,154,0.5);
+  }
+  .card-front .card-header { background: rgba(240,235,224,0.6); }
+  .card-back .card-header { background: rgba(139,26,26,0.04); }
+  .card-section-label {
+    font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.16em;
+    color: var(--stone); text-transform: uppercase;
+  }
+  .badge {
+    font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 0.12em;
+    padding: 2px 8px; border-radius: 1px; text-transform: uppercase;
+  }
+  .badge-q { background: rgba(200,184,154,0.2); color: var(--stone); border: 1px solid var(--border); }
+  .badge-a { background: rgba(139,26,26,0.08); color: var(--crimson); border: 1px solid rgba(139,26,26,0.25); }
+  .card-body {
+    flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  }
+  .card-body::-webkit-scrollbar { width: 4px; }
+  .card-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .card-question-wrap {
+    height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 24px 32px; text-align: center;
+  }
+  .q-ornament { color: var(--gold); font-size: 1.2rem; margin-bottom: 16px; opacity: 0.6; }
+  .card-question {
+    font-family: 'Cinzel', serif; font-size: clamp(0.88rem, 2vw, 1.1rem);
+    color: var(--ink); line-height: 1.65; font-weight: 600;
+  }
+  .q-ornament-b { color: var(--gold); font-size: 0.8rem; margin-top: 16px; opacity: 0.4; }
+  .card-answer-wrap { padding: 14px 20px 16px; }
+  .card-answer ul { list-style: none; padding: 0; }
+  .card-answer ul li {
+    padding: 5px 0 5px 20px; position: relative;
+    border-bottom: 1px solid rgba(200,184,154,0.3);
+    font-size: clamp(0.8rem, 1.6vw, 0.93rem); line-height: 1.6; color: var(--ink-light);
+  }
+  .card-answer ul li:last-child { border-bottom: none; }
+  .card-answer ul li::before {
+    content: '✦'; position: absolute; left: 2px; top: 7px;
+    font-size: 0.42rem; color: var(--crimson); opacity: 0.6;
+  }
+  .card-answer strong { color: var(--crimson); font-weight: 600; }
+  .flip-hint {
+    flex-shrink: 0; text-align: center; font-family: 'Cinzel', serif;
+    font-size: 0.52rem; letter-spacing: 0.14em; color: var(--stone-light);
+    padding: 8px; border-top: 1px solid rgba(200,184,154,0.4);
+    text-transform: uppercase; background: rgba(240,235,224,0.3);
+  }
+  .controls { display: flex; align-items: center; gap: 16px; }
+  .btn {
+    font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.1em;
+    padding: 9px 22px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.5); color: var(--ink-light); cursor: pointer;
+    border-radius: 2px; transition: all 0.2s; text-transform: uppercase;
+    position: relative; overflow: hidden;
+  }
+  .btn::before {
+    content: ''; position: absolute; inset: 0; background: var(--crimson);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .btn:hover::before { opacity: 1; }
+  .btn:hover { color: #fff; border-color: var(--crimson); }
+  .btn-inner { position: relative; z-index: 1; }
+  .btn:disabled { opacity: 0.25; cursor: not-allowed; }
+  .btn:disabled::before { display: none; }
+  .progress-text {
+    font-family: 'Cinzel', serif; font-size: 0.7rem;
+    color: var(--stone); min-width: 72px; text-align: center; letter-spacing: 0.05em;
+  }
+  .key-hint {
+    font-family: 'EB Garamond', serif; font-style: italic;
+    font-size: 0.75rem; color: var(--stone-light); margin-top: 12px; letter-spacing: 0.02em;
+  }
+  .key-hint kbd {
+    font-family: 'Cinzel', serif; font-style: normal; font-size: 0.6rem;
+    padding: 1px 5px; border: 1px solid var(--border);
+    border-radius: 2px; background: rgba(255,255,255,0.6); color: var(--stone);
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .scene { animation: fadeUp 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-rule"><span style="color:var(--gold)">✠</span></div>
+  <h1>Pilgrimage of Grace</h1>
+  <p class="subtitle">The Northern Rebellion · 1536–1537</p>
+  <span class="ornament">⸻ ✦ ⸻</span>
+</header>
+
+<div id="section-nav"></div>
+<div class="section-title-bar"><span id="section-title-text"></span></div>
+
+<div class="progress-wrap">
+  <div class="progress-fill" id="progress-fill"></div>
+</div>
+
+<div class="scene" onclick="flipCard()">
+  <div class="card" id="card">
+    <div class="card-face card-front">
+      <div class="card-header">
+        <span class="card-section-label" id="front-label"></span>
+        <span class="badge badge-q">Question</span>
+      </div>
+      <div class="card-body" onclick="event.stopPropagation()">
+        <div class="card-question-wrap">
+          <div class="q-ornament">✠</div>
+          <div class="card-question" id="card-question"></div>
+          <div class="q-ornament-b">⸻ ✦ ⸻</div>
+        </div>
+      </div>
+      <div class="flip-hint">Click card or press Space to reveal answer</div>
+    </div>
+    <div class="card-face card-back">
+      <div class="card-header">
+        <span class="card-section-label" id="back-label"></span>
+        <span class="badge badge-a">Answer</span>
+      </div>
+      <div class="card-body" onclick="event.stopPropagation()">
+        <div class="card-answer-wrap">
+          <div class="card-answer" id="card-answer"></div>
+        </div>
+      </div>
+      <div class="flip-hint">Click card or press Space to flip back</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" id="btn-prev" onclick="prevCard()"><span class="btn-inner">← Prev</span></button>
+  <span class="progress-text" id="progress-text"></span>
+  <button class="btn" id="btn-next" onclick="nextCard()"><span class="btn-inner">Next →</span></button>
+</div>
+<div class="key-hint"><kbd>←</kbd> <kbd>→</kbd> navigate &nbsp;·&nbsp; <kbd>Space</kbd> flip</div>
+
+<script>
+const SECTIONS = [
+  {
+    label: 'Causes: Religious',
+    cards: [
+      {
+        q: 'What were the religious causes of the Pilgrimage of Grace?',
+        a: `<ul>
+          <li>Protest against Henry VIII's break with the Roman Catholic Church, the dissolution of the lesser monasteries, and the policies of Thomas Cromwell</li>
+          <li>Rebels demanded restoration of papal headship (Article 2), reversal of suppression of monasteries (Articles 4 and 6), and condemnation of heresies of Luther, Wycliffe, Tyndale, Barnes and the Anabaptists (Article 1)</li>
+          <li>Religious grievances headed the list of demands and made up <strong>nine out of the 24 demands</strong></li>
+          <li>Complaints against reformist bishops such as Cranmer, and some European reformers such as Martin Bucer</li>
+          <li>Traditional religious practices, such as saints' days, were under attack — the abolition of holy days was deeply unpopular</li>
+          <li>New taxes on baptism, burial and marriage were unpopular, particularly among the poorer elements who could not afford them</li>
+          <li>The rising occurred immediately after the closure of some of the smaller monasteries</li>
+          <li>The area in Lancashire that was first to rise was around the dissolved monasteries</li>
+          <li>Rumours of further religious changes, such as the closure of some parish churches, worried many</li>
+        </ul>`
+      },
+      {
+        q: 'What religious symbolism did the rebels use, and what does it reveal about their motives?',
+        a: `<ul>
+          <li>The banner of the rebels depicted the <strong>Five Wounds of Christ</strong> — a traditional symbol of Catholic devotion</li>
+          <li>The Pilgrim's oath contained the statement that they were undertaking the pilgrimage in the name of Christ</li>
+          <li>All pilgrims swore an oath of allegiance <strong>'to be true to God, the king and the commons'</strong></li>
+          <li>Robert Aske issued badges to the pilgrims who adopted the Five Wounds of Christ as their banner</li>
+          <li>This was the traditional cry of religious conformity in the face of heresy — also chosen by rebels in 1549 and 1569</li>
+          <li>The Five Wounds banner was originally Thomas Darcy's — he arranged for flags depicting a bleeding heart above a chalice, surrounded by the pierced hands and feet</li>
+          <li>Ballads and seditious rhymes were composed, letters and circulars published, and posters nailed to church doors claiming that the Catholic faith was <strong>'piteously and abominably confounded'</strong></li>
+          <li>Aske deliberately coined the term 'Pilgrimage of Grace' to give the rebellion a holy, spiritual character</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Causes: Economic & Social',
+    cards: [
+      {
+        q: 'What were the economic and social causes of the Pilgrimage of Grace?',
+        a: `<ul>
+          <li>Complaints about the <strong>1534 Subsidy Act</strong></li>
+          <li>Complaints about <strong>enclosure</strong> — a problem in heavily populated areas of the Lake District and the West Riding of Yorkshire; it turned arable land into pasture, reducing the numbers who could live off the land</li>
+          <li>Complaints about <strong>entry fines</strong> levied by landlords</li>
+          <li>Rumours about new taxes on sheep and cattle</li>
+          <li>Harvests of <strong>1535 and 1536 were poor</strong>, adding to the potential for discontent</li>
+          <li>The dissolution of the monasteries was seen as an economic issue — monasteries played a vital role in the local economy and provided help in times of distress</li>
+          <li>Demand to repeal the <strong>Statute of Uses (1536)</strong>, which restricted the ability of gentry and peers to provide for younger sons without paying fines to the Crown</li>
+          <li>Article 14 complained that taxes were too high</li>
+          <li>Article 19 demanded that liberties — ability to run courts, enforce law, etc. — be returned (a 1536 Act had restored all such powers to the Crown)</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Causes: Political',
+    cards: [
+      {
+        q: 'What were the political causes of the Pilgrimage of Grace?',
+        a: `<ul>
+          <li>Henry's centralising policy undermined feudal ties in the north</li>
+          <li>Leading figures such as Lord Hussey had links with Catherine of Aragon and her daughter Mary</li>
+          <li>Attack on Cromwell, Rich and Cranmer in the Pilgrims' Ballad</li>
+          <li>The north appeared to be excluded from decision-making — hence the rebel demand for a parliament in the north</li>
+          <li>The Percy family lost influence in the north — Henry Percy was pressured to name the king as his heir and disinherit his son</li>
+          <li>The Clifford family, who had done well during the reorganisation, remained loyal to the king</li>
+          <li>Rebels demanded the restoration of Mary to the succession</li>
+          <li>The organisation of the rebellion suggests it was not spontaneous — there was prior planning</li>
+          <li>Articles 7 and 8 attacked Cromwell and Rich as low-born <strong>'maintayners of the false sect of herétiques'</strong> — resented by the nobility in the way Wolsey had been</li>
+          <li>Article 11 demanded punishment for Legh and Layton, Cromwell's commissioners</li>
+          <li>Article 3 wished to see Mary restored to the succession, indicating belief that the Aragonese marriage was valid</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Regional Variations',
+    cards: [
+      {
+        q: 'How did the causes of the Pilgrimage of Grace vary across different regions?',
+        a: `<ul>
+          <li><strong>Westmorland (Clifford estates):</strong> Tenants mainly concerned about unfair rents and entry fines levied by the earl</li>
+          <li><strong>Cumberland (Penrith):</strong> Rebels most concerned about endemic thieving and robbery</li>
+          <li><strong>Northern Lancashire:</strong> Disturbances inspired more by the threatened closure of monasteries — people in the south of the county felt less concerned and none joined the rebellion</li>
+          <li><strong>Yorkshire &amp; Durham (Percy estates):</strong> Tenant–landlord relations were not an issue — instead, peasants joined their landlords in protesting at a range of government policies</li>
+          <li>None of the peasants would have had the slightest interest in the Statute of Uses or the high fees charged by feodaries and escheators — these were the concern of lawyers and gentry</li>
+          <li>Only the most erudite of theologians could demand condemnation of continental reformers such as Melanchthon and Oecolampadius — but this is what the Lincolnshire clerics insisted Aske should do when presenting his articles at York</li>
+          <li>Despite variations, much common ground existed: each area professed to be a rising of the commons; each was marked by concern for both the Faith of Christ and the Commonwealth; each hated the government for being extortionate and heretical</li>
+        </ul>`
+      },
+      {
+        q: 'What were the causes and key events of the Lincolnshire Rising (2nd–18th October 1536)?',
+        a: `<ul>
+          <li>Rumours of new taxes on cattle, christenings, marriages and births, combined with fears of confiscation of church property</li>
+          <li>Initial demands complained about the subsidy and the Statute of Uses, as well as the Dissolution of the Monasteries</li>
+          <li>The rising began at <strong>Louth</strong>, spreading to Caistor and Horncastle — involved seizure of royal commissioners for the subsidy and the dissolution</li>
+          <li>Dr Raynes, chancellor for the Bishop of Lincoln, was <strong>murdered</strong></li>
+          <li>Gentry took leadership (e.g. Lord Hussey) and marched at least <strong>10,000 rebels</strong> to Lincoln</li>
+          <li>By about 5th October, <strong>40,000 men</strong> were thought to be involved — marched to Lincoln; well disciplined and orderly; received a decent welcome from the people of Lincoln</li>
+          <li>At Horncastle, William Leach informed the sheriff he must <em>'be sworn to do as we do, or else it shall cost you your life'</em> — a mob of 100 men waited outside</li>
+          <li>With the Duke of Suffolk's army approaching (refusing to negotiate with rebels under arms) and the king threatening dire punishment, the gentry decided to negotiate and the rebels dispersed</li>
+          <li>Suffolk gave rebels the opportunity to return home without bloodshed with a promise that Henry would look into their grievances — the nobles seized their chance, as did many commoners</li>
+          <li>Mainly important as the <strong>precursor to the main Pilgrimage of Grace</strong></li>
+        </ul>`
+      },
+      {
+        q: 'What were the key features of the Yorkshire Pilgrimage of Grace (8th October – 8th December 1536)?',
+        a: `<ul>
+          <li>Pontefract Articles and other primary sources indicate a range of economic and political grievances, probably with religion (especially the Dissolution) as the main cause</li>
+          <li>Started in <strong>Beverley</strong> — Aske led rebels to York, where they were welcomed</li>
+          <li>Nine rebel hosts were active across the region, including Yorkshire, Lancashire and Cumberland</li>
+          <li>They <strong>restored 16 of the 55 monasteries</strong> that had been dissolved</li>
+          <li>Aske's main army (<strong>30,000 strong</strong>) travelled to Pontefract then to Doncaster, where Aske negotiated with Norfolk for several weeks</li>
+          <li>By the time various groups converged on Pontefract, there may have been as many as <strong>40,000 rebels</strong> — the 'pilgrims' numbered 35,000, well armed and well equipped</li>
+          <li><strong>Pontefract Castle surrendered on 21st October</strong> — the royal castle (garrisoning 300 troops) fell without firing a shot; it was in poor repair and could not have held out for a day</li>
+          <li>Henry suspected the castle's leader, Lord Thomas Danby, of being sympathetic to the rebels — the fall of a royal castle gave the Yorkshire rebels a major boost in confidence</li>
+          <li>Genuinely frightened the royal government</li>
+          <li>Promised a pardon and other concessions, the rebellion dispersed in December</li>
+          <li>May have <strong>accelerated the Dissolution</strong>, possibly contributed to Cromwell's fall and a partial Catholic restoration from 1539 onwards</li>
+        </ul>`
+      },
+      {
+        q: 'What was Bigod\'s Rising / Cumberland Rising (January–February 1537) and what were its consequences?',
+        a: `<ul>
+          <li>Sir Francis Bigod was a <strong>Protestant</strong> who believed the king's concessions to the rebels were not to be trusted and feared for his own life after reluctantly participating in the Pilgrimage of Grace</li>
+          <li>Bigod planned to <strong>capture Hull</strong> and take Norfolk as a hostage</li>
+          <li>He had only a few hundred supporters — most were captured by royal forces at Beverley before his assault on Hull could begin</li>
+          <li>He was captured himself in Cumberland and the remainder of his supporters were <strong>routed at Carlisle</strong></li>
+          <li>Gave Henry VIII the excuse to pursue <strong>systematic punishment for all the rebellions</strong></li>
+          <li>About <strong>220–250 men were executed in total</strong>, including Darcy, Aske and Bigod himself</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Objectives & Demands',
+    cards: [
+      {
+        q: 'What were the overall objectives of the Pilgrimage of Grace rebels?',
+        a: `<ul>
+          <li>Primarily a reaction to Protestant reforms — discontented Catholics believed the only way to redress their grievances was to protest in numbers and, if necessary, fight for their beliefs</li>
+          <li>Aske's intention throughout was to <strong>overawe the government</strong> into granting the demands of the north by presenting a show of force</li>
+          <li>He did not want to advance south unless Henry refused the Pilgrims' petition — he had <strong>no plan to form an alternative government or remove the king</strong></li>
+          <li>Aske merely wanted to give the north a say in the affairs of the nation, to remove Cromwell and reverse certain policies of the Henrician Reformation</li>
+          <li>He believed Henry himself was a decent and well-meaning king — he laid the blame on <strong>'evil' advisors, especially Cromwell</strong></li>
+          <li>Only <strong>one man was killed</strong> during the Pilgrimage itself — demonstrating its disciplined, peaceful intent</li>
+          <li>In December 1536, rebels met at Pontefract Castle (2–4 Dec) to draft the <strong>24 Articles ('The Commons' Petition')</strong>, given to the Duke of Norfolk at Doncaster on 6th December</li>
+          <li>The rebels agreed to disband if: the king reviewed the demands; a freely elected parliament at York acted on the same; and all pilgrims received a parliamentary pardon</li>
+          <li>Similar rebellions in terms of aims: the <strong>Prayer Book (Western) rebellion 1549</strong> and the <strong>Revolt of the Northern Earls 1569</strong></li>
+        </ul>`
+      },
+      {
+        q: 'What did the 24 Pontefract Articles demand? Give a full breakdown.',
+        a: `<ul>
+          <li><strong>Religious demands (9 of the 24 — headed the list):</strong></li>
+          <li>Article 1 — condemned the heresies of Luther, Wycliffe, Tyndale, Barnes and the Anabaptists</li>
+          <li>Articles 4 &amp; 6 — reversal of the suppression of the monasteries, particularly the Observant Friars</li>
+          <li>Article 2 — papal headship of the Church to be restored 'as before it was accustomed to be' (though the same article upheld the ban on payments of first fruits to Rome)</li>
+          <li>Article 18 — the Church's rights of sanctuary to be confirmed by Act of Parliament (in fact, in 1540 the opposite occurred)</li>
+          <li><strong>Political demands (6 specifically political):</strong></li>
+          <li>Article 3 — Mary restored to the succession, indicating belief that the Aragonese marriage was valid</li>
+          <li>Articles 7 &amp; 8 — attacked Cromwell and Rich as 'maintayners of the false sect of herétiques' and as low-born men resented by the nobility</li>
+          <li>Article 11 — punishment for Legh and Layton, Cromwell's commissioners</li>
+          <li>Article 19 — liberties (ability to run courts, enforce law, etc.) to be returned</li>
+          <li><strong>Economic &amp; social demands:</strong></li>
+          <li>Article 13 — restrict enclosures which had turned arable land into pasture, reducing the numbers who could live off the land</li>
+          <li>Article 14 — taxes were too high</li>
+          <li>Article 20 — repeal of the Statute of Uses of 1536</li>
+          <li>9 demands specifically religious; 6 specifically political; the rest a combination of social, political, economic and religious issues</li>
+        </ul>`
+      },
+      {
+        q: 'What was the Statute of Uses (1536), and why did the rebels demand its repeal?',
+        a: `<ul>
+          <li>The Statute of Uses was an Act of Parliament that restricted the application of uses in English property law</li>
+          <li>Originally conceived by Henry VIII as a way to rectify his financial problems by simplifying the law of uses, which moved land outside the royal tax revenue</li>
+          <li>Henry's initial efforts would have removed uses almost completely — stymied at the 1529 Parliament by members of the House of Commons, many of whom were landowners (who would lose money) and lawyers (who benefited in fees)</li>
+          <li>An eventual set of bills introduced in 1535 was passed by both the Lords and Commons in 1536</li>
+          <li>The rebels demanded its repeal (Article 20) because it restricted the ability of gentry and peers to provide for younger sons without paying fines to the Crown</li>
+          <li>The repeal of the Statute of Uses eventually occurred in <strong>1540</strong> — one of the rebels' demands that was later granted</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Support',
+    cards: [
+      {
+        q: 'How large was the support for the Pilgrimage of Grace, and who was involved?',
+        a: `<ul>
+          <li>An estimated <strong>50,000 took part</strong> in some phase of the Pilgrimage — the largest single gathering was the 30,000-strong rebel army in Yorkshire</li>
+          <li>Numbers in individual rebel parties ranged from 3,000 at Hull to 20,000 at York</li>
+          <li>The Pilgrimage was the rebellion that reflected <strong>the greatest degree of social variety</strong> of any Tudor revolt</li>
+          <li><strong>Nobility and gentry:</strong> John Lumley, John Neville (Baron Latimer), Hussey, Darcy and Robert Constable</li>
+          <li><strong>Country gentry:</strong> Sir Edward Dymoke (Sheriff of Lincoln), Sir Christopher Willoughby, Sir Robert Bowes, Sir Ingram Percy, Sir Stephen Hamerton</li>
+          <li><strong>Clergy:</strong> Abbots of Kirkstead, Furness and Barlings; vicars of Louth, Brough and Brayton</li>
+          <li><strong>Lawyers:</strong> Thomas Moigne (recorder of Lincoln, 1536) and Robert Aske</li>
+          <li><strong>Local yeomen and tradesmen:</strong> Nicholas Melton ('Captain Cobbler') — the Lincolnshire rising began in Louth at the hands of 'Captain Cobbler' and the local clergy</li>
+          <li>Among the leading nobles were younger sons and relations of the four major houses: <strong>Stanley, Neville, Percy and Clifford</strong></li>
+          <li>It was convention for nobles and gentry to deny they had given support willingly — they claimed they and their families had been forced to participate</li>
+        </ul>`
+      },
+      {
+        q: 'Was the Pilgrimage of Grace a rising of the commons or of the gentry and nobility?',
+        a: `<ul>
+          <li>The safest conclusion is that several <strong>disparate social groupings</strong> came together because of disparate provocations, pooling their grievances in the list of demands</li>
+          <li>The first outbreaks of open protest appear to have been planned — but leadership was initially from <strong>yeomen, skilled craftsmen and the lower clergy</strong>, given their opportunity by the nobility's <strong>'conspiracy of inaction'</strong></li>
+          <li>When the northern gentry and nobility cooperated, it was in order to contain and channel the anger as best they could</li>
+          <li>What made the Pilgrimage unique was the <strong>high-profile involvement of the commons, clergy, gentry and lesser nobles at every stage</strong> — many became captains of the nine host armies under Aske</li>
+          <li>The Willoughbys in Lincolnshire resented the Duke of Suffolk's acquisition of family lands; Sir Ingram Percy had been disinherited; Lord Darcy was out of favour with the king — all claimed they supported under duress, but the gentry were widely reported to be <strong>'first harnessed of all others'</strong></li>
+          <li>It is impossible to say who enlisted voluntarily and who was forced to join</li>
+          <li>The rising was a <strong>series of regional revolts</strong>, each with its own peculiar characteristics</li>
+          <li>It came perilously close to succeeding — described as <strong>'the largest popular revolt in English history'</strong></li>
+          <li>If more leading noblemen of the north had backed it, <strong>all would have been lost</strong> for the clique of religious reformers around Cromwell in London</li>
+          <li>Yet in the end, not enough of the north's natural leaders were prepared openly to support the movement — frightened by too many leaders emerging from outside their circle, and by the very provisional nature of deference they discovered in the lower orders</li>
+          <li>With many gentry using their position to slow the rebel momentum, the Westminster government was given its chance to play for time</li>
+        </ul>`
+      },
+      {
+        q: 'How was intimidation used to gain support, and what examples demonstrate this?',
+        a: `<ul>
+          <li>Hundreds of gentry and lesser nobles appear to have been <strong>intimidated by the commons</strong> and forced to participate</li>
+          <li>The Abbot of Jervaulx recounted that he was <strong>threatened with beheading</strong> if he did not surrender his abbey</li>
+          <li>Marmaduke Neville claimed that his wife and goods were at risk if he refused to join in</li>
+          <li>Sir Roger Cholmeley was told his house would be <strong>looted there and then</strong></li>
+          <li>At Horncastle, William Leach informed the sheriff that he must 'be sworn to do as we do, or else it shall cost you your life' — outside, a mob of 100 men waited for his answer</li>
+          <li>Aske claimed that he was <strong>'persuaded'</strong> to join</li>
+          <li>Lord Darcy yielded Pontefract Castle when <strong>3,000 rebels approached</strong></li>
+          <li>Barnard Castle similarly fell, as did Lincoln, Hull, York, Lancaster and Durham — ostensibly to save citizens from unnecessary bloodshed</li>
+          <li>Thomas Moigne claimed he became a captain to 'do the most good amongst his own neighbours in the staying of them [the commons]' — Henry VIII did not believe him and Moigne paid with his life</li>
+          <li>Violence against the upper classes was a <strong>rarity</strong> — when it occurred, the victim was a figure of local hatred (e.g. Dr John Raynes was hacked to pieces in 1536)</li>
+          <li>Fear clearly induced many men to enlist — but apart from isolated incidents, the peaceful intentions of most rebels can be believed</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Leadership',
+    cards: [
+      {
+        q: 'Who was Robert Aske and what was his role in the Pilgrimage of Grace?',
+        a: `<ul>
+          <li>An English lawyer — his family were well connected (Jane Seymour was his third cousin)</li>
+          <li>A devout man who objected to Henry's religious reforms, particularly the Dissolution of the Monasteries</li>
+          <li>When rebellion broke out in York, Aske was returning to Yorkshire from London — not initially involved, he took up the cause of the locals</li>
+          <li>By <strong>10 October 1536</strong> he had come to be regarded as their <strong>'chief captain'</strong></li>
+          <li>A curiously marginal figure in Yorkshire society — because of his London links, he could mediate between centre and locality outside the normal communication channels of early Tudor government</li>
+          <li>He channelled this ambivalent position into a direct challenge to all aspects of government policy</li>
+          <li>It was Aske who coined the phrase <strong>'Pilgrimage of Grace'</strong> — deliberately chosen to give the rebellion a holy, spiritual slant</li>
+          <li>A skilled orator and very competent organiser — he wanted the rebellion to maintain the highest standards so no one could call the men a rabble; he did not want to frighten away more nobles from joining</li>
+          <li>He believed Henry himself was a decent king — he laid the blame on <strong>'evil' advisors, especially Cromwell</strong></li>
+          <li>Aske believed that once Henry saw the rebellion as a spiritual pilgrimage, he would revert to old policies and remove those who had misled him</li>
+          <li>His intention was to overawe the government by a show of force — no plan to form an alternative government</li>
+          <li>He remained in Yorkshire (rather than travelling to London) to ensure the rebels' organisation maintained itself if the king failed to deliver</li>
+          <li><strong>Henry VIII had him executed for treason on 12 July 1537</strong></li>
+        </ul>`
+      },
+      {
+        q: 'Who was Lord John Hussey and what was his role in the Pilgrimage of Grace?',
+        a: `<ul>
+          <li>Knighted at the Battle of Blackheath in 1497; later made <strong>'Knight of the Body'</strong> to Henry VII; promoted to knight under Henry VIII</li>
+          <li>A member of the House of Lords and <strong>Chamberlain to Henry VIII's daughter Mary I</strong></li>
+          <li>Strong Catholic sympathies — he and his wife were supporters of Catherine of Aragon and Mary</li>
+          <li>On <strong>2nd October 1536</strong>, when reports reached him about Louth, his immediate reaction was to organise against the rebels — ordered bridges broken down and sluices opened</li>
+          <li>However, most of the people he tried to reach had either fled or were under house arrest</li>
+          <li>He offered to ride to the king and plead for pardon if rebels would submit — they refused</li>
+          <li>He admitted he was impotent to resist because his tenants would not serve against the rebels</li>
+          <li>He <strong>refused to join the king's army</strong> being assembled in Nottinghamshire</li>
+          <li>Implicated alongside Lord Darcy as complicit in the Pilgrimage of Grace; accused of conspiring to change laws and depose the king</li>
+          <li>Charges may have been brought due to his Catholic sympathies and support for Catherine and Mary</li>
+          <li>Found guilty of treason by the House of Lords — <strong>beheaded in Lincoln in 1536</strong></li>
+        </ul>`
+      },
+      {
+        q: 'Who was Lord Thomas Darcy and what was his role in the Pilgrimage of Grace?',
+        a: `<ul>
+          <li>Distinguished early military career — had distinguished himself in the reign of Henry VII</li>
+          <li>On <strong>6th October 1536</strong>, Darcy wrote to Henry VIII giving details of the uprising — told the King he did not have enough soldiers to resist the rebels and would have to retire to Pontefract Castle</li>
+          <li>He was <strong>69 years old and in poor health</strong> — suffering from a rupture incurred during one of Henry's French adventures, and from a chronic bowel disorder</li>
+          <li>Henry wrote assuring him of his confidence, but <strong>privately suspected Darcy was a traitor</strong></li>
+          <li>Darcy realised he was outnumbered and thought it better to pacify the rebels rather than fight</li>
+          <li>On <strong>20th October</strong>, after a short siege running short of supplies, Darcy <strong>surrendered Pontefract Castle</strong></li>
+          <li>After discussions with Aske, Darcy decided to join the Pilgrimage of Grace — he swore the oath presented to him by Aske</li>
+          <li>Aske offered the leadership to Darcy — he refused but agreed to provide soldiers for the cause</li>
+          <li>To show commitment, he sent the oath he signed into Lancashire</li>
+          <li>The famous <strong>banner of the Five Wounds</strong> was originally Darcy's — he arranged for flags depicting a bleeding heart above a chalice, surrounded at the corners by the pierced hands and feet</li>
+          <li>One of his requests was that Henry VIII should <strong>hold a parliament in the north</strong></li>
+          <li>Darcy and Hussey assumed leadership reluctantly and later claimed their social inferiors had pressed them into action</li>
+          <li><strong>Executed on Tower Hill</strong> after Bigod's Rising gave Henry his excuse for systematic punishment</li>
+        </ul>`
+      },
+      {
+        q: 'Who were the other key leaders and supporters of the Pilgrimage of Grace?',
+        a: `<ul>
+          <li><strong>Nobility &amp; gentry:</strong> John Lumley, John Neville (Baron Latimer), Robert Constable — provided support and military experience</li>
+          <li><strong>Country gentry:</strong> Sir Edward Dymoke (Sheriff of Lincoln), Sir Christopher Willoughby, Sir Robert Bowes, Sir Ingram Percy (disinherited), Sir Stephen Hamerton</li>
+          <li><strong>Clergy:</strong> Abbots of Kirkstead, Furness and Barlings; vicars of Louth, Brough and Brayton — supported the revolts with religious justification</li>
+          <li><strong>Lawyers:</strong> Thomas Moigne (recorder of Lincoln) — claimed he became a captain to 'do the most good amongst his own neighbours in the staying of them'; Henry did not believe him and Moigne paid with his life</li>
+          <li><strong>Local yeomen and tradesmen:</strong> Nicholas Melton ('Captain Cobbler') — in Lincolnshire, the rising began at the hands of 'Captain Cobbler' and the local clergy before the Dymokes and Willoughbys ultimately took the lead</li>
+          <li>Many gentry — Sir Christopher Hilyard, John Hallam, Robert Bowes in Yorkshire — later claimed they were threatened; most had ulterior motives for their involvement</li>
+          <li>Many gentry and noblemen who did assume leadership roles used their position to <strong>slow the momentum</strong> of the rebel crowds, giving the Westminster government its chance to play for time</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Organisation & Tactics',
+    cards: [
+      {
+        q: 'How was the Pilgrimage of Grace organised, and why is Aske\'s organisation particularly noteworthy?',
+        a: `<ul>
+          <li>The Pilgrimage of Grace is an example of a <strong>well-organised rebellion</strong> — noteworthy because of Aske's excellent organisation</li>
+          <li>Aske had the unenviable task of managing <strong>more than 30,000 followers</strong> from a variety of social backgrounds and geographical regions pursuing different objectives</li>
+          <li>Recruits were mustered into companies according to their <strong>district, town or village</strong> — most men knew each other and were able to elect a captain to represent and lead them</li>
+          <li>Villages usually elected <strong>one captain</strong>; towns as many as <strong>four</strong></li>
+          <li>Captains met each day, received instructions from Aske, and attended regular <strong>council meetings</strong> with other captains</li>
+          <li>Each recruit was given a <strong>badge and a supply of food and wages</strong>, and took the pilgrim oath of good behaviour</li>
+          <li>While some companies raided churches and abbeys, most appear to have been <strong>well disciplined</strong></li>
+          <li>When 8,000 rebels approached York, Aske arranged that half would camp outside the city while the rest accompanied him — all <strong>paid for their board and lodging</strong></li>
+          <li>Aske kept firm control of the majority — those from regions west of the Pennines proved more difficult to manage</li>
+          <li><strong>300 representatives</strong> from all counties north of the River Don assembled near Doncaster in November 1536, while the rest waited at Pontefract</li>
+          <li>Forty pilgrims were selected to parley with the Duke of Norfolk — Aske then returned to the main body to explain what had been discussed</li>
+          <li>Most commons feared the gentry were going to betray them as at Lincoln — <strong>later events proved their suspicion was not misplaced</strong></li>
+          <li>Tension throughout between the gentry leaders and the commoners</li>
+        </ul>`
+      },
+      {
+        q: 'What tactics and strategies did the rebels use to raise support and apply pressure on the government?',
+        a: `<ul>
+          <li>Their strategy was: to raise as much popular support as possible; to acquire the backing of the gentry, clergy and nobles; to pressurise the authorities to respond to their requests; to present grievances to the Crown's representatives</li>
+          <li>All demonstrations claimed to be <strong>peace-loving</strong> — but beneath the surface was the implicit threat of social violence</li>
+          <li>A common way of alerting people was to <strong>ring church bells, light beacons, and post notices</strong> on village halls and church doors — this kept people informed and maintained unity</li>
+          <li>Swearing an <strong>oath</strong> was an important element of rebel propaganda — for those who took it, it was binding, and any failure would lead to eternal damnation</li>
+          <li>Ballads and seditious rhymes were composed, letters and circulars published, posters nailed to church doors — the <strong>printing press</strong> was also utilised</li>
+          <li><strong>Laying siege to country towns</strong> was a standard tactic — winning over the mayor, aldermen and sheriff gave the protest added strength, respectability and bargaining power</li>
+          <li>Barnard Castle fell, as did Lincoln, Hull, York, Lancaster and Durham — ostensibly to save citizens from unnecessary bloodshed</li>
+          <li>Some county officials cracked under the strain and opened their gates (e.g. York and Lancaster in 1536); only a minority of mayors openly supported the protesters (e.g. Lincoln, 1536)</li>
+          <li>Violence against the upper classes was a <strong>rarity</strong> — when it occurred, the victim was usually a figure of local hatred (e.g. Dr John Raynes was hacked to pieces in 1536)</li>
+          <li>Once grievances had been submitted, there was little more a rebel host could do but <strong>wait for a reply</strong></li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Success & Failure',
+    cards: [
+      {
+        q: 'Did the Pilgrimage of Grace succeed or fail? Evaluate both arguments.',
+        a: `<ul>
+          <li><strong>Arguments for partial success:</strong></li>
+          <li>Henry had to start paying more attention to the north — he was very careful to avoid a repetition</li>
+          <li>The repeal of the <strong>Statute of Uses</strong> — one of the pilgrims' requests — occurred in 1540</li>
+          <li>Complaints by northern rebels led to changes in the composition of the <strong>Council of the North</strong></li>
+          <li>Protests against religious changes may have deterred Henry VIII from implementing further Protestant reforms in the short term</li>
+          <li>The rising had an impact on financial and agrarian policy — in these areas the rebels did achieve some gains</li>
+          <li><strong>Arguments for failure:</strong></li>
+          <li>Rebels failed to take advantage of their numbers or general sympathy — <strong>they did not march south</strong></li>
+          <li>Religious policies continued unaffected — by 1540, <strong>all of the largest monasteries had been dissolved</strong>; Waltham Abbey was the last, with abbots hung from the walls</li>
+          <li>Cromwell continued with his radical religious reforms</li>
+          <li><strong>Ironically</strong>, the pilgrims — instead of preserving smaller monasteries — were <strong>instrumental in bringing about the closure of the larger ones</strong>: participation by abbots and monks convinced Henry they presented a security risk</li>
+          <li>For a rebellion to succeed, it had to fulfil its principal objectives — not enough to say it succeeded if only lesser grievances were corrected while more important issues were ignored</li>
+          <li>The government deployed a strategy of <strong>playing for time</strong>, offering pardons and agreeing to discuss grievances only on condition the rebels dispersed — once this occurred, it was unlikely the rebels' demands would be answered</li>
+        </ul>`
+      },
+      {
+        q: 'What impact did the Pilgrimage of Grace have on Henry VIII\'s subsequent religious policy?',
+        a: `<ul>
+          <li>Henry was unwilling to reverse or change his religious policies — if anything, the Pilgrimage made him <strong>even more determined to sever links with the Roman Catholic Church</strong></li>
+          <li>Participation by abbots and monks convinced him their continued existence was a security risk — he supported Cromwell's move to <strong>dissolve the larger monasteries in 1537–38</strong></li>
+          <li>Most abbots and abbesses surrendered their convents voluntarily in anticipation of parliamentary legislation</li>
+          <li><strong>Cromwell's injunctions of 1538</strong> further confirmed the government's reformed stance on saints, pilgrimages and holy days</li>
+          <li>The <strong>Act of Six Articles (1539)</strong> — endorsed by Henry — confirmed a number of Catholic practices: transubstantiation (denial punishable by burning); priests ought not to marry; vows of chastity to be observed; private masses allowable; auricular confession necessary; communion in both kinds unnecessary</li>
+          <li>Called by Protestants <strong>'the whip with six strings'</strong> — continued in force for the rest of Henry's reign</li>
+          <li>The U-turn represented by the Act of Six Articles was a result of popular iconoclasm and overzealous Protestants — not a direct result of the Pilgrimage alone</li>
+          <li>If Henry's conservative reaction owed anything to the Pilgrimage, it was his <strong>fear of disorder</strong> — reminiscent of the Anabaptist disturbances in Münster and the placards incidents in France (1534)</li>
+          <li>Although impossible to argue all changes were the direct result of the Pilgrimage, it is also difficult to argue that such a large rising would have had <strong>no impact</strong> on the government's religious policy</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Threat to Government',
+    cards: [
+      {
+        q: 'Why was the Pilgrimage of Grace such a serious and dangerous threat to Henry VIII\'s government?',
+        a: `<ul>
+          <li>The rebellion was <strong>'the nearest thing to civil war that the Tudors ever had on their hands, which at one stage even threatened Henry's grip on the throne'</strong></li>
+          <li>This was the <strong>most dangerous of all the unsuccessful rebellions of the Tudor period</strong></li>
+          <li>It came perilously close to succeeding — described as <strong>'the largest popular revolt in English history'</strong></li>
+          <li>The threat of rebellion was a serious challenge to a government that did not have a police force or a standing army</li>
+          <li>Religious rebellions (such as the Pilgrimage of Grace) were more dangerous than those caused by economic grievances — they <em>'sought fundamental change, spurred by religious ideology that was opposed to that of governments'</em></li>
+          <li>They tried to force the government to accept the views of the rebels, claiming legitimacy and a return to previous religion — <strong>religious protests challenged the monarch's position, relationship with God and the status quo</strong></li>
+          <li>All rebellions after 1534 (except the Earl of Essex, 1601) included elements of religion — meaning a great likelihood of attracting popular support, as changes to Church traditions had immediate significance for ordinary people</li>
+          <li>The religious rebels of 1536 were <strong>fighting for their immortal souls</strong> and were convinced they were right and had God on their side</li>
+          <li>In an age when the monarch and the rule of law were one and the same, the threat could not be underestimated — crucially, they also claimed to be <strong>loyal to the King</strong></li>
+          <li>If more leading noblemen of the north had backed it, <strong>all would have been lost</strong> for the clique of religious reformers around Cromwell in London</li>
+          <li>Norfolk and Shrewsbury could only raise about <strong>8,000 men</strong> — heavily outnumbered against 35,000–40,000 rebels</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    label: 'Government Response',
+    cards: [
+      {
+        q: 'How did central government (Henry VIII) respond to the Pilgrimage of Grace at the time?',
+        a: `<ul>
+          <li>Henry ordered the Duke of Norfolk and the Earl of Shrewsbury north to confront the rebels — however, both men could only raise about <strong>8,000 men</strong> and would have been heavily outnumbered in battle</li>
+          <li>Norfolk came across as a sympathiser of the rebel demands and <strong>persuaded the rebels to disband</strong> while a deputation was escorted to London by Norfolk himself</li>
+          <li>Norfolk was a political rival of Cromwell and used every opportunity to undermine him — the rebels gave Norfolk <strong>a perfect opportunity to continue his campaign against Cromwell</strong></li>
+          <li>Henry was a clever politician: he received the rebel demands but <strong>failed to give a reply for several weeks</strong>, hoping the rebel organisation would show weaknesses</li>
+          <li>He bought more time by asking the pilgrim envoys to <strong>clarify certain points</strong> he claimed not to fully understand</li>
+          <li>He suggested the leaders should meet to construct a clearly written and detailed set of demands — at the same time, Norfolk was ordered to <strong>end the rebellion in whatever way he thought necessary</strong></li>
+          <li>The <strong>24 Articles</strong> were presented to Norfolk at Doncaster on 6th December — it was agreed that if the rebels disbanded: the king would receive the demands; a freely elected Parliament would discuss them; all pilgrims would be pardoned</li>
+          <li>Henry met Aske and asked to be briefed about the feelings of the people so future problems could be avoided — Aske saw this as a sign the king was a decent person</li>
+          <li>The government deployed a strategy of <strong>playing for time</strong>, offering pardons to all but the ringleaders, and agreeing to discuss grievances only on condition the rebels dispersed</li>
+        </ul>`
+      },
+      {
+        q: 'What was the role of local authorities during the Pilgrimage of Grace?',
+        a: `<ul>
+          <li>Nobles were involved in the Lincolnshire Uprising — a group the government had usually been able to rely on; evidence suggests some nobles may have <strong>orchestrated the uprising</strong>, while others were forced to join on pain of death</li>
+          <li>The king <strong>could not use local militia</strong> to quell the uprising — it was feared they would join the rebels; troops had to be brought in from other areas</li>
+          <li>Those nobles in the uprising realised — rather late — that they had much to lose; they took the first opportunity to withdraw when the Duke of Suffolk approached with an army</li>
+          <li>Suffolk gave rebels the opportunity to return home without bloodshed — nobles seized their chance, as did many commoners</li>
+          <li>Henry was <strong>immediately faced with a far more serious rebellion in Yorkshire</strong>, which postponed any immediate punishment of the Lincolnshire rebels</li>
+          <li>In Yorkshire, Henry suspected Pontefract Castle's leader, Lord Thomas Danby, of being sympathetic to the rebels — the <strong>fall of the royal castle gave the Yorkshire rebels a major boost in confidence</strong></li>
+          <li>Aske did not want conflict — he wanted a negotiated settlement; Norfolk met Aske at <strong>Doncaster Bridge on 27th October</strong>; the rebel deputation included no major leader, as Aske remained in Yorkshire</li>
+          <li>All those who took part had to take an oath — for those who took it, it was binding and any failure would lead to <strong>eternal damnation</strong></li>
+          <li>Support for Aske was widespread in Yorkshire — men also joined from Durham, Northumberland and some from Lancashire; with a few exceptions, most rebels <strong>behaved very well</strong></li>
+          <li>Aske and the 300 other rebel leaders at Doncaster <strong>believed they had won a great victory</strong></li>
+        </ul>`
+      },
+      {
+        q: 'What were the government\'s subsequent actions after the rebellion ended?',
+        a: `<ul>
+          <li><strong>At the time — Lincolnshire:</strong> Suffolk sent to Lincolnshire with promises; rebels dispersed</li>
+          <li><strong>At the time — Yorkshire:</strong> Norfolk sent to Yorkshire; negotiations at Doncaster; vague promises; pardon offered</li>
+          <li><strong>After Bigod's Rising:</strong> About <strong>220–250 men were executed</strong>, including Darcy and Aske — Bigod's Rising gave Henry the excuse he needed for systematic punishment</li>
+          <li><strong>Subsequently — Dissolution:</strong> Larger monasteries dissolved — Cromwell moved to dissolve all remaining monasteries in 1537–38; most abbots and abbesses surrendered voluntarily</li>
+          <li><strong>Subsequently — Cromwell's injunctions 1538:</strong> Further confirmed the government's reformed stance regarding saints, pilgrimages and holy days</li>
+          <li><strong>Subsequently — Act of Six Articles 1539:</strong> Enacted — confirmed Catholic practices with severe penalties; 'the whip with six strings'; continued in force for the rest of Henry's reign</li>
+          <li>Governments understood that if they were to reduce the likelihood of future disturbances, it was sensible to consider <strong>why a rebellion had occurred</strong> and whether policy changes were needed</li>
+          <li>Although nearly all Tudor rebellions failed to achieve their aims, they did not mean rebellions had no impact — changes did take place, sometimes immediately, more often over time</li>
+          <li>The rising also had an impact on <strong>financial and agrarian policy</strong> — in these areas the rebels did achieve some gains</li>
+          <li>The repeal of the Statute of Uses occurred in <strong>1540</strong>; changes in the composition of the Council of the North also followed</li>
+        </ul>`
+      }
+    ]
+  }
+];
+
+let sec = 0, card = 0, flipped = false;
+
+function buildNav() {
+  const nav = document.getElementById('section-nav');
+  nav.innerHTML = '';
+  SECTIONS.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sec-btn' + (i === 0 ? ' active' : '');
+    btn.innerHTML = `<span>${s.label}</span>`;
+    btn.onclick = () => selectSection(i);
+    nav.appendChild(btn);
+  });
+}
+
+function selectSection(i) {
+  sec = i; card = 0; flipped = false;
+  document.querySelectorAll('.sec-btn').forEach((b, j) => b.classList.toggle('active', j === i));
+  document.getElementById('card').classList.remove('flipped');
+  render();
+}
+
+function render() {
+  const s = SECTIONS[sec], c = s.cards[card];
+  document.getElementById('section-title-text').textContent = s.label;
+  document.getElementById('front-label').textContent = s.label;
+  document.getElementById('back-label').textContent = s.label;
+  document.getElementById('card-question').textContent = c.q;
+  document.getElementById('card-answer').innerHTML = c.a;
+  document.getElementById('progress-text').textContent = `${card + 1} / ${s.cards.length}`;
+  document.getElementById('progress-fill').style.width = ((card + 1) / s.cards.length * 100) + '%';
+  document.getElementById('btn-prev').disabled = card === 0;
+  document.getElementById('btn-next').disabled = card === s.cards.length - 1;
+}
+
+function flipCard() {
+  flipped = !flipped;
+  document.getElementById('card').classList.toggle('flipped', flipped);
+}
+
+function prevCard() {
+  if (card > 0) { card--; flipped = false; document.getElementById('card').classList.remove('flipped'); render(); }
+}
+
+function nextCard() {
+  if (card < SECTIONS[sec].cards.length - 1) { card++; flipped = false; document.getElementById('card').classList.remove('flipped'); render(); }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === ' ') { e.preventDefault(); flipCard(); }
+});
+
+buildNav();
+render();
+</script>
+</body>
+</html>
