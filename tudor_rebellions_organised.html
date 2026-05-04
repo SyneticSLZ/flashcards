@@ -18,6 +18,14 @@
   --muted:#9a7080;
   --muted-soft:#b89aa3;
   --border:rgba(196,96,126,0.15);
+  --start:#7a5e00;
+  --middle:#1a5f8a;
+  --end:#1a7a47;
+  --start-bg:#fef8e6;
+  --middle-bg:#e8f4fb;
+  --end-bg:#e6f7ef;
+  --irish:#7a3a8e;
+  --irish-bg:#f3e8f9;
 }
 body{
   background:var(--bg);
@@ -28,7 +36,6 @@ body{
   background-image:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(232,160,180,0.18) 0%,transparent 60%);
 }
 
-/* HEADER */
 header{
   text-align:center;
   padding:3.5rem 2rem 2.5rem;
@@ -58,9 +65,24 @@ header .tag-line{
   font-weight:600;
 }
 
-/* TOC */
+/* legend */
+.legend{
+  max-width:900px;margin:1.5rem auto 0;padding:0.8rem 1.5rem;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem 1.2rem;
+  font-size:0.78rem;color:var(--muted);
+}
+.legend span{display:inline-flex;align-items:center;gap:0.4rem}
+.legend .pip{
+  display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  padding:0.1rem 0.5rem;border-radius:999px;
+}
+.pip.start{background:var(--start-bg);color:var(--start)}
+.pip.middle{background:var(--middle-bg);color:var(--middle)}
+.pip.end{background:var(--end-bg);color:var(--end)}
+.pip.irish{background:var(--irish-bg);color:var(--irish)}
+
 .toc{
-  max-width:900px;margin:2rem auto 0;padding:1.5rem 2rem;
+  max-width:900px;margin:1.5rem auto 0;padding:1.5rem 2rem;
   background:var(--white);border:1px solid var(--border);border-radius:14px;
   box-shadow:0 2px 12px rgba(196,96,126,0.07);
 }
@@ -72,7 +94,6 @@ header .tag-line{
 .toc-list a{
   color:var(--text);text-decoration:none;font-size:0.9rem;
   padding:0.3rem 0;display:block;transition:color 0.15s, transform 0.15s;
-  border-bottom:1px solid transparent;
 }
 .toc-list a:hover{color:var(--pink-dark);transform:translateX(3px)}
 .toc-list .bp-num{
@@ -80,7 +101,6 @@ header .tag-line{
   font-family:'Playfair Display',serif;
 }
 
-/* SECTION */
 section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
 .bp-header{
   display:flex;align-items:baseline;gap:1rem;
@@ -101,7 +121,6 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
   color:#fff;
 }
 
-/* FACTOR (sub-section) */
 .factor{
   background:var(--white);
   border:1px solid var(--border);
@@ -124,19 +143,34 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
   font-family:'Playfair Display',serif;
   font-size:1.15rem;font-weight:700;
   color:var(--pink-darker);
-  letter-spacing:0.01em;
 }
 .factor-body{padding:1.2rem 1.6rem 1.4rem}
 
-/* REBELLION ENTRY */
 .reb{
   margin-bottom:1.1rem;
   padding-left:1.1rem;
   border-left:2.5px solid var(--pink-light);
   transition:border-color 0.15s;
 }
-.reb:last-child{margin-bottom:0}
 .reb:hover{border-left-color:var(--pink)}
+.reb-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:0.5rem;
+  margin-bottom:0.25rem;
+}
+.period-tag{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.12rem 0.55rem;border-radius:999px;
+  font-family:'Lora',serif;flex-shrink:0;
+}
+.period-tag.start{background:var(--start-bg);color:var(--start)}
+.period-tag.middle{background:var(--middle-bg);color:var(--middle)}
+.period-tag.end{background:var(--end-bg);color:var(--end)}
+.irish-tag{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.12rem 0.55rem;border-radius:999px;
+  background:var(--irish-bg);color:var(--irish);
+  font-family:'Lora',serif;
+}
 .reb-name{
   font-family:'Playfair Display',serif;
   font-weight:700;
@@ -148,13 +182,11 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
   font-style:italic;
   font-size:0.88rem;
   font-family:'Lora',serif;
-  margin-left:0.3rem;
   font-weight:400;
 }
 .reb-body{
   font-size:0.95rem;
   line-height:1.65;
-  margin-top:0.25rem;
   color:var(--text);
 }
 .stat{
@@ -163,21 +195,31 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
   background:var(--pink-light);
   padding:0.05rem 0.4rem;
   border-radius:4px;
-  font-family:'Lora',serif;
 }
-.quote{
-  font-style:italic;
+.quote{font-style:italic;color:var(--muted)}
+
+.synthesis{
+  margin-top:1.1rem;padding:0.85rem 1.1rem;
+  background:linear-gradient(to right,rgba(232,160,180,0.08),rgba(232,160,180,0.02));
+  border-left:3px solid var(--pink);
+  border-radius:0 8px 8px 0;
+  font-size:0.9rem;line-height:1.6;
   color:var(--muted);
+  font-style:italic;
+}
+.synthesis b{
+  font-style:normal;font-weight:700;
+  color:var(--pink-darker);
+  letter-spacing:0.03em;
+  margin-right:0.3rem;
 }
 
-/* footer */
 .endnote{
   max-width:900px;margin:4rem auto 0;padding:1.5rem 2rem;
   text-align:center;color:var(--muted);font-style:italic;font-size:0.85rem;
   border-top:1px solid var(--border);
 }
 
-/* back to top */
 .back-top{
   position:fixed;bottom:2rem;right:2rem;
   width:44px;height:44px;border-radius:50%;
@@ -194,7 +236,7 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
 @media print{
   body{background:#fff;background-image:none;padding:0}
   header{padding:1.5rem 1rem;background:#fff;border-bottom:2px solid var(--pink-dark)}
-  .toc,.back-top{display:none}
+  .toc,.back-top,.legend{display:none}
   .bp-header{box-shadow:none;background:#fce8ee;color:var(--pink-darker);page-break-before:always}
   .bp-header:first-of-type{page-break-before:auto}
   .bp-header .bp-label,.bp-header h2{color:var(--pink-darker)}
@@ -218,6 +260,13 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
   <span class="tag-line">Essay-Plan Reference</span>
 </header>
 
+<div class="legend">
+  <span><span class="pip start">Start</span> Henry VII (1486–1509)</span>
+  <span><span class="pip middle">Middle</span> Henry VIII / Edward / Mary (1509–1558)</span>
+  <span><span class="pip end">End</span> Elizabeth (1558–1603)</span>
+  <span><span class="pip irish">Irish</span> Rebellion in Ireland</span>
+</div>
+
 <div class="toc">
   <h2>Contents</h2>
   <div class="toc-list">
@@ -230,26 +279,24 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
 
 <!-- ============== BP1 ============== -->
 <section id="bp1">
-  <div class="bp-header">
-    <span class="bp-label">BP1.</span>
-    <h2>Causes of Rebellions</h2>
-  </div>
+  <div class="bp-header"><span class="bp-label">BP1.</span><h2>Causes of Rebellions</h2></div>
 
   <div class="factor">
     <div class="factor-head"><span class="dot"></span><h3>Religious</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Pilgrimage of Grace<span class="reb-year">— 1536</span></div>
-        <div class="reb-body">The largest Tudor rebellion — <span class="stat">up to 50,000 rebels</span> across <span class="stat">7 northern counties</span> under the Five Wounds banner, led by Robert Aske. Presented <span class="stat">24 Pontefract Articles</span> covering the dissolution of <span class="stat">100+ monasteries</span>, restoration of Princess Mary, and the 1534 Subsidy Act.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Pilgrimage of Grace</span><span class="reb-year">— 1536</span></div>
+        <div class="reb-body">The largest Tudor rebellion — <span class="stat">up to 50,000 rebels</span> across <span class="stat">7 northern counties</span> under the Five Wounds banner, led by Robert Aske. Presented <span class="stat">24 Pontefract Articles</span> against the dissolution of <span class="stat">100+ monasteries</span> and the 1534 Subsidy Act.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Western (Prayer Book) Rebellion<span class="reb-year">— 1549</span></div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Western (Prayer Book) Rebellion</span><span class="reb-year">— 1549</span></div>
         <div class="reb-body"><span class="stat">~7,000</span> Devon and Cornwall rebels besieged Exeter for <span class="stat">6 weeks</span>, calling the new English Prayer Book a <span class="quote">"Christmas game."</span> Presented <span class="stat">14 articles</span>; led by tailor Thomas Underhill and the vicar Robert Welsh.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Northern Earls' Rebellion<span class="reb-year">— 1569</span></div>
-        <div class="reb-body">Earls of Northumberland (converted Catholic, <span class="stat">1567</span>) and Westmorland led <span class="stat">~6,000 rebels</span> across <span class="stat">4 counties</span> hoping to release Mary Queen of Scots. Notably <span class="stat">90% of rebels were NOT tenants</span> of the rebel earls — broad independent religious motivation.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="irish-tag">Irish</span><span class="reb-name">Fitzmaurice Fitzgerald's Rebellions</span><span class="reb-year">— 1569 &amp; 1579</span></div>
+        <div class="reb-body">Munster rebellion. The <span class="stat">1579</span> revolt brought <span class="stat">papal blessing</span> and <span class="stat">600 Spanish and Italian troops</span> at Smerwick — a rare direct foreign Catholic intervention. English reprisals executed <span class="stat">800 people 1569–72</span>.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> Religious causes only emerge after the break with Rome (1534) — Henry VII's reign saw none. From 1536 they drive or amplify almost every major rising, and by 1579 the religious dimension reaches Ireland with explicit papal involvement.</div>
     </div>
   </div>
 
@@ -257,17 +304,18 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
     <div class="factor-head"><span class="dot"></span><h3>Socio-Economic</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Yorkshire Rebellion<span class="reb-year">— 1489</span></div>
-        <div class="reb-body">Protest against a <span class="stat">£100,000</span> parliamentary grant for the French war — northern counties felt traditionally exempt as they bore Scottish border costs. Made worse by a <span class="stat">bad harvest in 1488</span>. Tax commissioner Henry Percy was <span class="stat">murdered</span> while collecting the tax.</div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Yorkshire Rebellion</span><span class="reb-year">— 1489</span></div>
+        <div class="reb-body">Protest against a <span class="stat">£100,000</span> parliamentary grant for the French war. Made worse by a <span class="stat">bad harvest in 1488</span>. Tax commissioner Henry Percy was <span class="stat">murdered</span> while collecting the tax.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Kett's Rebellion<span class="reb-year">— 1549</span></div>
-        <div class="reb-body"><span class="stat">16,000</span> Norfolk rebels camped on Mousehold Heath for <span class="stat">7 weeks</span>. Issued <span class="stat">29 demands</span> — <span class="stat">17</span> targeting enclosures and rents (rents up <span class="stat">30% since 1548</span>; wheat prices up <span class="stat">50% in 1548</span>). <span class="stat">60% of Norfolk land</span> held by just <span class="stat">46 gentry families</span> — historians describe it as the closest thing to a class war of any Tudor rebellion.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Kett's Rebellion</span><span class="reb-year">— 1549</span></div>
+        <div class="reb-body"><span class="stat">16,000</span> Norfolk rebels camped on Mousehold Heath for <span class="stat">7 weeks</span>. <span class="stat">17 of 29 demands</span> targeted enclosures and rents (rents up <span class="stat">30% since 1548</span>; wheat prices up <span class="stat">50% in 1548</span>). <span class="stat">60% of Norfolk land</span> held by just <span class="stat">46 gentry families</span>.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Amicable Grant Crisis<span class="reb-year">— 1525</span></div>
-        <div class="reb-body">Wolsey demanded a non-parliamentary forced loan of up to <span class="stat">33% on clergy</span> and <span class="stat">16.5% on laity</span> for war with France, on top of <span class="stat">£260,000</span> in unrepaid forced loans from 1522. Came amid rising unemployment and falling wool prices. Raised <span class="stat">£0</span>.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="reb-name">Oxfordshire Rebellion</span><span class="reb-year">— 1596</span></div>
+        <div class="reb-body">Bartholomew Steer planned to assemble at Enslow Hill against new enclosures — only <span class="stat">4 men turned up</span>. Backdrop of <span class="stat">4 consecutive bad harvests</span>.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> Socio-economic grievances are the most consistent cause across the period — tax in 1489, rents in 1549, harvests in 1596 — yet popular appetite collapses dramatically: 20,000+ in 1489 versus only 4 in 1596.</div>
     </div>
   </div>
 
@@ -275,43 +323,42 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
     <div class="factor-head"><span class="dot"></span><h3>Political</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Simnel Rebellion<span class="reb-year">— 1487</span></div>
-        <div class="reb-body">Lambert Simnel posed as the Earl of Warwick, backed by the Earl of Lincoln (Richard III's named heir) and <span class="stat">~2,000 Burgundian mercenaries</span> funded by Margaret of Burgundy. The Earl of Kildare and ~<span class="stat">40 Irish nobles</span> also backed the rising — a foreign-backed dynastic challenge to Henry VII's throne.</div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Simnel Rebellion</span><span class="reb-year">— 1487</span></div>
+        <div class="reb-body">Lambert Simnel posed as the Earl of Warwick, backed by the Earl of Lincoln (Richard III's named heir) and <span class="stat">~2,000 Burgundian mercenaries</span> funded by Margaret of Burgundy — a foreign-backed dynastic challenge to Henry VII's throne.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Wyatt's Rebellion<span class="reb-year">— 1554</span></div>
-        <div class="reb-body"><span class="stat">~3,000</span> Kent rebels marched on London opposing Mary I's marriage to Philip of Spain. Wyatt told a colleague <span class="quote">"you may not so much as name religion"</span> — he framed it as national defence, not religion. Lasted just <span class="stat">18 days</span>; rebels reached Ludgate, <span class="stat">3 miles from the City</span>.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="irish-tag">Irish</span><span class="reb-name">Silken Thomas's Rebellion</span><span class="reb-year">— 1534–37</span></div>
+        <div class="reb-body">Although Thomas invoked Catholicism, the rising was <span class="stat">primarily political</span> — his objective was to expel the English administration and become <span class="stat">sole ruler of Ireland</span>. He and his <span class="stat">5 uncles</span> raised <span class="stat">~1,000 men</span> in Munster and invaded the Pale; the rebellion lasted <span class="stat">3 years</span>.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Essex Revolt<span class="reb-year">— 1601</span></div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="reb-name">Essex Revolt</span><span class="reb-year">— 1601</span></div>
         <div class="reb-body">The Earl of Essex — suspended from the Privy Council and ruined after losing his sweet wine patent — marched <span class="stat">~300 supporters</span> through London. Lasted just <span class="stat">12 hours</span>. The last noble rebellion in English history.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> Political causes shift from foreign-backed dynastic challenges (Simnel) under Henry VII to factional and personal grievances under late Elizabeth (Essex). Irish risings remain territorially political throughout — from Silken Thomas to Tyrone.</div>
     </div>
   </div>
 </section>
 
 <!-- ============== BP2 ============== -->
 <section id="bp2">
-  <div class="bp-header">
-    <span class="bp-label">BP2.</span>
-    <h2>Frequency &amp; Nature</h2>
-  </div>
+  <div class="bp-header"><span class="bp-label">BP2.</span><h2>Frequency &amp; Nature</h2></div>
 
   <div class="factor">
     <div class="factor-head"><span class="dot"></span><h3>Lack of Support</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Oxfordshire Rebellion<span class="reb-year">— 1596</span></div>
-        <div class="reb-body">Bartholomew Steer planned to assemble at Enslow Hill — only <span class="stat">4 men turned up</span>. Illustrates the sharp decline in popular appetite for rebellion by the end of the Tudor period.</div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Perkin Warbeck's Rebellion</span><span class="reb-year">— 1491–99</span></div>
+        <div class="reb-body">Warbeck's final invasion attracted only <span class="stat">1,500</span> Cornish miners, artisans and farmers — <span class="stat">not one was a noble or gentleman</span> despite <span class="stat">8 years</span> of foreign manoeuvring.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Essex Revolt<span class="reb-year">— 1601</span></div>
-        <div class="reb-body">Only <span class="stat">~300 supporters</span>; Essex expected the mayor and sheriff of London to back him — they did not. The City refused to rise; he reached only <span class="stat">Fenchurch Street</span> before retreating by river.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Wyatt's Rebellion</span><span class="reb-year">— 1554</span></div>
+        <div class="reb-body">Co-conspirators in <span class="stat">Leicestershire (Suffolk)</span>, <span class="stat">Devon (Carew)</span> and <span class="stat">Herefordshire (Croft)</span> all failed to rise. French support sent <span class="stat">0 troops</span>.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Perkin Warbeck's Rebellion<span class="reb-year">— 1491–99</span></div>
-        <div class="reb-body">Final invasion attracted only <span class="stat">1,500</span> Cornish miners, artisans and farmers — <span class="stat">not one was a noble or gentleman</span>.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="reb-name">Oxfordshire Rebellion</span><span class="reb-year">— 1596</span></div>
+        <div class="reb-body">Steer planned to assemble hundreds at Enslow Hill — only <span class="stat">4 men turned up</span>. Conspirators arrested before the rising could even start.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> Lack of support becomes increasingly fatal across the period: 1,500 men was already weak by Henry VII's standards, but by Elizabeth's end even credible plots collapse to single digits before assembly.</div>
     </div>
   </div>
 
@@ -319,17 +366,18 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
     <div class="factor-head"><span class="dot"></span><h3>Poor Leadership</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Pilgrimage of Grace<span class="reb-year">— 1536</span></div>
-        <div class="reb-body">Robert Aske had <span class="stat">40,000 men</span> at Pontefract but <span class="quote">"had no wish to do battle"</span> with Norfolk's troops — he wrote ordering rebels not to fight. Henry's <span class="stat">2 false pardons</span> were never overcome.</div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Lovel &amp; Stafford Rebellion</span><span class="reb-year">— 1486</span></div>
+        <div class="reb-body">Lovel and the Staffords were unable to get enough support from their retainers; Staffords arrested at <span class="stat">Culham Church</span> sanctuary; Lovel fled abroad. <span class="stat">No battle fought</span> — poor organisation and intelligence failure.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Wyatt's Rebellion<span class="reb-year">— 1554</span></div>
-        <div class="reb-body">Wyatt was a <span class="quote">good strategist but poor tactician</span> — he understood the need for nation-wide support but delayed entry into London when time was of the essence. Co-conspirators in Leicestershire, Devon and Herefordshire all failed to rise.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Pilgrimage of Grace</span><span class="reb-year">— 1536</span></div>
+        <div class="reb-body">Aske had <span class="stat">40,000 men</span> at Pontefract but <span class="quote">"had no wish to do battle"</span> with Norfolk's troops. Henry's <span class="stat">2 false pardons</span> were never overcome.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Kett's Rebellion<span class="reb-year">— 1549</span></div>
-        <div class="reb-body">Rebels fatally abandoned their strong Mousehold hilltop position to fight in open ground at Dussindale against <span class="stat">12,000 trained royal troops</span> — <span class="stat">~3,000 killed</span>.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="reb-name">Essex Revolt</span><span class="reb-year">— 1601</span></div>
+        <div class="reb-body">Essex was a <span class="quote">good strategist but poor tactician</span> — misjudged London's willingness to support him; the City refused to rise; surrendered in <span class="stat">12 hours</span>.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> Leadership weaknesses recur across the period regardless of cause — failures of nerve (Aske), tactical hesitation (Wyatt), and miscalculation (Essex) repeatedly prove decisive even when numbers favour the rebels.</div>
     </div>
   </div>
 
@@ -337,43 +385,42 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
     <div class="factor-head"><span class="dot"></span><h3>Government Response</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Simnel Rebellion<span class="reb-year">— 1487</span></div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Simnel Rebellion</span><span class="reb-year">— 1487</span></div>
         <div class="reb-body">Henry consulted the Great Council, paraded the real Warwick at St Paul's, and raised <span class="stat">~15,000 royal troops</span>. Crushed at the Battle of Stoke — <span class="stat">4,000 rebel deaths</span>; Lincoln killed.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Cornish Rebellion<span class="reb-year">— 1497</span></div>
-        <div class="reb-body">Henry recalled troops from Scotland; <span class="stat">1,000 rebel deaths</span> at Blackheath; all <span class="stat">3 leaders</span> (Audley, Flamank, Joseph) executed; Somerset and Cornwall fined <span class="stat">£14,000</span> collectively.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Kett's Rebellion</span><span class="reb-year">— 1549</span></div>
+        <div class="reb-body">First a royal force under the <span class="stat">Marquis of Northampton</span> was <span class="stat">defeated</span>. Warwick then deployed <span class="stat">12,000 troops</span> and crushed the rebels at Dussindale — <span class="stat">~3,000 killed</span>; Kett hanged.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Northern Earls' Rebellion<span class="reb-year">— 1569</span></div>
-        <div class="reb-body">Walsingham's intelligence tracked the plot; Mary moved to Coventry; <span class="stat">12,000 royal troops</span> assembled — rebels fled without battle; <span class="stat">450–600 executed</span>; raids burned <span class="stat">~300 Scottish villages</span>.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="irish-tag">Irish</span><span class="reb-name">Tyrone's Rebellion</span><span class="reb-year">— 1593–1603</span></div>
+        <div class="reb-body"><span class="stat">17,000 troops</span> under Essex failed; Mountjoy then deployed with <span class="stat">15,000 troops</span>; <span class="stat">30,000 English troops</span> in Ireland by <span class="stat">1603</span>. Cost <span class="stat">~£2 million</span> — the largest military commitment of any Tudor rebellion.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> Government response grows in scale and sophistication — from one decisive battle at Stoke under Henry VII, to standing armies of 30,000+ in Elizabeth's Ireland and a ~£2m bill for a single rebellion.</div>
     </div>
   </div>
 </section>
 
 <!-- ============== BP3 ============== -->
 <section id="bp3">
-  <div class="bp-header">
-    <span class="bp-label">BP3.</span>
-    <h2>Impact on / Threat to Government</h2>
-  </div>
+  <div class="bp-header"><span class="bp-label">BP3.</span><h2>Impact on / Threat to Government</h2></div>
 
   <div class="factor">
     <div class="factor-head"><span class="dot"></span><h3>Monarchy</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Pilgrimage of Grace<span class="reb-year">— 1536</span></div>
-        <div class="reb-body">Henry VIII could not raise comparable forces — described as the <span class="stat">most serious domestic threat</span> of his reign. Required <span class="stat">2 truces</span> at Doncaster simply to buy time, with Aske commanding <span class="stat">40,000</span> at Pontefract.</div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Perkin Warbeck's Rebellion</span><span class="reb-year">— 1491–99</span></div>
+        <div class="reb-body">Warbeck posed as Richard, Duke of York, backed by <span class="stat">3 foreign powers</span> (France, Burgundy, Scotland). Henry issued <span class="stat">51 attainders</span> against English supporters, including <span class="stat">Sir William Stanley</span> (Henry's step-uncle and Lord Chamberlain). Lasted <span class="stat">8 years</span>.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Wyatt's Rebellion<span class="reb-year">— 1554</span></div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Wyatt's Rebellion</span><span class="reb-year">— 1554</span></div>
         <div class="reb-body">Rebels reached <span class="stat">Ludgate, 3 miles from the City</span>. Norfolk's troops partly defected to Wyatt. Only Mary's Guildhall speech saved her throne.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Northumberland's Rebellion<span class="reb-year">— 1553</span></div>
-        <div class="reb-body">Northumberland married his son Guildford to Lady Jane Grey and manipulated Edward VI's Devise to exclude Mary and Elizabeth. Lady Jane reigned just <span class="stat">9 days</span> before Mary's claim won out.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="irish-tag">Irish</span><span class="reb-name">Tyrone's Rebellion</span><span class="reb-year">— 1593–1603</span></div>
+        <div class="reb-body">Over <span class="stat">6,000 rebel fighters</span> at peak; English <span class="stat">humiliated at Yellow Ford (1598)</span>; Spanish landed <span class="stat">~3,000 troops</span> at Kinsale (1601). Cost <span class="stat">~£2 million</span> — the most expensive single threat to Elizabeth's government.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> The most serious threats sit at the start (Warbeck) and end (Tyrone) of the period — both featuring sustained foreign backing and existential risk to royal authority. Domestic risings (Wyatt) came close, but only foreign-backed rebellions truly endangered Tudor monarchs.</div>
     </div>
   </div>
 
@@ -381,17 +428,18 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
     <div class="factor-head"><span class="dot"></span><h3>Government Policy</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Yorkshire Rebellion<span class="reb-year">— 1489</span></div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Yorkshire Rebellion</span><span class="reb-year">— 1489</span></div>
         <div class="reb-body">Northern counties were subsequently <span class="stat">exempted from the tax</span> — rebels achieved their core demand despite military collapse. <span class="stat">6 executed</span> including John Chamber.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Pilgrimage of Grace<span class="reb-year">— 1536</span></div>
-        <div class="reb-body"><span class="stat">Statute of Uses repealed (1536)</span>; Council of the North reformed; dissolutions paused <span class="stat">1537–39</span>. A direct policy retreat after the rebellion.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Pilgrimage of Grace</span><span class="reb-year">— 1536</span></div>
+        <div class="reb-body"><span class="stat">Statute of Uses repealed (1536)</span>; Council of the North reformed; dissolutions paused <span class="stat">1537–39</span> — a direct policy retreat after the rebellion.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Oxfordshire Rebellion<span class="reb-year">— 1596</span></div>
-        <div class="reb-body">Despite mustering only <span class="stat">4 men</span>, the rising prompted the <span class="stat">Tillage Act 1597</span> and the <span class="stat">Husbandry Act</span> as direct policy responses to enclosure unrest.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="irish-tag">Irish</span><span class="reb-name">Fitzmaurice Fitzgerald's Rebellions</span><span class="reb-year">— 1569 &amp; 1579</span></div>
+        <div class="reb-body">Led directly to the <span class="stat">Munster Plantations</span> — a permanent settlement of English landowners that reshaped Irish governance. <span class="stat">800 executed 1569–72</span>.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> Rebellions repeatedly forced Tudor policy U-turns or accelerations — Henry VII retreated on tax, Henry VIII paused dissolutions, Elizabeth doubled down with plantation in Ireland. Successful suppression did not always mean policy stayed unchanged.</div>
     </div>
   </div>
 
@@ -399,47 +447,42 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
     <div class="factor-head"><span class="dot"></span><h3>Government Officials &amp; Nobles</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Yorkshire Rebellion<span class="reb-year">— 1489</span></div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Yorkshire Rebellion</span><span class="reb-year">— 1489</span></div>
         <div class="reb-body">Henry Percy, Earl of Northumberland and head of the tax commission, was <span class="stat">murdered</span> by rebels while collecting the tax — a direct strike on a leading royal official.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Amicable Grant Crisis<span class="reb-year">— 1525</span></div>
-        <div class="reb-body">Henry VIII used the <span class="quote">"neat let out"</span> of blaming Wolsey — the government <span class="quote">"emerged with credit and the king enhanced his undeserved reputation for generosity."</span> Wolsey's authority never recovered.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Pilgrimage of Grace</span><span class="reb-year">— 1536</span></div>
+        <div class="reb-body"><span class="stat">178 executed</span> in retribution including Robert Aske, Lord Darcy, and ~<span class="stat">20 clergy</span>. Bigod's secondary revolt was used as the pretext for mass execution of officials and gentry implicated in the rising.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Pilgrimage of Grace<span class="reb-year">— 1536</span></div>
-        <div class="reb-body"><span class="stat">178 executed</span> in retribution including Robert Aske, Lord Darcy, and ~<span class="stat">20 clergy</span>. Bigod's secondary revolt was used as the pretext for mass execution.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="reb-name">Essex Revolt</span><span class="reb-year">— 1601</span></div>
+        <div class="reb-body"><span class="stat">3 executed</span> (Essex, Merrick, Cuffe); Earl of Rutland fined <span class="stat">£30,000</span>; the Earl of Southampton and <span class="stat">12 deputy lieutenants</span> also implicated. Decisive removal of a circle of disaffected nobles.</div>
       </div>
-      <div class="reb">
-        <div class="reb-name">Essex Revolt<span class="reb-year">— 1601</span></div>
-        <div class="reb-body"><span class="stat">3 executed</span> (Essex, Merrick, Cuffe); Earl of Rutland fined <span class="stat">£30,000</span>. Decisive removal of a circle of disaffected nobles.</div>
-      </div>
+      <div class="synthesis"><b>Synthesis</b> Tudor rebellions consistently took out a top tier of officials and nobles — from murdered tax commissioners under Henry VII, to mass clerical execution under Henry VIII, to the last nobleman executed for revolt in 1601.</div>
     </div>
   </div>
 </section>
 
 <!-- ============== BP4 ============== -->
 <section id="bp4">
-  <div class="bp-header">
-    <span class="bp-label">BP4.</span>
-    <h2>Maintenance of Political Stability</h2>
-  </div>
+  <div class="bp-header"><span class="bp-label">BP4.</span><h2>Maintenance of Political Stability</h2></div>
 
   <div class="factor">
     <div class="factor-head"><span class="dot"></span><h3>Crown</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Simnel Rebellion<span class="reb-year">— 1487</span></div>
-        <div class="reb-body">Henry consulted the Great Council, paraded the real Warwick at St Paul's, and raised <span class="stat">~15,000 royal troops</span>. The presence of <span class="stat">2,000 German mercenaries</span> on the rebel side actually deterred English from joining as the army moved south. Decisive Crown action ended the rising at Stoke.</div>
-      </div>
-      <div class="reb">
-        <div class="reb-name">Perkin Warbeck's Rebellion<span class="reb-year">— 1491–99</span></div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Perkin Warbeck's Rebellion</span><span class="reb-year">— 1491–99</span></div>
         <div class="reb-body">Henry removed all <span class="stat">3 foreign backers</span> through diplomacy: Treaties of <span class="stat">Étaples</span> (France) and <span class="stat">Ayton</span> (Scotland) cut off all foreign support before each invasion could gain traction. Stanley pre-emptively arrested in <span class="stat">1495</span>.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Pilgrimage of Grace<span class="reb-year">— 1536</span></div>
-        <div class="reb-body">Henry used <span class="stat">2 truces</span> and <span class="stat">2 false pardons</span> at Doncaster to buy time, then used Bigod's secondary revolt as the pretext for mass retribution (<span class="stat">178 executed</span>).</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Pilgrimage of Grace</span><span class="reb-year">— 1536</span></div>
+        <div class="reb-body">Henry used <span class="stat">2 truces</span> and <span class="stat">2 false pardons</span> at Doncaster to buy time, then used Bigod's secondary revolt as the pretext for mass retribution (<span class="stat">178 executed</span>) — stability through deception, not force.</div>
       </div>
+      <div class="reb">
+        <div class="reb-head"><span class="period-tag end">End</span><span class="irish-tag">Irish</span><span class="reb-name">Tyrone's Rebellion</span><span class="reb-year">— 1593–1603</span></div>
+        <div class="reb-body">Required <span class="stat">the entire decade</span> to suppress. Mountjoy with <span class="stat">15,000 troops</span>; <span class="stat">30,000 by 1603</span>; cost <span class="stat">~£2 million</span>; O'Neill paradoxically pardoned; <span class="stat">Ulster Plantation</span> established to lock in long-term stability.</div>
+      </div>
+      <div class="synthesis"><b>Synthesis</b> Crown stability rested on different tools across the period — diplomacy under Henry VII, deception under Henry VIII, and prolonged military attrition under Elizabeth. The cost of stability rose with every reign.</div>
     </div>
   </div>
 
@@ -447,17 +490,18 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
     <div class="factor-head"><span class="dot"></span><h3>Nobility</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Lovel &amp; Stafford Rebellion<span class="reb-year">— 1486</span></div>
-        <div class="reb-body">No noble defections beyond the three leaders; Staffords arrested at Culham Church sanctuary; Lovel fled — <span class="stat">no battle fought</span>. Loyal nobility starved the rebellion of momentum.</div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Lovel &amp; Stafford Rebellion</span><span class="reb-year">— 1486</span></div>
+        <div class="reb-body">No noble defections beyond the three leaders; Staffords arrested at Culham Church sanctuary; Lovel fled abroad — <span class="stat">no battle fought</span>. Loyal nobility starved the rebellion of momentum.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Cornish Rebellion<span class="reb-year">— 1497</span></div>
-        <div class="reb-body">Despite <span class="stat">up to 15,000</span> marchers, the rising failed without meaningful noble support — only one impoverished peer (Lord Audley) joined. <span class="stat">44 priests</span> and <span class="stat">22 gentry</span> enlisted, but the absence of senior magnates was decisive.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Pilgrimage of Grace</span><span class="reb-year">— 1536</span></div>
+        <div class="reb-body">Significant noble defection — <span class="stat">Lord Darcy</span> surrendered Pontefract Castle to the rebels and <span class="stat">Lord Hussey</span> (chamberlain to Princess Mary) backed the Lincolnshire Rising. Both later executed among the <span class="stat">178</span>. The clearest noble-loyalty failure of the period.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Northern Earls' Rebellion<span class="reb-year">— 1569</span></div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="reb-name">Northern Earls' Rebellion</span><span class="reb-year">— 1569</span></div>
         <div class="reb-body">Northumberland could only raise <span class="stat">£20 between himself and Westmorland</span> to pay <span class="stat">1,000 footmen</span> — <span class="stat">600 deserted</span> on the spot. The last significant noble-led revolt in English history.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> Noble loyalty held under Henry VII, fractured dramatically in 1536 (with Darcy and Hussey defecting), but by 1569 the great northern magnates couldn't even pay their own retainers — the noble rebellion was effectively dead.</div>
     </div>
   </div>
 
@@ -465,23 +509,24 @@ section{max-width:900px;margin:3.5rem auto 0;padding:0 1.5rem}
     <div class="factor-head"><span class="dot"></span><h3>Local Authority</h3></div>
     <div class="factor-body">
       <div class="reb">
-        <div class="reb-name">Oxfordshire Rebellion<span class="reb-year">— 1596</span></div>
-        <div class="reb-body">Sheriffs were pre-alerted by informants; <span class="stat">4 conspirators</span> were arrested before the rising could even start; leaders Bradshaw and Burton tortured and executed. Local intelligence shut the plot down at source.</div>
+        <div class="reb-head"><span class="period-tag start">Start</span><span class="reb-name">Cornish Rebellion</span><span class="reb-year">— 1497</span></div>
+        <div class="reb-body">Local authority <span class="stat">failed entirely</span> — up to <span class="stat">15,000 rebels</span> marched from Cornwall and got as far as Blackheath unchecked; Henry had to recall troops from Scotland to engage them. <span class="stat">1,000 rebel deaths</span> at Blackheath; Somerset and Cornwall fined <span class="stat">£14,000</span> collectively.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Essex Revolt<span class="reb-year">— 1601</span></div>
-        <div class="reb-body">City gates closed; the mayor and sheriff of London refused to back Essex; intelligence pre-empted every move. Essex surrendered in <span class="stat">12 hours</span>.</div>
+        <div class="reb-head"><span class="period-tag middle">Middle</span><span class="reb-name">Kett's Rebellion</span><span class="reb-year">— 1549</span></div>
+        <div class="reb-body">Local response failed initially — the <span class="stat">Marquis of Northampton was defeated</span>; Norwich was occupied for <span class="stat">7 weeks</span>. Required Warwick + <span class="stat">12,000 troops</span> from the centre to crush the rising at Dussindale.</div>
       </div>
       <div class="reb">
-        <div class="reb-name">Kett's Rebellion<span class="reb-year">— 1549</span></div>
-        <div class="reb-body">Local response failed initially — the Marquis of Northampton was <span class="stat">defeated</span> — before Warwick deployed <span class="stat">12,000 troops</span> and crushed the rising at Dussindale (<span class="stat">~3,000 killed</span>). Demonstrates that local authority alone could not always contain the largest risings.</div>
+        <div class="reb-head"><span class="period-tag end">End</span><span class="reb-name">Oxfordshire Rebellion</span><span class="reb-year">— 1596</span></div>
+        <div class="reb-body">Sheriffs were pre-alerted by informants; <span class="stat">4 conspirators</span> arrested before the rising could start; leaders Bradshaw and Burton tortured and executed. Local intelligence shut the plot down at source.</div>
       </div>
+      <div class="synthesis"><b>Synthesis</b> This is the clearest trajectory of the period: local authority was almost helpless against the great mass risings of Henry VII (Cornish reached Blackheath) and Edward VI (Kett occupied Norwich), but by the 1590s local intelligence and pre-emption shut plots down before they began.</div>
     </div>
   </div>
 </section>
 
 <div class="endnote">
-  Compiled from your Tudor rebellion flashcards &nbsp;·&nbsp; each factor illustrated with 2–3 rebellions and key statistics
+  Compiled from your Tudor rebellion flashcards &nbsp;·&nbsp; each factor: start → middle → end of period, with synthesis
 </div>
 
 <a href="#" class="back-top" id="backTop" aria-label="Back to top">↑</a>

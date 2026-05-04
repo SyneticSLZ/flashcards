@@ -1955,27 +1955,39 @@
           <div class="papers-grid" id="papers-grid">
             <div class="paper-card">
               <span class="paper-icon">&#10047;</span>
-              <span class="paper-title">June 2017 question paper</span>
-              <a href="pdfs/H472-01-June-2017-paper.pdf" target="_blank">Open &#8599;</a>
-              <button data-pdf="pdfs/H472-01-June-2017-paper.pdf">Preview</button>
+              <span class="paper-title">2024 Component 1 paper</span>
+              <a href="pdfs/Eduqas-A720-Component1-2024-paper.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/Eduqas-A720-Component1-2024-paper.pdf">Preview</button>
             </div>
             <div class="paper-card">
               <span class="paper-icon">&#10047;</span>
-              <span class="paper-title">Sample Assessment Materials (SAM)</span>
-              <a href="pdfs/H472-01-Sample-Assessment.pdf" target="_blank">Open &#8599;</a>
-              <button data-pdf="pdfs/H472-01-Sample-Assessment.pdf">Preview</button>
+              <span class="paper-title">2024 Mark scheme</span>
+              <a href="pdfs/Eduqas-A720-Component1-2024-markscheme.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/Eduqas-A720-Component1-2024-markscheme.pdf">Preview</button>
             </div>
             <div class="paper-card">
               <span class="paper-icon">&#10047;</span>
-              <span class="paper-title">Mark scheme (specimen)</span>
-              <a href="pdfs/H472-01-Mark-Scheme.pdf" target="_blank">Open &#8599;</a>
-              <button data-pdf="pdfs/H472-01-Mark-Scheme.pdf">Preview</button>
+              <span class="paper-title">2023 Component 1 paper</span>
+              <a href="pdfs/Eduqas-A720-Component1-2023-paper.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/Eduqas-A720-Component1-2023-paper.pdf">Preview</button>
             </div>
             <div class="paper-card">
               <span class="paper-icon">&#10047;</span>
-              <span class="paper-title">Examiners&rsquo; Report Summer 2024</span>
-              <a href="pdfs/H472-01-Examiners-Report-2024.pdf" target="_blank">Open &#8599;</a>
-              <button data-pdf="pdfs/H472-01-Examiners-Report-2024.pdf">Preview</button>
+              <span class="paper-title">2023 Mark scheme</span>
+              <a href="pdfs/Eduqas-A720-Component1-2023-markscheme.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/Eduqas-A720-Component1-2023-markscheme.pdf">Preview</button>
+            </div>
+            <div class="paper-card">
+              <span class="paper-icon">&#10047;</span>
+              <span class="paper-title">2022 Component 1 paper</span>
+              <a href="pdfs/Eduqas-A720-Component1-2022-paper.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/Eduqas-A720-Component1-2022-paper.pdf">Preview</button>
+            </div>
+            <div class="paper-card">
+              <span class="paper-icon">&#10047;</span>
+              <span class="paper-title">2022 Mark scheme</span>
+              <a href="pdfs/Eduqas-A720-Component1-2022-markscheme.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/Eduqas-A720-Component1-2022-markscheme.pdf">Preview</button>
             </div>
           </div>
           <div id="paper-preview-wrap"></div>
@@ -2272,22 +2284,16 @@
 
     /* ──────────────── Writing Trainer ──────────────── */
 
+    /* Real Eduqas/WJEC A720 Component 1 Section A questions on Chaucer's Merchant's Prologue and Tale.
+       Format: Q1 has two parts — (i) close-reading of an extract [20 marks], (ii) wider essay [40 marks].
+       Each part is listed separately so you can practise either independently. */
     const QUESTIONS = [
-      { id:1, source:'2017', theme:['vain','selfish','vanity','self','ego','pride'], text:"'People are naturally inclined towards vain and selfish behaviour.' In the light of this view, consider ways in which writers explore vanity and selfishness.", themeLabel:'vanity & selfishness' },
-      { id:2, source:'2017', theme:['truth','secret','hidden','revealed','deceit','deception'], text:"'Hidden truths will always be revealed in the end.' In the light of this view, consider ways in which writers explore truth and secrecy.", themeLabel:'truth & secrecy' },
-      { id:3, source:'2017', theme:['outsider','outside','marginal','exclusion','isolated'], text:"'The Outsider is always an intriguing figure in literature.' In the light of this view, consider ways in which writers explore those who are placed outside the centre of society.", themeLabel:'outsiders' },
-      { id:4, source:'2017', theme:['reflection','thought','introspection','consciousness','contemplation'], text:"'Literature often presents characters in a state of reflection.' In the light of this view, consider ways in which writers explore the significance of thought and reflection.", themeLabel:'reflection' },
-      { id:5, source:'2017', theme:['freedom','liberty','autonomy','escape','agency'], text:"'Freedom is a condition towards which all humanity aspires.' In the light of this view, consider ways in which writers explore the desire for freedom.", themeLabel:'freedom' },
-      { id:6, source:'2017', theme:['loss','suffering','grief','pain','misery'], text:"'Loss and suffering are familiar conditions in human experience.' In the light of this view, consider ways in which writers explore loss and suffering.", themeLabel:'loss & suffering' },
-      { id:7, source:'SAM', theme:['love','possess','possession','jealousy','control','own'], text:"'Love is invariably possessive.' In the light of this view, consider ways in which writers explore love and possession.", themeLabel:'love & possession' },
-      { id:8, source:'SAM', theme:['moral','sexual','sex','immoral','morality','ethics'], text:"'Good writing about sexual relationships is invariably moral.' In the light of this view, consider ways in which writers explore the morality of sexual relationships.", themeLabel:'morality of sex' },
-      { id:9, source:'SAM', theme:['power','men','women','gender','patriarchy','female','male'], text:"'Men may seem to be more powerful than women, but the reality is very different.' In the light of this view, consider ways in which writers explore power and gender.", themeLabel:'gender & power' },
-      { id:10, source:'SAM', theme:['forbidden','taboo','prohibited','transgression','desire'], text:"'Forbidden tastes are sweetest.' In the light of this view, consider ways in which writers explore the attraction of that which is forbidden.", themeLabel:'the forbidden' },
-      { id:11, source:'SAM', theme:['conflict','misunderstanding','misread','confusion','clash'], text:"'Conflict in literature generally arises from misunderstanding.' In the light of this view, consider ways in which writers make use of misunderstanding.", themeLabel:'misunderstanding' },
-      { id:12, source:'SAM', theme:['rank','status','class','hierarchy','social','happiness'], text:"'Rank and social status are enemies of happiness.' In the light of this view, consider ways in which writers explore the effects of rank and social status.", themeLabel:'rank & status' },
-      { id:13, source:'2024', theme:['fool','folly','foolish','consequence','reckless'], text:"'Foolish acts have far-reaching consequences.' In the light of this view, consider ways in which writers explore folly and its outcomes.", themeLabel:'folly' },
-      { id:14, source:'2024', theme:['indulgence','isolated','isolation','self','selfish','alone'], text:"'Self-indulgence inevitably leads to isolation.' In the light of this view, consider ways in which writers explore self-indulgence and isolation.", themeLabel:'self-indulgence & isolation' },
-      { id:15, source:'2024', theme:['disappointment','ambition','desire','frustrated','unfulfilled'], text:"'Disappointment is the inevitable end of human ambition.' In the light of this view, consider ways in which writers explore disappointment and ambition.", themeLabel:'disappointment & ambition' },
+      { id:'2022i',  source:'2022 (i)',  partType:'close-reading', theme:['januarie','january','reader','response','manipulative','wheedling'], text:"Re-read lines 203–224 from “But o thing warne I yow…” to “…whan I die.” How does Chaucer shape the reader’s response to Januarie in these lines? [20]", themeLabel:'reader response to Januarie' },
+      { id:'2022ii', source:'2022 (ii)', partType:'essay', theme:['selfish','selfishness','human','criticism','sustained'], text:"With close reference to relevant contexts, discuss the view that in The Merchant’s Prologue and Tale, Chaucer presents “a sustained criticism of human selfishness”. [40]", themeLabel:'sustained criticism of selfishness' },
+      { id:'2023i',  source:'2023 (i)',  partType:'close-reading', theme:['merchant','attitudes','prologue','bitter','disappointed'], text:"Re-read lines 33–54 from “Whilom ther was dwellinge…” to “…that was so wis.” Analyse the ways in which Chaucer suggests the Merchant’s attitudes in these lines. [20]", themeLabel:"the Merchant’s attitudes" },
+      { id:'2023ii', source:'2023 (ii)', partType:'essay', theme:['comic','humour','humorously','failings','critically'], text:"“Chaucer points the finger critically but always humorously at a full range of human failings.” In the light of this comment and with close reference to relevant contexts, show how far you agree that The Merchant’s Prologue and Tale is fundamentally comic. [40]", themeLabel:'fundamentally comic' },
+      { id:'2024i',  source:'2024 (i)',  partType:'close-reading', theme:['placebo','flatterer','flattery','sycophant','counsellor'], text:"Re-read lines 266–288 from “Placebo seyde…” to “…or elles thing semblable.” Examine Chaucer’s presentation of Placebo in these lines. [20]", themeLabel:'presentation of Placebo' },
+      { id:'2024ii', source:'2024 (ii)', partType:'essay', theme:['rank','authority','social order','undermine','class','hierarchy'], text:"“The Merchant’s Prologue and Tale is carefully designed to undermine the social order of its day.” In the light of this comment and with close reference to relevant contexts, discuss the ways in which ideas about rank and authority are presented in The Merchant’s Prologue and Tale. [40]", themeLabel:'rank & authority' },
     ];
 
     const KW = {
@@ -2433,7 +2439,7 @@
       parts.push('<div class="q-divider"></div>');
 
       // Past papers
-      parts.push('<div class="q-section-label">OCR past papers</div>');
+      parts.push('<div class="q-section-label">Eduqas / WJEC past papers</div>');
       QUESTIONS.forEach(q => {
         parts.push(`<div class="q-option ${q.id === currentQuestion.id ? 'selected' : ''}" data-qid="${q.id}">
           <span class="q-icon">&#10047;</span>
@@ -2493,8 +2499,11 @@
     let currentAngle = null; // pinned angle text from essay plan, if any
 
     function aboutThisPaperHTML(q) {
-      if (q.source === '2017' || q.source === 'SAM' || q.source === '2024') {
-        return `<strong>About this paper:</strong> OCR H472/01 Section 2 &mdash; Drama and Poetry pre-1900. A 30-mark comparative essay (~1h15). You compare <em>one</em> drama text and <em>one</em> poetry text. Here, you&rsquo;re writing the Chaucer (<em>The Merchant&rsquo;s Tale</em>) half of your answer.`;
+      if (q.partType === 'close-reading') {
+        return `<strong>About this paper:</strong> Eduqas / WJEC A720 Component 1 &mdash; Section A: Poetry pre-1900 (open book, clean copy of the text allowed). Question 1 has two parts on Chaucer. This is <strong>part (i)</strong>: a close-reading of a specific extract worth <strong>20 marks</strong> &mdash; focus on language, technique and how Chaucer shapes meaning in <em>those lines</em>.`;
+      }
+      if (q.partType === 'essay') {
+        return `<strong>About this paper:</strong> Eduqas / WJEC A720 Component 1 &mdash; Section A: Poetry pre-1900 (open book). Question 1 has two parts on Chaucer. This is <strong>part (ii)</strong>: a wider essay worth <strong>40 marks</strong> &mdash; show how far you agree using close reference to the whole tale and to relevant contexts (medieval marriage, fabliau, antifeminist tradition, Boethius etc.).`;
       }
       if (q.isCustom) {
         return `<strong>About this paper:</strong> custom question saved by you. Treat it as your own essay prompt.`;
@@ -2521,7 +2530,7 @@
         $qCard.style.display = '';
         $qText.innerHTML = q.text;
         $qMeta.textContent = q.source
-          ? `Source: ${q.source} • Theme: ${q.themeLabel}${QUESTIONS.includes(q) ? ' • Use The Merchant’s Tale as your poetry text' : ''}`
+          ? `Eduqas / WJEC ${q.source} • ${q.themeLabel}`
           : (q.themeLabel ? `Theme: ${q.themeLabel}` : 'Custom question');
         const ctx = aboutThisPaperHTML(q);
         if (ctx) { $paperCtx.innerHTML = ctx; $paperCtx.style.display = ''; }
@@ -2756,7 +2765,15 @@
 
       const angleNote = currentAngle ? `\n\nThe student is writing the paragraph on this angle from the essay plan: "${currentAngle}". Mark with that angle in mind.` : '';
 
-      const sysPrompt = `You are Eleanor's strict OCR A-Level English Literature examiner marking H472/01 Paper 1 (Drama and Poetry pre-1900). You assess a single Chaucer (The Merchant's Tale) paragraph against the PEACCL framework (Point, Evidence, Analysis, Critic, Context, Link).
+      const partLabel = currentQuestion.partType === 'close-reading'
+        ? 'Component 1 Section A part (i) — close-reading of an extract (20 marks). Marking emphasis is on AO2 (analysis of how Chaucer uses language, form, structure to create meaning IN THE SPECIFIC EXTRACT). Some AO1 (expression) and a touch of AO3 (context) where directly relevant.'
+        : currentQuestion.partType === 'essay'
+          ? 'Component 1 Section A part (ii) — wider essay on the whole text with a critical viewpoint (40 marks). Marking emphasis is balanced across AO1 (informed personal response, accurate expression), AO2 (analysis of method), AO3 (context — medieval marriage, fabliau, antifeminist tradition, Boethian thought), AO5 (different interpretations / critics). Tackling the proposition (agree/disagree/qualify) is essential.'
+          : 'standalone analytical writing on Chaucer';
+
+      const sysPrompt = `You are Eleanor's strict Eduqas / WJEC A-Level English Literature examiner marking A720 Component 1 Section A: Poetry pre-1900. The text is Chaucer's The Merchant's Prologue and Tale (Cambridge edition). You assess Eleanor's writing against the PEACCL framework (Point, Evidence, Analysis, Critic, Context, Link).
+
+This question is: ${partLabel}
 
 Eleanor's two stated weaknesses, which must be your relentless focus:
 1. JUMPS — claims made without explaining the reasoning step that connects them. Quote her own sentence and show the missing step.
@@ -2844,14 +2861,24 @@ Stay under 300 words.`;
         </div>
       `;
 
-      const sysPrompt = `You are an OCR A-Level English Literature tutor planning the Chaucer (The Merchant's Tale) half of an H472/01 Section 2 comparative essay. You are NOT writing the essay — you're producing a tight plan with 3 distinct paragraph angles the student could explore.
+      const planPartLabel = currentQuestion.partType === 'close-reading'
+        ? 'This is part (i) — a 20-mark close-reading of a SPECIFIC EXTRACT from the tale. Plan angles that focus on technique-spotting WITHIN those lines: language, form, imagery, structure, voice. Each angle should pick out a different feature of the extract. Do NOT plan a whole-tale essay.'
+        : currentQuestion.partType === 'essay'
+          ? 'This is part (ii) — a 40-mark essay on the WHOLE text engaging with a critical proposition. Plan angles that take a stance (agree / disagree / qualify) using evidence from across the tale, named critics where useful, and context (medieval marriage, fabliau, antifeminist tradition, Boethius).'
+          : 'Plan angles for a single-text Chaucer paragraph.';
+
+      const sysPrompt = `You are an Eduqas / WJEC A-Level English Literature tutor planning a paragraph for A720 Component 1 Section A on Chaucer's The Merchant's Prologue and Tale.
+
+${planPartLabel}
+
+You are NOT writing the essay — you're producing a tight plan with 3 distinct paragraph angles the student could choose from.
 
 Output ONLY valid JSON in this exact shape:
 
 {
-  "intro_idea": "one-sentence thesis line tying the question to The Merchant's Tale",
+  "intro_idea": "one-sentence thesis line that directly engages the question",
   "angles": [
-    { "title": "Short angle title (max 6 words)", "body": "2-3 sentence sketch: the argument, a key piece of evidence (with quote if possible), and a critic or context point." },
+    { "title": "Short angle title (max 6 words)", "body": "2-3 sentence sketch: the argument, a key piece of evidence (line/quote from the tale where possible), and a critic or context point." },
     { "title": "...", "body": "..." },
     { "title": "...", "body": "..." }
   ]
@@ -2859,7 +2886,7 @@ Output ONLY valid JSON in this exact shape:
 
 No markdown, no code fences, no preamble — just the JSON.`;
 
-      const userPrompt = `Question: ${currentQuestion.text}\n\nThe student is writing the Chaucer (Merchant's Tale) half of this comparative essay. Give 3 paragraph angles she could pick from.`;
+      const userPrompt = `Question: ${currentQuestion.text}\n\nGive 3 distinct paragraph angles she could pick from.`;
 
       try {
         const res = await fetch('https://api.anthropic.com/v1/messages', {
