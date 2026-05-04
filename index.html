@@ -16,7 +16,6 @@
     :root {
       --dark-color: #000;
     }
-
     body {
       display: flex;
       align-items: flex-end;
@@ -61,7 +60,9 @@
         0 0 40px rgba(255,105,180,0.15),
         0 0 80px rgba(255,182,193,0.08),
         inset 0 1px 0 rgba(255,255,255,0.15);
+      transition: max-width 0.4s ease;
     }
+    body.trainer-wide .bibliography { max-width: 1100px; }
 
     .bibliography::before,
     .bibliography::after {
@@ -864,6 +865,937 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    /* ── Writing Trainer ── */
+    .trainer-card {
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,182,193,0.18);
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 24px rgba(255,105,180,0.06);
+      position: relative;
+    }
+    .trainer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .trainer-header h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffc0cb;
+      letter-spacing: 0.04em;
+    }
+    .trainer-settings-btn {
+      background: transparent;
+      border: 1px solid rgba(255,182,193,0.25);
+      color: rgba(255,182,193,0.7);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .trainer-settings-btn:hover {
+      background: rgba(255,182,193,0.1);
+      color: #ffc0cb;
+      box-shadow: 0 0 14px rgba(255,105,180,0.2);
+    }
+
+    .trainer-mode-toggle {
+      display: flex;
+      gap: 4px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 11px;
+      padding: 3px;
+      margin-bottom: 12px;
+    }
+    .trainer-mode-toggle button {
+      flex: 1;
+      padding: 6px 0;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      color: rgba(255,200,210,0.55);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .trainer-mode-toggle button:hover { color: rgba(255,200,210,0.85); }
+    .trainer-mode-toggle button.active {
+      background: linear-gradient(135deg, rgba(255,105,180,0.25), rgba(255,182,193,0.18));
+      color: #ffc0cb;
+      box-shadow: 0 0 12px rgba(255,105,180,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    /* Custom dropdown */
+    .q-dropdown {
+      position: relative;
+      width: 100%;
+      margin-bottom: 14px;
+    }
+    .q-dropdown-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,182,193,0.25);
+      border-radius: 12px;
+      color: rgba(255,228,225,0.92);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.98rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .q-dropdown-btn:hover {
+      border-color: rgba(255,105,180,0.4);
+      box-shadow: 0 0 14px rgba(255,105,180,0.12);
+    }
+    .q-dropdown-btn .q-current {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .q-dropdown-btn .q-arrow {
+      color: rgba(255,182,193,0.6);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+    }
+    .q-dropdown.open .q-dropdown-btn .q-arrow { transform: rotate(180deg); }
+    .q-dropdown.open .q-dropdown-btn {
+      border-color: rgba(255,105,180,0.5);
+      box-shadow: 0 0 14px rgba(255,105,180,0.15);
+    }
+    .q-dropdown-panel {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0; right: 0;
+      background: linear-gradient(135deg, rgba(40,15,30,0.97), rgba(25,8,18,0.97));
+      border: 1px solid rgba(255,105,180,0.35);
+      border-radius: 14px;
+      padding: 6px;
+      max-height: 380px;
+      overflow-y: auto;
+      z-index: 50;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,105,180,0.12);
+      display: none;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .q-dropdown.open .q-dropdown-panel { display: block; }
+    .q-section-label {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.7rem;
+      color: rgba(255,182,193,0.5);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 10px 12px 4px;
+    }
+    .q-option {
+      padding: 9px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: rgba(255,228,225,0.88);
+      font-size: 0.92rem;
+      line-height: 1.4;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .q-option:hover { background: rgba(255,105,180,0.12); color: #fff; }
+    .q-option.selected { background: rgba(255,105,180,0.18); color: #ffc0cb; }
+    .q-option .q-icon {
+      color: rgba(255,182,193,0.5);
+      font-size: 11px;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .q-option .q-text { flex: 1; }
+    .q-option .q-source {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      color: rgba(255,182,193,0.5);
+      font-style: italic;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+    .q-option--add {
+      color: #ffc0cb;
+      font-style: italic;
+    }
+    .q-option--add:hover { background: rgba(255,105,180,0.16); }
+    .q-option .q-delete {
+      background: transparent;
+      border: none;
+      color: rgba(255,105,180,0.5);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .q-option .q-delete:hover { background: rgba(255,105,180,0.25); color: #fff; }
+    .q-divider {
+      height: 1px;
+      background: rgba(255,182,193,0.12);
+      margin: 4px 8px;
+    }
+
+    .modal textarea {
+      width: 100%;
+      min-height: 110px;
+      padding: 12px 14px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,182,193,0.3);
+      border-radius: 10px;
+      color: rgba(255,240,235,0.95);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      resize: vertical;
+      margin-bottom: 12px;
+    }
+    .modal textarea:focus {
+      outline: none;
+      border-color: rgba(255,105,180,0.6);
+      box-shadow: 0 0 14px rgba(255,105,180,0.18);
+    }
+
+    .trainer-question {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.08rem;
+      color: rgba(255,228,225,0.92);
+      line-height: 1.55;
+      padding: 14px 22px;
+      border-left: 2px solid rgba(255,105,180,0.4);
+      background: rgba(255,105,180,0.04);
+      border-radius: 0 10px 10px 0;
+      position: relative;
+    }
+    .trainer-question::before {
+      content: "\201C";
+      position: absolute;
+      left: 6px; top: -2px;
+      font-size: 28px;
+      color: rgba(255,182,193,0.5);
+      line-height: 1;
+    }
+    .trainer-question .meta {
+      display: block;
+      font-style: normal;
+      font-size: 0.78rem;
+      color: rgba(255,182,193,0.5);
+      margin-top: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .trainer-textarea {
+      width: 100%;
+      min-height: 280px;
+      padding: 18px 20px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent calc(1.8em - 1px),
+          rgba(255,182,193,0.07) calc(1.8em - 1px),
+          rgba(255,182,193,0.07) 1.8em
+        ),
+        rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,182,193,0.2);
+      border-radius: 12px;
+      color: rgba(255,240,235,0.95);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      resize: vertical;
+      transition: all 0.3s ease;
+      caret-color: #ff69b4;
+    }
+    .trainer-textarea::placeholder {
+      color: rgba(255,182,193,0.35);
+      font-style: italic;
+    }
+    .trainer-textarea:focus {
+      outline: none;
+      border-color: rgba(255,105,180,0.5);
+      box-shadow: 0 0 24px rgba(255,105,180,0.18);
+    }
+    .trainer-textarea--small {
+      min-height: 70px;
+      line-height: 1.6;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .trainer-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.85rem;
+      color: rgba(255,182,193,0.55);
+    }
+    .trainer-meta-bar .word-count.good { color: #ffc0cb; }
+
+    .trainer-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .trainer-btn {
+      padding: 10px 18px;
+      border: 1px solid rgba(255,182,193,0.3);
+      border-radius: 11px;
+      background: rgba(255,182,193,0.08);
+      color: #ffc0cb;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .trainer-btn:hover {
+      background: rgba(255,105,180,0.15);
+      border-color: rgba(255,105,180,0.5);
+      box-shadow: 0 0 16px rgba(255,105,180,0.18);
+      color: #fff;
+    }
+    .trainer-btn--primary {
+      background: linear-gradient(135deg, rgba(255,105,180,0.3), rgba(255,182,193,0.2));
+      border-color: rgba(255,105,180,0.45);
+    }
+    .trainer-btn--ai {
+      background: linear-gradient(135deg, rgba(255,105,180,0.18), rgba(255,182,193,0.1));
+    }
+    .trainer-btn--ai .icon { font-size: 14px; }
+    .trainer-btn--ghost { background: transparent; }
+
+    /* Guided steps */
+    .trainer-step {
+      border-left: 3px solid rgba(255,105,180,0.4);
+      padding: 10px 14px 12px 16px;
+      margin-bottom: 12px;
+      background: rgba(255,182,193,0.03);
+      border-radius: 0 10px 10px 0;
+    }
+    .trainer-step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .trainer-step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,105,180,0.4), rgba(255,182,193,0.25));
+      color: #fff;
+      font-size: 0.78rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+    .trainer-step-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.98rem;
+      color: #ffc0cb;
+      letter-spacing: 0.03em;
+    }
+
+    /* Subject toggle (top-level) */
+    .subject-toggle {
+      display: flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.22);
+      border-radius: 14px;
+      padding: 4px;
+      margin: 0 0 22px;
+    }
+    .subject-btn {
+      flex: 1;
+      padding: 10px 0;
+      border: none;
+      border-radius: 11px;
+      background: transparent;
+      color: rgba(255,200,210,0.55);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .subject-btn .icon { font-size: 14px; opacity: 0.7; }
+    .subject-btn:hover { color: rgba(255,200,210,0.85); }
+    .subject-btn.active {
+      background: linear-gradient(135deg, rgba(255,105,180,0.3), rgba(255,182,193,0.18));
+      color: #ffc0cb;
+      box-shadow: 0 0 16px rgba(255,105,180,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
+      text-shadow: 0 0 12px rgba(255,182,193,0.4);
+    }
+    .subject-group { display: none; }
+    .subject-group.active { display: block; }
+
+    /* Guided structured editor — one pink-bordered box, labelled rows that grow independently */
+    .guided-editor {
+      width: 100%;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,182,193,0.2);
+      border-radius: 12px;
+      padding: 6px 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(255,240,235,0.95);
+      transition: all 0.3s ease;
+    }
+    .guided-editor:focus-within {
+      border-color: rgba(255,105,180,0.5);
+      box-shadow: 0 0 24px rgba(255,105,180,0.18);
+    }
+    .guided-section {
+      display: flex;
+      align-items: stretch;
+      padding: 0;
+      border-bottom: 1px dashed rgba(255,182,193,0.12);
+    }
+    .guided-section:last-child { border-bottom: none; }
+    .guided-label {
+      flex-shrink: 0;
+      width: 110px;
+      padding: 14px 16px 14px 18px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #ffc0cb;
+      background: linear-gradient(90deg, rgba(255,105,180,0.12), rgba(255,105,180,0.04));
+      border-right: 2px solid rgba(255,105,180,0.32);
+      text-align: right;
+      user-select: none;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: 4px;
+      text-shadow: 0 0 8px rgba(255,182,193,0.25);
+    }
+    .guided-label::after {
+      content: ":";
+      margin-left: 2px;
+      color: rgba(255,182,193,0.6);
+    }
+    .guided-content {
+      flex: 1;
+      padding: 14px 18px;
+      min-height: 28px;
+      outline: none;
+      caret-color: #ff69b4;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+    .guided-content:empty::before {
+      content: attr(data-placeholder);
+      color: rgba(255,182,193,0.32);
+      font-style: italic;
+      pointer-events: none;
+    }
+    .guided-content br + br + br { display: none; }
+
+    /* Examiner-style AI response — sits inside the trainer card, no separate panel feel */
+    .examiner-response {
+      margin-top: 18px;
+      padding: 18px 20px;
+      background: linear-gradient(180deg, rgba(255,105,180,0.04), rgba(255,182,193,0.02));
+      border-top: 1px solid rgba(255,182,193,0.18);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: rgba(255,240,235,0.92);
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+    .examiner-response.empty { display: none; }
+    .examiner-response-label {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.78rem;
+      color: rgba(255,182,193,0.6);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .examiner-response-label .icon { color: rgba(255,182,193,0.5); font-size: 12px; }
+    .examiner-response p { margin: 0 0 12px; }
+    .examiner-response p:last-child { margin-bottom: 0; }
+    .examiner-response h3, .examiner-response h4, .examiner-response h5, .examiner-response h6 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      color: #ffc0cb;
+      letter-spacing: 0.02em;
+      margin: 16px 0 6px;
+      font-size: 1rem;
+    }
+    .examiner-response h3:first-child, .examiner-response h4:first-child {
+      margin-top: 0;
+    }
+    .examiner-response strong { color: #ffc0cb; font-weight: 600; }
+    .examiner-response em { color: rgba(255,228,225,0.85); font-style: italic; }
+    .examiner-response ul, .examiner-response ol {
+      margin: 4px 0 12px;
+      padding-left: 22px;
+    }
+    .examiner-response li { margin-bottom: 4px; line-height: 1.55; }
+    .examiner-response code {
+      font-family: 'Cormorant Garamond', monospace;
+      background: rgba(255,182,193,0.08);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.92rem;
+      color: rgba(255,228,225,0.95);
+    }
+    .examiner-response blockquote {
+      margin: 8px 0;
+      padding: 4px 14px;
+      border-left: 2px solid rgba(255,105,180,0.4);
+      background: rgba(255,105,180,0.04);
+      font-style: italic;
+      color: rgba(255,228,225,0.85);
+    }
+    .examiner-thinking {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-style: italic;
+      color: rgba(255,182,193,0.65);
+    }
+    .examiner-thinking::after {
+      content: "\2740";
+      animation: spin 2s linear infinite;
+      display: inline-block;
+    }
+
+    /* Past paper context block + essay plan */
+    .paper-context {
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: rgba(255,105,180,0.05);
+      border: 1px dashed rgba(255,182,193,0.22);
+      border-radius: 12px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: rgba(255,228,225,0.78);
+    }
+    .paper-context strong { color: #ffc0cb; }
+    .essay-plan-wrap {
+      margin-top: 14px;
+    }
+    .essay-plan {
+      margin-top: 12px;
+      padding: 16px 18px;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,182,193,0.18);
+      border-radius: 12px;
+    }
+    .essay-plan-label {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.78rem;
+      color: rgba(255,182,193,0.6);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .essay-plan .angle {
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      background: rgba(255,105,180,0.05);
+      border: 1px solid rgba(255,182,193,0.15);
+      border-radius: 10px;
+    }
+    .essay-plan .angle:last-child { margin-bottom: 0; }
+    .essay-plan .angle-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: #ffc0cb;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .essay-plan .angle-body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: rgba(255,228,225,0.82);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+    .essay-plan .angle button {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.85rem;
+      color: #ffc0cb;
+      background: rgba(255,105,180,0.15);
+      border: 1px solid rgba(255,105,180,0.3);
+      padding: 5px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .essay-plan .angle button:hover {
+      background: rgba(255,105,180,0.25);
+      border-color: rgba(255,105,180,0.5);
+      color: #fff;
+    }
+    .angle-pinned {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(255,105,180,0.1);
+      border-left: 2px solid rgba(255,105,180,0.5);
+      border-radius: 0 8px 8px 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.88rem;
+      color: rgba(255,228,225,0.82);
+      font-style: italic;
+    }
+    .angle-pinned strong { font-style: normal; color: #ffc0cb; }
+
+    .trainer-assembled {
+      margin-top: 14px;
+      padding: 16px 18px;
+      background: rgba(255,105,180,0.06);
+      border: 1px dashed rgba(255,182,193,0.3);
+      border-radius: 12px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: rgba(255,240,235,0.92);
+    }
+    .trainer-assembled-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      color: rgba(255,182,193,0.6);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* Feedback panel */
+    .feedback-panel {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,182,193,0.18);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-top: 14px;
+    }
+    .feedback-section {
+      margin-bottom: 14px;
+    }
+    .feedback-section:last-child { margin-bottom: 0; }
+    .feedback-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem;
+      color: #f8a4b8;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255,182,193,0.15);
+    }
+    .feedback-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 5px 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .feedback-icon {
+      flex-shrink: 0;
+      width: 18px;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .feedback-row.pass .feedback-icon { color: #ffc0cb; }
+    .feedback-row.warn .feedback-icon { color: #ffd6a0; }
+    .feedback-row.fail .feedback-icon { color: rgba(255,105,180,0.5); }
+    .feedback-row.pass { color: rgba(255,228,225,0.85); }
+    .feedback-row.warn { color: rgba(255,228,225,0.75); }
+    .feedback-row.fail { color: rgba(255,228,225,0.6); }
+    .feedback-row em { color: rgba(255,182,193,0.7); font-style: italic; }
+
+    .ai-feedback {
+      margin-top: 14px;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, rgba(255,105,180,0.1), rgba(255,182,193,0.05));
+      border: 1px solid rgba(255,105,180,0.3);
+      border-radius: 14px;
+      box-shadow: 0 0 24px rgba(255,105,180,0.1);
+    }
+    .ai-feedback-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Playfair Display', serif;
+      color: #ffc0cb;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+    .ai-feedback-body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: rgba(255,240,235,0.92);
+      white-space: pre-wrap;
+    }
+    .ai-feedback-body strong { color: #ffc0cb; }
+
+    .ai-loading {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,182,193,0.65);
+      font-style: italic;
+    }
+    .ai-loading::after {
+      content: "\2740";
+      animation: spin 2s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Model paragraph */
+    .model-paragraph {
+      margin-top: 14px;
+      padding: 18px 20px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,182,193,0.25);
+      border-radius: 14px;
+    }
+    .model-paragraph-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.02rem;
+      line-height: 1.8;
+      color: rgba(255,240,235,0.92);
+    }
+    .peaccl-mark {
+      border-bottom: 2px solid;
+      padding-bottom: 1px;
+      cursor: help;
+      transition: background 0.2s ease;
+    }
+    .peaccl-mark[data-letter="P"] { border-color: #ff69b4; }
+    .peaccl-mark[data-letter="E"] { border-color: #ffb347; }
+    .peaccl-mark[data-letter="A"] { border-color: #b19cd9; }
+    .peaccl-mark[data-letter="C1"] { border-color: #87ceeb; }
+    .peaccl-mark[data-letter="C2"] { border-color: #98fb98; }
+    .peaccl-mark[data-letter="L"] { border-color: #f0e68c; }
+    .peaccl-mark:hover { background: rgba(255,182,193,0.12); }
+    .peaccl-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,182,193,0.15);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.78rem;
+      color: rgba(255,182,193,0.65);
+    }
+    .peaccl-legend span {
+      padding: 2px 8px;
+      border-bottom: 2px solid;
+      border-radius: 2px;
+    }
+
+    .model-bullets {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,182,193,0.15);
+      list-style: none;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.88rem;
+      color: rgba(255,228,225,0.72);
+    }
+    .model-bullets li {
+      padding: 3px 0 3px 16px;
+      position: relative;
+    }
+    .model-bullets li::before {
+      content: "\2740";
+      position: absolute;
+      left: 0;
+      color: rgba(255,182,193,0.5);
+      font-size: 10px;
+      top: 5px;
+    }
+
+    /* Past papers */
+    .papers-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .paper-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,182,193,0.15);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    .paper-card:hover {
+      border-color: rgba(255,105,180,0.35);
+      box-shadow: 0 0 14px rgba(255,105,180,0.1);
+    }
+    .paper-card .paper-icon {
+      font-size: 14px;
+      color: rgba(255,182,193,0.6);
+    }
+    .paper-card .paper-title {
+      flex: 1;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      color: rgba(255,228,225,0.85);
+    }
+    .paper-card a, .paper-card button {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.85rem;
+      color: rgba(255,182,193,0.75);
+      background: transparent;
+      border: 1px solid rgba(255,182,193,0.25);
+      padding: 4px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .paper-card a:hover, .paper-card button:hover {
+      background: rgba(255,182,193,0.12);
+      color: #ffc0cb;
+      border-color: rgba(255,105,180,0.4);
+    }
+    .paper-iframe {
+      width: 100%;
+      height: 600px;
+      margin-top: 10px;
+      border: 1px solid rgba(255,182,193,0.2);
+      border-radius: 10px;
+      background: #000;
+    }
+
+    /* Settings modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal {
+      width: 90%;
+      max-width: 460px;
+      background: linear-gradient(135deg, rgba(40,15,30,0.95), rgba(25,8,18,0.95));
+      border: 1.5px solid rgba(255,105,180,0.4);
+      border-radius: 18px;
+      padding: 28px 28px 24px;
+      box-shadow: 0 0 40px rgba(255,105,180,0.25);
+    }
+    .modal h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: #ffc0cb;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+    .modal p {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: rgba(255,182,193,0.7);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .modal input {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,182,193,0.3);
+      border-radius: 10px;
+      color: rgba(255,240,235,0.95);
+      font-family: 'Cormorant Garamond', monospace;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+    .modal input:focus {
+      outline: none;
+      border-color: rgba(255,105,180,0.6);
+      box-shadow: 0 0 14px rgba(255,105,180,0.2);
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .modal small {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: rgba(255,182,193,0.45);
+      margin-top: 12px;
+      line-height: 1.4;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: linear-gradient(135deg, rgba(255,105,180,0.95), rgba(255,182,193,0.9));
+      color: #2a0a18;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.92rem;
+      box-shadow: 0 8px 30px rgba(255,105,180,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 1100;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body class="not-loaded">
@@ -875,13 +1807,18 @@
     <p class="subtitle">click a topic to start revising</p>
     <div class="divider"><span></span><span class="flower-icon">&#10048;</span><span></span></div>
 
-    <div class="subject-group">
-      <h2><span class="icon">&#9998;</span> English</h2>
+    <div class="subject-toggle" id="subject-toggle">
+      <button class="subject-btn active" data-subject="english"><span class="icon">&#9998;</span> English</button>
+      <button class="subject-btn" data-subject="history"><span class="icon">&#9876;</span> History</button>
+    </div>
+
+    <div class="subject-group active" data-subject="english">
 
       <div class="tab-toggle" data-group="english">
         <button class="tab-btn active" data-tab="flashcards">Flashcards</button>
         <button class="tab-btn" data-tab="podcasts">Podcasts</button>
         <button class="tab-btn" data-tab="videos">Videos</button>
+        <button class="tab-btn" data-tab="trainer">Writing Trainer</button>
       </div>
 
       <div class="tab-panel active" data-tab="flashcards" data-group="english">
@@ -927,16 +1864,147 @@
           <div style="margin-top:10px; font-family:'Cormorant Garamond',Georgia,serif; font-size:0.9rem; color:rgba(255,200,210,0.5);">Two Worlds of Desire</div>
         </div>
       </div>
+
+      <div class="tab-panel" data-tab="trainer" data-group="english">
+        <div class="trainer-card">
+          <div class="trainer-header">
+            <h3>&#10047; Writing Trainer</h3>
+            <button class="trainer-settings-btn" id="trainer-settings" title="Settings (API key)">&#9881;</button>
+          </div>
+
+          <div class="trainer-mode-toggle" id="trainer-mode">
+            <button class="active" data-mode="free">Free (exam)</button>
+            <button data-mode="guided">Guided (PEACCL)</button>
+          </div>
+
+          <div class="q-dropdown" id="q-dropdown">
+            <button class="q-dropdown-btn" id="q-dropdown-btn" type="button">
+              <span class="q-current" id="q-current">Freeform &mdash; just check my writing</span>
+              <span class="q-arrow">&#9660;</span>
+            </button>
+            <div class="q-dropdown-panel" id="q-dropdown-panel"></div>
+          </div>
+
+          <div class="trainer-question" id="trainer-question" style="display:none;">
+            <span id="trainer-q-text"></span>
+            <span class="meta" id="trainer-q-meta"></span>
+            <div class="paper-context" id="paper-context" style="display:none;"></div>
+            <div class="essay-plan-wrap" id="essay-plan-wrap"></div>
+            <div class="angle-pinned" id="angle-pinned" style="display:none;"></div>
+          </div>
+        </div>
+
+        <!-- Free mode -->
+        <div class="trainer-card" id="trainer-free-mode">
+          <textarea class="trainer-textarea" id="trainer-free-text" placeholder="Write whatever you want here &mdash; a single sentence, a paragraph, a fragment. Then click &lsquo;Check my work&rsquo; for examiner feedback&hellip;"></textarea>
+          <div class="trainer-meta-bar">
+            <span class="word-count" id="trainer-word-count">0 words</span>
+            <span style="font-style:italic;">write as much or as little as you like</span>
+          </div>
+          <div class="trainer-actions">
+            <button class="trainer-btn trainer-btn--primary" id="trainer-check-free"><span class="icon">&#10047;</span> Check my work</button>
+          </div>
+          <div class="examiner-response empty" id="examiner-response-free"></div>
+        </div>
+
+        <!-- Guided mode -->
+        <div class="trainer-card" id="trainer-guided-mode" style="display:none;">
+          <div class="guided-editor" id="trainer-guided-editor">
+            <div class="guided-section" data-key="P">
+              <div class="guided-label">Point</div>
+              <div class="guided-content" contenteditable="true" data-key="P" data-placeholder="Your argument in one clear sentence&hellip;"></div>
+            </div>
+            <div class="guided-section" data-key="E">
+              <div class="guided-label">Evidence</div>
+              <div class="guided-content" contenteditable="true" data-key="E" data-placeholder="Embed a short quote from the tale&hellip;"></div>
+            </div>
+            <div class="guided-section" data-key="A">
+              <div class="guided-label">Analysis</div>
+              <div class="guided-content" contenteditable="true" data-key="A" data-placeholder="Why does this prove your point? &lsquo;This suggests&hellip;&rsquo;"></div>
+            </div>
+            <div class="guided-section" data-key="C">
+              <div class="guided-label">Critic</div>
+              <div class="guided-content" contenteditable="true" data-key="C" data-placeholder="A named critic&rsquo;s view&hellip;"></div>
+            </div>
+            <div class="guided-section" data-key="X">
+              <div class="guided-label">Context</div>
+              <div class="guided-content" contenteditable="true" data-key="X" data-placeholder="Medieval / fabliau / Boethian context&hellip;"></div>
+            </div>
+            <div class="guided-section" data-key="L">
+              <div class="guided-label">Link</div>
+              <div class="guided-content" contenteditable="true" data-key="L" data-placeholder="Tie back to the question&hellip;"></div>
+            </div>
+          </div>
+
+          <div class="trainer-assembled-label" style="margin-top:18px;">Live preview &mdash; flowing paragraph</div>
+          <div class="trainer-assembled" id="trainer-guided-preview" style="min-height:60px; font-style:italic; color:rgba(255,228,225,0.55);">Your paragraph will flow here as you fill the structure above&hellip;</div>
+
+          <div class="trainer-actions">
+            <button class="trainer-btn trainer-btn--primary" id="trainer-check-guided"><span class="icon">&#10047;</span> Check my work</button>
+          </div>
+          <div class="examiner-response empty" id="examiner-response-guided"></div>
+        </div>
+
+        <div id="trainer-model-wrap"></div>
+
+        <!-- Past Papers -->
+        <div class="trainer-card">
+          <div class="trainer-header">
+            <h3>&#10047; Past Papers</h3>
+          </div>
+          <div class="papers-grid" id="papers-grid">
+            <div class="paper-card">
+              <span class="paper-icon">&#10047;</span>
+              <span class="paper-title">June 2017 question paper</span>
+              <a href="pdfs/H472-01-June-2017-paper.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/H472-01-June-2017-paper.pdf">Preview</button>
+            </div>
+            <div class="paper-card">
+              <span class="paper-icon">&#10047;</span>
+              <span class="paper-title">Sample Assessment Materials (SAM)</span>
+              <a href="pdfs/H472-01-Sample-Assessment.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/H472-01-Sample-Assessment.pdf">Preview</button>
+            </div>
+            <div class="paper-card">
+              <span class="paper-icon">&#10047;</span>
+              <span class="paper-title">Mark scheme (specimen)</span>
+              <a href="pdfs/H472-01-Mark-Scheme.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/H472-01-Mark-Scheme.pdf">Preview</button>
+            </div>
+            <div class="paper-card">
+              <span class="paper-icon">&#10047;</span>
+              <span class="paper-title">Examiners&rsquo; Report Summer 2024</span>
+              <a href="pdfs/H472-01-Examiners-Report-2024.pdf" target="_blank">Open &#8599;</a>
+              <button data-pdf="pdfs/H472-01-Examiners-Report-2024.pdf">Preview</button>
+            </div>
+          </div>
+          <div id="paper-preview-wrap"></div>
+        </div>
+      </div>
     </div>
 
-    <div class="subject-group">
-      <h2><span class="icon">&#9876;</span> History</h2>
-      <ul class="topic-links">
-        <li><a href="tudor_rebellion_notes.html" target="_blank">Tudor Rebellions</a></li>
-        <li><a href="pilgrimage-of-grace-flashcards.html" target="_blank">Pilgrimage of Grace</a></li>
-        <li><a href="western-rebellion-flashcards.html" target="_blank">Western Rebellion</a></li>
-        <li><a href="tyrone-flashcards.html" target="_blank">Tyrone&rsquo;s Rebellion</a></li>
-      </ul>
+    <div class="subject-group" data-subject="history">
+
+      <div class="tab-toggle" data-group="history">
+        <button class="tab-btn active" data-tab="flashcards">Flashcards</button>
+        <button class="tab-btn" data-tab="essay-plans">Essay Plans</button>
+      </div>
+
+      <div class="tab-panel active" data-tab="flashcards" data-group="history">
+        <ul class="topic-links">
+          <li><a href="tudor_rebellion_notes.html" target="_blank">Tudor Rebellions</a></li>
+          <li><a href="pilgrimage-of-grace-flashcards.html" target="_blank">Pilgrimage of Grace</a></li>
+          <li><a href="western-rebellion-flashcards.html" target="_blank">Western Rebellion</a></li>
+          <li><a href="tyrone-flashcards.html" target="_blank">Tyrone&rsquo;s Rebellion</a></li>
+        </ul>
+      </div>
+
+      <div class="tab-panel" data-tab="essay-plans" data-group="history">
+        <ul class="topic-links">
+          <li><a href="tudor_rebellions_organised.html" target="_blank">Tudor Rebellions &mdash; organised plan</a></li>
+        </ul>
+      </div>
+
     </div>
 
     <div class="bib-footer">
@@ -1145,6 +2213,37 @@
     </div>
   </div>
 
+  <!-- Settings modal (API key) -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal">
+      <h3>&#10047; AI Critique Settings</h3>
+      <p>Paste your Anthropic API key. It&rsquo;s stored only in this browser&rsquo;s localStorage and sent directly to api.anthropic.com when you click &ldquo;AI Critique&rdquo;.</p>
+      <input type="password" id="api-key-input" placeholder="sk-ant-api03-&hellip;" autocomplete="off">
+      <div class="modal-actions">
+        <button class="trainer-btn trainer-btn--ghost" id="modal-cancel">Cancel</button>
+        <button class="trainer-btn trainer-btn--primary" id="modal-save">Save</button>
+      </div>
+      <small>Get a key at console.anthropic.com. Costs ~&pound;0.003 per critique with Haiku 4.5. Don&rsquo;t share this page with the key set.</small>
+    </div>
+  </div>
+
+  <!-- Custom question modal -->
+  <div class="modal-backdrop" id="cq-modal-backdrop">
+    <div class="modal">
+      <h3>&#10047; Add your own question</h3>
+      <p>Write a question you want to practise &mdash; an essay prompt, a passage analysis, anything. Optional keywords help the trainer check that you&rsquo;ve linked your answer back to the question.</p>
+      <textarea id="cq-text" placeholder="e.g. &lsquo;Discuss the role of the garden as a symbol in The Merchant&rsquo;s Tale.&rsquo;"></textarea>
+      <input type="text" id="cq-keywords" placeholder="Keywords (optional, comma-separated): garden, symbol, eden, paradise">
+      <div class="modal-actions">
+        <button class="trainer-btn trainer-btn--ghost" id="cq-cancel">Cancel</button>
+        <button class="trainer-btn trainer-btn--primary" id="cq-save">Save question</button>
+      </div>
+      <small>Saved in this browser only. You can delete it later from the dropdown.</small>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
   <script>
     onload = () => {
       const c = setTimeout(() => {
@@ -1164,8 +2263,708 @@
         document.querySelectorAll(`.tab-panel[data-group="${group}"]`).forEach(p => {
           p.classList.toggle('active', p.dataset.tab === tab);
         });
+        // Wider layout when the writing trainer tab is active
+        if (group === 'english') {
+          document.body.classList.toggle('trainer-wide', tab === 'trainer');
+        }
       });
     });
+
+    /* ──────────────── Writing Trainer ──────────────── */
+
+    const QUESTIONS = [
+      { id:1, source:'2017', theme:['vain','selfish','vanity','self','ego','pride'], text:"'People are naturally inclined towards vain and selfish behaviour.' In the light of this view, consider ways in which writers explore vanity and selfishness.", themeLabel:'vanity & selfishness' },
+      { id:2, source:'2017', theme:['truth','secret','hidden','revealed','deceit','deception'], text:"'Hidden truths will always be revealed in the end.' In the light of this view, consider ways in which writers explore truth and secrecy.", themeLabel:'truth & secrecy' },
+      { id:3, source:'2017', theme:['outsider','outside','marginal','exclusion','isolated'], text:"'The Outsider is always an intriguing figure in literature.' In the light of this view, consider ways in which writers explore those who are placed outside the centre of society.", themeLabel:'outsiders' },
+      { id:4, source:'2017', theme:['reflection','thought','introspection','consciousness','contemplation'], text:"'Literature often presents characters in a state of reflection.' In the light of this view, consider ways in which writers explore the significance of thought and reflection.", themeLabel:'reflection' },
+      { id:5, source:'2017', theme:['freedom','liberty','autonomy','escape','agency'], text:"'Freedom is a condition towards which all humanity aspires.' In the light of this view, consider ways in which writers explore the desire for freedom.", themeLabel:'freedom' },
+      { id:6, source:'2017', theme:['loss','suffering','grief','pain','misery'], text:"'Loss and suffering are familiar conditions in human experience.' In the light of this view, consider ways in which writers explore loss and suffering.", themeLabel:'loss & suffering' },
+      { id:7, source:'SAM', theme:['love','possess','possession','jealousy','control','own'], text:"'Love is invariably possessive.' In the light of this view, consider ways in which writers explore love and possession.", themeLabel:'love & possession' },
+      { id:8, source:'SAM', theme:['moral','sexual','sex','immoral','morality','ethics'], text:"'Good writing about sexual relationships is invariably moral.' In the light of this view, consider ways in which writers explore the morality of sexual relationships.", themeLabel:'morality of sex' },
+      { id:9, source:'SAM', theme:['power','men','women','gender','patriarchy','female','male'], text:"'Men may seem to be more powerful than women, but the reality is very different.' In the light of this view, consider ways in which writers explore power and gender.", themeLabel:'gender & power' },
+      { id:10, source:'SAM', theme:['forbidden','taboo','prohibited','transgression','desire'], text:"'Forbidden tastes are sweetest.' In the light of this view, consider ways in which writers explore the attraction of that which is forbidden.", themeLabel:'the forbidden' },
+      { id:11, source:'SAM', theme:['conflict','misunderstanding','misread','confusion','clash'], text:"'Conflict in literature generally arises from misunderstanding.' In the light of this view, consider ways in which writers make use of misunderstanding.", themeLabel:'misunderstanding' },
+      { id:12, source:'SAM', theme:['rank','status','class','hierarchy','social','happiness'], text:"'Rank and social status are enemies of happiness.' In the light of this view, consider ways in which writers explore the effects of rank and social status.", themeLabel:'rank & status' },
+      { id:13, source:'2024', theme:['fool','folly','foolish','consequence','reckless'], text:"'Foolish acts have far-reaching consequences.' In the light of this view, consider ways in which writers explore folly and its outcomes.", themeLabel:'folly' },
+      { id:14, source:'2024', theme:['indulgence','isolated','isolation','self','selfish','alone'], text:"'Self-indulgence inevitably leads to isolation.' In the light of this view, consider ways in which writers explore self-indulgence and isolation.", themeLabel:'self-indulgence & isolation' },
+      { id:15, source:'2024', theme:['disappointment','ambition','desire','frustrated','unfulfilled'], text:"'Disappointment is the inevitable end of human ambition.' In the light of this view, consider ways in which writers explore disappointment and ambition.", themeLabel:'disappointment & ambition' },
+    ];
+
+    const KW = {
+      critics: /\b(Cooper|Pearsall|Mann|Kittredge|Donaldson|Phillips|Dinshaw|Burrow|Aers|Brewer|Spearing|Patterson|Strohm|Hansen|Knight)\b|\b(critic|critics|argues?|suggests?|reading|interpretation|scholar|scholars|view|argument|posits|contends|maintains)\b/i,
+      context: /\b(medieval|fourteenth[- ]century|14th[- ]century|fabliau|Catholic|courtly love|patriarchal|patriarchy|Boethius|Boethian|estates satire|marriage debate|Wife of Bath|Theophrastus|misogynist|antifeminist|Walter Map|Genesis|Eden|senex amans|Lombardy|nobility|aristocracy|sacrament|Aquinas|Augustine|chivalric|chivalry|exemplum|allegory|Petrarch)\b/i,
+      explain: /\b(this suggests|this implies|this means|this reveals|this demonstrates|this conveys|this exposes|this underscores|because|the effect (of|is)|in other words|highlighting|emphasising|emphasizing|underscoring|indicating|reinforcing|such that|in doing so|by doing so|consequently illustrating|thereby)\b/gi,
+      flow: /\b(moreover|furthermore|however|additionally|by contrast|consequently|building on this|in contrast|equally|similarly|crucially|notably|likewise|this is reinforced|indeed|nevertheless|nonetheless|conversely|to extend this|building further)\b/gi,
+      quote: /(['""''""'])(?:(?!\1)[^])+?\1|"(?:[^"\\]|\\.)+?"|'(?:[^'\\]|\\.)+?'/g,
+      writeVerb: /\b(Chaucer (writes|describes|states|portrays|presents|depicts|uses|employs|crafts|frames|positions|renders))\b/i,
+    };
+
+    const MODELS = {
+      7: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer presents love in The Merchant&rsquo;s Tale not as an emotional bond but as a structure of ownership, in which to love is to possess.</span> <span class="peaccl-mark" data-letter="E">This is captured most starkly in January&rsquo;s declaration that May is &ldquo;myn owene wyf&rdquo; &mdash;</span> <span class="peaccl-mark" data-letter="A">a phrase whose force lies in the doubled possessive: &ldquo;owene&rdquo; reinforces the already proprietary &ldquo;myn&rdquo;, suggesting that even the act of grammar must underline her status as his property. The effect is to reduce May from a person to a held object, and Chaucer is careful to surround her with the language of commerce &mdash; she is &ldquo;chosen&rdquo;, &ldquo;taken&rdquo;, almost selected from a marketplace.</span> <span class="peaccl-mark" data-letter="C1">Helen Cooper argues that January&rsquo;s vision of marriage is fundamentally one of acquisition, the wife serving as another item in his &ldquo;paradys&rdquo; of earthly comforts;</span> <span class="peaccl-mark" data-letter="C2">this reading is reinforced by the medieval marriage debate to which the tale belongs, in which marriage was widely treated as an economic transaction sanctioned by the Church but rarely characterised by mutual affection &mdash; an antifeminist tradition stretching back to Theophrastus.</span> <span class="peaccl-mark" data-letter="L">In this way, what January names love is exposed as possessiveness, confirming that in Chaucer&rsquo;s satirical vision the language of love is inseparable from the grammar of ownership.</span>`,
+        bullets: [
+          "Every quote is followed by an explanation phrase ('the effect is', 'suggests', 'this means') &mdash; nothing left for the reader to infer.",
+          "Connectives ('this is reinforced by', 'in this way') stitch the PEACCL components into one argument, not a list.",
+          "Critic (Cooper) and context (marriage debate, Theophrastus) are integrated mid-sentence, not bolted on.",
+          "Final sentence loops back to the question's keywords ('love', 'possessiveness') &mdash; the examiner sees you've answered."
+        ]
+      },
+      9: {
+        text: `<span class="peaccl-mark" data-letter="P">Although January wields visible authority over May throughout the tale, Chaucer carefully positions her cunning as the true source of power, exposing the gap between male display and female reality.</span> <span class="peaccl-mark" data-letter="E">This inversion crystallises in the pear-tree scene, when May, &ldquo;in his armes&rdquo; with Damyan, persuades January that he has &ldquo;ymisconceyved&rdquo; what he saw.</span> <span class="peaccl-mark" data-letter="A">The verb &ldquo;ymisconceyved&rdquo; is doing extraordinary work here: May does not deny the act, she rewrites his perception of it. This means the literal blindness Pluto restored becomes a metaphorical blindness she imposes &mdash; her speech, not his sight, dictates what is real. The effect is to invert the gendered hierarchy: it is the wealthy knight who is duped, and the silent young wife who controls the narrative.</span> <span class="peaccl-mark" data-letter="C1">Jill Mann reads May&rsquo;s manipulation as Chaucer&rsquo;s sly subversion of the antifeminist commonplace that women are weak;</span> <span class="peaccl-mark" data-letter="C2">building on this, the tale draws on a long fabliau tradition in which the senex amans &mdash; the foolish old husband &mdash; is humiliated by a younger wife&rsquo;s wit, a tradition Chaucer&rsquo;s late-fourteenth-century audience would have recognised immediately.</span> <span class="peaccl-mark" data-letter="L">Thus the apparent power of men in the tale proves illusory; Chaucer suggests that, beneath the surface of patriarchal authority, women shape the reality their husbands inhabit.</span>`,
+        bullets: [
+          "Quote is unpacked at word-level ('ymisconceyved' is doing extraordinary work) &mdash; no jumps.",
+          "Critic (Mann) and context (fabliau, senex amans) build on each other rather than appearing as separate boxes.",
+          "Connectives 'building on this', 'thus' make the argument feel like one developing thought.",
+          "Final sentence answers the question directly with its own framing ('apparent power of men&hellip; proves illusory')."
+        ]
+      },
+      13: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer presents January&rsquo;s folly not as an isolated lapse but as a sustained moral failure whose consequences spread outward to corrupt every relationship in the tale.</span> <span class="peaccl-mark" data-letter="E">His self-deception is captured in the line &ldquo;a yong thyng may men gye / Right as men may warm wex with handes plye&rdquo; &mdash;</span> <span class="peaccl-mark" data-letter="A">the simile of warm wax suggests that January believes a young wife can be moulded to his will, and the rhyme of &ldquo;gye&rdquo; with &ldquo;plye&rdquo; sonically reinforces his fantasy of pliant control. Because January cannot see past this delusion, he commits a series of escalating errors: choosing May from the &ldquo;commune market-place&rdquo; like livestock, ignoring Justinus&rsquo;s warnings, and ultimately becoming literally blind. The effect is that one foolish premise &mdash; that a woman can be owned and shaped &mdash; engineers his cuckolding.</span> <span class="peaccl-mark" data-letter="C1">Derek Pearsall identifies January as Chaucer&rsquo;s most savage portrait of self-deluded male desire,</span> <span class="peaccl-mark" data-letter="C2">a satire that lands sharply within the fourteenth-century estates tradition, where the figure of the senex amans (old lover) was deployed precisely to expose the moral folly of those who refuse to accept their place in the natural order.</span> <span class="peaccl-mark" data-letter="L">In this way, Chaucer demonstrates that folly in the tale is never trivial: a single act of self-deception sets in motion consequences that humiliate the fool and corrupt those around him.</span>`,
+        bullets: [
+          "Word-level analysis: 'gye' rhyming with 'plye' is unpacked, not just quoted.",
+          "Causal chain ('because&hellip; he commits&hellip; the effect is') makes the consequences explicit, not assumed.",
+          "Pearsall + estates satire context arrive together as a unit, supporting one another.",
+          "Final sentence repeats the question keyword 'folly' and the question premise ('far-reaching')."
+        ]
+      },
+      1: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer presents January as a study in vain self-regard, a man whose selfishness consumes every relationship in the tale.</span> <span class="peaccl-mark" data-letter="E">His vanity surfaces in the boast that he will choose &ldquo;a yong thyng&rdquo; for his wife.</span> <span class="peaccl-mark" data-letter="A">The reductive noun &ldquo;thyng&rdquo; signals that May is, to him, an object selected to flatter his self-image; this means his pursuit of marriage is really a pursuit of his own reflection.</span> <span class="peaccl-mark" data-letter="C1">Helen Cooper notes that January&rsquo;s vanity is not incidental but structural &mdash; the tale is built around it.</span> <span class="peaccl-mark" data-letter="C2">This satirical exposure draws on the medieval estates tradition, in which knights who indulged self-flattery were often punished by the very world they tried to bend.</span> <span class="peaccl-mark" data-letter="L">In this way, Chaucer suggests vanity and selfishness are not background traits in the tale but the engine that drives its grotesque outcomes.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      2: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer&rsquo;s tale dramatises how secrecy invariably gives way to revelation, even when characters believe they have hidden the truth.</span> <span class="peaccl-mark" data-letter="E">Damyan and May&rsquo;s clandestine letters &mdash; she &ldquo;rente it al to cloutes&rdquo; to conceal them &mdash; show the lengths to which they go.</span> <span class="peaccl-mark" data-letter="A">The violence of &ldquo;rente&rdquo; suggests guilt-driven destruction, but it also exposes that secrecy requires constant labour; this means the truth is always pressing to surface.</span> <span class="peaccl-mark" data-letter="C1">Jill Mann argues that Chaucer&rsquo;s ironic narrator delights in dramatising the impossibility of perfect deceit.</span> <span class="peaccl-mark" data-letter="C2">This belongs to the fabliau tradition, where the moment of comic exposure is the genre&rsquo;s structural climax.</span> <span class="peaccl-mark" data-letter="L">Thus Chaucer endorses the proposition that hidden truths surface &mdash; though, characteristically, May denies them even after Pluto restores January&rsquo;s sight.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      3: {
+        text: `<span class="peaccl-mark" data-letter="P">Damyan functions as the intriguing outsider in the tale &mdash; socially marginal yet narratively central.</span> <span class="peaccl-mark" data-letter="E">He is introduced as January&rsquo;s &ldquo;owene squier&rdquo; &mdash; tied to the household yet beneath it.</span> <span class="peaccl-mark" data-letter="A">The possessive &ldquo;owene&rdquo; foregrounds his subordination; this means his outsider status is not geographic but hierarchical, defined by his lower rank within the same walls.</span> <span class="peaccl-mark" data-letter="C1">Derek Pearsall reads Damyan as a deliberately thinned figure whose silence makes him a vehicle for the tale&rsquo;s real concern: female agency.</span> <span class="peaccl-mark" data-letter="C2">In medieval estates satire, the squire was often portrayed as a destabilising figure, capable of upsetting the order of his betters.</span> <span class="peaccl-mark" data-letter="L">In this way, Damyan&rsquo;s outsider position is what makes him intriguing &mdash; he is the device through which Chaucer cracks open the apparently sealed marriage.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      4: {
+        text: `<span class="peaccl-mark" data-letter="P">January&rsquo;s long deliberation about marriage in the tale is a parodic act of reflection &mdash; thought used not for understanding but for self-justification.</span> <span class="peaccl-mark" data-letter="E">He summons Justinus and Placebo to &ldquo;assayed&rdquo; his decision.</span> <span class="peaccl-mark" data-letter="A">The verb &ldquo;assayed&rdquo; carries the language of testing, but Chaucer makes clear that January only listens to Placebo&rsquo;s flattery; this means his &ldquo;reflection&rdquo; is performed reasoning, an empty ritual.</span> <span class="peaccl-mark" data-letter="C1">Helen Cooper sees this passage as Chaucer&rsquo;s satire of debased Boethian dialogue, in which interlocutors no longer seek truth but reinforce vanity.</span> <span class="peaccl-mark" data-letter="C2">In late medieval thought, true reflection (drawn from Boethius&rsquo;s Consolation) was supposed to lead to wisdom; January&rsquo;s parody inverts this entirely.</span> <span class="peaccl-mark" data-letter="L">Thus Chaucer presents reflection in the tale as a hollow form &mdash; not the path to understanding it ought to be, but a fig-leaf for desire.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      5: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer presents May&rsquo;s desire for freedom as an irrepressible force that subverts January&rsquo;s patriarchal order.</span> <span class="peaccl-mark" data-letter="E">She seizes liberty in the moment she climbs into the pear tree &ldquo;in his armes&rdquo; with Damyan.</span> <span class="peaccl-mark" data-letter="A">The literal elevation enacts a metaphorical one: she rises above January&rsquo;s reach. This means freedom in the tale is taken, not granted, and is achieved by exploiting the very structures meant to contain her.</span> <span class="peaccl-mark" data-letter="C1">Jill Mann argues that May&rsquo;s pursuit of freedom is a quietly radical act within an overtly patriarchal text.</span> <span class="peaccl-mark" data-letter="C2">In medieval marriage law, women had little autonomy &mdash; making May&rsquo;s seizure of agency historically transgressive.</span> <span class="peaccl-mark" data-letter="L">Thus Chaucer suggests that the desire for freedom is universal but its expression always shaped by the cages it must escape.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      6: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer renders loss in the tale as comic and grotesque rather than tragic, yet suffering remains central to its texture.</span> <span class="peaccl-mark" data-letter="E">January&rsquo;s blindness is the tale&rsquo;s sharpest emblem of loss &mdash; he becomes &ldquo;blynd, allas!&rdquo; &mdash;</span> <span class="peaccl-mark" data-letter="A">the interjection &ldquo;allas&rdquo; mocks the lyric tradition of lament, suggesting that January&rsquo;s suffering is performed rather than felt; this means the tale wraps real loss inside satirical packaging.</span> <span class="peaccl-mark" data-letter="C1">Derek Pearsall observes that Chaucer&rsquo;s satirical mode never quite eclipses the painful reality of January&rsquo;s humiliation.</span> <span class="peaccl-mark" data-letter="C2">The fabliau genre is built on suffering played for laughs &mdash; January&rsquo;s descent fits squarely in this tradition.</span> <span class="peaccl-mark" data-letter="L">In this way, Chaucer presents loss as inseparable from human experience, even when filtered through laughter.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      8: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer&rsquo;s tale insists on the moral seriousness of sexual relationships precisely by satirising those who treat them frivolously.</span> <span class="peaccl-mark" data-letter="E">January&rsquo;s wedding-night description &mdash; &ldquo;He laboureth til that the day gan dawe&rdquo; &mdash;</span> <span class="peaccl-mark" data-letter="A">reduces sex to grotesque physical labour; the verb &ldquo;laboureth&rdquo; strips away any romance and replaces it with mechanical effort. This means the tale exposes the moral hollowness of sexuality without affection.</span> <span class="peaccl-mark" data-letter="C1">Helen Cooper argues that Chaucer&rsquo;s very crudeness is itself a moral position &mdash; he refuses to dignify January&rsquo;s desires.</span> <span class="peaccl-mark" data-letter="C2">In the medieval Catholic tradition, marriage was sanctified, but Chaucer&rsquo;s satire reveals the gap between sacrament and practice.</span> <span class="peaccl-mark" data-letter="L">Thus the tale&rsquo;s very explicitness is moral: by laying bare the ugliness, Chaucer asks his reader to judge it.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      10: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer presents the forbidden as the most powerful engine of desire in the tale &mdash; what cannot be had is precisely what is wanted.</span> <span class="peaccl-mark" data-letter="E">May and Damyan&rsquo;s union, consummated &ldquo;up the pyrie&rdquo; (in the pear tree), takes place in the very garden January built to enclose his pleasures.</span> <span class="peaccl-mark" data-letter="A">The setting is loaded: the garden mirrors Eden, and the pear tree mirrors the Tree of Knowledge. This means the act of transgression carries a biblical weight; the forbidden is not simply attractive but sacred in its prohibition.</span> <span class="peaccl-mark" data-letter="C1">Carolyn Dinshaw argues that Chaucer deliberately layers Christian symbolism onto a fabliau frame to make the forbidden feel doubly charged.</span> <span class="peaccl-mark" data-letter="C2">Medieval allegorical readings of Genesis would have made this Edenic resonance immediate to Chaucer&rsquo;s audience.</span> <span class="peaccl-mark" data-letter="L">Thus the tale endorses the proposition: the sweetness of forbidden taste is precisely what gives May and Damyan&rsquo;s consummation its power.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      11: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer dramatises misunderstanding as the tale&rsquo;s fundamental engine of conflict &mdash; January never grasps the world he inhabits.</span> <span class="peaccl-mark" data-letter="E">His misreading peaks when, sight restored, he asks May why she &ldquo;strogled&rdquo; with Damyan.</span> <span class="peaccl-mark" data-letter="A">The verb &ldquo;strogled&rdquo; is January&rsquo;s euphemism for sex he refuses to recognise; this means his misunderstanding is not accidental but willed, a defence against the truth he half-saw.</span> <span class="peaccl-mark" data-letter="C1">Helen Cooper argues that misunderstanding in the tale is never neutral &mdash; it is the moral failure of those who choose not to see.</span> <span class="peaccl-mark" data-letter="C2">This pattern echoes the medieval &ldquo;blind husband&rdquo; topos found across fabliau and antifeminist literature.</span> <span class="peaccl-mark" data-letter="L">Thus Chaucer suggests conflict in the tale arises not from genuine confusion but from a chosen blindness &mdash; making misunderstanding a form of moral cowardice.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      12: {
+        text: `<span class="peaccl-mark" data-letter="P">Rank and status in the tale are not sources of happiness but instruments of corrosive transaction.</span> <span class="peaccl-mark" data-letter="E">January selects May from a &ldquo;commune market-place&rdquo;, treating her as a commodity to be acquired.</span> <span class="peaccl-mark" data-letter="A">The phrase &ldquo;commune market-place&rdquo; reduces May to merchandise; this means the social gap between knight and bride is staged as economic rather than emotional, robbing the marriage of any genuine intimacy.</span> <span class="peaccl-mark" data-letter="C1">Derek Pearsall reads this commodification as Chaucer&rsquo;s sharpest critique of late-medieval marriage practice.</span> <span class="peaccl-mark" data-letter="C2">In the late fourteenth century, marriages between aristocratic men and lower-status women were commonly transactional, and Chaucer&rsquo;s satire targets exactly this practice.</span> <span class="peaccl-mark" data-letter="L">Thus rank in the tale brings not happiness but a hollow ceremony &mdash; confirming the proposition that social status is the enemy of contentment.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      14: {
+        text: `<span class="peaccl-mark" data-letter="P">Chaucer presents January&rsquo;s self-indulgence as the very mechanism that produces his isolation.</span> <span class="peaccl-mark" data-letter="E">He retreats with May into a private garden, &ldquo;walled al with stoon&rdquo;, designed for his pleasure alone.</span> <span class="peaccl-mark" data-letter="A">The walls are literal but also symbolic: in indulging himself January encloses himself off from genuine connection. This means his isolation is self-built &mdash; a paradise that is also a prison.</span> <span class="peaccl-mark" data-letter="C1">Helen Cooper argues that the garden enacts January&rsquo;s narcissism: he constructs a world that mirrors his desires alone.</span> <span class="peaccl-mark" data-letter="C2">Late-medieval moral writing repeatedly warned against the &ldquo;hortus conclusus&rdquo; of self-pleasure, drawing on biblical and Boethian sources.</span> <span class="peaccl-mark" data-letter="L">Thus the tale endorses the proposition: January&rsquo;s indulgence does not bring intimacy but the deeper isolation of a man imprisoned by his own desires.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+      15: {
+        text: `<span class="peaccl-mark" data-letter="P">January&rsquo;s ambition to secure earthly &ldquo;paradys&rdquo; through marriage ends in inevitable disappointment, exposed by Chaucer as a moral as well as practical failure.</span> <span class="peaccl-mark" data-letter="E">He boasts that married life will be a &ldquo;paradys&rdquo; &mdash;</span> <span class="peaccl-mark" data-letter="A">the religious vocabulary is pointed: January&rsquo;s ambition is heretical in scale, expecting heaven on earth. This means the disappointment that follows is not bad luck but a structural certainty.</span> <span class="peaccl-mark" data-letter="C1">Jill Mann argues that the tale punishes January&rsquo;s ambition precisely because it confuses earthly with heavenly fulfilment.</span> <span class="peaccl-mark" data-letter="C2">This rebuke is steeped in Boethian thought, in which placing hope in fortune&rsquo;s gifts (wealth, marriage, status) is shown to invite suffering.</span> <span class="peaccl-mark" data-letter="L">Thus Chaucer dramatises the proposition: ambition that mistakes earth for heaven must end in disappointment.</span>`,
+        bullets: ["Draft model &mdash; refine with use."]
+      },
+    };
+
+    const FREEFORM = { id:'freeform', source:'', theme:[], themeLabel:'freeform', text:'', isFreeform:true };
+
+    let customQuestions = [];
+    try { customQuestions = JSON.parse(localStorage.getItem('custom_questions') || '[]'); } catch(e) {}
+
+    let currentQuestion = FREEFORM;
+    let currentMode = 'free';
+
+    function getAllQuestions() { return [FREEFORM, ...QUESTIONS, ...customQuestions]; }
+    function findQuestion(id) { return getAllQuestions().find(q => String(q.id) === String(id)); }
+
+    /* DOM */
+    const $qBtn        = document.getElementById('q-dropdown-btn');
+    const $qDropdown   = document.getElementById('q-dropdown');
+    const $qPanel      = document.getElementById('q-dropdown-panel');
+    const $qCurrent    = document.getElementById('q-current');
+    const $qCard       = document.getElementById('trainer-question');
+    const $qText       = document.getElementById('trainer-q-text');
+    const $qMeta       = document.getElementById('trainer-q-meta');
+    const $modeBtns    = document.querySelectorAll('#trainer-mode button');
+    const $freePanel   = document.getElementById('trainer-free-mode');
+    const $guidedPanel = document.getElementById('trainer-guided-mode');
+    const $freeText    = document.getElementById('trainer-free-text');
+    const $wordCount   = document.getElementById('trainer-word-count');
+    const $modelWrap   = document.getElementById('trainer-model-wrap');
+    const $guidedEditor = document.getElementById('trainer-guided-editor');
+    const $guidedPreview = document.getElementById('trainer-guided-preview');
+    const $aiFree      = document.getElementById('examiner-response-free');
+    const $aiGuided    = document.getElementById('examiner-response-guided');
+    const $paperCtx    = document.getElementById('paper-context');
+    const $planWrap    = document.getElementById('essay-plan-wrap');
+    const $anglePinned = document.getElementById('angle-pinned');
+    const $modal       = document.getElementById('modal-backdrop');
+    const $apiInput    = document.getElementById('api-key-input');
+    const $toast       = document.getElementById('toast');
+    const $cqModal     = document.getElementById('cq-modal-backdrop');
+    const $cqText      = document.getElementById('cq-text');
+    const $cqKeywords  = document.getElementById('cq-keywords');
+
+    /* ───── Custom dropdown ───── */
+    function shortLabel(q) {
+      if (q.isFreeform) return 'Freeform — just check my writing';
+      const m = q.text.match(/'([^']+)'/);
+      return m ? m[1] : q.text.slice(0, 70);
+    }
+
+    function renderDropdown() {
+      const parts = [];
+      // Freeform
+      parts.push(`<div class="q-option q-option--add ${currentQuestion.isFreeform ? 'selected' : ''}" data-qid="freeform">
+        <span class="q-icon">&#10047;</span>
+        <span class="q-text">Freeform &mdash; just check my writing (no question)</span>
+      </div>`);
+      parts.push('<div class="q-divider"></div>');
+
+      // Past papers
+      parts.push('<div class="q-section-label">OCR past papers</div>');
+      QUESTIONS.forEach(q => {
+        parts.push(`<div class="q-option ${q.id === currentQuestion.id ? 'selected' : ''}" data-qid="${q.id}">
+          <span class="q-icon">&#10047;</span>
+          <span class="q-text">${shortLabel(q)}</span>
+          <span class="q-source">${q.source}</span>
+        </div>`);
+      });
+
+      // My questions
+      parts.push('<div class="q-divider"></div>');
+      parts.push('<div class="q-section-label">My questions</div>');
+      parts.push(`<div class="q-option q-option--add" data-action="add">
+        <span class="q-icon">+</span>
+        <span class="q-text">Add my own&hellip;</span>
+      </div>`);
+      customQuestions.forEach(q => {
+        parts.push(`<div class="q-option ${q.id === currentQuestion.id ? 'selected' : ''}" data-qid="${q.id}">
+          <span class="q-icon">&#10047;</span>
+          <span class="q-text">${shortLabel(q)}</span>
+          <button class="q-delete" data-delete="${q.id}" title="Delete">&times;</button>
+        </div>`);
+      });
+
+      $qPanel.innerHTML = parts.join('');
+    }
+
+    function openDropdown() { $qDropdown.classList.add('open'); }
+    function closeDropdown() { $qDropdown.classList.remove('open'); }
+    $qBtn.addEventListener('click', e => { e.stopPropagation(); $qDropdown.classList.toggle('open'); });
+    document.addEventListener('click', e => { if (!$qDropdown.contains(e.target)) closeDropdown(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDropdown(); $modal.classList.remove('show'); closeCqModal(); } });
+
+    $qPanel.addEventListener('click', e => {
+      const del = e.target.closest('[data-delete]');
+      if (del) {
+        e.stopPropagation();
+        const id = del.dataset.delete;
+        if (confirm('Delete this question?')) {
+          customQuestions = customQuestions.filter(q => String(q.id) !== String(id));
+          localStorage.setItem('custom_questions', JSON.stringify(customQuestions));
+          if (String(currentQuestion.id) === String(id)) loadQuestion('freeform');
+          else renderDropdown();
+        }
+        return;
+      }
+      const opt = e.target.closest('.q-option');
+      if (!opt) return;
+      if (opt.dataset.action === 'add') {
+        closeDropdown();
+        openCqModal();
+        return;
+      }
+      const qid = opt.dataset.qid;
+      if (qid) { loadQuestion(qid); closeDropdown(); }
+    });
+
+    let currentAngle = null; // pinned angle text from essay plan, if any
+
+    function aboutThisPaperHTML(q) {
+      if (q.source === '2017' || q.source === 'SAM' || q.source === '2024') {
+        return `<strong>About this paper:</strong> OCR H472/01 Section 2 &mdash; Drama and Poetry pre-1900. A 30-mark comparative essay (~1h15). You compare <em>one</em> drama text and <em>one</em> poetry text. Here, you&rsquo;re writing the Chaucer (<em>The Merchant&rsquo;s Tale</em>) half of your answer.`;
+      }
+      if (q.isCustom) {
+        return `<strong>About this paper:</strong> custom question saved by you. Treat it as your own essay prompt.`;
+      }
+      return '';
+    }
+
+    function clearResponses() {
+      [$aiFree, $aiGuided].forEach(el => { el.innerHTML = ''; el.classList.add('empty'); });
+    }
+    function clearPlan() {
+      $planWrap.innerHTML = '';
+      $anglePinned.style.display = 'none';
+      currentAngle = null;
+    }
+
+    function loadQuestion(id) {
+      const q = findQuestion(id) || FREEFORM;
+      currentQuestion = q;
+      $qCurrent.textContent = shortLabel(q);
+      if (q.isFreeform) {
+        $qCard.style.display = 'none';
+      } else {
+        $qCard.style.display = '';
+        $qText.innerHTML = q.text;
+        $qMeta.textContent = q.source
+          ? `Source: ${q.source} • Theme: ${q.themeLabel}${QUESTIONS.includes(q) ? ' • Use The Merchant’s Tale as your poetry text' : ''}`
+          : (q.themeLabel ? `Theme: ${q.themeLabel}` : 'Custom question');
+        const ctx = aboutThisPaperHTML(q);
+        if (ctx) { $paperCtx.innerHTML = ctx; $paperCtx.style.display = ''; }
+        else $paperCtx.style.display = 'none';
+        // Add a "Plan this essay" button below context
+        $planWrap.innerHTML = `<button class="trainer-btn trainer-btn--ai" id="plan-btn"><span class="icon">&#10047;</span> Plan this essay (AI)</button>`;
+        document.getElementById('plan-btn').addEventListener('click', generateEssayPlan);
+      }
+      clearResponses();
+      clearPlan();
+      const saved = localStorage.getItem(`trainer-draft-${id}`);
+      $freeText.value = saved || '';
+      // Restore guided sections from localStorage (per question)
+      const savedG = localStorage.getItem(`trainer-guided-${id}`);
+      let savedSections = {};
+      try { savedSections = savedG ? JSON.parse(savedG) : {}; } catch(e) {}
+      $guidedEditor.querySelectorAll('.guided-content').forEach(el => {
+        el.innerHTML = savedSections[el.dataset.key] || '';
+      });
+      updateWordCount();
+      updateGuidedPreview();
+      renderDropdown();
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      $modeBtns.forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+      $freePanel.style.display   = mode === 'free' ? '' : 'none';
+      $guidedPanel.style.display = mode === 'guided' ? '' : 'none';
+    }
+    $modeBtns.forEach(b => b.addEventListener('click', () => switchMode(b.dataset.mode)));
+
+    function updateWordCount() {
+      const w = $freeText.value.trim().split(/\s+/).filter(Boolean).length;
+      $wordCount.textContent = `${w} word${w === 1 ? '' : 's'}`;
+      if (currentQuestion) localStorage.setItem(`trainer-draft-${currentQuestion.id}`, $freeText.value);
+    }
+    $freeText.addEventListener('input', updateWordCount);
+
+    /* ───── Subject toggle (English / History) ───── */
+    document.getElementById('subject-toggle').addEventListener('click', e => {
+      const btn = e.target.closest('.subject-btn');
+      if (!btn) return;
+      const subject = btn.dataset.subject;
+      document.querySelectorAll('.subject-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.subject-group').forEach(g => g.classList.toggle('active', g.dataset.subject === subject));
+      // Trainer-wide layout only when English -> trainer is active
+      const trainerOpen = document.querySelector('.tab-btn[data-tab="trainer"].active');
+      document.body.classList.toggle('trainer-wide', subject === 'english' && !!trainerOpen);
+    });
+
+    /* ───── Guided structured editor (contenteditable rows) ───── */
+    const PEACCL_KEYS = ['P', 'E', 'A', 'C', 'X', 'L'];
+
+    function readGuidedSections() {
+      const out = {};
+      $guidedEditor.querySelectorAll('.guided-content').forEach(el => {
+        // Use innerText to preserve line breaks; collapse whitespace
+        out[el.dataset.key] = (el.innerText || '').replace(/\s+/g, ' ').trim();
+      });
+      return out;
+    }
+
+    function flowingFromGuided() {
+      const sections = readGuidedSections();
+      return PEACCL_KEYS.map(k => sections[k]).filter(s => s && s.trim()).join(' ');
+    }
+
+    function updateGuidedPreview() {
+      const flowing = flowingFromGuided();
+      if (flowing) {
+        $guidedPreview.textContent = flowing;
+        $guidedPreview.style.fontStyle = 'normal';
+        $guidedPreview.style.color = 'rgba(255,240,235,0.92)';
+      } else {
+        $guidedPreview.textContent = 'Your paragraph will flow here as you fill the structure above…';
+        $guidedPreview.style.fontStyle = 'italic';
+        $guidedPreview.style.color = 'rgba(255,228,225,0.55)';
+      }
+      if (currentQuestion) {
+        const sections = {};
+        $guidedEditor.querySelectorAll('.guided-content').forEach(el => {
+          sections[el.dataset.key] = el.innerHTML;
+        });
+        localStorage.setItem(`trainer-guided-${currentQuestion.id}`, JSON.stringify(sections));
+      }
+    }
+    $guidedEditor.addEventListener('input', updateGuidedPreview);
+    // Strip HTML on paste to keep formatting clean
+    $guidedEditor.addEventListener('paste', e => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text');
+      document.execCommand('insertText', false, text);
+    });
+    // Tab/Shift+Tab to move between sections
+    $guidedEditor.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const target = e.target.closest('.guided-content');
+      if (!target) return;
+      e.preventDefault();
+      const all = [...$guidedEditor.querySelectorAll('.guided-content')];
+      const i = all.indexOf(target);
+      const next = e.shiftKey ? all[i - 1] : all[i + 1];
+      if (next) next.focus();
+    });
+
+    /* ───── Custom question modal ───── */
+    function openCqModal() {
+      $cqText.value = '';
+      $cqKeywords.value = '';
+      $cqModal.classList.add('show');
+      setTimeout(() => $cqText.focus(), 50);
+    }
+    function closeCqModal() { $cqModal.classList.remove('show'); }
+    document.getElementById('cq-cancel').addEventListener('click', closeCqModal);
+    $cqModal.addEventListener('click', e => { if (e.target === $cqModal) closeCqModal(); });
+    document.getElementById('cq-save').addEventListener('click', () => {
+      const text = $cqText.value.trim();
+      if (!text) { showToast('Write the question first.'); return; }
+      const keywords = $cqKeywords.value.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+      const q = {
+        id: 'custom-' + Date.now(),
+        source: 'mine',
+        theme: keywords,
+        themeLabel: keywords[0] || 'custom',
+        text,
+        isCustom: true
+      };
+      customQuestions.push(q);
+      localStorage.setItem('custom_questions', JSON.stringify(customQuestions));
+      closeCqModal();
+      loadQuestion(q.id);
+      showToast('Question saved.');
+    });
+
+    /* ───── Heuristic engine ───── */
+    function analyse(text, q) {
+      text = text.trim();
+      if (!text) return null;
+      const words = text.split(/\s+/).filter(Boolean);
+      const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+      const wordCount = words.length;
+      const sentCount = sentences.length;
+      const avgSentLen = sentCount > 0 ? Math.round(wordCount / sentCount) : 0;
+
+      const quotes = text.match(KW.quote) || [];
+      const writeRefs = (text.match(KW.writeVerb) || []).length;
+      const hasQuote = quotes.length > 0 || writeRefs > 0;
+
+      const critic = KW.critics.test(text);
+      const context = KW.context.test(text);
+
+      const explainMatches = text.match(KW.explain) || [];
+      const flowMatches = text.match(KW.flow) || [];
+
+      // theme keyword link-back (only meaningful if question has theme keywords)
+      const hasTheme = q && q.theme && q.theme.length > 0;
+      const linkBack = hasTheme ? q.theme.some(kw => new RegExp(`\\b${kw}\\b`, 'i').test(text)) : null;
+
+      // unexplained quote detector: each quote should be followed by an explanation marker within 25 words
+      const unexplained = [];
+      quotes.forEach(qt => {
+        const idx = text.indexOf(qt);
+        const after = text.slice(idx + qt.length, idx + qt.length + 250);
+        if (!KW.explain.test(after)) unexplained.push(qt.length > 60 ? qt.slice(0, 50) + '…' : qt);
+        KW.explain.lastIndex = 0;
+      });
+      KW.explain.lastIndex = 0; KW.flow.lastIndex = 0;
+
+      return { wordCount, sentCount, avgSentLen, hasQuote, quotes: quotes.length, critic, context, explainCount: explainMatches.length, flowCount: flowMatches.length, linkBack, unexplained };
+    }
+
+    /* ───── Markdown renderer (mini) ───── */
+    function renderMarkdown(md) {
+      // Strip horizontal rule lines that AI sometimes inserts
+      md = md.replace(/^\s*[-*_]{3,}\s*$/gm, '');
+      // Escape HTML
+      md = md.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      // Inline code (do before bold/italic since it can contain *)
+      md = md.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+      // Headings
+      md = md.replace(/^######\s+(.+)$/gm, '<h6>$1</h6>');
+      md = md.replace(/^#####\s+(.+)$/gm, '<h5>$1</h5>');
+      md = md.replace(/^####\s+(.+)$/gm, '<h4>$1</h4>');
+      md = md.replace(/^###\s+(.+)$/gm, '<h4>$1</h4>');
+      md = md.replace(/^##\s+(.+)$/gm, '<h3>$1</h3>');
+      md = md.replace(/^#\s+(.+)$/gm, '<h3>$1</h3>');
+      // Bold then italic (order matters)
+      md = md.replace(/\*\*([^\*\n]+?)\*\*/g, '<strong>$1</strong>');
+      md = md.replace(/__([^_\n]+?)__/g, '<strong>$1</strong>');
+      md = md.replace(/(^|[^\*])\*([^\*\n]+?)\*(?!\*)/g, '$1<em>$2</em>');
+      md = md.replace(/(^|[^_])_([^_\n]+?)_(?!_)/g, '$1<em>$2</em>');
+      // Blockquotes
+      md = md.replace(/(^&gt;\s+.+(?:\n&gt;\s+.+)*)/gm, m => {
+        const inner = m.split('\n').map(l => l.replace(/^&gt;\s+/, '')).join('<br>');
+        return `<blockquote>${inner}</blockquote>`;
+      });
+      // Lists — group consecutive bullet lines
+      md = md.replace(/((?:^[ \t]*[-*]\s+.+(?:\n|$))+)/gm, m => {
+        const items = m.trim().split('\n').map(l => '<li>' + l.replace(/^[ \t]*[-*]\s+/, '') + '</li>').join('');
+        return `<ul>${items}</ul>`;
+      });
+      md = md.replace(/((?:^[ \t]*\d+\.\s+.+(?:\n|$))+)/gm, m => {
+        const items = m.trim().split('\n').map(l => '<li>' + l.replace(/^[ \t]*\d+\.\s+/, '') + '</li>').join('');
+        return `<ol>${items}</ol>`;
+      });
+      // Paragraphs (split on blank lines, wrap text blocks not already wrapped)
+      const blocks = md.split(/\n{2,}/).map(b => {
+        const t = b.trim();
+        if (!t) return '';
+        if (/^<(h\d|ul|ol|blockquote|p)/i.test(t)) return t;
+        return '<p>' + t.replace(/\n/g, ' ') + '</p>';
+      });
+      return blocks.filter(Boolean).join('\n');
+    }
+
+    /* ───── Unified Check (always AI) ───── */
+    async function runCheck(text, mount) {
+      text = (text || '').trim();
+      if (!text) { showToast('Write something first.'); return; }
+      const key = localStorage.getItem('anthropic_api_key');
+      if (!key) { openModal(); return; }
+
+      const heuristics = analyse(text, currentQuestion); // silent context for AI
+      mount.classList.remove('empty');
+      mount.innerHTML = `
+        <div class="examiner-response-label"><span class="icon">&#10047;</span> Examiner&rsquo;s notes</div>
+        <div class="examiner-thinking">reading your work</div>
+      `;
+
+      const heuristicSummary = heuristics ? `(silent telemetry — do not echo back unless directly relevant) The student's paragraph contains: ${heuristics.quotes} quotes, ${heuristics.critic?'a named critic':'no named critic'}, ${heuristics.context?'context keywords':'no context keywords'}, ${heuristics.explainCount} explanation markers ('this suggests' etc.), ${heuristics.flowCount} flow connectives, ${heuristics.unexplained.length} quotes left unexplained, average sentence ${heuristics.avgSentLen} words.` : '';
+
+      const angleNote = currentAngle ? `\n\nThe student is writing the paragraph on this angle from the essay plan: "${currentAngle}". Mark with that angle in mind.` : '';
+
+      const sysPrompt = `You are Eleanor's strict OCR A-Level English Literature examiner marking H472/01 Paper 1 (Drama and Poetry pre-1900). You assess a single Chaucer (The Merchant's Tale) paragraph against the PEACCL framework (Point, Evidence, Analysis, Critic, Context, Link).
+
+Eleanor's two stated weaknesses, which must be your relentless focus:
+1. JUMPS — claims made without explaining the reasoning step that connects them. Quote her own sentence and show the missing step.
+2. ASSUMING THE EXAMINER KNOWS — phrases that only make sense if the reader already knows the tale. Quote and rewrite to spell it out.
+
+Be honest, not soft. She wants real examiner-level feedback. Quote her actual sentences.
+
+Format your response as clean Markdown that will render in a frosted glass card. Use:
+- **bold** for emphasis (sparingly)
+- ## for section headings (only 2 or 3 sections max)
+- - for bullet lists
+- > for short quoted phrases from her writing
+
+DO NOT use horizontal rule separators (---). DO NOT add a "Generated by AI" line. DO NOT preamble. Sound like a real teacher writing in the margin.
+
+Suggested structure (adapt as needed):
+## What's working
+1–2 sentences citing a specific phrase she wrote.
+
+## Where you jumped or assumed
+The most important section. Quote her sentence, then show the missing reasoning step or the assumed knowledge that needs spelling out. Be specific.
+
+## One thing to fix first
+The single highest-leverage change. Give the exact sentence rewrite where useful.
+
+Stay under 300 words.`;
+
+      const qContext = currentQuestion.isFreeform
+        ? '(no question selected — review as standalone analytical writing)'
+        : `Question: ${currentQuestion.text}`;
+      const userPrompt = `${qContext}${angleNote}\n\nEleanor's paragraph (${text.split(/\s+/).length} words):\n\n${text}\n\n${heuristicSummary}`;
+
+      try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': key,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
+          },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 800,
+            system: sysPrompt,
+            messages: [{ role: 'user', content: userPrompt }]
+          })
+        });
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(`HTTP ${res.status}: ${errText.slice(0, 200)}`);
+        }
+        const data = await res.json();
+        const md = data.content?.[0]?.text || '(no response)';
+        mount.innerHTML = `
+          <div class="examiner-response-label"><span class="icon">&#10047;</span> Examiner&rsquo;s notes</div>
+          ${renderMarkdown(md)}
+        `;
+      } catch (err) {
+        mount.innerHTML = `
+          <div class="examiner-response-label"><span class="icon">&#10047;</span> Examiner&rsquo;s notes</div>
+          <p><em style="color:rgba(255,182,193,0.7)">Couldn&rsquo;t reach the examiner: ${err.message}. Check your API key in &#9881; settings.</em></p>
+        `;
+      }
+    }
+
+    document.getElementById('trainer-check-free').addEventListener('click', () => {
+      runCheck($freeText.value, $aiFree);
+    });
+    document.getElementById('trainer-check-guided').addEventListener('click', () => {
+      const flowing = flowingFromGuided();
+      runCheck(flowing, $aiGuided);
+    });
+
+    /* ───── Essay plan generation ───── */
+    async function generateEssayPlan() {
+      if (currentQuestion.isFreeform) return;
+      const key = localStorage.getItem('anthropic_api_key');
+      if (!key) { openModal(); return; }
+      const planEl = $planWrap;
+      planEl.innerHTML = `
+        <div class="essay-plan">
+          <div class="essay-plan-label">Essay plan</div>
+          <div class="examiner-thinking">drafting plan</div>
+        </div>
+      `;
+
+      const sysPrompt = `You are an OCR A-Level English Literature tutor planning the Chaucer (The Merchant's Tale) half of an H472/01 Section 2 comparative essay. You are NOT writing the essay — you're producing a tight plan with 3 distinct paragraph angles the student could explore.
+
+Output ONLY valid JSON in this exact shape:
+
+{
+  "intro_idea": "one-sentence thesis line tying the question to The Merchant's Tale",
+  "angles": [
+    { "title": "Short angle title (max 6 words)", "body": "2-3 sentence sketch: the argument, a key piece of evidence (with quote if possible), and a critic or context point." },
+    { "title": "...", "body": "..." },
+    { "title": "...", "body": "..." }
+  ]
+}
+
+No markdown, no code fences, no preamble — just the JSON.`;
+
+      const userPrompt = `Question: ${currentQuestion.text}\n\nThe student is writing the Chaucer (Merchant's Tale) half of this comparative essay. Give 3 paragraph angles she could pick from.`;
+
+      try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': key,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
+          },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 700,
+            system: sysPrompt,
+            messages: [{ role: 'user', content: userPrompt }]
+          })
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        let raw = data.content?.[0]?.text || '{}';
+        // Strip code fences if present
+        raw = raw.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '').trim();
+        const plan = JSON.parse(raw);
+        const anglesHtml = plan.angles.map((a, i) => `
+          <div class="angle">
+            <div class="angle-title">Angle ${i+1} &mdash; ${a.title}</div>
+            <div class="angle-body">${a.body}</div>
+            <button data-angle="${a.title.replace(/"/g, '&quot;')}">Write this paragraph</button>
+          </div>
+        `).join('');
+        planEl.innerHTML = `
+          <div class="essay-plan">
+            <div class="essay-plan-label">Essay plan &mdash; pick a paragraph to write</div>
+            ${plan.intro_idea ? `<div style="margin-bottom:14px;font-style:italic;color:rgba(255,228,225,0.78);font-family:'Cormorant Garamond',serif;font-size:0.92rem;line-height:1.55;">Thesis idea: ${plan.intro_idea}</div>` : ''}
+            ${anglesHtml}
+          </div>
+        `;
+        planEl.querySelectorAll('[data-angle]').forEach(b => {
+          b.addEventListener('click', () => {
+            currentAngle = b.dataset.angle;
+            $anglePinned.style.display = '';
+            $anglePinned.innerHTML = `<strong>Writing on:</strong> ${currentAngle}`;
+            showToast('Angle pinned. Now write your paragraph.');
+          });
+        });
+      } catch (err) {
+        planEl.innerHTML = `
+          <div class="essay-plan">
+            <div class="essay-plan-label">Essay plan</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,182,193,0.7);">Couldn&rsquo;t generate plan: ${err.message}. Check your API key in &#9881; settings.</p>
+          </div>
+        `;
+      }
+    }
+
+    /* ───── Settings modal / API key ───── */
+    function openModal() {
+      $apiInput.value = localStorage.getItem('anthropic_api_key') || '';
+      $modal.classList.add('show');
+      setTimeout(() => $apiInput.focus(), 50);
+    }
+    function closeModal() { $modal.classList.remove('show'); }
+
+    document.getElementById('trainer-settings').addEventListener('click', openModal);
+    document.getElementById('modal-cancel').addEventListener('click', closeModal);
+    document.getElementById('modal-save').addEventListener('click', () => {
+      const key = $apiInput.value.trim();
+      if (key) localStorage.setItem('anthropic_api_key', key);
+      else localStorage.removeItem('anthropic_api_key');
+      closeModal();
+      showToast(key ? 'API key saved.' : 'API key cleared.');
+    });
+    $modal.addEventListener('click', e => { if (e.target === $modal) closeModal(); });
+
+    /* ───── Toast ───── */
+    let toastTimer;
+    function showToast(msg) {
+      $toast.textContent = msg;
+      $toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => $toast.classList.remove('show'), 3500);
+    }
+
+
+    /* ───── Past papers preview iframe ───── */
+    document.getElementById('papers-grid').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-pdf]');
+      if (!btn) return;
+      const pdf = btn.dataset.pdf;
+      const wrap = document.getElementById('paper-preview-wrap');
+      // toggle: if currently showing this same pdf, close
+      const current = wrap.querySelector('iframe');
+      if (current && current.dataset.pdf === pdf) {
+        wrap.innerHTML = '';
+        btn.textContent = 'Preview';
+        return;
+      }
+      // close all preview buttons label
+      document.querySelectorAll('#papers-grid button[data-pdf]').forEach(b => b.textContent = 'Preview');
+      btn.textContent = 'Close';
+      wrap.innerHTML = `<iframe class="paper-iframe" data-pdf="${pdf}" src="${pdf}"></iframe>`;
+    });
+
+    /* ───── init ───── */
+    loadQuestion(currentQuestion.id);
   </script>
 </body>
 </html>
