@@ -2060,6 +2060,78 @@
       padding: 14px 18px;
       font-size: 1.1rem;
     }
+    .syn-field .syn-input,
+    .syn-field .syn-select { flex: 0 0 auto; width: 100%; }
+
+    /* Autocomplete dropdown on the setup word input */
+    .syn-autocomplete {
+      position: relative;
+      flex: 1 1 220px;
+      min-width: 0;
+    }
+    .syn-autocomplete .syn-input { width: 100%; flex: none; }
+    .syn-suggestions {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: rgba(20,5,15,0.97);
+      border: 1px solid rgba(255,105,180,0.4);
+      border-radius: 12px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.6), 0 0 22px rgba(255,105,180,0.12);
+      max-height: 320px;
+      overflow-y: auto;
+      z-index: 40;
+      padding: 4px;
+    }
+    body.syn-mode-ant .syn-suggestions {
+      border-color: rgba(140,140,255,0.4);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.6), 0 0 22px rgba(140,140,255,0.12);
+    }
+    .syn-suggestion {
+      padding: 9px 14px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: rgba(255,228,225,0.85);
+      cursor: pointer;
+      border-radius: 8px;
+      letter-spacing: 0.02em;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      transition: background 0.15s ease;
+    }
+    .syn-suggestion-pos {
+      font-size: 0.78rem;
+      color: rgba(255,182,193,0.55);
+      font-style: italic;
+      letter-spacing: 0.04em;
+    }
+    body.syn-mode-ant .syn-suggestion-pos { color: rgba(180,200,255,0.55); }
+    .syn-suggestion.active,
+    .syn-suggestion:hover {
+      background: rgba(255,105,180,0.18);
+      color: #fff;
+    }
+    body.syn-mode-ant .syn-suggestion.active,
+    body.syn-mode-ant .syn-suggestion:hover {
+      background: rgba(140,140,255,0.18);
+    }
+    .syn-suggestion-empty {
+      padding: 10px 14px;
+      font-style: italic;
+      color: rgba(255,182,193,0.55);
+      font-size: 0.92rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    .syn-suggestion-loading {
+      padding: 10px 14px;
+      color: rgba(255,182,193,0.45);
+      font-style: italic;
+      font-size: 0.9rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
     .syn-input::placeholder {
       color: rgba(255,182,193,0.4);
       font-style: italic;
@@ -2672,7 +2744,10 @@
             <div class="syn-pos-hint" id="syn-pos-hint"></div>
 
             <div class="syn-setup-row">
-              <input type="text" class="syn-input syn-input--lg" id="syn-word-input" placeholder="Type a word to find &hellip;" autocomplete="off" spellcheck="false" />
+              <div class="syn-autocomplete" id="syn-autocomplete">
+                <input type="text" class="syn-input syn-input--lg" id="syn-word-input" placeholder="Type a word to find &hellip; (3+ letters for suggestions)" autocomplete="off" spellcheck="false" />
+                <div class="syn-suggestions" id="syn-suggestions" style="display:none;" role="listbox"></div>
+              </div>
               <button class="trainer-btn trainer-btn--primary trainer-btn--lg" id="syn-lock-btn">&#10047; Lock in</button>
               <button class="trainer-btn trainer-btn--lg" id="syn-random-btn">&#10022; Random word</button>
             </div>
@@ -3801,6 +3876,8 @@ No markdown, no code fences, no preamble — just the JSON.`;
       const $chipTopic = document.getElementById('syn-chip-topic');
       const $chipTopicText = document.getElementById('syn-chip-topic-text');
       const $wordInput = document.getElementById('syn-word-input');
+      const $autocomplete = document.getElementById('syn-autocomplete');
+      const $suggestions = document.getElementById('syn-suggestions');
       const $lockBtn = document.getElementById('syn-lock-btn');
       const $randomBtn = document.getElementById('syn-random-btn');
       const $lockedText = document.getElementById('syn-locked-text');
@@ -4338,10 +4415,125 @@ No markdown, no code fences, no preamble — just the JSON.`;
       $guessInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); submitGuess(); }
       });
-      $wordInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { e.preventDefault(); lockIn($wordInput.value); }
+      $lockBtn.addEventListener('click', () => {
+        hideSuggestions();
+        lockIn($wordInput.value);
       });
-      $lockBtn.addEventListener('click', () => lockIn($wordInput.value));
+
+      /* ───── Autocomplete on the word-to-lock-in input ───── */
+      let suggestTimer = null;
+      let suggestSeq = 0;             // race-condition guard for async fetches
+      let suggestions = [];           // [{ word, tags }]
+      let activeSuggestion = -1;
+
+      function hideSuggestions() {
+        $suggestions.style.display = 'none';
+        $suggestions.innerHTML = '';
+        suggestions = [];
+        activeSuggestion = -1;
+      }
+
+      function renderSuggestions(loading) {
+        if (loading) {
+          $suggestions.innerHTML = '<div class="syn-suggestion-loading">Searching…</div>';
+          $suggestions.style.display = 'block';
+          return;
+        }
+        if (suggestions.length === 0) {
+          $suggestions.innerHTML = '<div class="syn-suggestion-empty">No matches — keep typing or press Lock in to try anyway.</div>';
+          $suggestions.style.display = 'block';
+          return;
+        }
+        $suggestions.innerHTML = suggestions.map((s, i) => {
+          const pos = (s.tags || []).filter(t => POS_LABEL[t]).map(t => POS_LABEL[t]).join(' / ');
+          const posLabel = pos ? `<span class="syn-suggestion-pos">${escapeHtml(pos)}</span>` : '';
+          return `<div class="syn-suggestion${i === activeSuggestion ? ' active' : ''}" data-i="${i}" role="option">${escapeHtml(s.word)}${posLabel}</div>`;
+        }).join('');
+        $suggestions.style.display = 'block';
+      }
+
+      async function fetchSuggestions(query) {
+        const seq = ++suggestSeq;
+        renderSuggestions(true);
+        try {
+          // /sug is Datamuse's autocomplete endpoint; md=p adds part-of-speech tags.
+          const res = await fetch(`https://api.datamuse.com/sug?s=${encodeURIComponent(query)}&max=8&md=p`);
+          if (!res.ok) throw new Error('Network');
+          const data = await res.json();
+          if (seq !== suggestSeq) return; // stale response — newer query already fired
+          suggestions = data.map(d => ({ word: String(d.word || '').toLowerCase(), tags: d.tags || [] }))
+                            .filter(s => s.word);
+          activeSuggestion = -1;
+          renderSuggestions(false);
+        } catch (e) {
+          if (seq !== suggestSeq) return;
+          hideSuggestions();
+        }
+      }
+
+      $wordInput.addEventListener('input', () => {
+        const q = $wordInput.value.trim();
+        clearTimeout(suggestTimer);
+        if (q.length < 3) { hideSuggestions(); return; }
+        suggestTimer = setTimeout(() => fetchSuggestions(q), 180);
+      });
+
+      $wordInput.addEventListener('keydown', (e) => {
+        const open = $suggestions.style.display === 'block' && suggestions.length > 0;
+        if (e.key === 'ArrowDown' && open) {
+          e.preventDefault();
+          activeSuggestion = (activeSuggestion + 1) % suggestions.length;
+          renderSuggestions(false);
+          return;
+        }
+        if (e.key === 'ArrowUp' && open) {
+          e.preventDefault();
+          activeSuggestion = (activeSuggestion - 1 + suggestions.length) % suggestions.length;
+          renderSuggestions(false);
+          return;
+        }
+        if (e.key === 'Escape') {
+          if (open) { e.preventDefault(); hideSuggestions(); }
+          return;
+        }
+        if (e.key === 'Tab' && open && activeSuggestion >= 0) {
+          e.preventDefault();
+          $wordInput.value = suggestions[activeSuggestion].word;
+          hideSuggestions();
+          return;
+        }
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (open && activeSuggestion >= 0) {
+            $wordInput.value = suggestions[activeSuggestion].word;
+          }
+          hideSuggestions();
+          lockIn($wordInput.value);
+        }
+      });
+
+      // Pick a suggestion → fill input and immediately lock in.
+      // Use mousedown so the input's blur doesn't fire first and hide the panel.
+      $suggestions.addEventListener('mousedown', (e) => {
+        const row = e.target.closest('.syn-suggestion');
+        if (!row) return;
+        e.preventDefault();
+        const idx = parseInt(row.dataset.i, 10);
+        if (!Number.isNaN(idx) && suggestions[idx]) {
+          $wordInput.value = suggestions[idx].word;
+          hideSuggestions();
+          lockIn($wordInput.value);
+        }
+      });
+
+      // Click outside the autocomplete area closes the panel.
+      document.addEventListener('mousedown', (e) => {
+        if (!$autocomplete.contains(e.target)) hideSuggestions();
+      });
+      $wordInput.addEventListener('blur', () => {
+        // Slight delay so a click on a suggestion still registers.
+        setTimeout(hideSuggestions, 120);
+      });
 
       /* ───── reveal / restart / back ───── */
       $revealBtn.addEventListener('click', () => {
