@@ -1796,6 +1796,645 @@
       z-index: 1100;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Synonym Checker ── */
+    .syn-card { padding: 22px 24px 20px; }
+    .syn-intro {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: rgba(255,228,225,0.72);
+      margin: 0 0 18px;
+      line-height: 1.6;
+      max-width: 680px;
+    }
+
+    .syn-mode-toggle {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.28);
+      border-radius: 12px;
+      padding: 4px;
+      margin: 4px 0 16px;
+    }
+    .syn-mode-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255,200,210,0.55);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      padding: 8px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.03em;
+    }
+    .syn-mode-toggle button:hover { color: rgba(255,200,210,0.9); }
+    .syn-mode-toggle button.active {
+      background: linear-gradient(135deg, rgba(255,105,180,0.3), rgba(255,182,193,0.18));
+      color: #ffc0cb;
+      box-shadow: 0 0 14px rgba(255,105,180,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+      text-shadow: 0 0 10px rgba(255,182,193,0.4);
+    }
+    body.syn-mode-ant .syn-mode-toggle button.active {
+      background: linear-gradient(135deg, rgba(140,140,255,0.28), rgba(180,200,255,0.14));
+      color: #d6e0ff;
+      box-shadow: 0 0 14px rgba(140,140,255,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+      text-shadow: 0 0 10px rgba(180,200,255,0.4);
+    }
+
+    .syn-controls {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .syn-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 180px;
+    }
+    .syn-field--grow { flex: 1 1 280px; }
+    .syn-field-label {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,182,193,0.6);
+    }
+    .syn-field-hint {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-style: italic;
+      color: rgba(255,182,193,0.4);
+      font-size: 0.78rem;
+      margin-left: 4px;
+    }
+    .syn-select {
+      padding: 11px 14px;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,182,193,0.22);
+      border-radius: 11px;
+      color: rgba(255,240,235,0.95);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(255,182,193,0.55) 50%),
+        linear-gradient(135deg, rgba(255,182,193,0.55) 50%, transparent 50%);
+      background-position:
+        calc(100% - 16px) 50%,
+        calc(100% - 11px) 50%;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      padding-right: 34px;
+    }
+    .syn-select:focus {
+      outline: none;
+      border-color: rgba(255,105,180,0.5);
+      box-shadow: 0 0 18px rgba(255,105,180,0.15);
+    }
+    .syn-select option { background: #2a0a1a; color: #fff; }
+
+    .syn-pos-hint {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      margin: 4px 0 18px;
+      background: rgba(255,105,180,0.06);
+      border: 1px solid rgba(255,182,193,0.18);
+      border-radius: 11px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      color: rgba(255,228,225,0.78);
+      line-height: 1.5;
+    }
+    .syn-pos-hint-tag {
+      flex-shrink: 0;
+      padding: 3px 10px;
+      border-radius: 8px;
+      background: rgba(255,105,180,0.18);
+      color: #ffc0cb;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      align-self: center;
+    }
+    .syn-pos-hint-body { flex: 1; }
+    .syn-pos-hint-eg {
+      color: rgba(255,182,193,0.65);
+      font-style: italic;
+      margin-left: 4px;
+    }
+
+    .syn-bank-section {
+      margin-bottom: 14px;
+    }
+    .syn-bank-section:last-child { margin-bottom: 0; }
+    .syn-bank-section-label {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,182,193,0.55);
+      margin-bottom: 8px;
+    }
+    .syn-bank-section-label .syn-bank-section-eg {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-style: italic;
+      color: rgba(255,182,193,0.4);
+      font-size: 0.82rem;
+    }
+    .syn-bank-empty {
+      padding: 12px 14px;
+      border: 1px dashed rgba(255,182,193,0.25);
+      border-radius: 11px;
+      background: rgba(0,0,0,0.18);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.92rem;
+      color: rgba(255,182,193,0.65);
+      font-style: italic;
+    }
+
+    .syn-filter-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .syn-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      background: rgba(255,105,180,0.15);
+      border: 1px solid rgba(255,105,180,0.4);
+      border-radius: 999px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      color: #ffd6e0;
+      letter-spacing: 0.02em;
+    }
+    body.syn-mode-ant .syn-filter-chip {
+      background: rgba(140,140,255,0.15);
+      border-color: rgba(140,140,255,0.4);
+      color: #d6e0ff;
+    }
+    .syn-filter-chip-label {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,182,193,0.7);
+    }
+    body.syn-mode-ant .syn-filter-chip-label { color: rgba(180,200,255,0.7); }
+    .syn-filter-chip select {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      padding: 0 18px 0 4px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, currentColor 50%),
+        linear-gradient(135deg, currentColor 50%, transparent 50%);
+      background-position:
+        calc(100% - 10px) 50%,
+        calc(100% - 6px) 50%;
+      background-size: 4px 4px, 4px 4px;
+      background-repeat: no-repeat;
+      opacity: 0.95;
+    }
+    .syn-filter-chip select:focus { outline: none; }
+    .syn-filter-chip select option { background: #2a0a1a; color: #fff; }
+
+    .syn-grid-empty {
+      grid-column: 1 / -1;
+      padding: 18px;
+      border: 1px dashed rgba(255,182,193,0.3);
+      border-radius: 12px;
+      background: rgba(0,0,0,0.18);
+      text-align: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      color: rgba(255,182,193,0.7);
+      font-style: italic;
+      line-height: 1.55;
+    }
+
+    .syn-setup-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: stretch;
+      margin-top: 4px;
+    }
+    .syn-input {
+      flex: 1 1 220px;
+      min-width: 0;
+      padding: 11px 14px;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,182,193,0.22);
+      border-radius: 11px;
+      color: rgba(255,240,235,0.95);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      caret-color: #ff69b4;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+    .syn-input--lg {
+      padding: 14px 18px;
+      font-size: 1.1rem;
+    }
+    .syn-input::placeholder {
+      color: rgba(255,182,193,0.4);
+      font-style: italic;
+    }
+    .syn-input:focus {
+      outline: none;
+      border-color: rgba(255,105,180,0.5);
+      box-shadow: 0 0 18px rgba(255,105,180,0.15);
+    }
+    .trainer-btn--lg {
+      padding: 12px 22px;
+      font-size: 1rem;
+    }
+    .syn-bank-label {
+      display: block;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.82rem;
+      color: rgba(255,182,193,0.55);
+      margin: 20px 0 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .syn-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .syn-bank-word {
+      padding: 8px 14px;
+      border: 1px solid rgba(255,182,193,0.22);
+      border-radius: 10px;
+      background: rgba(255,182,193,0.04);
+      color: rgba(255,228,225,0.82);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.98rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      letter-spacing: 0.02em;
+    }
+    .syn-bank-word:hover {
+      background: rgba(255,105,180,0.14);
+      border-color: rgba(255,105,180,0.45);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(255,105,180,0.18);
+    }
+
+    .syn-locked-word {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 24px;
+      background: linear-gradient(135deg, rgba(255,105,180,0.12), rgba(255,182,193,0.04));
+      border: 1px solid rgba(255,105,180,0.32);
+      border-radius: 16px;
+      margin-bottom: 14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 0 22px rgba(255,105,180,0.1);
+      flex-wrap: wrap;
+    }
+    body.syn-mode-ant .syn-locked-word {
+      background: linear-gradient(135deg, rgba(140,140,255,0.12), rgba(180,200,255,0.04));
+      border-color: rgba(140,140,255,0.32);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 0 22px rgba(140,140,255,0.1);
+    }
+    .syn-locked-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 200px;
+    }
+    .syn-locked-label {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,182,193,0.65);
+    }
+    body.syn-mode-ant .syn-locked-label { color: rgba(180,200,255,0.65); }
+    .syn-locked-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      color: #ffc0cb;
+      text-shadow: 0 0 18px rgba(255,182,193,0.4);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+    body.syn-mode-ant .syn-locked-text {
+      color: #d6e0ff;
+      text-shadow: 0 0 18px rgba(180,200,255,0.4);
+    }
+    .syn-locked-pos {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.85rem;
+      color: rgba(255,182,193,0.55);
+      font-style: italic;
+      letter-spacing: 0.04em;
+    }
+    .syn-progress-bar {
+      flex: 1;
+      min-width: 140px;
+      height: 8px;
+      background: rgba(0,0,0,0.35);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      align-self: center;
+    }
+    .syn-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, rgba(255,105,180,0.6), rgba(255,182,193,0.85));
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.45s ease;
+      box-shadow: 0 0 12px rgba(255,105,180,0.4);
+    }
+    body.syn-mode-ant .syn-progress-fill {
+      background: linear-gradient(90deg, rgba(140,140,255,0.6), rgba(180,200,255,0.85));
+      box-shadow: 0 0 12px rgba(140,140,255,0.4);
+    }
+    .syn-progress-count {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      color: rgba(255,228,225,0.9);
+      white-space: nowrap;
+    }
+    .syn-progress-count strong { color: #ffc0cb; font-weight: 600; font-size: 1.2rem; }
+    body.syn-mode-ant .syn-progress-count strong { color: #d6e0ff; }
+
+    .syn-definition {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: rgba(255,228,225,0.85);
+      background: rgba(0,0,0,0.22);
+      border-left: 3px solid rgba(255,182,193,0.45);
+      border-radius: 0 12px 12px 0;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      line-height: 1.55;
+    }
+    body.syn-mode-ant .syn-definition { border-left-color: rgba(180,200,255,0.45); }
+    .syn-definition-label {
+      display: block;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,182,193,0.6);
+      margin-bottom: 4px;
+    }
+    .syn-definition-item {
+      display: block;
+      margin: 2px 0;
+    }
+    .syn-definition-pos {
+      color: rgba(255,182,193,0.7);
+      font-style: italic;
+      margin-right: 6px;
+    }
+
+    .syn-guess-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .syn-feedback {
+      min-height: 26px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: rgba(255,182,193,0.7);
+      font-style: italic;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .syn-feedback.hit { color: #ffd6e0; font-style: normal; }
+    body.syn-mode-ant .syn-feedback.hit { color: #d6e0ff; }
+    .syn-feedback.miss { color: rgba(255,160,180,0.7); }
+    .syn-feedback.dupe { color: rgba(255,200,210,0.55); }
+
+    .syn-grid-label {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,182,193,0.55);
+      margin: 18px 0 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .syn-grid-summary {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-style: italic;
+      color: rgba(255,182,193,0.5);
+      font-size: 0.85rem;
+    }
+    .syn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+    }
+    .syn-tile {
+      padding: 12px 14px;
+      border-radius: 11px;
+      border: 1px solid rgba(255,182,193,0.16);
+      background: rgba(0,0,0,0.28);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      color: rgba(255,228,225,0.35);
+      letter-spacing: 0.02em;
+      position: relative;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+    }
+    .syn-tile.hidden { color: transparent; user-select: none; }
+    .syn-tile.hidden::before {
+      content: "✶";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,182,193,0.28);
+      font-size: 0.95rem;
+    }
+    .syn-tile.found {
+      background: linear-gradient(135deg, rgba(255,105,180,0.22), rgba(255,182,193,0.1));
+      border-color: rgba(255,105,180,0.45);
+      color: #fff;
+      box-shadow: 0 0 16px rgba(255,105,180,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+      text-shadow: 0 0 10px rgba(255,182,193,0.5);
+      animation: synPop 0.45s ease-out;
+    }
+    body.syn-mode-ant .syn-tile.found {
+      background: linear-gradient(135deg, rgba(140,140,255,0.22), rgba(180,200,255,0.1));
+      border-color: rgba(140,140,255,0.45);
+      box-shadow: 0 0 16px rgba(140,140,255,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+      text-shadow: 0 0 10px rgba(180,200,255,0.5);
+    }
+    .syn-tile.revealed {
+      color: rgba(255,182,193,0.6);
+      border-color: rgba(255,182,193,0.25);
+      border-style: dashed;
+      font-style: italic;
+    }
+    .syn-tile.has-def { cursor: help; }
+    .syn-tile.has-def::after {
+      content: "ⓘ";
+      position: absolute;
+      top: 3px;
+      right: 6px;
+      font-size: 0.65rem;
+      color: rgba(255,182,193,0.5);
+    }
+    .syn-tile-def {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 320px;
+      padding: 10px 14px;
+      background: rgba(20, 5, 15, 0.97);
+      border: 1px solid rgba(255,105,180,0.4);
+      border-radius: 10px;
+      color: rgba(255,240,235,0.95);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.9rem;
+      font-style: normal;
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+      text-align: left;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6), 0 0 18px rgba(255,105,180,0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 50;
+      white-space: normal;
+    }
+    .syn-tile:hover .syn-tile-def,
+    .syn-tile:focus-within .syn-tile-def { opacity: 1; }
+    .syn-tile-def::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(255,105,180,0.4);
+    }
+    .syn-tile-def .syn-tile-def-pos {
+      display: block;
+      color: rgba(255,182,193,0.65);
+      font-style: italic;
+      font-size: 0.78rem;
+      margin-bottom: 2px;
+      letter-spacing: 0.04em;
+    }
+    @keyframes synPop {
+      0% { transform: scale(0.85); opacity: 0.4; }
+      55% { transform: scale(1.06); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .syn-actions { margin-top: 20px; gap: 12px; }
+
+    .syn-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,182,193,0.14);
+      border-radius: 12px;
+      margin-top: 6px;
+    }
+    .syn-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 110px;
+    }
+    .syn-stat-label {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,182,193,0.55);
+    }
+    .syn-stat-value {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.4rem;
+      color: #ffc0cb;
+      letter-spacing: 0.02em;
+    }
+
+    .syn-history {
+      margin-top: 14px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      color: rgba(255,228,225,0.7);
+      line-height: 1.8;
+    }
+    .syn-history-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 8px 4px;
+      border-bottom: 1px dashed rgba(255,182,193,0.1);
+    }
+    .syn-history-row:last-child { border-bottom: none; }
+    .syn-history-word { color: #ffc0cb; letter-spacing: 0.02em; }
+    .syn-history-mode {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,182,193,0.45);
+      margin-left: 8px;
+    }
+    .syn-history-score { color: rgba(255,182,193,0.65); font-style: italic; }
+    .syn-empty {
+      color: rgba(255,182,193,0.4);
+      font-style: italic;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      padding: 8px 0;
+    }
   </style>
 </head>
 <body class="not-loaded">
@@ -1819,6 +2458,7 @@
         <button class="tab-btn" data-tab="podcasts">Podcasts</button>
         <button class="tab-btn" data-tab="videos">Videos</button>
         <button class="tab-btn" data-tab="trainer">Writing Trainer</button>
+        <button class="tab-btn" data-tab="synonyms">Synonym Checker</button>
       </div>
 
       <div class="tab-panel active" data-tab="flashcards" data-group="english">
@@ -1991,6 +2631,119 @@
             </div>
           </div>
           <div id="paper-preview-wrap"></div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-tab="synonyms" data-group="english">
+        <div class="trainer-card syn-card">
+          <div class="trainer-header">
+            <h3 id="syn-title">&#10047; Synonym Checker</h3>
+            <button class="trainer-settings-btn" id="syn-reset-stats" title="Reset all progress">&#8635;</button>
+          </div>
+
+          <div class="syn-mode-toggle" id="syn-mode-toggle">
+            <button class="active" data-mode="syn">&#10047; Synonyms</button>
+            <button data-mode="ant">&#10006; Antonyms</button>
+          </div>
+
+          <p class="syn-intro" id="syn-intro">
+            Pick a word (or use a random one from common exam vocabulary) and list as many synonyms as you can. Filter by part of speech, bias by topic, and hover any revealed word for its definition.
+          </p>
+
+          <!-- Setup view -->
+          <div id="syn-setup-view">
+            <div class="syn-controls">
+              <label class="syn-field">
+                <span class="syn-field-label">Part of speech</span>
+                <select class="syn-select" id="syn-pos">
+                  <option value="auto">Auto (any)</option>
+                  <option value="n">Noun</option>
+                  <option value="v">Verb</option>
+                  <option value="adj">Adjective</option>
+                  <option value="adv">Adverb</option>
+                </select>
+              </label>
+              <label class="syn-field syn-field--grow">
+                <span class="syn-field-label">Topic bias <span class="syn-field-hint">optional &middot; e.g. literature, drama</span></span>
+                <input type="text" class="syn-input" id="syn-topics" placeholder="Words to bias results &mdash; comma-separated" autocomplete="off" spellcheck="false" />
+              </label>
+            </div>
+
+            <div class="syn-pos-hint" id="syn-pos-hint"></div>
+
+            <div class="syn-setup-row">
+              <input type="text" class="syn-input syn-input--lg" id="syn-word-input" placeholder="Type a word to find &hellip;" autocomplete="off" spellcheck="false" />
+              <button class="trainer-btn trainer-btn--primary trainer-btn--lg" id="syn-lock-btn">&#10047; Lock in</button>
+              <button class="trainer-btn trainer-btn--lg" id="syn-random-btn">&#10022; Random word</button>
+            </div>
+
+            <div id="syn-bank-wrap"></div>
+          </div>
+
+          <!-- Game view -->
+          <div id="syn-game-view" style="display:none;">
+            <div class="syn-locked-word">
+              <div class="syn-locked-meta">
+                <span class="syn-locked-label" id="syn-locked-label-text">Your word</span>
+                <span class="syn-locked-text" id="syn-locked-text"></span>
+                <span class="syn-locked-pos" id="syn-locked-pos"></span>
+              </div>
+              <div class="syn-progress-bar"><div class="syn-progress-fill" id="syn-progress-fill"></div></div>
+              <span class="syn-progress-count" id="syn-progress-count"><strong>0</strong> found &middot; no limit</span>
+            </div>
+
+            <div class="syn-filter-chip-row">
+              <div class="syn-filter-chip">
+                <span class="syn-filter-chip-label">Mode</span>
+                <span id="syn-chip-mode">Synonyms</span>
+              </div>
+              <div class="syn-filter-chip">
+                <span class="syn-filter-chip-label">Part of speech</span>
+                <select id="syn-game-pos" aria-label="Filter by part of speech">
+                  <option value="auto">Any</option>
+                  <option value="n">Noun</option>
+                  <option value="v">Verb</option>
+                  <option value="adj">Adjective</option>
+                  <option value="adv">Adverb</option>
+                </select>
+              </div>
+              <div class="syn-filter-chip" id="syn-chip-topic" style="display:none;">
+                <span class="syn-filter-chip-label">Topic</span>
+                <span id="syn-chip-topic-text"></span>
+              </div>
+            </div>
+
+            <div class="syn-definition" id="syn-definition" style="display:none;"></div>
+
+            <div class="syn-guess-row">
+              <input type="text" class="syn-input syn-input--lg" id="syn-guess-input" placeholder="Type a word and press Enter&hellip;" autocomplete="off" spellcheck="false" />
+              <button class="trainer-btn trainer-btn--primary trainer-btn--lg" id="syn-submit-btn">Submit</button>
+            </div>
+            <div class="syn-feedback" id="syn-feedback">&nbsp;</div>
+
+            <div class="syn-grid-label">
+              <span id="syn-grid-title">The list</span>
+              <span id="syn-grid-summary" class="syn-grid-summary">tiles reveal as you find them &mdash; valid words outside the list count as bonus</span>
+            </div>
+            <div class="syn-grid" id="syn-grid"></div>
+
+            <div class="trainer-actions syn-actions">
+              <button class="trainer-btn" id="syn-reveal-btn">&#10005; Reveal remaining</button>
+              <button class="trainer-btn" id="syn-restart-btn">&#10561; Restart</button>
+              <button class="trainer-btn trainer-btn--ghost" id="syn-back-btn">&#8592; Pick another word</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="trainer-card syn-card">
+          <div class="trainer-header"><h3>&#10047; Your progress</h3></div>
+          <div class="syn-stats">
+            <div class="syn-stat"><span class="syn-stat-label">Words tried</span><span class="syn-stat-value" id="syn-stat-words">0</span></div>
+            <div class="syn-stat"><span class="syn-stat-label">Words found</span><span class="syn-stat-value" id="syn-stat-found">0</span></div>
+            <div class="syn-stat"><span class="syn-stat-label">Best round</span><span class="syn-stat-value" id="syn-stat-best">&mdash;</span></div>
+            <div class="syn-stat"><span class="syn-stat-label">Last played</span><span class="syn-stat-value" id="syn-stat-last" style="font-size:0.95rem;">&mdash;</span></div>
+          </div>
+          <div class="syn-history" id="syn-history"></div>
         </div>
       </div>
     </div>
@@ -2275,9 +3028,9 @@
         document.querySelectorAll(`.tab-panel[data-group="${group}"]`).forEach(p => {
           p.classList.toggle('active', p.dataset.tab === tab);
         });
-        // Wider layout when the writing trainer tab is active
+        // Wider layout when the writing trainer or synonym checker tab is active
         if (group === 'english') {
-          document.body.classList.toggle('trainer-wide', tab === 'trainer');
+          document.body.classList.toggle('trainer-wide', tab === 'trainer' || tab === 'synonyms');
         }
       });
     });
@@ -2577,9 +3330,10 @@
       const subject = btn.dataset.subject;
       document.querySelectorAll('.subject-btn').forEach(b => b.classList.toggle('active', b === btn));
       document.querySelectorAll('.subject-group').forEach(g => g.classList.toggle('active', g.dataset.subject === subject));
-      // Trainer-wide layout only when English -> trainer is active
+      // Wider layout when English -> trainer or synonyms tab is active
       const trainerOpen = document.querySelector('.tab-btn[data-tab="trainer"].active');
-      document.body.classList.toggle('trainer-wide', subject === 'english' && !!trainerOpen);
+      const synonymsOpen = document.querySelector('.tab-btn[data-tab="synonyms"].active');
+      document.body.classList.toggle('trainer-wide', subject === 'english' && (!!trainerOpen || !!synonymsOpen));
     });
 
     /* ───── Guided structured editor (contenteditable rows) ───── */
@@ -2992,6 +3746,658 @@ No markdown, no code fences, no preamble — just the JSON.`;
 
     /* ───── init ───── */
     loadQuestion(currentQuestion.id);
+
+    /* ════════════════════════════════════════════
+       Synonym / Antonym Checker
+       ──────────────────────────────────────────── */
+    (function synonymChecker() {
+      // Words grouped by POS — exam-relevant vocab. Some words live in more than one bucket.
+      const EXAM_WORDS_BY_POS = {
+        n: [
+          'comedy','violence','flaw','ambition','suffering','isolation',
+          'deception','power','fate','freedom','silence','desire',
+          'tragedy','jealousy','passion','sorrow','hope','fear','greed','virtue'
+        ],
+        v: [
+          'liked','hide','reveal','begin','end','help','hurt','love','hate',
+          'change','destroy','endure','suffer','deceive','admire','condemn',
+          'mock','praise','betray','redeem'
+        ],
+        adj: [
+          'beautiful','cruel','brave','foolish','happy','sad','important','strong',
+          'weak','clever','angry','calm','kind','wicked','proud','humble',
+          'greedy','generous','jealous','fearful','tragic','wise','innocent',
+          'corrupt','passionate','melancholy','obedient','rebellious','noble','sly'
+        ],
+        adv: [
+          'cruelly','bravely','foolishly','happily','sadly','calmly','kindly',
+          'proudly','jealously','fearfully','wisely','passionately','nobly','slyly',
+          'tragically','obediently','rebelliously','quickly','quietly','bitterly'
+        ]
+      };
+      // Flat list across all POS for Auto mode
+      const EXAM_WORDS_ALL = Array.from(new Set(
+        Object.values(EXAM_WORDS_BY_POS).flat()
+      ));
+
+      const POS_LABEL = { n: 'noun', v: 'verb', adj: 'adjective', adv: 'adverb', u: 'other' };
+      const POS_PLURAL = { n: 'nouns', v: 'verbs', adj: 'adjectives', adv: 'adverbs' };
+      const POS_DEFINITIONS = {
+        auto: { tag: 'Auto', body: 'No filter — any part of speech will be accepted.', eg: '' },
+        n:    { tag: 'Noun', body: 'A person, place, thing, idea or feeling.', eg: 'comedy, violence, ambition' },
+        v:    { tag: 'Verb', body: 'An action or state — what someone or something does.', eg: 'love, destroy, betray' },
+        adj:  { tag: 'Adjective', body: 'A word that describes a noun.', eg: 'cruel, beautiful, tragic' },
+        adv:  { tag: 'Adverb', body: 'A word that modifies a verb or adjective — often ends in -ly.', eg: 'cruelly, bravely, quietly' }
+      };
+      const STORAGE_KEY = 'syn-checker-progress-v2';
+
+      // DOM
+      const $setup = document.getElementById('syn-setup-view');
+      const $game = document.getElementById('syn-game-view');
+      const $bankWrap = document.getElementById('syn-bank-wrap');
+      const $posHint = document.getElementById('syn-pos-hint');
+      const $gamePos = document.getElementById('syn-game-pos');
+      const $chipMode = document.getElementById('syn-chip-mode');
+      const $chipTopic = document.getElementById('syn-chip-topic');
+      const $chipTopicText = document.getElementById('syn-chip-topic-text');
+      const $wordInput = document.getElementById('syn-word-input');
+      const $lockBtn = document.getElementById('syn-lock-btn');
+      const $randomBtn = document.getElementById('syn-random-btn');
+      const $lockedText = document.getElementById('syn-locked-text');
+      const $lockedLabel = document.getElementById('syn-locked-label-text');
+      const $lockedPos = document.getElementById('syn-locked-pos');
+      const $progressFill = document.getElementById('syn-progress-fill');
+      const $progressCount = document.getElementById('syn-progress-count');
+      const $guessInput = document.getElementById('syn-guess-input');
+      const $submitBtn = document.getElementById('syn-submit-btn');
+      const $feedback = document.getElementById('syn-feedback');
+      const $grid = document.getElementById('syn-grid');
+      const $revealBtn = document.getElementById('syn-reveal-btn');
+      const $restartBtn = document.getElementById('syn-restart-btn');
+      const $backBtn = document.getElementById('syn-back-btn');
+      const $resetStats = document.getElementById('syn-reset-stats');
+      const $statWords = document.getElementById('syn-stat-words');
+      const $statFound = document.getElementById('syn-stat-found');
+      const $statBest = document.getElementById('syn-stat-best');
+      const $statLast = document.getElementById('syn-stat-last');
+      const $history = document.getElementById('syn-history');
+      const $title = document.getElementById('syn-title');
+      const $intro = document.getElementById('syn-intro');
+      const $modeToggle = document.getElementById('syn-mode-toggle');
+      const $posSelect = document.getElementById('syn-pos');
+      const $topicsInput = document.getElementById('syn-topics');
+      const $gridTitle = document.getElementById('syn-grid-title');
+      const $gridSummary = document.getElementById('syn-grid-summary');
+      const $definition = document.getElementById('syn-definition');
+
+      // Config
+      let mode = 'syn'; // 'syn' or 'ant'
+      let posFilter = 'auto';
+      let topics = '';
+
+      // Round state
+      let state = {
+        word: null,
+        mode: 'syn',
+        pos: 'auto',           // currently-applied POS filter for this round
+        topics: '',            // topics in effect when fetched (for chip display)
+        allList: [],           // every word returned by API (no POS filter)
+        allMeta: {},           // word -> { tags: [], defs: [] }
+        apiList: [],           // current POS-filtered slice
+        meta: {},              // POS-filtered slice meta
+        found: new Set(),
+        bonus: new Set(),
+        revealed: false,
+        wordDefs: [],
+        wordTags: []
+      };
+
+      /* ───── persistence ───── */
+      function loadProgress() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return { rounds: [], totals: { words: 0, found: 0, best: 0 } };
+          const p = JSON.parse(raw);
+          if (!p.rounds) p.rounds = [];
+          if (!p.totals) p.totals = { words: 0, found: 0, best: 0 };
+          return p;
+        } catch (e) {
+          return { rounds: [], totals: { words: 0, found: 0, best: 0 } };
+        }
+      }
+      function saveProgress(p) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch (e) {}
+      }
+      function recordRound(word, mode, foundCount, apiCount, pos) {
+        const p = loadProgress();
+        p.rounds.unshift({
+          word, mode, pos,
+          found: foundCount,
+          listSize: apiCount,
+          at: Date.now()
+        });
+        if (p.rounds.length > 25) p.rounds.length = 25;
+        p.totals.words = (p.totals.words || 0) + 1;
+        p.totals.found = (p.totals.found || 0) + foundCount;
+        if (foundCount > (p.totals.best || 0)) p.totals.best = foundCount;
+        saveProgress(p);
+        renderStats();
+      }
+
+      function renderStats() {
+        const p = loadProgress();
+        $statWords.textContent = p.totals.words || 0;
+        $statFound.textContent = p.totals.found || 0;
+        $statBest.textContent = p.totals.best ? `${p.totals.best} words` : '—';
+        if (p.rounds.length === 0) {
+          $statLast.textContent = '—';
+          $history.innerHTML = '<div class="syn-empty">No rounds saved yet. Lock in a word above to begin.</div>';
+          return;
+        }
+        const latest = p.rounds[0];
+        $statLast.textContent = new Date(latest.at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        $history.innerHTML = p.rounds.slice(0, 10).map(r => {
+          const when = new Date(r.at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+          const modeLabel = r.mode === 'ant' ? 'antonyms' : 'synonyms';
+          const posLabel = r.pos && r.pos !== 'auto' ? ` &middot; ${POS_LABEL[r.pos] || r.pos}` : '';
+          return `<div class="syn-history-row">
+            <span><span class="syn-history-word">${escapeHtml(r.word)}</span><span class="syn-history-mode">${modeLabel}${posLabel}</span></span>
+            <span class="syn-history-score">${r.found} found &middot; ${when}</span>
+          </div>`;
+        }).join('');
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      /* ───── word bank ───── */
+      function renderBank() {
+        // Show sections when Auto; show a single labelled bucket otherwise.
+        if (posFilter === 'auto') {
+          const sections = ['n','v','adj','adv'].map(p => {
+            const words = EXAM_WORDS_BY_POS[p];
+            const buttons = words.map(w => `<button class="syn-bank-word" data-word="${w}">${w}</button>`).join('');
+            return `<div class="syn-bank-section">
+              <div class="syn-bank-section-label">${POS_PLURAL[p]} <span class="syn-bank-section-eg">${words.length} words</span></div>
+              <div class="syn-bank">${buttons}</div>
+            </div>`;
+          }).join('');
+          $bankWrap.innerHTML = `<span class="syn-bank-label">Or pick a common exam word</span>${sections}`;
+        } else {
+          const words = EXAM_WORDS_BY_POS[posFilter] || [];
+          if (words.length === 0) {
+            $bankWrap.innerHTML = `<span class="syn-bank-label">Common ${POS_PLURAL[posFilter]}</span><div class="syn-bank-empty">No ${POS_PLURAL[posFilter]} in the bank yet — type your own above.</div>`;
+            return;
+          }
+          const buttons = words.map(w => `<button class="syn-bank-word" data-word="${w}">${w}</button>`).join('');
+          $bankWrap.innerHTML = `<span class="syn-bank-label">Common ${POS_PLURAL[posFilter]} <span class="syn-field-hint">filtered by your POS choice</span></span><div class="syn-bank">${buttons}</div>`;
+        }
+      }
+      $bankWrap.addEventListener('click', (e) => {
+        const btn = e.target.closest('.syn-bank-word');
+        if (!btn) return;
+        $wordInput.value = btn.dataset.word;
+        lockIn(btn.dataset.word);
+      });
+      $randomBtn.addEventListener('click', () => {
+        const pool = (posFilter === 'auto')
+          ? EXAM_WORDS_ALL
+          : (EXAM_WORDS_BY_POS[posFilter] || EXAM_WORDS_ALL);
+        const w = pool[Math.floor(Math.random() * pool.length)];
+        $wordInput.value = w;
+        lockIn(w);
+      });
+
+      function renderPosHint() {
+        const info = POS_DEFINITIONS[posFilter] || POS_DEFINITIONS.auto;
+        const eg = info.eg ? `<span class="syn-pos-hint-eg">— e.g. ${escapeHtml(info.eg)}</span>` : '';
+        $posHint.innerHTML = `<span class="syn-pos-hint-tag">${info.tag}</span><span class="syn-pos-hint-body">${escapeHtml(info.body)}${eg}</span>`;
+      }
+
+      /* ───── Mode / POS / Topic ───── */
+      $modeToggle.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-mode]');
+        if (!btn) return;
+        $modeToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        mode = btn.dataset.mode;
+        document.body.classList.toggle('syn-mode-ant', mode === 'ant');
+        applyModeLabels();
+      });
+      $posSelect.addEventListener('change', () => {
+        posFilter = $posSelect.value;
+        renderBank();
+        renderPosHint();
+      });
+      $topicsInput.addEventListener('input', () => { topics = $topicsInput.value.trim(); });
+
+      $gamePos.addEventListener('change', () => {
+        const newPos = $gamePos.value;
+        if (newPos === state.pos) return;
+        // Also keep the setup-view POS in sync so going back doesn't surprise the user.
+        posFilter = newPos;
+        $posSelect.value = newPos;
+        renderBank();
+        renderPosHint();
+        applyPosToActiveRound(newPos);
+      });
+
+      function applyModeLabels() {
+        const isAnt = mode === 'ant';
+        $title.innerHTML = isAnt ? '&#10006; Antonym Checker' : '&#10047; Synonym Checker';
+        $intro.textContent = isAnt
+          ? 'Pick a word and list as many antonyms (opposites) as you can. Filter by part of speech, bias by topic, and hover any revealed word for its definition.'
+          : 'Pick a word (or use a random one from common exam vocabulary) and list as many synonyms as you can. Filter by part of speech, bias by topic, and hover any revealed word for its definition.';
+        $wordInput.placeholder = isAnt ? 'Type a word to find opposites for…' : 'Type a word to find synonyms for…';
+        $guessInput.placeholder = isAnt ? 'Type an antonym and press Enter…' : 'Type a synonym and press Enter…';
+        $gridTitle.textContent = isAnt ? 'Antonyms' : 'Synonyms';
+        $gridSummary.innerHTML = isAnt
+          ? 'tiles reveal as you find them &mdash; valid opposites outside the list count as bonus'
+          : 'tiles reveal as you find them &mdash; valid words outside the list count as bonus';
+        $chipMode.textContent = isAnt ? 'Antonyms' : 'Synonyms';
+      }
+
+      function renderTopicChip() {
+        if (state.topics) {
+          $chipTopic.style.display = 'inline-flex';
+          $chipTopicText.textContent = state.topics;
+        } else {
+          $chipTopic.style.display = 'none';
+        }
+      }
+
+      /* ───── API ───── */
+      // Returns array of { word, tags, defs }
+      async function fetchRelated(word, relParam, opts) {
+        opts = opts || {};
+        const params = new URLSearchParams();
+        params.set(relParam, word);
+        params.set('max', String(opts.max || 200));
+        params.set('md', 'pd'); // p=parts of speech, d=definitions
+        if (topics) params.set('topics', topics);
+        try {
+          const res = await fetch(`https://api.datamuse.com/words?${params.toString()}`);
+          if (!res.ok) throw new Error('Network error');
+          const data = await res.json();
+          return data.map(d => ({
+            word: String(d.word || '').toLowerCase(),
+            tags: Array.isArray(d.tags) ? d.tags : [],
+            defs: Array.isArray(d.defs) ? d.defs : []
+          })).filter(d => d.word);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      async function fetchWordInfo(word) {
+        // Definition + parts of speech for the locked word itself.
+        try {
+          const params = new URLSearchParams();
+          params.set('sp', word);
+          params.set('max', '1');
+          params.set('md', 'pd');
+          const res = await fetch(`https://api.datamuse.com/words?${params.toString()}`);
+          if (!res.ok) return null;
+          const data = await res.json();
+          if (!data || !data.length) return null;
+          return { tags: data[0].tags || [], defs: data[0].defs || [] };
+        } catch (e) {
+          return null;
+        }
+      }
+
+      async function isValidBonusRelated(guess, target, modeKey) {
+        // Reverse-check via a wide net. For synonyms we use ml + rel_syn; for antonyms rel_ant + ml.
+        try {
+          const q = encodeURIComponent(guess);
+          let urls;
+          if (modeKey === 'ant') {
+            urls = [
+              `https://api.datamuse.com/words?rel_ant=${q}&max=200`,
+              `https://api.datamuse.com/words?rel_ant=${encodeURIComponent(target)}&max=200`
+            ];
+          } else {
+            urls = [
+              `https://api.datamuse.com/words?ml=${q}&max=400`,
+              `https://api.datamuse.com/words?rel_syn=${q}&max=200`
+            ];
+          }
+          const responses = await Promise.all(urls.map(u => fetch(u).then(r => r.ok ? r.json() : []).catch(() => [])));
+          if (modeKey === 'ant') {
+            // For antonyms: guess's antonyms must include target, OR target's antonyms include guess.
+            const pool1 = new Set(responses[0].map(d => String(d.word || '').toLowerCase()));
+            const pool2 = new Set(responses[1].map(d => String(d.word || '').toLowerCase()));
+            return pool1.has(target.toLowerCase()) || pool2.has(guess.toLowerCase());
+          } else {
+            const pool = new Set([...responses[0], ...responses[1]].map(d => String(d.word || '').toLowerCase()));
+            return pool.has(target.toLowerCase());
+          }
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function parsePos(tags) {
+        // Datamuse POS tags appear as 'n', 'v', 'adj', 'adv', plus tense/freq tags we ignore.
+        const set = new Set();
+        (tags || []).forEach(t => {
+          if (t === 'n' || t === 'v' || t === 'adj' || t === 'adv') set.add(t);
+        });
+        return Array.from(set);
+      }
+
+      function filterByPos(list, requestedPos) {
+        if (!requestedPos || requestedPos === 'auto') return list;
+        return list.filter(item => {
+          const pos = parsePos(item.tags);
+          // Keep if POS unknown or matches.
+          return pos.length === 0 || pos.includes(requestedPos);
+        });
+      }
+
+      /* ───── lock & start ───── */
+      async function lockIn(rawWord) {
+        const word = String(rawWord || '').trim().toLowerCase();
+        if (!word) { $wordInput.focus(); return; }
+        if (!/^[a-zA-Z][a-zA-Z\-' ]*$/.test(word)) {
+          flashFeedback('That doesn’t look like a word — try letters only.', 'miss');
+          return;
+        }
+
+        $lockBtn.disabled = true;
+        $randomBtn.disabled = true;
+        $lockBtn.textContent = 'Fetching…';
+
+        const relParam = mode === 'ant' ? 'rel_ant' : 'rel_syn';
+        const [related, wordInfo] = await Promise.all([
+          fetchRelated(word, relParam, { max: 200 }),
+          fetchWordInfo(word)
+        ]);
+
+        $lockBtn.disabled = false;
+        $randomBtn.disabled = false;
+        $lockBtn.innerHTML = mode === 'ant' ? '&#10006; Lock in' : '&#10047; Lock in';
+
+        if (related === null) {
+          flashFeedback('Couldn’t reach the thesaurus. Check your connection and try again.', 'miss');
+          return;
+        }
+        if (related.length === 0) {
+          const which = mode === 'ant' ? 'antonyms' : 'synonyms';
+          flashFeedback(`No ${which} found at all for "${word}". Try a different word.`, 'miss');
+          return;
+        }
+
+        // Keep the raw fetched list so POS can be changed mid-round without re-fetching.
+        const allMeta = {};
+        related.forEach(d => {
+          allMeta[d.word] = { tags: parsePos(d.tags), defs: d.defs };
+        });
+        const filtered = filterByPos(related, posFilter);
+
+        state = {
+          word,
+          mode,
+          pos: posFilter,
+          topics,
+          allList: related.map(d => d.word),
+          allMeta,
+          apiList: filtered.map(d => d.word),
+          meta: filtered.reduce((m, d) => { m[d.word] = allMeta[d.word]; return m; }, {}),
+          found: new Set(),
+          bonus: new Set(),
+          revealed: false,
+          wordDefs: wordInfo ? wordInfo.defs : [],
+          wordTags: wordInfo ? parsePos(wordInfo.tags) : []
+        };
+
+        $setup.style.display = 'none';
+        $game.style.display = 'block';
+        $lockedText.textContent = word;
+        $lockedLabel.textContent = mode === 'ant' ? 'Find opposites for' : 'Find synonyms for';
+        const lockedPosLabel = state.wordTags.map(p => POS_LABEL[p]).join(' / ');
+        $lockedPos.textContent = lockedPosLabel ? `(${lockedPosLabel})` : '';
+        $gamePos.value = state.pos;
+        renderTopicChip();
+        renderDefinition();
+        $feedback.innerHTML = '&nbsp;';
+        $feedback.className = 'syn-feedback';
+        $guessInput.value = '';
+        renderGrid();
+        renderProgress();
+        $guessInput.focus();
+
+        if (state.pos !== 'auto' && state.apiList.length === 0) {
+          flashFeedback(`No ${POS_PLURAL[state.pos]} found for "${word}" — try a different filter.`, 'miss');
+        }
+      }
+
+      // Re-filter the active round when the user changes POS mid-game.
+      function applyPosToActiveRound(newPos) {
+        if (!state.word) return;
+        const items = state.allList.map(w => ({ word: w, ...state.allMeta[w] }));
+        const filtered = filterByPos(items, newPos);
+        state.pos = newPos;
+        state.apiList = filtered.map(d => d.word);
+        state.meta = filtered.reduce((m, d) => { m[d.word] = state.allMeta[d.word]; return m; }, {});
+        renderGrid();
+        renderProgress();
+        const noun = state.mode === 'ant' ? 'antonyms' : 'synonyms';
+        if (state.apiList.length === 0) {
+          flashFeedback(`No ${POS_PLURAL[newPos] || 'matches'} ${noun} for "${state.word}". Try another filter.`, 'miss');
+        } else if (newPos === 'auto') {
+          flashFeedback(`Showing all ${noun} (no POS filter).`, '');
+        } else {
+          flashFeedback(`Filtered to ${POS_PLURAL[newPos]} only — ${state.apiList.length} in the list.`, '');
+        }
+      }
+
+      function renderDefinition() {
+        if (!state.wordDefs || state.wordDefs.length === 0) {
+          $definition.style.display = 'none';
+          $definition.innerHTML = '';
+          return;
+        }
+        const items = state.wordDefs.slice(0, 4).map(def => {
+          // Datamuse defs look like "n\tsomething defined" — POS prefix + tab + def
+          const m = /^([a-z]+)\t(.+)$/i.exec(def);
+          if (m) {
+            return `<span class="syn-definition-item"><span class="syn-definition-pos">${escapeHtml(m[1])}.</span>${escapeHtml(m[2])}</span>`;
+          }
+          return `<span class="syn-definition-item">${escapeHtml(def)}</span>`;
+        }).join('');
+        $definition.innerHTML = `<span class="syn-definition-label">Definition</span>${items}`;
+        $definition.style.display = 'block';
+      }
+
+      function buildTooltip(word, info) {
+        if (!info) return '';
+        const posLine = (info.tags && info.tags.length)
+          ? `<span class="syn-tile-def-pos">${info.tags.map(p => POS_LABEL[p] || p).join(' / ')}</span>`
+          : '';
+        const defLines = (info.defs || []).slice(0, 2).map(d => {
+          const m = /^([a-z]+)\t(.+)$/i.exec(d);
+          return escapeHtml(m ? m[2] : d);
+        }).join('<br>');
+        if (!posLine && !defLines) return '';
+        return `<div class="syn-tile-def">${posLine}${defLines || '<em>no definition available</em>'}</div>`;
+      }
+
+      function renderGrid() {
+        const tiles = [];
+        if (state.apiList.length === 0) {
+          const noun = state.mode === 'ant' ? 'antonyms' : 'synonyms';
+          const posLabel = state.pos && state.pos !== 'auto' ? `${POS_PLURAL[state.pos]} ` : '';
+          tiles.push(`<div class="syn-grid-empty">No ${posLabel}${noun} for &ldquo;${escapeHtml(state.word)}&rdquo; in the current list.<br>Switch the part-of-speech filter above to &ldquo;Any&rdquo; or another option.</div>`);
+        } else {
+          state.apiList.forEach(w => {
+            const info = state.meta[w];
+            const tooltip = buildTooltip(w, info);
+            const hasDef = tooltip ? ' has-def' : '';
+            const isFound = state.found.has(w);
+            if (isFound) {
+              tiles.push(`<div class="syn-tile found${hasDef}" tabindex="0">${escapeHtml(w)}${tooltip}</div>`);
+            } else if (state.revealed) {
+              tiles.push(`<div class="syn-tile revealed${hasDef}" tabindex="0">${escapeHtml(w)}${tooltip}</div>`);
+            } else {
+              tiles.push(`<div class="syn-tile hidden">${escapeHtml(w)}</div>`);
+            }
+          });
+        }
+        // Carry-over: previously found words that were filtered out of the current POS view.
+        state.found.forEach(w => {
+          if (!state.apiList.includes(w)) {
+            const info = state.allMeta[w];
+            const tooltip = buildTooltip(w, info);
+            const hasDef = tooltip ? ' has-def' : '';
+            tiles.push(`<div class="syn-tile found${hasDef}" tabindex="0" title="Found earlier — outside the current filter">${escapeHtml(w)} &#10047;${tooltip}</div>`);
+          }
+        });
+        // Bonus tiles for valid words outside the API list entirely.
+        state.bonus.forEach(w => {
+          tiles.push(`<div class="syn-tile found" title="Bonus — outside the main list">${escapeHtml(w)} &#10047;</div>`);
+        });
+        $grid.innerHTML = tiles.join('');
+      }
+
+      function renderProgress() {
+        const foundCount = state.found.size + state.bonus.size;
+        // For the bar, measure progress against the *currently visible* filter.
+        // Words still count even if they're outside it — that's why the chip number is the source of truth.
+        const visibleFound = Array.from(state.found).filter(w => state.apiList.includes(w)).length;
+        const listSize = state.apiList.length;
+        const pct = listSize > 0 ? Math.min(100, (visibleFound / listSize) * 100) : 0;
+        $progressFill.style.width = pct + '%';
+        const noun = state.mode === 'ant' ? 'antonyms' : 'synonyms';
+        let label;
+        if (listSize === 0) {
+          label = `<strong>${foundCount}</strong> ${noun} found &middot; no words in current filter`;
+        } else if (visibleFound >= listSize) {
+          label = `<strong>${foundCount}</strong> ${noun} found &middot; current list cleared`;
+        } else {
+          label = `<strong>${foundCount}</strong> ${noun} found &middot; ${visibleFound}/${listSize} of the visible list`;
+        }
+        $progressCount.innerHTML = label;
+      }
+
+      function flashFeedback(msg, type) {
+        $feedback.className = 'syn-feedback ' + (type || '');
+        $feedback.textContent = msg;
+      }
+
+      /* ───── submit a guess ───── */
+      async function submitGuess() {
+        const raw = $guessInput.value.trim().toLowerCase();
+        if (!raw) return;
+        if (raw === state.word) {
+          flashFeedback('That’s the word itself — try a different one.', 'miss');
+          return;
+        }
+        if (state.found.has(raw) || state.bonus.has(raw)) {
+          flashFeedback(`Already got "${raw}".`, 'dupe');
+          $guessInput.select();
+          return;
+        }
+        if (state.apiList.includes(raw)) {
+          state.found.add(raw);
+          flashFeedback(`Nice — "${raw}" is on the list.`, 'hit');
+          $guessInput.value = '';
+          renderGrid();
+          renderProgress();
+          return;
+        }
+        // Outside the current POS filter but in the raw API list — accept and warn.
+        if (state.allList.includes(raw)) {
+          state.found.add(raw);
+          const info = state.allMeta[raw];
+          const wordPos = info && info.tags && info.tags.length ? info.tags.map(p => POS_LABEL[p]).join(' / ') : 'other POS';
+          flashFeedback(`"${raw}" counts — it's a ${wordPos}, outside your current ${POS_LABEL[state.pos] || 'POS'} filter.`, 'hit');
+          $guessInput.value = '';
+          renderGrid();
+          renderProgress();
+          return;
+        }
+        $submitBtn.disabled = true;
+        $submitBtn.textContent = 'Checking…';
+        const ok = await isValidBonusRelated(raw, state.word, state.mode);
+        $submitBtn.disabled = false;
+        $submitBtn.textContent = 'Submit';
+        if (ok) {
+          state.bonus.add(raw);
+          flashFeedback(`Bonus — "${raw}" counts (outside the main list).`, 'hit');
+          $guessInput.value = '';
+          renderGrid();
+          renderProgress();
+        } else {
+          const rel = state.mode === 'ant' ? 'antonym' : 'synonym';
+          flashFeedback(`"${raw}" doesn’t look like a${rel === 'antonym' ? 'n' : ''} ${rel} for "${state.word}".`, 'miss');
+          $guessInput.select();
+        }
+      }
+      $submitBtn.addEventListener('click', submitGuess);
+      $guessInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); submitGuess(); }
+      });
+      $wordInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); lockIn($wordInput.value); }
+      });
+      $lockBtn.addEventListener('click', () => lockIn($wordInput.value));
+
+      /* ───── reveal / restart / back ───── */
+      $revealBtn.addEventListener('click', () => {
+        state.revealed = true;
+        flashFeedback(`All ${state.mode === 'ant' ? 'antonyms' : 'synonyms'} revealed.`, 'dupe');
+        renderGrid();
+      });
+      function finishRoundAndSave() {
+        if (state.word) {
+          recordRound(state.word, state.mode, state.found.size + state.bonus.size, state.apiList.length, state.pos);
+        }
+      }
+      $restartBtn.addEventListener('click', () => {
+        finishRoundAndSave();
+        const w = state.word;
+        state.found = new Set();
+        state.bonus = new Set();
+        state.revealed = false;
+        renderGrid();
+        renderProgress();
+        flashFeedback(`Restarted "${w}". Go again.`, '');
+        $guessInput.value = '';
+        $guessInput.focus();
+      });
+      $backBtn.addEventListener('click', () => {
+        finishRoundAndSave();
+        state = {
+          word: null, mode, pos: posFilter, topics: '',
+          allList: [], allMeta: {}, apiList: [], meta: {},
+          found: new Set(), bonus: new Set(), revealed: false,
+          wordDefs: [], wordTags: []
+        };
+        $game.style.display = 'none';
+        $setup.style.display = 'block';
+        $wordInput.value = '';
+        $wordInput.focus();
+      });
+
+      $resetStats.addEventListener('click', () => {
+        if (!confirm('Reset all checker progress?')) return;
+        localStorage.removeItem(STORAGE_KEY);
+        renderStats();
+      });
+
+      window.addEventListener('beforeunload', () => {
+        if (state.word && (state.found.size + state.bonus.size) > 0) {
+          finishRoundAndSave();
+        }
+      });
+
+      /* ───── init ───── */
+      renderBank();
+      renderPosHint();
+      renderStats();
+      applyModeLabels();
+    })();
   </script>
 </body>
 </html>
