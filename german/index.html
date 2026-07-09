@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Lingo — German Trainer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ======================= HOME ======================= -->
+    <section class="screen screen--home is-active" id="screen-home">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand__logo">🦉</span>
+          <span class="brand__name">Lingo</span>
+        </div>
+        <div class="stat-pills">
+          <div class="pill pill--streak" title="Day streak"><span class="pill__ico">🔥</span><span id="home-streak">0</span></div>
+          <div class="pill pill--gem" title="Total XP"><span class="pill__ico">💎</span><span id="home-xp">0</span></div>
+        </div>
+      </header>
+
+      <main class="home">
+        <div class="home__hero">
+          <div class="mascot" id="home-mascot">🦉</div>
+          <h1 class="home__title">Deutsch lernen</h1>
+          <p class="home__subtitle">Flip. Recall. Repeat until it sticks.</p>
+        </div>
+
+        <div class="direction-toggle" role="group" aria-label="Learning direction">
+          <button class="dir-btn is-selected" data-dir="de-en" id="dir-de">
+            <span class="dir-btn__flag">🇩🇪</span>
+            <span class="dir-btn__label">German<br><small>→ English</small></span>
+          </button>
+          <button class="dir-btn" data-dir="en-de" id="dir-en">
+            <span class="dir-btn__flag">🇬🇧</span>
+            <span class="dir-btn__label">English<br><small>→ German</small></span>
+          </button>
+        </div>
+
+        <div class="unit-list" id="unit-list"><!-- lessons injected --></div>
+      </main>
+
+      <button class="btn btn--primary btn--jumbo home__start" id="btn-start">
+        <span id="start-label">Start lesson</span>
+      </button>
+    </section>
+
+    <!-- ======================= SESSION ======================= -->
+    <section class="screen screen--session" id="screen-session">
+      <header class="session-bar">
+        <button class="quit-x" id="btn-quit" aria-label="Quit">✕</button>
+        <div class="progress">
+          <div class="progress__fill" id="progress-fill"><span class="progress__shine"></span></div>
+        </div>
+        <div class="hearts" id="hearts"><span class="heart">❤️</span></div>
+      </header>
+
+      <div class="combo-flash" id="combo-flash"></div>
+
+      <main class="session">
+        <p class="session__prompt" id="session-prompt">Do you remember?</p>
+
+        <div class="card-stage">
+          <div class="flashcard" id="flashcard">
+            <div class="flashcard__inner">
+              <div class="flashcard__face flashcard__face--front">
+                <span class="flashcard__lang" id="front-lang">German</span>
+                <span class="flashcard__word" id="front-word">—</span>
+                <span class="flashcard__phrase" id="front-phrase"></span>
+                <span class="flashcard__hint" id="flip-hint">tap to reveal</span>
+              </div>
+              <div class="flashcard__face flashcard__face--back">
+                <span class="flashcard__lang" id="back-lang">English</span>
+                <span class="flashcard__word" id="back-word">—</span>
+                <span class="flashcard__phrase" id="back-phrase"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="session-foot" id="session-foot">
+        <button class="btn btn--neutral btn--wide" id="btn-reveal">Show answer</button>
+        <div class="grade-row" id="grade-row" hidden>
+          <button class="btn btn--miss" id="btn-miss">Missed it</button>
+          <button class="btn btn--got" id="btn-got">Got it!</button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ======================= COMPLETE ======================= -->
+    <section class="screen screen--done" id="screen-done">
+      <div class="done">
+        <div class="done__burst">🎉</div>
+        <h1 class="done__title">Lesson complete!</h1>
+        <div class="done__stats">
+          <div class="stat-card stat-card--xp">
+            <span class="stat-card__label">TOTAL XP</span>
+            <span class="stat-card__value" id="done-xp">+0</span>
+          </div>
+          <div class="stat-card stat-card--acc">
+            <span class="stat-card__label">ACCURACY</span>
+            <span class="stat-card__value" id="done-acc">0%</span>
+          </div>
+          <div class="stat-card stat-card--combo">
+            <span class="stat-card__label">TOP COMBO</span>
+            <span class="stat-card__value" id="done-combo">0</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn--primary btn--jumbo" id="btn-continue">Continue</button>
+    </section>
+
+    <!-- ======================= OUT OF HEARTS MODAL ======================= -->
+    <div class="modal-veil" id="modal-hearts" hidden>
+      <div class="modal">
+        <div class="modal__ico">💔</div>
+        <h2 class="modal__title">Out of hearts!</h2>
+        <p class="modal__body">You ran out — but this is practice. Refill and keep the streak alive.</p>
+        <button class="btn btn--primary btn--wide" id="btn-refill">Refill &amp; continue</button>
+      </div>
+    </div>
+
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+  </div>
+
+  <script src="js/cards.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
